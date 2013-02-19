@@ -1,0 +1,59 @@
+# Lines starting with '#' are ignored.
+# name=value
+# another.name=another value
+# long.property=Long property value, split over \
+#     several lines
+# escape.property=Newlines and tabs can be inserted \
+#     using the \t and \n escapes
+# backslash.property=A backslash can be inserted by writing \\.
+
+# general plugin information
+plugin.info.kwarc.sally.jedit.SallyPlugin.name=SallyPlugin
+plugin.info.kwarc.sally.jedit.SallyPlugin.title=Semantic Ally Plugin
+plugin.info.kwarc.sally.jedit.SallyPlugin.author=Constantin Jucovschi
+plugin.info.kwarc.sally.jedit.SallyPlugin.description=Integrates with Semantic Ally
+plugin.info.kwarc.sally.jedit.SallyPlugin.longdescription=This plugin provides support for editing MMT documents, in particular LF files.
+plugin.info.kwarc.sally.jedit.SallyPlugin.docs=doc.html
+
+plugin.info.kwarc.sally.jedit.SallyPlugin.activate=startup
+plugin.info.kwarc.sally.jedit.SallyPlugin.usePluginHome=true
+plugin.info.kwarc.sally.jedit.SallyPlugin.version=1
+plugin.info.kwarc.sally.jedit.SallyPlugin.depend.0=jedit 04.05.00.00
+plugin.info.kwarc.sally.jedit.SallyPlugin.depend.1=plugin sidekick.SideKickPlugin 1.3
+plugin.info.kwarc.sally.jedit.SallyPlugin.depend.2=plugin marker.MarkerSetsPlugin 0.9
+
+# labels for actions defined in actions.xml
+#mmt-showinfo.label=Show Dockable
+#mmt-compile.label=Compile current buffer
+#mmt-show.labearl=show hidable parts
+#mmt-hide.label=hide hidable parts
+#mmt-hideshow.label=toggle hidable parts
+#mmt-makeHidable.label=make selection hidable
+#mmt-hideCurrent.label=hide current
+
+# labels for actions defined in browser.actions.xml
+# mmt-browser-compile.label=Compile
+
+# menu items for jEdit views
+#plugin.info.kwarc.sally.jedit.SallyPlugin.menu.label=MMT
+#plugin.info.kwarc.sally.jedit.SallyPlugin.menu=mmt-compile mmt-showinfo mmt-show mmt-hide mmt-hideshow mmt-hideCurrent mmt-makeHidable
+
+# menu items for file system browsers
+#plugin.info.kwarc.sally.jedit.SallyPlugin.browser-menu=mmt-browser-compile
+
+# options pane
+#plugin.info.kwarc.sally.jedit.SallyPlugin.option-pane=info.kwarc.sally.jedit.SallyPlugin
+#options.info.kwarc.sally.jedit.SallyPlugin.label=MMT
+#options.info.kwarc.sally.jedit.SallyPlugin.code=new info.kwarc.mmt.jedit.MMTOptions();
+
+# toolbar buttons
+# mmt.read.icon=read.png
+
+# sidekick
+#sidekick.parser.mmt.label=MMT parser
+#mode.mmt.sidekick.parser=mmt
+#mode.lf.sidekick.parser=mmt
+
+# hyperlink
+#mode.mmt.hyperlink.source=mmt
+#mode.lf.hyperlink.source=mmt

@@ -6,4 +6,5 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SallyService {
 	boolean overwrite() default false;
+	String channel() default "/what";
 }

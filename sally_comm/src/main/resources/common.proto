@@ -1,0 +1,39 @@
+package sally;
+
+option java_multiple_files = true;
+
+message FileRef {
+	required string resourceURI = 1;
+	required string mime = 2;
+}
+
+message FileContents {
+	required FileRef file = 1;
+	required string contents = 2;
+}
+
+message TextPosition {
+	required int32 line = 1;
+	required int32 col = 2;
+}
+
+message XMLPosition {
+	required string xpath = 1;
+}
+
+message XMLNotification {
+	required XMLPosition pos = 1;
+	required string message = 2;
+	required string uri = 3;
+}
+
+message TextNotification {
+	required TextPosition pos = 1;
+	required string message = 2;
+	required string uri = 3;
+}
+
+message TextFileNotifications {
+	required FileRef file = 1;
+	repeated TextNotification notifications = 2; 
+}

@@ -1,5 +1,5 @@
 package info.kwarc.sally.core;
 
-public class SallyContext {
-
+public interface SallyContext {
+	SallyInteraction getCurrentInteraction();
 }

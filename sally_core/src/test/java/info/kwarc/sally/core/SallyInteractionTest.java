@@ -1,9 +1,10 @@
 package info.kwarc.sally.core;
 
+import info.kwarc.sally.core.SallyInteraction.ChannelClass;
+
 import java.util.List;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,14 +26,20 @@ public class SallyInteractionTest {
 
 	@SallyService
 	public void TestFalse3(Float i, Float acceptor, SallyContext k) {	
-	}
-
+	} 
 	
 	@Before
 	public void test() {
 		Assert.assertTrue(SallyActionAcceptor.class.isAssignableFrom(SallyActionAcceptor.class));
 		interaction.registerServices(this);
 		Assert.assertEquals(1, interaction.map.size());
+	}
+	
+	@Test
+	public void testKeys() {
+		ChannelClass q = new ChannelClass("/what", Integer.class);
+		ChannelClass q2 = new ChannelClass("/what", Integer.class);
+		Assert.assertEquals(q, q2);
 	}
 	
 	@Test
