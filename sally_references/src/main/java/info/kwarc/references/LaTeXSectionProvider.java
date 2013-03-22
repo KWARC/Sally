@@ -25,7 +25,7 @@ public class LaTeXSectionProvider implements ReferenceProvider {
 				acceptor.accept(TextNotification.newBuilder()
 						.setPos(pos)
 						.setUri(String.format("section/%s",text))
-						.setMessage(String.format("Section %s", m.group(2)))
+						.setMsg(String.format("Section %s", m.group(2)))
 						.build());
 			}			
 			lineCo++;

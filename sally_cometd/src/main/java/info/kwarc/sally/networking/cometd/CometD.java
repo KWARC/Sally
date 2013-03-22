@@ -1,13 +1,11 @@
 package info.kwarc.sally.networking.cometd;
 
-import org.cometd.bayeux.server.ServerChannel.ServerChannelListener;
+import info.kwarc.sally.core.SallyInteraction;
+
 import org.cometd.bayeux.server.ServerChannel;
-import org.cometd.bayeux.server.ServerSession;
-import org.cometd.server.AbstractService;
 import org.cometd.server.BayeuxServerImpl;
 import org.cometd.server.CometdServlet;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.Invoker;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
@@ -22,6 +20,12 @@ public class CometD {
 	
 	BayeuxServerImpl getBayeux() {
 		return cometdServlet.getBayeux();
+	}
+	
+	public void channelToInteraction(SallyInteraction interaction) {
+//		BayeuxServerImpl _bayeux = getBayeux();
+//		_bayeux.createIfAbsent(channelName);
+		
 	}
 	
 	public void registerListener(String channelName, ServerChannel.MessageListener listener) {

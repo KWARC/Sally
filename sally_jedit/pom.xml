@@ -34,7 +34,7 @@
 			<artifactId>ref</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
@@ -48,5 +48,28 @@
 			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<artifactId>jedit</artifactId>
+			<groupId>jedit</groupId>
+			<version>4.9</version>
+			<scope>system</scope>
+			<systemPath>/usr/share/jEdit/jedit.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>org.tmatesoft.svnkit</groupId>
+			<artifactId>svnkit-cli</artifactId>
+			<version>1.7.8</version>
+		</dependency>
+
+		<dependency>
+			<artifactId>MarkerSets</artifactId>
+			<groupId>jedit</groupId>
+			<version>0.9</version>
+			<scope>system</scope>
+			<systemPath>/home/costea/.jedit/jars/MarkerSets.jar</systemPath>
+		</dependency>
+
 	</dependencies>
 </project>

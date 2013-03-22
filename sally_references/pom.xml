@@ -5,6 +5,10 @@
 	<artifactId>ref</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
+	<properties>
+		<cxf.version>2.2.3</cxf.version>
+	</properties>
+	
 	<dependencies>
 		<dependency>
 			<groupId>net.sourceforge.htmlcleaner</groupId>

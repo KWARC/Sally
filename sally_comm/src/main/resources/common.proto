@@ -7,6 +7,11 @@ message FileRef {
 	required string mime = 2;
 }
 
+message SemanticReference {
+	required string semanticObj = 1;
+	required string url = 2;
+}
+
 message FileContents {
 	required FileRef file = 1;
 	required string contents = 2;
@@ -23,13 +28,13 @@ message XMLPosition {
 
 message XMLNotification {
 	required XMLPosition pos = 1;
-	required string message = 2;
+	required string msg = 2;
 	required string uri = 3;
 }
 
 message TextNotification {
 	required TextPosition pos = 1;
-	required string message = 2;
+	required string msg = 2;
 	required string uri = 3;
 }
 

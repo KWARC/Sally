@@ -20,11 +20,12 @@ public class SallyPlugin extends EBPlugin {
 	
 	public SallyPlugin() {
 		this.interaction = new SallyInteraction();
+		this.interaction.registerServices(new ReferencingService());
+		this.interaction.registerServices(new SVNService());
 	}
 	
 	@Override
 	public void handleMessage(EBMessage arg0) {
-		// TODO Auto-generated method stub
 		super.handleMessage(arg0);
 	}
 	
@@ -69,32 +70,27 @@ public class SallyPlugin extends EBPlugin {
 			notifyOnChange();
 		}
 
-		public void foldHandlerChanged(JEditBuffer arg0) {
-			notifyOnChange();
-		}
+		public void foldHandlerChanged(JEditBuffer arg0) { }
 
-		public void foldLevelChanged(JEditBuffer arg0, int arg1, int arg2) {
-			notifyOnChange();
-		}
+		public void foldLevelChanged(JEditBuffer arg0, int arg1, int arg2) { }
 
 		public void preContentInserted(JEditBuffer arg0, int arg1, int arg2,
-				int arg3, int arg4) {
-			notifyOnChange();
-		}
+				int arg3, int arg4) { }
 
 		public void preContentRemoved(JEditBuffer arg0, int arg1, int arg2,
-				int arg3, int arg4) {
-			notifyOnChange();
-		}
+				int arg3, int arg4) { }
 
-		public void transactionComplete(JEditBuffer arg0) {
-			notifyOnChange();
-		}
+		public void transactionComplete(JEditBuffer arg0) { }
 
 		public void addOnChangeListener(Runnable runnable) {
 			changeListeners.add(runnable);
 		}
-		
+
+		public void removeAllMarkers() {
+			for (FileMarker f : MarkerSetsPlugin.getActiveMarkerSet().getMarkersFor(buffer.getPath())) {
+				MarkerSetsPlugin.getActiveMarkerSet().remove(f);
+			}
+		}
 	}
 	
 	@Override
@@ -104,7 +100,6 @@ public class SallyPlugin extends EBPlugin {
 			if (buf.isNewFile()) {
 				return;
 			}
-			
 			interaction.registerServices(new SallyJEditService(new ITextBufferAdapter(buf), interaction));
 		}
 	}

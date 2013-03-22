@@ -29,7 +29,7 @@ public class HTMLSectionProvider implements ReferenceProvider {
 					text = text.replaceAll("[0-9\\. ]*", "");
 					acceptor.accept(XMLNotification.newBuilder()
 							.setPos(XMLPosition.newBuilder().setXpath(String.format("//%s[@class='%s']",node.getName(), node.getAttributeByName("class")))).setUri(String.format("section/%s",text))
-							.setMessage(String.format("Section %s", node.getText()))
+							.setMsg(String.format("Section %s", node.getText()))
 							.build());
 					return true;
 				}
