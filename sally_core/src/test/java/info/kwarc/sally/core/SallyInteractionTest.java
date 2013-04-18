@@ -1,6 +1,9 @@
 package info.kwarc.sally.core;
 
-import info.kwarc.sally.core.SallyInteraction.ChannelClass;
+import info.kwarc.sally.core.SallyActionAcceptor;
+import info.kwarc.sally.core.SallyContext;
+import info.kwarc.sally.core.SallyInteraction;
+import info.kwarc.sally.core.SallyService;
 
 import java.util.List;
 
@@ -35,12 +38,6 @@ public class SallyInteractionTest {
 		Assert.assertEquals(1, interaction.map.size());
 	}
 	
-	@Test
-	public void testKeys() {
-		ChannelClass q = new ChannelClass("/what", Integer.class);
-		ChannelClass q2 = new ChannelClass("/what", Integer.class);
-		Assert.assertEquals(q, q2);
-	}
 	
 	@Test
 	public void test2() {

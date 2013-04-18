@@ -1,44 +1,558 @@
-package sally;
-
+package sally; /**
+* very important, otherwise serialization will not work
+*/
 option java_multiple_files = true;
-
-message FileRef {
-	required string resourceURI = 1;
-	required string mime = 2;
+/**
+ * Message for Alex to initialize itself
+ */ message Init {
+	optional string options = 1;
 }
 
-message SemanticReference {
-	required string semanticObj = 1;
+message Document {
+	required string fileName = 1;
+	enum Player {
+		MS_EXCELL = 1;
+		OO_CALC = 2;
+		Inventor = 3;
+	}
+
+	required Player player = 2;
+}
+
+message ProjectProperties {
+	required string ConfigurationFile = 1;
+}
+
+message ConfigFile {
+	repeated Document projectFiles = 1;
+} /**
+ * Range Selection
+ */ message RangeSelection {
+	required int32 startRow = 1;
+	required int32 startCol = 2;
+	required int32 endRow = 3;
+	required int32 endCol = 4;
+	optional string sheet = 5;
+}
+
+message ScreenCoordinates {
+	required int32 x = 1;
+	required int32 y = 2;
+}
+
+message AlexClick {
+	required string Sheet = 1;
+	required RangeSelection range = 2;
+	required ScreenCoordinates position = 3;
+	required string fileName = 4;
+}
+
+message IdentificationData {
+	required string theory = 1;
+	required string symbol = 2;
+	repeated Parameter parameters = 3;
+}
+
+message Parameter {
+	required string key = 1;
+	required string value = 2;
+} /**
+ * Opens a new Theo window at screen coordinates and browser URL
+ */
+message TheoOpenWindow {
+	required ScreenCoordinates position = 1;
 	required string url = 2;
+	optional int32 sizeX = 3;
+	optional int32 sizeY = 4;
+	optional string title = 5;
+	optional string cookie = 6;
+} /**
+ * Error Message
+ */ message Error {
+	enum ErrorType {
+		GENERAL_ERROR = 0;
+		CANNOT_PARSE_MESSAGE = 1;
+		WRONG_PARAMS = 2;
+		WRONG_SENDER = 3;
+	}
+
+	required ErrorType code = 1;
+	optional string description = 2;
+} /**
+ * semantic mode
+ */ message SemanticMode {
+	enum SemMode {
+		DEFINITION_LOOKUP = 0;
+		SEMANTIC_NAVIGATION = 1;
+		SEMANTIC_MAPPING = 2;
+		SEMANTIC_VIEW = 3;
+		PROJECT_MODE = 4;
+	}
+
+	required SemMode mode = 1;
+	required string fileName = 2;
+} /**
+ * Message
+ */ message WhoAmI {
+	enum ClientType {
+		Alex = 0;
+		Theo = 1;
+		Admin = 2;
+	} /**
+	 * Environment in which the client in running
+	 */ enum
+	EnvironmentType {
+		Desktop = 0;
+		Web = 1;
+	} /**
+ 	* Type of document
+ 	*/ enum DocType {
+		Spreadsheet = 0;
+		Text = 1;
+		CAD = 2;
+	}
+
+	required ClientType clientType = 1;
+	required EnvironmentType environmentType = 2;
+	required DocType documentType = 3;
+}
+// --------------------------------------------CAD MESSAGES-----------------------------------------------------------
+
+message CADAlexClick {
+	required IdentificationData identificationData = 1;
+	required ScreenCoordinates position = 2;
+	required string fileName = 3;
 }
 
-message FileContents {
-	required FileRef file = 1;
-	required string contents = 2;
+message CADNavigateTo {
+	required string key = 1;
 }
 
-message TextPosition {
-	required int32 line = 1;
-	required int32 col = 2;
+message CADKeyValue {
+	required string key = 1;
+	required IdentificationData value = 2;
 }
 
-message XMLPosition {
-	required string xpath = 1;
+message CADSemanticData {
+	required string fileName = 1;
+	repeated CADKeyValue map = 2;
+}
+// --------------------------------------- SPREADSHEET MESSAGES-------------------------------------------------------
+
+// ++++ Basic Messages ++++
+ message IdData {
+	required int32 id = 1;
 }
 
-message XMLNotification {
-	required XMLPosition pos = 1;
-	required string msg = 2;
-	required string uri = 3;
+message IdList {
+	repeated IdData ids = 1;
 }
 
-message TextNotification {
-	required TextPosition pos = 1;
-	required string msg = 2;
-	required string uri = 3;
+message StringData {
+	required string name = 1;
 }
 
-message TextFileNotifications {
-	required FileRef file = 1;
-	repeated TextNotification notifications = 2; 
+message CellPosition {
+// Just to be used by other messages, not directly. Use CellSpaceInformation instead.
+
+	required int32 sheet = 1;
+	required int32 row = 2;
+	required int32 col = 3;
+}
+
+message NavigateTo { // DEPRECATED !!!!! Use CellSpaceInformation instead.
+
+	required int32 sheet = 1;
+	required int32 row = 2;
+	required int32 col = 3;
+}
+
+message CellSpaceInformation {
+	required CellPosition position = 1;
+	required int32 width = 2;
+	required int32 height = 3;
+}
+
+message CellPositions {
+	repeated CellSpaceInformation cellPositions = 1;
+}
+
+message CellRange {
+	required CellPosition start = 1;
+	required CellPosition end = 2;
+}
+
+message CellRanges {
+	repeated CellRange range = 1;
+}
+
+message CellData {
+	required CellSpaceInformation position = 1;
+	optional string value = 2;
+	optional string formula = 3;
+}
+
+message RangeData {
+	repeated sally.CellData cells = 1;
+}
+// ++++ Messages to represent the complete spreadsheet with layout information ++++
+
+message BorderLine {
+	required int64 borderColor = 1;
+	required int32 formatStyle = 2; // Excel <=> 0
+ // OpenOffice <=> 1
+ // ...
+
+	optional int32 excelBorderStyle = 3; // NONE <=> 0;
+ // CONTINUOUS <=> 1;
+
+	// DASH <=> 2;
+ // DASH_DOT <=> 3;
+ // DASH_DOT_DOT <=> 4;
+ // DOT <=> 5;
+
+	// DOUBLE <=> 6;
+ // SLANT_DASH_DOT <=> 7;
+ optional int32
+	excelBorderWeight = 4; //HAIRLINE <=> 0;
+ //THIN <=> 1;
+ //MEDIUM <=> 2;
+
+	//THICK <=> 3;
+ optional int32 ooInnerLineWidth = 5;
+	optional int32 ooOuterLineWidth = 6;
+	optional int32 ooLineDistance = 7;
+}
+
+message CellBorder {
+	optional BorderLine top = 1;
+	optional BorderLine bottom = 2;
+	optional BorderLine left = 3;
+	optional BorderLine right = 4;
+}
+
+message Font {
+	required string fontName = 1;
+	required int32 fontColor = 2;
+	required float fontSize = 3;
+	optional bool isItalic = 4;
+	optional bool isBold = 5;
+	optional bool isUnderlined = 6;
+}
+
+message Cell {
+	required CellData data = 1;
+	required int32 backColor = 2;
+	optional Font font = 3;
+	required CellBorder border = 4;
+}
+
+message Sheet {
+	required int32 id = 1;
+	repeated Cell cells = 2;
+}
+
+message ParsingParameter {
+	required bool useTextAsLegend = 1;
+	required bool useColorAsStructure = 2;
+	required bool useBorderAsStructure = 3;
+	required bool useFontAsStructure = 4;
+}
+
+message Data {
+	repeated Sheet sheets = 1;
+	required string fileName = 2;
+	required ParsingParameter parameter = 3;
+}
+// ++++ Some Messages to communicate with the abstract spreadsheet model (ASMInterface) ++++
+
+enum DataParameter {
+	AllDiff = 1;
+	SameStringSameElement = 2;
+	SameContentSameElement = 3;
+}
+
+message FBCreateData {
+	required RangeData range = 1;
+	required IdList legends = 2;
+	optional DataParameter parameter = 3;
+	optional IdList connectToAll = 4;
+}
+
+message LegendCreateData {
+	required RangeData items = 1;
+	optional CellData header = 2;
+	required string fileName = 3;
+	optional DataParameter parameter = 4;
+}
+// ++++ For serialization we define a message AbstractSpreadsheet which contains all relevant information of the ASM ++++
+
+message AbstractElementMsg {
+	required int32 id = 1;
+	required string value = 2;
+	optional string formula = 3;
+	repeated int32 parameters = 4;
+}
+
+message AbstractDataModelMsg {
+	repeated sally.AbstractElementMsg elements = 1;
+}
+
+message LegendMsg {
+	required int32 id = 1;
+	repeated int32 items = 2;
+	optional int32 header = 3;
+}
+
+message LegendProductEntryMsg {
+	repeated int32 legends = 1;
+	repeated int32 elements = 2;
+}
+
+message LegendProductMsg {
+	repeated int32 legends = 1;
+	repeated sally.LegendProductEntryMsg entries = 2;
+}
+
+message FBEntryMsg {
+	required sally.LegendProductEntryMsg domainElem = 1;
+	required int32 absElemId = 2;
+}
+
+message FunctionalBlockMsg {
+	required int32 id = 1;
+	required sally.LegendProductMsg domain = 2;
+	repeated sally.FBEntryMsg entry = 3;
+}
+
+message AbstractSpreadsheetMsg {
+	required sally.AbstractDataModelMsg elements = 1;
+	repeated sally.LegendMsg legends = 2;
+	repeated sally.FunctionalBlockMsg functionalBlocks = 3;
+}
+// ++++ For serialization we define a message Mapping which contains all relevant information for the mapping between an ASM and a concrete Spreadsheet. ++++
+
+message CellSpaceInformationMsg {
+	required int32 worksheet = 1;
+	required int32 row = 2;
+	required int32 column = 3;
+}
+
+message ElementMappingMsg {
+	required sally.CellSpaceInformation position = 1;
+	required int32 absElemId = 2;
+}
+
+message LegendMappingMsg {
+	repeated sally.ElementMappingMsg elementPositions = 1;
+	optional sally.CellSpaceInformation headerPosition = 2;
+	optional int32 headerElementId = 3;
+	required int32 legendId = 4;
+}
+
+message DomainMappingMsg {
+	required sally.CellSpaceInformation position = 1;
+	required sally.LegendProductEntryMsg domainElement = 2;
+}
+
+message FunctionalBlockMappingMsg {
+	required sally.LegendProductMsg domain = 1;
+	repeated sally.ElementMappingMsg elementMapping = 2;
+	repeated sally.DomainMappingMsg domainMapping = 3;
+	required int32 fbId = 4;
+}
+
+message MappingMsg {
+	repeated sally.LegendMappingMsg legendMappings = 1;
+	repeated sally.FunctionalBlockMappingMsg fbMappings = 2;
+}
+
+message ModelDataMsg {
+	required sally.AbstractSpreadsheetMsg asm = 1;
+	required sally.MappingMsg mapping = 2;
+}
+// ++++ The parsing process of a spreadsheet is ambiguous. Therefore we need some message to represent those information. ++++
+
+message AreaInformationMsg {
+	enum TypeEnum {
+		LEGEND = 0;
+		LEGENDHEADER = 1;
+		FB = 3;
+	}
+
+	required int32 id = 1;
+	required TypeEnum type = 2; //
+ required CellRanges ranges = 3;
+}
+
+message AmbiguousInformationMsg {
+	required CellPosition position = 1;
+	repeated int32 relatedAreaIds = 2;
+}
+
+message AffiliationInformationMsg {
+	required int32 id = 1;
+	repeated int32 affiliatedIds = 2;
+}
+
+message ParsingResultMsg {
+	repeated AreaInformationMsg areas = 1;
+	repeated AmbiguousInformationMsg ambig = 2;
+	repeated AffiliationInformationMsg affiliation = 3;
+} // ++ Some Messages for semantic information ++++
+
+/*
+ * I made the marked fields optional.
+ * This can be bad as the user might not check for the existence and get a runtime error.
+ */
+message SemanticActionData {
+	optional string cd = 1; //This was required
+	optional string name = 2; //This was required
+	optional string fileName = 3; //This was required
+	optional string senderId = 4;
+	optional string sheetName = 5;
+	optional uint32 row = 6;
+	optional uint32 col = 7;
+	optional ScreenCoordinates coordinates = 8;
+	/*When you click on a service you most probably want the window to stay there.
+	 * Another option would be to send the current position back from Theo.
+	 */
+}
+
+message SemanticData {
+	optional string data = 1;
+	optional ProjectProperties projectConfig = 2;
+	optional ModelDataMsg absSpreadsheet = 3;
+	required string fileName = 4;
+} 
+
+message SpreadsheetModel {
+	required ModelDataMsg asm = 1;
+	repeated SpreadsheetOntologyPair ontomapping = 2;
+}
+
+message SpreadsheetOntologyPair {
+	required IdData asmid = 1;
+	required string uri = 2;
+}
+
+message MMTUri {
+	required string uri = 1;
+}
+
+// ++++ Messages for the ontology and knowledge base ++++
+message OntologyData {
+	repeated OntologyConcept concepts = 1;
+	repeated OntologyRelation relations = 2;
+}
+
+message OntologyConcept {
+	required string uri = 1;
+	repeated string params = 2;
+}
+
+message OntologyRelation {
+	required string uri = 1;
+	required string srcConcept = 2;
+	required string destConcept = 3;
+}
+
+message StringMap {
+	required string key = 1;
+	required string value = 2;
+}
+
+message KnowledgeObject {
+	required string uri = 1;
+	repeated StringMap values = 2;
+}
+
+message KnowledgeBase {
+	repeated KnowledgeObject objects = 1;
+	required string fileName = 2;
+} // Message types to communicate between sally and theo
+ message OntologyItem
+{
+	required string theory = 1;
+	required string symbol = 2;
+}
+
+message ResourceContext {
+	required string actionId = 1;
+}
+
+message ContextKnowledge {
+	repeated OntologyItem context = 1;
+} /*
+ * This is used to request formula information.
+ */ message
+FormulaRequest {
+	required string actionId = 1;
+}
+
+message FormulaInfo {
+	required string json = 1;
+}
+/**
+ * Send TheoNavigateTo to Sally to make the associated Alex show the semantic object in the document.
+ */
+message TheoNavigateTo {
+	required OntologyItem term = 1;
+	required string actionId = 2;
+}
+//https://developers.google.com/protocol-buffers/docs/techniques
+
+/* This is my first shot at this:
+ * I found two solutions to this one
+ * The first one is stupid and involves a relation between the name of the enum elements and the type of the message
+ * The second one involves a required string that represents the type of the message and each variable name has to have the name of the type with a underline instead of dots. I use this to automatically detect which variable to set in javascript.
+ */
+message ContainerMessage {
+	required string type = 1;
+	required string actionId = 2;
+	required string callback = 3;
+	optional sally.Frame sally_Frame = 7;
+	optional sally.FormulaInfo sally_FormulaInfo = 10;
+}
+
+message Frame {
+	required string uid = 1;
+	required string actionId = 2;
+}
+
+message ServiceCall {
+	required string uid = 1;
+}
+// These are temporary data types and must be removed when the ASM will be used
+
+message FormulaCell {
+	required int32 row = 3;
+	required int32 col = 4;
+	required string formula = 1;
+	required string value = 2;
+}
+
+message FormulaSheetData {
+	required string sheetname = 1;
+	required int32 startRow = 3;
+	required int32 startCol = 4;
+	required int32 endRow = 5;
+	required int32 endCol = 6;
+	repeated FormulaCell cellinf = 2;
+}
+
+message FormulaMap {
+	required string filename = 1;
+	repeated FormulaSheetData sheets = 2;
+	// This is the end of the stupid data types that replace the ASM for the FormulaParser implementation.
+
+}
+
+// Make a request from Alex to Sally for the ASM.
+message RequestASM {
+	required string filename = 1;
+}
+//Send the ASM as a string for saving in the spreadsheet
+message SaveASM {
+	required string semanticData = 1;
 }
