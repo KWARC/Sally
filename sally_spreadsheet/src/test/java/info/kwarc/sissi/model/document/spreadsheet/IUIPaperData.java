@@ -15,6 +15,7 @@ import sally.LegendCreateData;
 import sally.ModelDataMsg;
 import sally.RangeData;
 import sally.RangeData.Builder;
+import sally.SpreadsheetModel;
 import sally.StringData;
 
 import com.hp.hpl.jena.rdf.model.Model;
@@ -118,7 +119,7 @@ public class IUIPaperData {
 		IdData headCol = setColTableHeaders(workSheetid.getId(), 8, 4, new String[] { "carriage", "stove", "machine", "machine", "machine", "machine", "machine", "machine", "_", "_", "_", "_", "_", "_", "_", "_", "_" });
 		IdData typeCol = setColTableHeaders(workSheetid.getId(), 8, 5, new String[] { "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "standard", "_", "_", "_", "_", "_", "_"});
 
-		IdData cost = createColFB(workSheetid.getId(), 8, 6, new String[] {"0.450 €", "0.460 €", "0.300 €", "0.310 €", "0.340 €", "0.350 €", "0.300 €", "0.350 €", "0.504 €", "0.498 €", "2.040 €", "1.080 €", "1.080 €", "1.090 €", "0.888 €", "0.888 €", "0.888 €"}, new IdData [] {componentCol, threadCol, colorCol, headCol, typeCol});
+		IdData cost = createColFB(workSheetid.getId(), 8, 6, new String[] {"0.450 ���", "0.460 ���", "0.300 ���", "0.310 ���", "0.340 ���", "0.350 ���", "0.300 ���", "0.350 ���", "0.504 ���", "0.498 ���", "2.040 ���", "1.080 ���", "1.080 ���", "1.090 ���", "0.888 ���", "0.888 ���", "0.888 ���"}, new IdData [] {componentCol, threadCol, colorCol, headCol, typeCol});
 		
 		asm.addOntologyLink(componentCol, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?ISOhexbolt");
 		asm.addOntologyLink(threadCol, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexthread.omdoc?ISOhexthread?ISOhexthread");
@@ -147,7 +148,8 @@ public class IUIPaperData {
 		OutputStream file;
 		try {
 			file = new FileOutputStream("iui-model.bin");
-			getAsm().serialize().writeTo(file);
+			SpreadsheetModel model = getAsm().serialize();
+			model.writeTo(file);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

@@ -93,17 +93,14 @@ public class SallyInteraction {
 	public SallyInteraction() {
 		map = new HashMap<SallyInteraction.ChannelClass, List<MethodExec>>();
 		log = LoggerFactory.getLogger(this.getClass());
-		final SallyInteraction _this = this;
-		context = new SallyContext() {
-			public SallyInteraction getCurrentInteraction() {
-				return _this;
-			}
-		};
+		SallyContextImpl _context = new SallyContextImpl();
+		_context.setInteraction(this);
+		context = _context;
 	}
 
 	private void addToMap(SallyService annotation, Class<?> param, Object obj, Method m) {
 		ChannelClass key = new ChannelClass(annotation.channel(), param);
-		if (!map.containsKey(param))
+		if (!map.containsKey(key))
 			map.put(key, new ArrayList<MethodExec>());
 		map.get(key).add(new MethodExec(obj, m));
 	}
@@ -171,6 +168,8 @@ public class SallyInteraction {
 			public void acceptResult(Object obj) {
 				if (choices.size() >= limit)
 					return;
+				if (obj == null)
+					return;
 				if (expectType.isAssignableFrom(obj.getClass())) {
 					choices.add((T) obj);
 				} else {
@@ -192,4 +191,14 @@ public class SallyInteraction {
 		return choices;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder b = new StringBuilder();
+		for (ChannelClass ch : map.keySet()) {
+			for (MethodExec exec : map.get(ch)) {
+				b.append(ch.getChannel()+" "+ch.getCls().toString()+" "+exec.getObject().toString()+" "+exec.getMethod().getName()+"\n");
+			}
+		}
+		return b.toString();
+	}
 }
