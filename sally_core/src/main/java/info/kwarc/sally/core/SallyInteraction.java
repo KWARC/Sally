@@ -159,6 +159,8 @@ public class SallyInteraction {
 
 	private <T> List<T> getPossibleInteractions(String channel, Object obj, final Class<T> expectType, final int limit) {
 		final ArrayList<T> choices = new ArrayList<T>();
+		if (obj == null)
+			return choices;
 		HashSet<Object> memoizer = new HashSet<Object>();
 		Stack<Object> stack = new Stack<Object>();
 		stack.add(obj);memoizer.add(obj);

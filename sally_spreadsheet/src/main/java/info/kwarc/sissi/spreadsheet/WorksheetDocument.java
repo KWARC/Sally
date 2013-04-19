@@ -87,7 +87,9 @@ public class WorksheetDocument {
 	
 	@SallyService
 	public void getSemantics(CellPosition click, SallyActionAcceptor acceptor, SallyContext context) {
-		acceptor.acceptResult(MMTUri.newBuilder().setUri(getSemantics(click)).build());
+		String uri = getSemantics(click);
+		if (uri != null)
+			acceptor.acceptResult(MMTUri.newBuilder().setUri(uri).build());
 	}
 	
 }

@@ -4,6 +4,7 @@ import info.kwarc.sissi.model.ontology2.OntologyLinkedFB;
 import info.kwarc.sissi.model.ontology2.OntologyLinkedLegendSubType;
 import info.kwarc.sissi.model.ontology2.OntologyLinkedStructure;
 import info.kwarc.sissi.model.ontology2.OntologyMapping;
+import info.kwarc.sissi.model.ontology2.OntologySymbol;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,7 +68,10 @@ public class ASMInterface {
 		AbstractStructure elem = modelAdmin.getAbstractStructureForPosition(new CellSpaceInformation(pos));
 		if (elem == null)
 			return null;
-		return ontoMapping.getLinkingFor(elem).getMainURI();
+		OntologyLinkedStructure link = ontoMapping.getLinkingFor(elem);
+		if (link == null)
+			return null;
+		return link.getMainURI();
 	}
 	
 	public sally.IdData getWorksheetIDByName(sally.StringData name) {
