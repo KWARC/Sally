@@ -46,7 +46,7 @@
 
 		<dependency>
 			<groupId>info.kwarc.sally</groupId>
-			<artifactId>theofx</artifactId>
+			<artifactId>sally_theofx</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
