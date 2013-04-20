@@ -14,7 +14,12 @@
 		<dependency>
 			<groupId>com.github.jucovschi</groupId>
 			<artifactId>ProtoCometD</artifactId>
-			<version>0.0.13-SNAPSHOT</version>
+			<version>0.0.12</version>
+		</dependency>
+		<dependency>
+			<groupId>org.reflections</groupId>
+			<artifactId>reflections</artifactId>
+			<version>0.9.8</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -69,11 +74,6 @@
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-server</artifactId>
 			<version>7.6.8.v20121106</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.cometd.java</groupId>

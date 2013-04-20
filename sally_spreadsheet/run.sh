@@ -1,0 +1,1 @@
+mvn exec:java -Dexec.mainClass="info.kwarc.sissi.spreadsheet.WorksheetMain"

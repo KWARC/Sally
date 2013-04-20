@@ -119,7 +119,7 @@ public class IUIPaperData {
 		IdData headCol = setColTableHeaders(workSheetid.getId(), 8, 4, new String[] { "carriage", "stove", "machine", "machine", "machine", "machine", "machine", "machine", "_", "_", "_", "_", "_", "_", "_", "_", "_" });
 		IdData typeCol = setColTableHeaders(workSheetid.getId(), 8, 5, new String[] { "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "standard", "_", "_", "_", "_", "_", "_"});
 
-		IdData cost = createColFB(workSheetid.getId(), 8, 6, new String[] {"0.450 ���", "0.460 ���", "0.300 ���", "0.310 ���", "0.340 ���", "0.350 ���", "0.300 ���", "0.350 ���", "0.504 ���", "0.498 ���", "2.040 ���", "1.080 ���", "1.080 ���", "1.090 ���", "0.888 ���", "0.888 ���", "0.888 ���"}, new IdData [] {componentCol, threadCol, colorCol, headCol, typeCol});
+		IdData cost = createColFB(workSheetid.getId(), 8, 6, new String[] {"0.450 EUR", "0.460 EUR", "0.300 EUR", "0.310 EUR", "0.340 EUR", "0.350 EUR", "0.300 EUR", "0.350 EUR", "0.504 EUR", "0.498 EUR", "2.040 EUR", "1.080 EUR", "1.080 EUR", "1.090 EUR", "0.888 EUR", "0.888 EUR", "0.888 EUR"}, new IdData [] {componentCol, threadCol, colorCol, headCol, typeCol});
 		
 		asm.addOntologyLink(componentCol, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?ISOhexbolt");
 		asm.addOntologyLink(threadCol, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexthread.omdoc?ISOhexthread?ISOhexthread");

@@ -62,6 +62,7 @@ public class CometD {
 		context.setContextPath("/");
 		server.setHandler(context);
 
+		context.addServlet(new ServletHolder(new DefaultServlet()), "/*");
 		context.addServlet(new ServletHolder(cometdServlet),"/sally/cometd/*");
 		
 		new Thread(new CometDThread()).start();
