@@ -1,0 +1,31 @@
+.divWrapper {
+	width: 200px;
+	background-color: #f1f1f1;
+	border: 1px solid #999;
+	border-radius: 4px;
+	margin: 10px 5px;
+	padding: 10px;
+}
+
+.divWrapper:hover {
+	background-color: #E4F3FF;
+}
+
+.divButton {
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+.divText {
+	font-size: 12px;
+	font-family: Arial;
+	font-weight: 700;
+	color: #444;
+	white-space: nowrap;
+	display: block;
+	text-align: center;
+}
+
+.aButton {
+	text-decoration: none;
+}

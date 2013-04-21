@@ -8,6 +8,7 @@ import org.cometd.bayeux.server.ServerSession;
 import org.cometd.server.BayeuxServerImpl;
 import org.cometd.server.CometdServlet;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
@@ -61,9 +62,10 @@ public class CometD {
 		ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
 		context.setContextPath("/");
 		server.setHandler(context);
-
-		context.addServlet(new ServletHolder(new DefaultServlet()), "/*");
+		
+		context.addServlet(new ServletHolder(new StaticContentServlet()), "/*");
 		context.addServlet(new ServletHolder(cometdServlet),"/sally/cometd/*");
+		DefaultServlet q;
 		
 		new Thread(new CometDThread()).start();
 		while (cometdServlet.getBayeux() == null) {
