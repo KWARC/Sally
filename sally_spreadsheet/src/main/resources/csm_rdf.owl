@@ -1,0 +1,230 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY csm "http://www.kwarc.info/sally/csm#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.w3.org/2002/07/owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:csm="http://www.kwarc.info/sally/csm#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <Ontology rdf:about="http://www.kwarc.info/sally/csm">
+        <versionInfo xml:lang="en">0.1</versionInfo>
+        <rdfs:comment xml:lang="en">This ontology defines the concepts and relations about Concrete Spreadsheet Model.
+
+The commonly used prefix for the ontology is csm pointing to http://www.kwarc.info/sally/csm.
+
+PREFIX csm: &lt;http://www.kwarc.info/sally/csm&gt;</rdfs:comment>
+    </Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.kwarc.info/sally/csm#containsCell -->
+
+    <ObjectProperty rdf:about="&csm;containsCell">
+        <rdfs:range rdf:resource="&csm;Cell"/>
+        <rdfs:domain rdf:resource="&csm;Sheet"/>
+        <inverseOf rdf:resource="&csm;partOfSheet"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.kwarc.info/sally/csm#containsSheet -->
+
+    <ObjectProperty rdf:about="&csm;containsSheet">
+        <rdfs:range rdf:resource="&csm;Sheet"/>
+        <rdfs:domain rdf:resource="&csm;Workbook"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.kwarc.info/sally/csm#hasBottomRightCell -->
+
+    <ObjectProperty rdf:about="&csm;hasBottomRightCell">
+        <rdfs:range rdf:resource="&csm;Cell"/>
+        <rdfs:domain rdf:resource="&csm;CellRange"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.kwarc.info/sally/csm#hasTopLeftCell -->
+
+    <ObjectProperty rdf:about="&csm;hasTopLeftCell">
+        <rdfs:range rdf:resource="&csm;Cell"/>
+        <rdfs:domain rdf:resource="&csm;CellRange"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.kwarc.info/sally/csm#partOfSheet -->
+
+    <ObjectProperty rdf:about="&csm;partOfSheet">
+        <rdfs:domain rdf:resource="&csm;Cell"/>
+        <rdfs:range rdf:resource="&csm;Sheet"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.kwarc.info/sally/csm#partOfWorkbook -->
+
+    <ObjectProperty rdf:about="&csm;partOfWorkbook">
+        <rdfs:domain rdf:resource="&csm;Sheet"/>
+        <rdfs:range rdf:resource="&csm;Workbook"/>
+        <inverseOf rdf:resource="&csm;containsSheet"/>
+    </ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.kwarc.info/sally/csm#HasColumn -->
+
+    <DatatypeProperty rdf:about="&csm;HasColumn">
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </DatatypeProperty>
+    
+
+
+    <!-- http://www.kwarc.info/sally/csm#HasName -->
+
+    <DatatypeProperty rdf:about="&csm;HasName">
+        <rdfs:range rdf:resource="&xsd;Name"/>
+    </DatatypeProperty>
+    
+
+
+    <!-- http://www.kwarc.info/sally/csm#HasRow -->
+
+    <DatatypeProperty rdf:about="&csm;HasRow">
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </DatatypeProperty>
+    
+
+
+    <!-- http://www.kwarc.info/sally/csm#hasFormula -->
+
+    <DatatypeProperty rdf:about="&csm;hasFormula">
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </DatatypeProperty>
+    
+
+
+    <!-- http://www.kwarc.info/sally/csm#hasValue -->
+
+    <DatatypeProperty rdf:about="&csm;hasValue"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.kwarc.info/sally/csm#Cell -->
+
+    <Class rdf:about="&csm;Cell">
+        <rdfs:comment>Represents a cell of a spreadsheet document</rdfs:comment>
+    </Class>
+    
+
+
+    <!-- http://www.kwarc.info/sally/csm#CellRange -->
+
+    <Class rdf:about="&csm;CellRange">
+        <rdfs:comment>Represents a range of cells. All in the same Sheet and Workbook</rdfs:comment>
+    </Class>
+    
+
+
+    <!-- http://www.kwarc.info/sally/csm#Sheet -->
+
+    <Class rdf:about="&csm;Sheet"/>
+    
+
+
+    <!-- http://www.kwarc.info/sally/csm#Workbook -->
+
+    <Class rdf:about="&csm;Workbook">
+        <rdfs:comment xml:lang="en">A spreadsheet workbook.</rdfs:comment>
+    </Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.kwarc.info/sally/csm#Compared-Pricing-Sheet -->
+
+    <NamedIndividual rdf:about="&csm;Compared-Pricing-Sheet">
+        <rdf:type rdf:resource="&csm;Sheet"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.kwarc.info/sally/csm#Pipe-End-Prices-Official -->
+
+    <NamedIndividual rdf:about="&csm;Pipe-End-Prices-Official">
+        <rdf:type rdf:resource="&csm;Workbook"/>
+        <csm:containsSheet rdf:resource="&csm;Compared-Pricing-Sheet"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.kwarc.info/sally/csm#Pricing-A-7 -->
+
+    <NamedIndividual rdf:about="&csm;Pricing-A-7">
+        <rdf:type rdf:resource="&csm;Cell"/>
+        <csm:HasColumn rdf:datatype="&xsd;integer">1</csm:HasColumn>
+        <csm:HasRow rdf:datatype="&xsd;integer">7</csm:HasRow>
+        <csm:hasValue>bolt</csm:hasValue>
+        <csm:partOfSheet rdf:resource="&csm;Compared-Pricing-Sheet"/>
+    </NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+

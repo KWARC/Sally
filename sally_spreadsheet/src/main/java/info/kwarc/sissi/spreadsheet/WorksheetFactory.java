@@ -1,25 +1,42 @@
 package info.kwarc.sissi.spreadsheet;
 
+import info.kwarc.sally.core.SallyActionAcceptor;
+import info.kwarc.sally.core.SallyContext;
+import info.kwarc.sally.core.SallyService;
+
 import java.util.HashMap;
 
 import org.apache.commons.codec.binary.Base64;
 import org.eclipse.jetty.util.ajax.JSON;
 
-import com.github.jucovschi.ProtoCometD.ProtoUtils;
-import com.google.protobuf.InvalidProtocolBufferException;
-
-import info.kwarc.sally.core.SallyActionAcceptor;
-import info.kwarc.sally.core.SallyContext;
-import info.kwarc.sally.core.SallyService;
 import sally.SemanticData;
-import sally.SemanticMode;
 import sally.SpreadsheetModel;
 import sally.WhoAmI;
 import sally.WhoAmI.ClientType;
 import sally.WhoAmI.DocType;
 
+import com.google.protobuf.InvalidProtocolBufferException;
+import com.hp.hpl.jena.ontology.OntDocumentManager;
+import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
+
 public class WorksheetFactory {
 
+	OntModel loadOntology(String path) {
+		OntModel m = ModelFactory.createOntologyModel();
+		m.read(getClass().getResourceAsStream(path), null);
+		return m;
+	}
+	
+	OntModel csm, asm;
+	
+	public WorksheetFactory() {
+		OntDocumentManager doc = OntDocumentManager.getInstance();
+		csm = loadOntology("/csm_rdf.owl");
+		doc.addModel("http://www.kwarc.info/sally/csm", csm);
+		asm = loadOntology("/asm_rdf.owl");
+	}
+	
 	@SallyService(channel="/service/alex/register")
 	public void worksheets(WhoAmI whoami, SallyActionAcceptor acceptor, SallyContext context) {
 		if (whoami.getClientType() == ClientType.Alex && whoami.getDocumentType() == DocType.Spreadsheet) {

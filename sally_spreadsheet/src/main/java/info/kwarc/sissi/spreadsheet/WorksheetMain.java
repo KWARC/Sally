@@ -38,15 +38,6 @@ public class WorksheetMain {
 			e.printStackTrace();
 		}
 		
-		sally.registerServices(doc);
-		System.out.println(sally.toString());
-		
-		AlexClick click = AlexClick.newBuilder().setFileName("http://iui-paper").setSheet("Vendor A")
-			.setRange(RangeSelection.newBuilder().setSheet("Vendor A").setStartCol(2).setStartRow(8).setEndCol(2).setEndRow(8).build())
-			.setPosition(ScreenCoordinates.newBuilder().setX(100).setY(100).build())
-			.build();
-		
-		sally.getOneInteraction("/service/alex/selectRange", click, Boolean.class);
-		
+		sally.registerServices(doc);		
 	}
 }
