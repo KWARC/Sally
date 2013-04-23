@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE Ontology [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY xml "http://www.w3.org/XML/1998/namespace" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.kwarc.info/sally/asm"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     ontologyIRI="http://www.kwarc.info/sally/asm">
+    <Prefix name="" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="asm" IRI="http://www.kwarc.info/sally/asm"/>
+    <Prefix name="csm" IRI="http://www.kwarc.info/sally/csm"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Import>http://www.kwarc.info/sally/csm</Import>
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <Literal xml:lang="en" datatypeIRI="&rdf;PlainLiteral">This ontology defines the concepts and relations about Abstract Spreadsheet Models. 
+
+The commonly used prefix for this ontology is asm pointing to http://www.kwarc.info/sally/asm.
+
+PREFIX asm: &lt;http://www.kwarc.info/sally/asm&gt;</Literal>
+    </Annotation>
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="owl:versionInfo"/>
+        <Literal xml:lang="en" datatypeIRI="&rdf;PlainLiteral">0.1</Literal>
+    </Annotation>
+    <Declaration>
+        <Class IRI="#FunctionalBlock"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FunctionalInstance"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#LegendBlock"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#LegendInstance"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#containsFunctionalInstance"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#containsLegendInstance"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#linkedTo"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#partOfFile"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#partOfFunctionalBlock"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#partOfLegendBlock"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#valueOf"/>
+    </Declaration>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#containsFunctionalInstance"/>
+        <ObjectProperty IRI="#partOfFunctionalBlock"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#partOfLegendBlock"/>
+        <ObjectProperty IRI="#containsLegendInstance"/>
+    </InverseObjectProperties>
+    <InverseFunctionalObjectProperty>
+        <ObjectProperty IRI="#linkedTo"/>
+    </InverseFunctionalObjectProperty>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#containsFunctionalInstance"/>
+        <Class IRI="#FunctionalBlock"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#containsLegendInstance"/>
+        <Class IRI="#LegendBlock"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#linkedTo"/>
+        <Class IRI="#FunctionalBlock"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#linkedTo"/>
+        <Class IRI="#FunctionalInstance"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#linkedTo"/>
+        <Class IRI="#LegendBlock"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#linkedTo"/>
+        <Class IRI="#LegendInstance"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#partOfFile"/>
+        <Class IRI="#FunctionalBlock"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#partOfFile"/>
+        <Class IRI="#LegendBlock"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#partOfFunctionalBlock"/>
+        <Class IRI="#FunctionalInstance"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#partOfLegendBlock"/>
+        <Class IRI="#LegendInstance"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#valueOf"/>
+        <Class IRI="#FunctionalInstance"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#containsFunctionalInstance"/>
+        <Class IRI="#FunctionalInstance"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#containsLegendInstance"/>
+        <Class IRI="#LegendInstance"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#linkedTo"/>
+        <Class abbreviatedIRI="csm:#CellRange"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#partOfFunctionalBlock"/>
+        <Class IRI="#FunctionalBlock"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#partOfLegendBlock"/>
+        <Class IRI="#LegendBlock"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#valueOf"/>
+        <Class IRI="#LegendInstance"/>
+    </ObjectPropertyRange>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#FunctionalBlock</IRI>
+        <Literal xml:lang="en" datatypeIRI="&rdf;PlainLiteral">A Functional Block in a spreadsheet groups cells having similar intentional behaviour. Functional blocks depend on legends to differentiate between the semantic of each cell in a functional block.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#FunctionalInstance</IRI>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Item part of a functional block.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#LegendBlock</IRI>
+        <Literal xml:lang="en" datatypeIRI="&rdf;PlainLiteral">A legend block is usually a block of cells describing a certain property of objects. For example: legend={Germany, USA} would be block describing a country. </Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#LegendInstance</IRI>
+        <Literal xml:lang="en" datatypeIRI="&rdf;PlainLiteral">A legend instance represents one legend value.</Literal>
+    </AnnotationAssertion>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+

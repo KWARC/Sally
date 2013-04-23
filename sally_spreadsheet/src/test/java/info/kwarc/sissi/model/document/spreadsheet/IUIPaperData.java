@@ -95,7 +95,45 @@ public class IUIPaperData {
 	}
 	
 	public void buildComareSheet() {
-		IdData workSheetid = asm.getWorksheetIDByName(StringData.newBuilder().setName("Compare").build());
+		IdData workSheetid = asm.getWorksheetIDByName(StringData.newBuilder().setName("Pricing").build());
+
+		IdData tableProps = setRowTableHeaders(workSheetid.getId(), 7, 1, new String[] {"Component", "Thread", "Color", "Head", "Type", "Quantity per flange"});
+
+		IdData componentCol = setColTableHeaders(workSheetid.getId(), 8, 1, new String[] {"bolt", "nut", "gasket", "flange", "blind flange"});
+		IdData threadCol = setColTableHeaders(workSheetid.getId(), 8, 2, new String[] { "M15", "M15", "_", "M15", "M15"});
+		IdData colorCol = setColTableHeaders(workSheetid.getId(), 8, 3, new String[] { "black", "black", "_", "black", "black"});
+		IdData headCol = setColTableHeaders(workSheetid.getId(), 8, 4, new String[] { "machine", "_", "_", "_", "_"});
+		IdData typeCol = setColTableHeaders(workSheetid.getId(), 8, 5, new String[] { "_", "_", "standard", "_", "_"});
+		IdData quantityCol = setColTableHeaders(workSheetid.getId(), 8, 6, new String[] { "6", "6", "1", "1", "1"});
+
+		IdData vendorA = setHeaderLabel(workSheetid.getId(), 5, 7, 2, "Vendor A");
+		IdData vendorB = setHeaderLabel(workSheetid.getId(), 5, 9, 2, "Vendor B");
+		IdData vendorC = setHeaderLabel(workSheetid.getId(), 5, 11, 2, "Vendor C");
+		
+		IdData costByPieceVendorA = createColFB(workSheetid.getId(), 8, 7, new String[] {"0.450 EUR", "0.460 EUR", "0.300 EUR", "0.310 EUR", "0.340 EUR"}, new IdData [] {componentCol, threadCol, colorCol, headCol, typeCol, quantityCol, vendorA});
+		IdData costTotalVendorA = createColFB(workSheetid.getId(), 8, 8, new String[] {"0.450 EUR", "0.460 EUR", "0.300 EUR", "0.310 EUR", "0.340 EUR"}, new IdData [] {componentCol, threadCol, colorCol, headCol, typeCol, quantityCol, vendorA});
+		IdData costByPieceVendorB = createColFB(workSheetid.getId(), 8, 9, new String[] {"0.450 EUR", "0.460 EUR", "0.300 EUR", "0.310 EUR", "0.340 EUR"}, new IdData [] {componentCol, threadCol, colorCol, headCol, typeCol, quantityCol, vendorB});
+		IdData costTotalVendorB = createColFB(workSheetid.getId(), 8, 10, new String[] {"0.450 EUR", "0.460 EUR", "0.300 EUR", "0.310 EUR", "0.340 EUR"}, new IdData [] {componentCol, threadCol, colorCol, headCol, typeCol, quantityCol, vendorB});
+		IdData costByPieceVendorC = createColFB(workSheetid.getId(), 8, 11, new String[] {"0.450 EUR", "0.460 EUR", "0.300 EUR", "0.310 EUR", "0.340 EUR"}, new IdData [] {componentCol, threadCol, colorCol, headCol, typeCol, quantityCol, vendorC});
+		IdData costTotalVendorC = createColFB(workSheetid.getId(), 8, 12, new String[] {"0.450 EUR", "0.460 EUR", "0.300 EUR", "0.310 EUR", "0.340 EUR"}, new IdData [] {componentCol, threadCol, colorCol, headCol, typeCol, quantityCol, vendorC});
+
+		asm.addOntologyLink(componentCol, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/components.omdoc?component?component");
+		asm.addOntologyLink(threadCol, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexthread.omdoc?ISOhexthread?ISOhexthread");
+		asm.addOntologyLink(colorCol, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color");
+		asm.addOntologyLink(headCol, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?head");
+		asm.addOntologyLink(typeCol, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/comp_types.omdoc?comptype?comptype");
+		asm.addOntologyLink(quantityCol, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/quantity.omdoc?quantity?quantity");
+
+		asm.addOntologyLink(vendorA, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/vendors.omdoc?vendors?A");
+		asm.addOntologyLink(vendorB, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/vendors.omdoc?vendors?B");
+		asm.addOntologyLink(vendorC, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/vendors.omdoc?vendors?C");
+		
+		asm.addOntologyLink(costByPieceVendorA, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?bypiece");
+		asm.addOntologyLink(costTotalVendorA, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?total");
+		asm.addOntologyLink(costByPieceVendorB, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?bypiece");
+		asm.addOntologyLink(costTotalVendorB, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?total");
+		asm.addOntologyLink(costByPieceVendorC, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?bypiece");
+		asm.addOntologyLink(costTotalVendorC, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?total");
 		
 	}
 	

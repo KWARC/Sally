@@ -15,7 +15,13 @@
 			<artifactId>sally_comm</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-				
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>javafx</artifactId>
+			<version>2.2.3</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/jfxrt.jar</systemPath>
+		</dependency>
 	</dependencies>
 	<parent>
 		<groupId>info.kwarc.sally</groupId>

@@ -4,6 +4,7 @@ import info.kwarc.sally.core.SallyActionAcceptor;
 import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.core.SallyMenuItem;
+import info.kwarc.sally.core.SallyModelRequest;
 import info.kwarc.sally.core.SallyService;
 import info.kwarc.sissi.model.document.spreadsheet.ASMInterface;
 
@@ -58,6 +59,10 @@ public class WorksheetDocument {
 		return CellPosition.newBuilder().setSheet(Integer.parseInt(sel.getSheet())).setCol(sel.getStartCol()).setRow(sel.getStartRow()).build();
 	}
 	
+	@SallyService(channel="/get/semantics")
+	public void getModel(SallyModelRequest click, SallyActionAcceptor acceptor, SallyContext context) {
+		acceptor.acceptResult(asm.getRDFModel());
+	}
 	
 	@SallyService(channel="/service/alex/selectRange")
 	public void alexClickInteraction(AlexClick click, SallyActionAcceptor acceptor, SallyContext context) {

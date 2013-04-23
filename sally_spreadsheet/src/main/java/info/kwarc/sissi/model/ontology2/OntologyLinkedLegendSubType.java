@@ -9,9 +9,6 @@ import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
 public class OntologyLinkedLegendSubType extends OntologyLinkedLegend {
-	private static String propertyURILegendInstance = "http://www.kwarc.info/sally/asm#LegendInstance";
-	private static String propertyURILegendBlock = "http://www.kwarc.info/sally/asm#LegendBlock";
-	private static String propertyURIPartOfLagendBlock = "http://www.kwarc.info/sally/asm#partOfLegendBlock";
 	String itemPrefix;
 	
 	public OntologyLinkedLegendSubType(String documentURI, String uri, String itemprefix, Legend l) {
@@ -44,7 +41,9 @@ public class OntologyLinkedLegendSubType extends OntologyLinkedLegend {
 	@Override
 	public void exportIntoModel(Model model, OntologyMapping mapping) {
 		Resource lbResource = model.createResource(itemPrefix);
-		lbResource.addProperty(RDF.type, model.createResource(propertyURILegendBlock));
+		Resource documentResource = model.createResource(documentURI);
+		lbResource.addProperty(ASM.partOfFile, documentResource);
+		lbResource.addProperty(RDF.type, ASM.LegendBlock);
 		
 		// create the resource
 		Resource legendheader = model.createResource(ontologyURI);
@@ -55,9 +54,9 @@ public class OntologyLinkedLegendSubType extends OntologyLinkedLegend {
 		for (String uri : uriToElement.keySet()) {
 			if (!uri.equals(documentURI)) {
 				Resource item = model.createResource(uri);
-				item.addProperty(RDF.type, model.createResource(propertyURILegendInstance));
-				item.addProperty(model.createProperty(propertyURIPartOfLagendBlock), lbResource);
-				item.addProperty(RDFS.subClassOf, legendheader);
+				item.addProperty(RDF.type, ASM.LegendInstance);
+				item.addProperty(ASM.partOfLegendBlock, lbResource);
+				item.addProperty(IM.ontologyURI, legendheader);
 				item.addProperty(RDFS.label, uriToElement.get(uri).getValue());
 			}
 		}

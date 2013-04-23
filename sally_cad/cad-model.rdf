@@ -1,0 +1,45 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:im="http://www.kwarc.info/sally/im#"
+    xmlns:acm="http://www.kwarc.info/sally/acm#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" > 
+  <rdf:Description rdf:about="http://blah.cad/bolt4">
+    <acm:valueOf rdf:resource="http://blah.cad/prop/1"/>
+    <acm:valueOf rdf:resource="http://blah.cad/prop/0"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/acm#CADObject"/>
+    <acm:partOfFile>http://blah.cad</acm:partOfFile>
+    <acm:partOf rdf:resource="http://blah.cad/pipe_end"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://blah.cad/bolt1">
+    <acm:valueOf rdf:resource="http://blah.cad/prop/1"/>
+    <acm:valueOf rdf:resource="http://blah.cad/prop/0"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/acm#CADObject"/>
+    <acm:partOfFile>http://blah.cad</acm:partOfFile>
+    <acm:partOf rdf:resource="http://blah.cad/pipe_end"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://blah.cad/bolt2">
+    <acm:valueOf rdf:resource="http://blah.cad/prop/1"/>
+    <acm:valueOf rdf:resource="http://blah.cad/prop/0"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/acm#CADObject"/>
+    <acm:partOfFile>http://blah.cad</acm:partOfFile>
+    <acm:partOf rdf:resource="http://blah.cad/pipe_end"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://blah.cad/prop/1">
+    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexthread.omdoc?ISOhexthread?ISOhexthread"/>
+    <rdfs:label>M15</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://blah.cad/bolt3">
+    <acm:valueOf rdf:resource="http://blah.cad/prop/1"/>
+    <acm:valueOf rdf:resource="http://blah.cad/prop/0"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/acm#CADObject"/>
+    <acm:partOfFile>http://blah.cad</acm:partOfFile>
+    <acm:partOf rdf:resource="http://blah.cad/pipe_end"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://blah.cad/prop/0">
+    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/components.omdoc?component?component"/>
+    <rdfs:label>bolt</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://blah.cad/pipe_end">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/acm#CADObject"/>
+  </rdf:Description>
+</rdf:RDF>

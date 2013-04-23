@@ -158,7 +158,11 @@ public class ASMInterface {
 	}
 	
 	public sally.RangeSelection getBlockPosition(sally.IdData idMsg) {
-		Integer blockId = idMsg.getId();
+		return 	getBlockPosition(idMsg.getId());
+ 
+	}
+	
+	public sally.RangeSelection getBlockPosition(int blockId) {
 		List<CellSpaceInformation> positions = modelAdmin.getPositionsForStructure(modelAdmin.getStructureForId(blockId));
 		if (!positions.isEmpty()) {
 			int worksheet = positions.get(0).getWorksheet();
@@ -219,6 +223,8 @@ public class ASMInterface {
 			model.addOntomapping(SpreadsheetOntologyPair.newBuilder()
 					.setAsmid(IdData.newBuilder().setId(struct.getId()).build())
 					.setUri(ontoMapping.getLinkingFor(struct).getMainURI())).build();
+			sally.RangeSelection range = getBlockPosition(struct.getId());
+						
 		}
 		return model.build();
 	}

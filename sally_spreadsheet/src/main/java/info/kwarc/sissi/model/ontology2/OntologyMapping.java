@@ -47,8 +47,11 @@ public class OntologyMapping {
 	public Model getRDFModel() {
 		// create an empty Model
 		Model model = ModelFactory.createDefaultModel();
-		model.setNsPrefix("asm", "http://www.kwarc.info/sally/asm#");
-		model.setNsPrefix("csm", "http://www.kwarc.info/sally/csm#");
+		model.setNsPrefix("asm", ASM.getURI());
+		model.setNsPrefix("csm", CSM.getURI());
+		model.setNsPrefix("im", IM.getURI());
+		
+		
 		for (OntologyLinkedStructure map : mappings.values())
 			map.exportIntoModel(model, this);
 	

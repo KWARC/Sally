@@ -10,17 +10,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.vocabulary.RDF;
 
 
 public class OntologyLinkedFB implements OntologyLinkedStructure {
-
-	private static String propertyURIValueFor = "http://www.kwarc.info/sally/asm#value-for";
-	private static String propertyURIPartOfFunctionalBlock = "http://www.kwarc.info/sally/asm#partOfFunctionalBlock";
-	private static String propertyURIFunctionalInstance = "http://www.kwarc.info/sally/asm#FunctionalInstance";
-	private static String propertyURIFunctionalBlock = "http://www.kwarc.info/sally/asm#FunctionalBlock";
 
 	String documentURI, ontoURI;
 	FunctionalBlock fb;
@@ -66,27 +60,25 @@ public class OntologyLinkedFB implements OntologyLinkedStructure {
 	@Override
 	public void exportIntoModel(Model model, OntologyMapping mapping) {
 
-		Property propertyValueFor = model.createProperty(propertyURIValueFor);
-		Property propertyPartOfFunctionalBlock = model.createProperty(propertyURIPartOfFunctionalBlock);
-		// create the resource
-		Resource propertyFunctionalInstance = model.createResource(propertyURIFunctionalInstance);
-
+		Resource documentResource = model.createResource(documentURI);
 		Resource functionalBlockResource = model.createResource(documentURI+"/fb/"+fb.getId());
-		functionalBlockResource.addProperty(RDF.type, model.createResource(propertyURIFunctionalBlock));
-
+		
+		functionalBlockResource.addProperty(RDF.type, model.createResource(ASM.FunctionalBlock));
+		functionalBlockResource.addProperty(ASM.partOfFile, documentResource);
+		functionalBlockResource.addProperty(IM.ontologyURI, model.createResource(ontoURI));
+		
 		for (AbstractSsElement fbValue : fb.getAllEntries()) {
 			Resource ontoValue = model.createResource(elementToURI.get(fbValue));
-			//ontoValue.addProperty(RDF.type, ontologyFunction);
-			ontoValue.addProperty(RDF.type, propertyFunctionalInstance);
+			ontoValue.addProperty(RDF.type, ASM.FunctionalInstance);
 			ontoValue.addProperty(RDF.value, fbValue.getValue());
-			ontoValue.addProperty(propertyPartOfFunctionalBlock, functionalBlockResource);
+			ontoValue.addProperty(ASM.partOfFunctionalBlock, functionalBlockResource);
 
 			for (LegendProductEntry entry : fb.getLegendElementsFor(fbValue)) {
 
 				for (AbstractSsElement entryElement : entry.getLegendTuple()) {
 					if (mapping.getURI(entryElement) == null || mapping.getURI(entryElement).isEmpty() )
 						throw new java.lang.IllegalArgumentException("Functional block depends on legends that are not linked to the ontology.");
-					ontoValue.addProperty(propertyValueFor, model.getResource( mapping.getURI(entryElement) ));
+					ontoValue.addProperty(ASM.valueOf, model.getResource( mapping.getURI(entryElement) ));
 				}
 			}
 		}

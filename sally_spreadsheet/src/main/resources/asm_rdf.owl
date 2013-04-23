@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY csm "http://www.kwarc.info/sally/csm" >
+    <!ENTITY asm "http://www.kwarc.info/sally/asm" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.w3.org/2002/07/owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:csm="http://www.kwarc.info/sally/csm"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:asm="http://www.kwarc.info/sally/asm">
+    <Ontology rdf:about="http://www.kwarc.info/sally/asm">
+        <versionInfo xml:lang="en">0.1</versionInfo>
+        <rdfs:comment xml:lang="en">This ontology defines the concepts and relations about Abstract Spreadsheet Models. 
+
+The commonly used prefix for this ontology is asm pointing to http://www.kwarc.info/sally/asm.
+
+PREFIX asm: &lt;http://www.kwarc.info/sally/asm&gt;</rdfs:comment>
+        <imports rdf:resource="http://www.kwarc.info/sally/csm"/>
+    </Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.kwarc.info/sally/asm#containsFunctionalInstance -->
+
+    <ObjectProperty rdf:about="&asm;#containsFunctionalInstance">
+        <rdfs:domain rdf:resource="&asm;#FunctionalBlock"/>
+        <rdfs:range rdf:resource="&asm;#FunctionalInstance"/>
+        <inverseOf rdf:resource="&asm;#partOfFunctionalBlock"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.kwarc.info/sally/asm#containsLegendInstance -->
+
+    <ObjectProperty rdf:about="&asm;#containsLegendInstance">
+        <rdfs:domain rdf:resource="&asm;#LegendBlock"/>
+        <rdfs:range rdf:resource="&asm;#LegendInstance"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.kwarc.info/sally/asm#linkedTo -->
+
+    <ObjectProperty rdf:about="&asm;#linkedTo">
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdfs:domain rdf:resource="&asm;#FunctionalBlock"/>
+        <rdfs:domain rdf:resource="&asm;#FunctionalInstance"/>
+        <rdfs:domain rdf:resource="&asm;#LegendBlock"/>
+        <rdfs:domain rdf:resource="&asm;#LegendInstance"/>
+        <rdfs:range rdf:resource="&csm;#CellRange"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.kwarc.info/sally/asm#partOfFile -->
+
+    <ObjectProperty rdf:about="&asm;#partOfFile">
+        <rdfs:domain rdf:resource="&asm;#FunctionalBlock"/>
+        <rdfs:domain rdf:resource="&asm;#LegendBlock"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.kwarc.info/sally/asm#partOfFunctionalBlock -->
+
+    <ObjectProperty rdf:about="&asm;#partOfFunctionalBlock">
+        <rdfs:range rdf:resource="&asm;#FunctionalBlock"/>
+        <rdfs:domain rdf:resource="&asm;#FunctionalInstance"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.kwarc.info/sally/asm#partOfLegendBlock -->
+
+    <ObjectProperty rdf:about="&asm;#partOfLegendBlock">
+        <rdfs:range rdf:resource="&asm;#LegendBlock"/>
+        <rdfs:domain rdf:resource="&asm;#LegendInstance"/>
+        <inverseOf rdf:resource="&asm;#containsLegendInstance"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.kwarc.info/sally/asm#valueOf -->
+
+    <ObjectProperty rdf:about="&asm;#valueOf">
+        <rdfs:domain rdf:resource="&asm;#FunctionalInstance"/>
+        <rdfs:range rdf:resource="&asm;#LegendInstance"/>
+    </ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.kwarc.info/sally/asm#FunctionalBlock -->
+
+    <Class rdf:about="&asm;#FunctionalBlock">
+        <rdfs:comment xml:lang="en">A Functional Block in a spreadsheet groups cells having similar intentional behaviour. Functional blocks depend on legends to differentiate between the semantic of each cell in a functional block.</rdfs:comment>
+    </Class>
+    
+
+
+    <!-- http://www.kwarc.info/sally/asm#FunctionalInstance -->
+
+    <Class rdf:about="&asm;#FunctionalInstance">
+        <rdfs:comment>Item part of a functional block.</rdfs:comment>
+    </Class>
+    
+
+
+    <!-- http://www.kwarc.info/sally/asm#LegendBlock -->
+
+    <Class rdf:about="&asm;#LegendBlock">
+        <rdfs:comment xml:lang="en">A legend block is usually a block of cells describing a certain property of objects. For example: legend={Germany, USA} would be block describing a country. </rdfs:comment>
+    </Class>
+    
+
+
+    <!-- http://www.kwarc.info/sally/asm#LegendInstance -->
+
+    <Class rdf:about="&asm;#LegendInstance">
+        <rdfs:comment xml:lang="en">A legend instance represents one legend value.</rdfs:comment>
+    </Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+
