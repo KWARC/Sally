@@ -1,0 +1,932 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:j.0="http://www.kwarc.info/sally/asm#"
+    xmlns:j.1="http://www.kwarc.info/sally/im#"
+    xmlns:j.2="http://www.kwarc.info/sally/acm#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" > 
+  <rdf:Description rdf:about="http://default-doc.xls/lb/1/&gt;10000">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/1/"/>
+    <j.1:ontologyURI rdf:resource="http://info.kwarc.sissi.winograd/discount-min-quantities"/>
+    <rdfs:label>&gt;10000</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/11/flange">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/11/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/components.omdoc?component?component"/>
+    <rdfs:label>flange</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/14/_">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/14/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?head"/>
+    <rdfs:label>_</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/7/_">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/7/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?head"/>
+    <rdfs:label>_</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://blah.cad/bolt3">
+    <j.2:partOf rdf:resource="http://blah.cad/pipe_end"/>
+    <j.2:partOfFile>http://blah.cad</j.2:partOfFile>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/acm#CADObject"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?ISOhexbolt"/>
+    <j.2:valueOf rdf:resource="http://blah.cad/prop/0"/>
+    <j.2:valueOf rdf:resource="http://blah.cad/prop/1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/8/">
+    <j.0:partOfFile rdf:resource="http://default-doc.xls"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/9/value-1">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <rdf:value>0.460 EUR</rdf:value>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/9"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/4/bolt"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/5/M15"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/6/silver"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/7/stove"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/8/_"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/20">
+    <rdf:type rdf:nodeID="A0"/>
+    <j.0:partOfFile rdf:resource="http://default-doc.xls"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?bypiece"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/9/value-6">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <rdf:value>0.498 EUR</rdf:value>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/9"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/4/nut"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/5/M16"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/6/black"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/7/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/8/_"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/15/standard">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/15/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/comp_types.omdoc?comptype?comptype"/>
+    <rdfs:label>standard</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/1/10000">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/1/"/>
+    <j.1:ontologyURI rdf:resource="http://info.kwarc.sissi.winograd/discount-min-quantities"/>
+    <rdfs:label>10000</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/21/value-2">
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/standard"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/17/Vendor A"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/_"/>
+    <rdf:value>0.300 EUR</rdf:value>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/1"/>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/21"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/gasket"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/25/value-4">
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/black"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/1"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/19/Vendor C"/>
+    <rdf:value>0.310 EUR</rdf:value>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/_"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/flange"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/M15"/>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/25"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/_"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/24/value-5">
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/M15"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/19/Vendor C"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/bolt"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/_"/>
+    <rdf:value>0.450 EUR</rdf:value>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/6"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/black"/>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/24"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/machine"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/2/value-2">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <rdf:value>95.000%</rdf:value>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/2"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/0/Price List of Vendor A"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/1/10000"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://blah.cad/pipe_end">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/acm#CADObject"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/9/value-11">
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/4/blind flange"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/7/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/8/_"/>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/9"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/5/M15"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <rdf:value>0.888 EUR</rdf:value>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/6/black"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/5/M16"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/5/M17"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://blah.cad/bolt2">
+    <j.2:partOf rdf:resource="http://blah.cad/pipe_end"/>
+    <j.2:partOfFile>http://blah.cad</j.2:partOfFile>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/acm#CADObject"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?ISOhexbolt"/>
+    <j.2:valueOf rdf:resource="http://blah.cad/prop/0"/>
+    <j.2:valueOf rdf:resource="http://blah.cad/prop/1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/15/">
+    <j.0:partOfFile rdf:resource="http://default-doc.xls"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/9/value-7">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <rdf:value>0.310 EUR</rdf:value>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/9"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/4/bolt"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/5/M15"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/6/silver"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/7/machine"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/8/_"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/21">
+    <rdf:type rdf:nodeID="A1"/>
+    <j.0:partOfFile rdf:resource="http://default-doc.xls"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?total"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/6/red">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/6/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
+    <rdfs:label>red</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/14/">
+    <j.0:partOfFile rdf:resource="http://default-doc.xls"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/8/standard">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/8/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/comp_types.omdoc?comptype?comptype"/>
+    <rdfs:label>standard</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/25/value-5">
+    <rdf:value>0.450 EUR</rdf:value>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/bolt"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/machine"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/M15"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/19/Vendor C"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/6"/>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/25"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/black"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/_"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/21/value-3">
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/21"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/M15"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/blind flange"/>
+    <rdf:value>0.340 EUR</rdf:value>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/17/Vendor A"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/1"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/black"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/12/">
+    <j.0:partOfFile rdf:resource="http://default-doc.xls"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/2/value-1">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <rdf:value>100.000%</rdf:value>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/2"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/0/Price List of Vendor A"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/1/100"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/16/1">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/16/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/quantity.omdoc?quantity?quantity"/>
+    <rdfs:label>1</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/13/">
+    <j.0:partOfFile rdf:resource="http://default-doc.xls"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/4/flange">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/4/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?ISOhexbolt"/>
+    <rdfs:label>flange</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/13/_">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/13/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
+    <rdfs:label>_</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/23/value-4">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/bolt"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/machine"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/M15"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/black"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/18/Vendor B"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/6"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/_"/>
+    <rdf:value>0.450 EUR</rdf:value>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/23"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/24/value-3">
+    <rdf:value>0.460 EUR</rdf:value>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/19/Vendor C"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/M15"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/nut"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/6"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/black"/>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/24"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A2">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/21/value-4">
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/bolt"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/black"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/17/Vendor A"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/M15"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/machine"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/6"/>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/21"/>
+    <rdf:value>0.450 EUR</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/25/value-2">
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/25"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/1"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/19/Vendor C"/>
+    <rdf:value>0.300 EUR</rdf:value>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/standard"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/gasket"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/2/value-4">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <rdf:value>99.000%</rdf:value>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/2"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/0/Price List of Vendor A"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/1/1000"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/11/">
+    <j.0:partOfFile rdf:resource="http://default-doc.xls"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/9">
+    <rdf:type rdf:nodeID="A3"/>
+    <j.0:partOfFile rdf:resource="http://default-doc.xls"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/1/1000">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/1/"/>
+    <j.1:ontologyURI rdf:resource="http://info.kwarc.sissi.winograd/discount-min-quantities"/>
+    <rdfs:label>1000</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/6/black">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/6/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
+    <rdfs:label>black</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://blah.cad/bolt4">
+    <j.2:partOf rdf:resource="http://blah.cad/pipe_end"/>
+    <j.2:partOfFile>http://blah.cad</j.2:partOfFile>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/acm#CADObject"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?ISOhexbolt"/>
+    <j.2:valueOf rdf:resource="http://blah.cad/prop/0"/>
+    <j.2:valueOf rdf:resource="http://blah.cad/prop/1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/17/">
+    <j.0:partOfFile rdf:resource="http://default-doc.xls"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/23/value-5">
+    <rdf:value>0.340 EUR</rdf:value>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/_"/>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/23"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/18/Vendor B"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/blind flange"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/M15"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/1"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/black"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/8/_">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/8/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/comp_types.omdoc?comptype?comptype"/>
+    <rdfs:label>_</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/18/Vendor B">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/18/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/vendors.omdoc?vendors?B"/>
+    <rdfs:label>Vendor B</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/22/value-5">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/18/Vendor B"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/blind flange"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/M15"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/1"/>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/22"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/black"/>
+    <rdf:value>0.340 EUR</rdf:value>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/_"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/11/blind flange">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/11/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/components.omdoc?component?component"/>
+    <rdfs:label>blind flange</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/24/value-4">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/19/Vendor C"/>
+    <rdf:value>0.310 EUR</rdf:value>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/1"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/black"/>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/24"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/flange"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/M15"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/14/machine">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/14/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?head"/>
+    <rdfs:label>machine</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/21/value-5">
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/6"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/nut"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/17/Vendor A"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/21"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/black"/>
+    <rdf:value>0.460 EUR</rdf:value>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/M15"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/25/value-3">
+    <rdf:value>0.460 EUR</rdf:value>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/6"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/M15"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/19/Vendor C"/>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/25"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/black"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/nut"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/12/M15">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/12/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexthread.omdoc?ISOhexthread?ISOhexthread"/>
+    <rdfs:label>M15</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/2/value-3">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <rdf:value>90.000%</rdf:value>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/2"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/0/Price List of Vendor A"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/1/&gt;10000"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/11/bolt">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/11/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/components.omdoc?component?component"/>
+    <rdfs:label>bolt</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/19/">
+    <j.0:partOfFile rdf:resource="http://default-doc.xls"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/20/value-4">
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/black"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/M15"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/_"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/20"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/bolt"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/6"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/machine"/>
+    <rdf:value>0.450 EUR</rdf:value>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/17/Vendor A"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/23/value-2">
+    <rdf:value>0.300 EUR</rdf:value>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/standard"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/gasket"/>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/23"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/18/Vendor B"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/1"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/20/value-2">
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/gasket"/>
+    <rdf:value>0.300 EUR</rdf:value>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/_"/>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/20"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/17/Vendor A"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/1"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/standard"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/_"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/5/M17">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/5/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexthread.omdoc?ISOhexthread?ISOhexthread"/>
+    <rdfs:label>M17</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/25">
+    <rdf:type rdf:nodeID="A4"/>
+    <j.0:partOfFile rdf:resource="http://default-doc.xls"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?total"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/9/value-14">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <rdf:value>0.340 EUR</rdf:value>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/9"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/4/bolt"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/5/M15"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/6/red"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/7/machine"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/8/_"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/22/value-4">
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/bolt"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/6"/>
+    <rdf:value>0.450 EUR</rdf:value>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/black"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/22"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/18/Vendor B"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/machine"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/M15"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/24/value-1">
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/1"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/M15"/>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/24"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/black"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/blind flange"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/19/Vendor C"/>
+    <rdf:value>0.340 EUR</rdf:value>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/_"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A4">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/9/value-5">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <rdf:value>2.040 EUR</rdf:value>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/9"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/4/gasket"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/5/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/6/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/7/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/8/standard"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/4/nut">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/4/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?ISOhexbolt"/>
+    <rdfs:label>nut</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A3">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/20/value-3">
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/_"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/1"/>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/20"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/black"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/M15"/>
+    <rdf:value>0.340 EUR</rdf:value>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/17/Vendor A"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/blind flange"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/_"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/4/gasket">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/4/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?ISOhexbolt"/>
+    <rdfs:label>gasket</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/20/value-1">
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/20"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/17/Vendor A"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/flange"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/1"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/_"/>
+    <rdf:value>0.310 EUR</rdf:value>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/M15"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/black"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/23/value-3">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/6"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/_"/>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/23"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/black"/>
+    <rdf:value>0.460 EUR</rdf:value>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/nut"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/18/Vendor B"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/M15"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/24">
+    <rdf:type rdf:nodeID="A5"/>
+    <j.0:partOfFile rdf:resource="http://default-doc.xls"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?bypiece"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/5/_">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/5/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexthread.omdoc?ISOhexthread?ISOhexthread"/>
+    <rdfs:label>_</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/16/6">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/16/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/quantity.omdoc?quantity?quantity"/>
+    <rdfs:label>6</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/22/value-3">
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/M15"/>
+    <rdf:value>0.460 EUR</rdf:value>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/6"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/18/Vendor B"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/black"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/nut"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/22"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/9/value-15">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <rdf:value>1.080 EUR</rdf:value>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/9"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/4/flange"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/5/M15"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/6/black"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/7/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/8/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/6/silver"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/24/value-2">
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/24"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/19/Vendor C"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/gasket"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/standard"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/1"/>
+    <rdf:value>0.300 EUR</rdf:value>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/_"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A6">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/25/value-1">
+    <rdf:value>0.340 EUR</rdf:value>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/19/Vendor C"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/black"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/blind flange"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/1"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/M15"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/_"/>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/25"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/7/carriage">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/7/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?head"/>
+    <rdfs:label>carriage</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A0">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/9/value-4">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <rdf:value>1.090 EUR</rdf:value>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/9"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/4/flange"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/5/M16"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/6/black"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/7/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/8/_"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/1/">
+    <j.0:partOfFile rdf:resource="http://default-doc.xls"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/2">
+    <rdf:type rdf:nodeID="A7"/>
+    <j.0:partOfFile rdf:resource="http://default-doc.xls"/>
+    <j.1:ontologyURI rdf:resource="http://info.kwarc.sissi.winograd/discount-rates"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://blah.cad/bolt1">
+    <j.2:partOf rdf:resource="http://blah.cad/pipe_end"/>
+    <j.2:partOfFile>http://blah.cad</j.2:partOfFile>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/acm#CADObject"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?ISOhexbolt"/>
+    <j.2:valueOf rdf:resource="http://blah.cad/prop/0"/>
+    <j.2:valueOf rdf:resource="http://blah.cad/prop/1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/4/bolt">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/4/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?ISOhexbolt"/>
+    <rdfs:label>bolt</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://blah.cad/prop/1">
+    <rdfs:label>bolt</rdfs:label>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/components.omdoc?component?component"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/11/gasket">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/11/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/components.omdoc?component?component"/>
+    <rdfs:label>gasket</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/22/value-2">
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/_"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/22"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/standard"/>
+    <rdf:value>0.300 EUR</rdf:value>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/1"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/18/Vendor B"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/gasket"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/_"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/9/value-12">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <rdf:value>0.350 EUR</rdf:value>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/9"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/4/bolt"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/5/M16"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/6/black"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/7/machine"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/8/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/5/M15"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/0/">
+    <j.0:partOfFile rdf:resource="http://default-doc.xls"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/5/M15">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/5/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexthread.omdoc?ISOhexthread?ISOhexthread"/>
+    <rdfs:label>M15</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/23">
+    <rdf:type rdf:nodeID="A6"/>
+    <j.0:partOfFile rdf:resource="http://default-doc.xls"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?total"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/15/_">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/15/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/comp_types.omdoc?comptype?comptype"/>
+    <rdfs:label>_</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/6/silver">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/6/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
+    <rdfs:label>silver</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/6/_">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/6/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
+    <rdfs:label>_</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/7/machine">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/7/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?head"/>
+    <rdfs:label>machine</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/7/stove">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/7/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?head"/>
+    <rdfs:label>stove</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/16/">
+    <j.0:partOfFile rdf:resource="http://default-doc.xls"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/18/">
+    <j.0:partOfFile rdf:resource="http://default-doc.xls"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/23/value-1">
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/18/Vendor B"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/M15"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/1"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/flange"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/black"/>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/23"/>
+    <rdf:value>0.310 EUR</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/4/blind flange">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/4/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?ISOhexbolt"/>
+    <rdfs:label>blind flange</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/4/">
+    <j.0:partOfFile rdf:resource="http://default-doc.xls"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A5">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/11/nut">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/11/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/components.omdoc?component?component"/>
+    <rdfs:label>nut</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/20/value-5">
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/M15"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/black"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/17/Vendor A"/>
+    <rdf:value>0.460 EUR</rdf:value>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/nut"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/6"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/_"/>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/20"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/_"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/22/value-1">
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/22"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/flange"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/M15"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/black"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/1"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/18/Vendor B"/>
+    <rdf:value>0.310 EUR</rdf:value>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/13/black">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/13/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
+    <rdfs:label>black</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/1/100">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/1/"/>
+    <j.1:ontologyURI rdf:resource="http://info.kwarc.sissi.winograd/discount-min-quantities"/>
+    <rdfs:label>100</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/21/value-1">
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/13/black"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/15/_"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/12/M15"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/14/_"/>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/21"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/11/flange"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/16/1"/>
+    <rdf:value>0.310 EUR</rdf:value>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/17/Vendor A"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://blah.cad/prop/0">
+    <rdfs:label>M15</rdfs:label>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexthread.omdoc?ISOhexthread?ISOhexthread"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/9/value-13">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <rdf:value>0.504 EUR</rdf:value>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/9"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/4/nut"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/5/M15"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/6/black"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/7/_"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/8/_"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/19/Vendor C">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/19/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/vendors.omdoc?vendors?C"/>
+    <rdfs:label>Vendor C</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/12/_">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/12/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexthread.omdoc?ISOhexthread?ISOhexthread"/>
+    <rdfs:label>_</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/0/Price List of Vendor A">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/0/"/>
+    <j.1:ontologyURI rdf:resource="http://info.kwarc.sissi.winograd/vendor-A"/>
+    <rdfs:label>Price List of Vendor A</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/5/M16">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/5/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexthread.omdoc?ISOhexthread?ISOhexthread"/>
+    <rdfs:label>M16</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/5/">
+    <j.0:partOfFile rdf:resource="http://default-doc.xls"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/22">
+    <rdf:type rdf:nodeID="A2"/>
+    <j.0:partOfFile rdf:resource="http://default-doc.xls"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?bypiece"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/7/">
+    <j.0:partOfFile rdf:resource="http://default-doc.xls"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A7">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/17/Vendor A">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+    <j.0:partOfLegendBlock rdf:resource="http://default-doc.xls/lb/17/"/>
+    <j.1:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/vendors.omdoc?vendors?A"/>
+    <rdfs:label>Vendor A</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/fb/9/value-2">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <rdf:value>0.450 EUR</rdf:value>
+    <j.0:partOfFunctionalBlock rdf:resource="http://default-doc.xls/fb/9"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/4/bolt"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/5/M15"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/6/silver"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/7/carriage"/>
+    <j.0:valueOf rdf:resource="http://default-doc.xls/lb/8/_"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://default-doc.xls/lb/6/">
+    <j.0:partOfFile rdf:resource="http://default-doc.xls"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A1">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
+  </rdf:Description>
+</rdf:RDF>

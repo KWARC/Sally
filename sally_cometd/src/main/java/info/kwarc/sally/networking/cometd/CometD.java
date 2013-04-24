@@ -68,6 +68,7 @@ public class CometD {
 		new Thread(new CometDThread()).start();
 		while (cometdServlet.getBayeux() == null) {
 			try {
+				System.out.println("Waiting to wake");
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block

@@ -8,6 +8,9 @@ import info.kwarc.sally.core.SallyModelRequest;
 import info.kwarc.sally.core.SallyService;
 import info.kwarc.sissi.model.document.spreadsheet.ASMInterface;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 import sally.AlexClick;
@@ -22,7 +25,11 @@ public class WorksheetDocument {
 	
 	ASMInterface asm;
 	String filePath;
-	
+
+	public WorksheetDocument() {
+		this("http://default-doc.xls");
+	}
+
 	public WorksheetDocument(String filePath) {
 		asm = new ASMInterface(filePath);
 		this.filePath = filePath;
@@ -30,6 +37,17 @@ public class WorksheetDocument {
 	
 	public void setSemanticData(SpreadsheetModel msg) {
 		asm.reconstruct(msg);		
+	}
+	
+	public void setSemanticData(String fileName) {
+		try {
+			FileInputStream file = new FileInputStream(fileName);
+			setSemanticData(SpreadsheetModel.parseFrom(file));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public int getSheetId(String sheetName) {

@@ -119,7 +119,7 @@ message TheoOpenWindow {
 // --------------------------------------------CAD MESSAGES-----------------------------------------------------------
 
 message CADAlexClick {
-	required IdentificationData identificationData = 1;
+	required string cadNodeId = 1;
 	required ScreenCoordinates position = 2;
 	required string fileName = 3;
 }
@@ -128,15 +128,18 @@ message CADNavigateTo {
 	required string key = 1;
 }
 
-message CADKeyValue {
-	required string key = 1;
-	required IdentificationData value = 2;
+message CADNode {
+	required string id = 1;
+	optional string im_uri = 2;
+	repeated CADNode children = 3;
+	repeated Parameter parameters = 4;
 }
 
 message CADSemanticData {
 	required string fileName = 1;
-	repeated CADKeyValue map = 2;
+	required CADNode root_node = 2;
 }
+
 // --------------------------------------- SPREADSHEET MESSAGES-------------------------------------------------------
 
 // ++++ Basic Messages ++++
