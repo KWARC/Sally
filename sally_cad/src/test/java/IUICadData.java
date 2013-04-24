@@ -1,46 +1,47 @@
-
-
 import info.kwarc.sissi.model.document.cad.ACMInterface;
-import info.kwarc.sissi.model.document.cad.ACMNode;
-
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-
-import com.hp.hpl.jena.rdf.model.Model;
+import sally.CADNode;
+import sally.Parameter;
 
 public class IUICadData {
 
 	public IUICadData() {
 	}
 
-	public Model run() {
-		ACMNode root = ACMNode.createNode("pipe_end");
+	public void run() {
+		CADNode.Builder root = CADNode.newBuilder().setId("pipe_end");
 		String ht = "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexthread.omdoc?ISOhexthread?ISOhexthread";
 		String ct = "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/components.omdoc?component?component";
-		root.addChild(ACMNode.createNode("bolt1").addProperty(ht, "M15").addProperty(ct, "bolt"));
-		root.addChild(ACMNode.createNode("bolt2").addProperty(ht, "M15").addProperty(ct, "bolt"));
-		root.addChild(ACMNode.createNode("bolt3").addProperty(ht, "M15").addProperty(ct, "bolt"));
-		root.addChild(ACMNode.createNode("bolt4").addProperty(ht, "M15").addProperty(ct, "bolt"));
+		String boltIM = "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?ISOhexbolt";
 		
-		ACMInterface acm = new ACMInterface();
-		return acm.serialize("http://blah.cad", root);
+		root.addChildren(CADNode.newBuilder().setId("bolt1")
+				.setImUri(boltIM)
+				.addParameters(Parameter.newBuilder().setKey(ht).setValue("M15").build())
+				.addParameters(Parameter.newBuilder().setKey(ct).setValue("bolt").build()).build());
+		
+		root.addChildren(CADNode.newBuilder().setId("bolt2")
+				.setImUri(boltIM)
+				.addParameters(Parameter.newBuilder().setKey(ht).setValue("M15").build())
+				.addParameters(Parameter.newBuilder().setKey(ct).setValue("bolt").build()).build());
+
+		root.addChildren(CADNode.newBuilder().setId("bolt3")
+				.setImUri(boltIM)
+				.addParameters(Parameter.newBuilder().setKey(ht).setValue("M15").build())
+				.addParameters(Parameter.newBuilder().setKey(ct).setValue("bolt").build()).build());
+		
+		root.addChildren(CADNode.newBuilder().setId("bolt4")
+				.setImUri(boltIM)
+				.addParameters(Parameter.newBuilder().setKey(ht).setValue("M15").build())
+				.addParameters(Parameter.newBuilder().setKey(ct).setValue("bolt").build()).build());
+		
+		ACMInterface acm = new ACMInterface("http://blah.cad");
+		acm.setRootNode(root.build());
+
+		acm.exportRDFToFile("cad-model.rdf");
+		acm.exportSemanticDataToFile("cad-model.bin");
 	}
 	
 	public static void main(String[] args) {
 		IUICadData inter = new IUICadData();
-		Model model = inter.run();
-		
-		OutputStream file;
-		try {
-			file = new FileOutputStream("cad-model.rdf");
-			model.write(file);
-			file.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		inter.run();		
 	}
 }

@@ -1,7 +1,17 @@
 package info.kwarc.sissi.model.document.cad;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
+
+import sally.CADNode;
+import sally.CADSemanticData;
+import sally.Parameter;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
@@ -12,8 +22,19 @@ import com.hp.hpl.jena.vocabulary.RDFS;
 public class ACMInterface {
 
 	Model model;
+	String documentURI;
+	CADNode rootNode;
+	Map<String, CADNode> index;
 	
-	public Resource getResource(String documentURI, ACMNode node) {
+	public void setDocumentURI(String documentURI) {
+		this.documentURI = documentURI;
+	}
+	
+	public String getDocumentURI() {
+		return documentURI;
+	}
+	
+	public Resource getResource(String documentURI, CADNode node) {
 		return model.createResource(documentURI+"/"+node.getId());
 	}
 	
@@ -21,25 +42,38 @@ public class ACMInterface {
 	int IDs;
 	
 
-	public Model serialize(String documentURI, ACMNode node) {
+	public Model getRDFModel() {
+		return serialize(rootNode);
+	}
+	
+	public Model serialize(CADNode node) {
 		model.removeAll();
-		_serialize(documentURI, node);
+		_serialize(null, node);
 		return model;
 	}
+	
+	public CADNode getNodeById(String Id) {
+		return index.get(Id);
+	}
 
-	private void _serialize(String documentURI, ACMNode node) {
+	private void _serialize(CADNode parent, CADNode node) {
 		Resource nodeRes = getResource(documentURI, node);
-		if (node.getParent() != null) {
-			Resource parentRes = getResource(documentURI, node.getParent());
+		if (parent != null) {
+			Resource parentRes = getResource(documentURI, parent);
 			nodeRes.addProperty(ACM.partOf, parentRes);
 			nodeRes.addProperty(ACM.partOfFile, documentURI);
 		}
 		
 		nodeRes.addProperty(RDF.type, ACM.CADObject);
+		if (node.hasImUri()) {
+			nodeRes.addProperty(IM.ontologyURI, model.createResource(node.getImUri()));
+		}
 		
-		for (String property : node.getProperties().keySet()) {
+		for (Parameter parameter : node.getParametersList()) {
 			int currentID; 
-			String value = node.getProperties().get(property);
+			String property = parameter.getKey();
+			String value = parameter.getValue();
+			
 			String hashKey = property+"#"+value;
 			if (!props.containsKey(hashKey)) {
 				currentID = IDs++;
@@ -54,23 +88,92 @@ public class ACMInterface {
 			nodeRes.addProperty(ACM.valueOf, propRes);
 		}
 		
-		for (ACMNode child : node.getChildren()) {
-			_serialize(documentURI, child);
+		for (CADNode child : node.getChildrenList()) {
+			_serialize(node, child);
 		}
 	}
 
-	
 	public ACMInterface() {
+		this("http://default.cad/uri");
+	}
+
+	private void _reindex(CADNode node) {
+		index.put(node.getId(), node);
+		for (CADNode child : node.getChildrenList()) {
+			_reindex(child);
+		}
+	}
+	
+	public void reindex() {
+		index.clear();
+		_reindex(rootNode);
+	}
+	
+	public void importSemanticData(CADSemanticData semanticData) {
+		documentURI = semanticData.getFileName();
+		rootNode = semanticData.getRootNode();
+		reindex();
+	}
+	
+	public CADSemanticData exportSemanticData() {
+		CADSemanticData.Builder builder = CADSemanticData.newBuilder();
+		builder.setFileName(documentURI);
+		builder.setRootNode(rootNode);
+		return builder.build();
+	}
+	
+	public void setRootNode(CADNode rootNode) {
+		this.rootNode = rootNode;
+	}
+	
+	public void exportRDFToFile(String fileName) {
+		OutputStream file;
+		try {
+			file = new FileOutputStream(fileName);
+			getRDFModel().write(file);
+			file.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void exportSemanticDataToFile(String fileName) {
+		OutputStream file;
+		try {
+			file = new FileOutputStream(fileName);
+			exportSemanticData().writeTo(file);
+			file.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void importSemanticDataFile(String fileName) {
+		InputStream file;
+		try {
+			file = new FileInputStream(fileName);
+			importSemanticData(CADSemanticData.parseFrom(file));
+			file.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public ACMInterface(String documentURI) {
 		model = ModelFactory.createDefaultModel();
 		model.setNsPrefix("acm", ACM.getURI());
 		model.setNsPrefix("im", IM.getURI());
+		index = new HashMap<String, CADNode>();
 		props = new HashMap<String, Integer>();
 		IDs = 0;
-	}
-
-	public Model getRDFModel(ACMNode root) {
-		
-		return model;
-	}
-	
+		this.documentURI = documentURI;
+	}	
 }
