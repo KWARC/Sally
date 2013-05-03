@@ -1,6 +1,6 @@
 package info.kwarc.sissi.model.document.spreadsheet;
 
-import info.kwarc.sissi.spreadsheet.WorksheetDocument;
+import info.kwarc.sally.spreadsheet.WorksheetDocument;
 
 import java.io.File;
 import java.io.FileInputStream;

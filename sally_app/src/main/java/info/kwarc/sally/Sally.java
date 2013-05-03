@@ -2,11 +2,13 @@ package info.kwarc.sally;
 
 import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.core.SallyModelRequest;
+import info.kwarc.sally.networking.cometd.CometD;
 import info.kwarc.sally.planetary.Planetary;
+import info.kwarc.sally.spreadsheet.ASMEditor;
+import info.kwarc.sally.spreadsheet.WorksheetDocument;
+import info.kwarc.sally.spreadsheet.WorksheetFactory;
 import info.kwarc.sally.theofx.TheoService;
 import info.kwarc.sissi.model.document.cad.CADDocument;
-import info.kwarc.sissi.spreadsheet.WorksheetDocument;
-import info.kwarc.sissi.spreadsheet.WorksheetFactory;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -43,9 +45,9 @@ public class Sally {
 	
 	public static void main(String[] args) {
 		SallyInteraction sally = new SallyInteraction();
-		//CometD cometD = new CometD(8080);
-		//cometD.start();
-		//cometD.channelToInteraction(sally);
+		CometD cometD = new CometD(8080);
+		cometD.start();
+		cometD.channelToInteraction(sally);
 
 		sally.registerServices(new TheoService());
 		sally.registerServices(new Planetary("http://localhost/drupal_planetary", "sally", "test", "123"));
@@ -61,6 +63,7 @@ public class Sally {
 		sally.registerServices(spreadDoc);
 		sally.registerServices(cadDoc);
 		sally.registerServices(new PricingService());
+		sally.registerServices(new ASMEditor());
 
 		export(sally);
 

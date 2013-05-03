@@ -1,5 +1,7 @@
 package info.kwarc.sissi.model.document.spreadsheet;
 
+import info.kwarc.sally.model.document.spreadsheet.ASMInterface;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;

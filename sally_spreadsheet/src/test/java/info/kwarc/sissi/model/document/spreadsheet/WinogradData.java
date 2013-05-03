@@ -1,5 +1,9 @@
 package info.kwarc.sissi.model.document.spreadsheet;
 
+import info.kwarc.sally.model.document.spreadsheet.CellSpaceInformation;
+import info.kwarc.sally.model.document.spreadsheet.ContentValueType;
+import info.kwarc.sally.model.document.spreadsheet.FormalSpreadsheet;
+
 
 public class WinogradData {
 
