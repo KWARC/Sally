@@ -1,0 +1,6 @@
+This SallyComm project defines the communication layer between all Alexes and Sally. The communication is defined using Protobuffer messages from which Java/Javascript classes are generated. Currently you need to have the following binaries into your PATH:
+  * protoc (http://code.google.com/p/protobuf/downloads/list)
+  * pbj (https://github.com/sirikata/protojs)
+
+protoc is responsible for creating the Java classes
+pbj creates javascript classes

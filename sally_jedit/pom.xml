@@ -29,17 +29,17 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>info.kwarc.util</groupId>
-			<artifactId>ref</artifactId>
+			<groupId>info.kwarc.sally</groupId>
+			<artifactId>references</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
 			<artifactId>jedit</artifactId>
 			<groupId>jedit</groupId>
-			<version>4.9</version>
+			<version>5.0</version>
 			<scope>system</scope>
-			<systemPath>/usr/share/jEdit/jedit.jar</systemPath>
+			<systemPath>${project.basedir}/lib/jedit.jar</systemPath>
 		</dependency>
 
 		<dependency>
@@ -53,7 +53,7 @@
 			<groupId>jedit</groupId>
 			<version>0.9</version>
 			<scope>system</scope>
-			<systemPath>/home/costea/.jedit/jars/MarkerSets.jar</systemPath>
+			<systemPath>${project.basedir}/lib/MarkerSets.jar</systemPath>
 		</dependency>
 
 	</dependencies>
