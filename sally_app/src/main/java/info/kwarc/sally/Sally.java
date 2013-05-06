@@ -16,8 +16,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
+import sally.AlexClick;
 import sally.CADAlexClick;
 import sally.MMTUri;
+import sally.RangeSelection;
 import sally.ScreenCoordinates;
 
 import com.hp.hpl.jena.rdf.model.Model;
@@ -67,8 +69,13 @@ public class Sally {
 
 		export(sally);
 
-		CADAlexClick click = CADAlexClick.newBuilder().setFileName("http://blah.cad").setCadNodeId("bolt1").setPosition(ScreenCoordinates.newBuilder().setX(100).setY(100).build()).build();
-		sally.getPossibleInteractions("/service/alex/selectRange", click, MMTUri.class);
+		/* CADAlexClick click = CADAlexClick.newBuilder().setFileName("http://blah.cad").setCadNodeId("bolt1").setPosition(ScreenCoordinates.newBuilder().setX(100).setY(100).build()).build();
+		sally.getPossibleInteractions("/service/alex/selectRange", click, MMTUri.class); */
+		
+		AlexClick click = AlexClick.newBuilder().setFileName("http://default-doc.xls").setPosition(ScreenCoordinates.newBuilder().setX(100).setY(100).build()).setSheet("Vendor A")
+					.setRange(RangeSelection.newBuilder().setSheet("Vendor B").setStartRow(8).setEndRow(8).setStartCol(7).setEndCol(12).build()).build();
+		sally.getPossibleInteractions("/service/alex/selectRange", click, MMTUri.class); 
+		
 	}
 	
 }

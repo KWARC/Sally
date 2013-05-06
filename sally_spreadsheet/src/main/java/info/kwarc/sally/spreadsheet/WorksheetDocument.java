@@ -84,8 +84,10 @@ public class WorksheetDocument {
 	
 	@SallyService(channel="/service/alex/selectRange")
 	public void alexClickInteraction(AlexClick click, SallyActionAcceptor acceptor, SallyContext context) {
-		if (!click.getFileName().equals(filePath))
+		System.out.println(filePath);
+		if (!click.getFileName().equals(filePath)) {
 			return;
+		}
 		final SallyInteraction interaction = context.getCurrentInteraction();
 
 		context.setContextVar("preferred_position", click.getPosition());
@@ -99,7 +101,9 @@ public class WorksheetDocument {
 		
 		MMTUri mmtURI = interaction.getOneInteraction(pos, MMTUri.class);
 		items = interaction.getPossibleInteractions(pos, SallyMenuItem.class);
+		System.out.println("Cell -> MenuItems "+items.size());
 		items.addAll(interaction.getPossibleInteractions(mmtURI, SallyMenuItem.class));
+		System.out.println("MMTUri-> MenuItems "+items.size());
 		
 		SallyMenuItem item = interaction.getOneInteraction(items, SallyMenuItem.class);
 		if (item != null) {

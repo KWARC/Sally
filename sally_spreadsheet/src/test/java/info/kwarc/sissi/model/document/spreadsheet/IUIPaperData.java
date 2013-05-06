@@ -88,7 +88,7 @@ public class IUIPaperData {
 			CellData data = CellData.newBuilder().setPosition(sally.CellSpaceInformation.newBuilder().setWidth(1).setHeight(1).setPosition( sally.CellPosition.newBuilder().setSheet(sheet).setCol(startCol).setRow(startRow+i).build()).build()).setValue(text[i]).build();
 			rangeData.addCells(data);
 		}
-		return asm.createLegend(LegendCreateData.newBuilder().setFileName("IOI.xls").setItems(rangeData).setParameter(DataParameter.SameContentSameElement).build());
+		return asm.createLegend(LegendCreateData.newBuilder().setFileName("IUI.xls").setItems(rangeData).setParameter(DataParameter.SameContentSameElement).build());
 	}
 
 	public void setData() {

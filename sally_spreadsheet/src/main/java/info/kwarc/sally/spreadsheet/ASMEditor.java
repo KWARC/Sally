@@ -7,11 +7,9 @@ import info.kwarc.sally.core.SallyMenuItem;
 import info.kwarc.sally.core.SallyService;
 
 import javax.ws.rs.GET;
-import javax.ws.rs.Path;
 
 import sally.CellPosition;
 
-@Path("/asmeditor")
 public class ASMEditor {
 
 	@SallyService
@@ -21,6 +19,7 @@ public class ASMEditor {
 		acceptor.acceptResult(new SallyMenuItem("Knowledge Base", "Create ontology links") {
 			@Override
 			public void run() {
+				
 			}
 		});	
 	}
