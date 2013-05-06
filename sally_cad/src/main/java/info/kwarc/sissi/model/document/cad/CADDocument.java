@@ -3,9 +3,9 @@ package info.kwarc.sissi.model.document.cad;
 import info.kwarc.sally.core.SallyActionAcceptor;
 import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteraction;
-import info.kwarc.sally.core.SallyMenuItem;
-import info.kwarc.sally.core.SallyModelRequest;
 import info.kwarc.sally.core.SallyService;
+import info.kwarc.sally.core.comm.SallyMenuItem;
+import info.kwarc.sally.core.comm.SallyModelRequest;
 
 import java.util.List;
 

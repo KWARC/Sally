@@ -2,8 +2,8 @@ package info.kwarc.sally.planetary;
 
 import info.kwarc.sally.core.SallyActionAcceptor;
 import info.kwarc.sally.core.SallyContext;
-import info.kwarc.sally.core.SallyMenuItem;
 import info.kwarc.sally.core.SallyService;
+import info.kwarc.sally.core.comm.SallyMenuItem;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -43,6 +43,13 @@ public class Planetary {
 	public String getDefinitionLookupURL(String mmtURI) {
 		String [] splits = mmtURI.split("\\?");
 		return root+"/sally/showdef/"+splits[1]+"/"+splits[2];
+	}
+	
+	@SallyService
+	public void getServiceURI(ListOntologyConcepts request, SallyActionAcceptor acceptor, final SallyContext context) {
+		String cookie = getSessionCookie();
+		context.setContextVar("Cookie", cookie);
+		acceptor.acceptResult(root);
 	}
 	
 	@SallyService

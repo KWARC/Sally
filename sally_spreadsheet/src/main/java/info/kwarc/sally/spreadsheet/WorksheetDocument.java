@@ -3,9 +3,9 @@ package info.kwarc.sally.spreadsheet;
 import info.kwarc.sally.core.SallyActionAcceptor;
 import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteraction;
-import info.kwarc.sally.core.SallyMenuItem;
-import info.kwarc.sally.core.SallyModelRequest;
 import info.kwarc.sally.core.SallyService;
+import info.kwarc.sally.core.comm.SallyMenuItem;
+import info.kwarc.sally.core.comm.SallyModelRequest;
 import info.kwarc.sally.model.document.spreadsheet.ASMInterface;
 
 import java.io.FileInputStream;
@@ -100,10 +100,8 @@ public class WorksheetDocument {
 		List<SallyMenuItem> items;
 		
 		MMTUri mmtURI = interaction.getOneInteraction(pos, MMTUri.class);
-		items = interaction.getPossibleInteractions(pos, SallyMenuItem.class);
-		System.out.println("Cell -> MenuItems "+items.size());
+		items = interaction.getPossibleInteractions(sel, SallyMenuItem.class);
 		items.addAll(interaction.getPossibleInteractions(mmtURI, SallyMenuItem.class));
-		System.out.println("MMTUri-> MenuItems "+items.size());
 		
 		SallyMenuItem item = interaction.getOneInteraction(items, SallyMenuItem.class);
 		if (item != null) {

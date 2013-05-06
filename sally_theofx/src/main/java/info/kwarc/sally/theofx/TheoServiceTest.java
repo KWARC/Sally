@@ -1,6 +1,6 @@
 package info.kwarc.sally.theofx;
 
-import info.kwarc.sally.core.SallyMenuItem;
+import info.kwarc.sally.core.comm.SallyMenuItem;
 
 import java.util.ArrayList;
 import java.util.List;

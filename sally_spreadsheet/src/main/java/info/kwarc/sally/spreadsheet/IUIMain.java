@@ -1,7 +1,7 @@
 package info.kwarc.sally.spreadsheet;
 
 import info.kwarc.sally.core.SallyInteraction;
-import info.kwarc.sally.core.SallyModelRequest;
+import info.kwarc.sally.core.comm.SallyModelRequest;
 import info.kwarc.sally.networking.cometd.CometD;
 import info.kwarc.sally.planetary.Planetary;
 import info.kwarc.sally.theofx.TheoService;

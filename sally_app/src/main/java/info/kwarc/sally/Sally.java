@@ -1,7 +1,7 @@
 package info.kwarc.sally;
 
 import info.kwarc.sally.core.SallyInteraction;
-import info.kwarc.sally.core.SallyModelRequest;
+import info.kwarc.sally.core.comm.SallyModelRequest;
 import info.kwarc.sally.networking.cometd.CometD;
 import info.kwarc.sally.planetary.Planetary;
 import info.kwarc.sally.spreadsheet.ASMEditor;
@@ -52,8 +52,8 @@ public class Sally {
 		cometD.channelToInteraction(sally);
 
 		sally.registerServices(new TheoService());
-		sally.registerServices(new Planetary("http://localhost/drupal_planetary", "sally", "test", "123"));
-		//sally.registerServices(cometD);
+		sally.registerServices(new Planetary("http://localhost/planetary", "sallyrpc", "test", "123"));
+		sally.registerServices(cometD);
 		sally.registerServices(new WorksheetFactory());
 
 		WorksheetDocument spreadDoc = new WorksheetDocument();

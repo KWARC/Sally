@@ -2,8 +2,8 @@ package info.kwarc.sally.theofx;
 
 import info.kwarc.sally.core.SallyActionAcceptor;
 import info.kwarc.sally.core.SallyContext;
-import info.kwarc.sally.core.SallyMenuItem;
 import info.kwarc.sally.core.SallyService;
+import info.kwarc.sally.core.comm.SallyMenuItem;
 
 import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;

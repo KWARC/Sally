@@ -1,4 +1,4 @@
-package info.kwarc.sally.core;
+package info.kwarc.sally.core.comm;
 
 
 public abstract class SallyMenuItem implements Runnable {

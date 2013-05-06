@@ -93,9 +93,7 @@ public class SallyInteraction {
 	public SallyInteraction() {
 		map = new HashMap<SallyInteraction.ChannelClass, List<MethodExec>>();
 		log = LoggerFactory.getLogger(this.getClass());
-		SallyContextImpl _context = new SallyContextImpl();
-		_context.setInteraction(this);
-		context = _context;
+		context = SallyContextManager.getInstance().getEmptyContext(this);
 	}
 
 	private void addToMap(SallyService annotation, Class<?> param, Object obj, Method m) {
