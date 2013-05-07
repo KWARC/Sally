@@ -49,6 +49,10 @@ public class SallyInteraction {
 	Logger log;
 	SallyContext context;
 	
+	public SallyContext getContext() {
+		return context;
+	}
+	
 	class MethodExec {
 		Object obj;
 		Method m;

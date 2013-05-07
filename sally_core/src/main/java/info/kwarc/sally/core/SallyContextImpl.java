@@ -3,6 +3,7 @@ package info.kwarc.sally.core;
 import java.util.HashMap;
 
 public class SallyContextImpl implements SallyContext {
+	
 	SallyInteraction interaction;
 	HashMap<String, Object> vars;
 	String token;
@@ -45,5 +46,17 @@ public class SallyContextImpl implements SallyContext {
 			return (cls.cast(result));
 		return null;
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public SallyContext createClone() {
+		SallyContextImpl result = new SallyContextImpl();
+		result.setInteraction(result.getCurrentInteraction());
+		result.setToken(result.getID());
+		result.vars = (HashMap<String, Object>) vars.clone();
+		return result;
+	}
+	
+	
 
 }

@@ -1,5 +1,6 @@
 package info.kwarc.sally.networking.cometd;
 
+import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteraction;
 
 import org.cometd.bayeux.server.BayeuxServer;
@@ -15,6 +16,8 @@ import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.github.jucovschi.ProtoCometD.CommunicationCallback;
 import com.github.jucovschi.ProtoCometD.CommunicationContext;
@@ -30,6 +33,7 @@ public class CometD {
 	Server server;
 	CometdServlet cometdServlet;
 	private static Configuration cfg;
+	Logger log;
 	
 	public static Configuration getTemplatingEngine() {
 		return cfg;
@@ -37,6 +41,7 @@ public class CometD {
 	
 	public CometD(int port) {
 		this.port = port;
+		log = LoggerFactory.getLogger(CometD.class);
 	}
 	
 	BayeuxServerImpl getBayeux() {
@@ -53,7 +58,8 @@ public class CometD {
 		}
 
 		public AbstractMessage forward(ServerSession remote, final AbstractMessage msg, CommunicationContext context) {
-			System.out.println("sending to "+context.getChannel()+" "+msg.getClass());
+			log.debug(String.format("--> [%s]: %s", context.getChannel(), msg.getClass().getName()));
+			SallyContext interactionContext = interaction.getContext();
 			return interaction.getOneInteraction(context.getChannel(), msg, AbstractMessage.class);
 		}
 	}
