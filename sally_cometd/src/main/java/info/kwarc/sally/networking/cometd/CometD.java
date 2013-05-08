@@ -1,7 +1,9 @@
 package info.kwarc.sally.networking.cometd;
 
+import info.kwarc.sally.core.SallyActionAcceptor;
 import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteraction;
+import info.kwarc.sally.core.SallyService;
 
 import org.cometd.bayeux.server.BayeuxServer;
 import org.cometd.bayeux.server.ServerChannel;
@@ -22,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import com.github.jucovschi.ProtoCometD.CommunicationCallback;
 import com.github.jucovschi.ProtoCometD.CommunicationContext;
 import com.github.jucovschi.ProtoCometD.ProtoService;
+import com.github.jucovschi.ProtoCometD.ProtoUtils;
 import com.google.protobuf.AbstractMessage;
 import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.spi.container.servlet.ServletContainer;
@@ -47,6 +50,14 @@ public class CometD {
 	BayeuxServerImpl getBayeux() {
 		return cometdServlet.getBayeux();
 	}
+	
+	@SallyService
+	public void sendMsg(CometDSendRequest request, SallyActionAcceptor acceptor, SallyContext context) {
+		log.debug(String.format("<-- [%s]: %s", request.getChannel(), request.getMsg().getClass().getName()));
+		
+		ServerSession sess = getBayeux().getSession(request.getClientID());
+		sess.deliver(sess, request.getChannel(), ProtoUtils.prepareProto(request.getMsg()), null);
+	}
 
 	class CometDProtoService extends ProtoService {
 		SallyInteraction interaction;
@@ -60,6 +71,7 @@ public class CometD {
 		public AbstractMessage forward(ServerSession remote, final AbstractMessage msg, CommunicationContext context) {
 			log.debug(String.format("--> [%s]: %s", context.getChannel(), msg.getClass().getName()));
 			SallyContext interactionContext = interaction.getContext();
+			interactionContext.setContextVar("senderID", remote.getId());
 			return interaction.getOneInteraction(context.getChannel(), msg, AbstractMessage.class);
 		}
 	}
@@ -97,11 +109,6 @@ public class CometD {
 
 		cfg = new Configuration();
 		cfg.setClassForTemplateLoading(getClass(), "/sally");
-/*		
-		cfg.setDirectoryForTemplateLoading(
-				new File("/where/you/store/templates"));
-		cfg.setObjectWrapper(new DefaultObjectWrapper());
-*/
 
 		new Thread(new CometDThread()).start();
 		while (cometdServlet.getBayeux() == null) {

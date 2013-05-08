@@ -56,7 +56,17 @@ message IdentificationData {
 message Parameter {
 	required string key = 1;
 	required string value = 2;
-} /**
+} 
+
+/**
+ * Cookie
+ */ 
+message Cookie {
+	required string url = 1;
+	required string cookie = 2;
+}
+
+/**
  * Opens a new Theo window at screen coordinates and browser URL
  */
 message TheoOpenWindow {
@@ -65,8 +75,30 @@ message TheoOpenWindow {
 	optional int32 sizeX = 3;
 	optional int32 sizeY = 4;
 	optional string title = 5;
-	optional string cookie = 6;
-} /**
+	optional Cookie cookie = 6;
+} 
+
+/**
+ * Opens a new Theo window at screen coordinates and browser URL
+ */
+message TheoChangeWindow {
+	optional ScreenCoordinates position = 1;
+	optional string url = 2;
+	optional int32 sizeX = 3;
+	optional int32 sizeY = 4;
+	optional string title = 5;
+	optional Cookie cookie = 6;
+	required IdData windowid = 7;
+}
+
+/**
+ * Closes a Theo window specified by certain ID
+ */
+message TheoCloseWindow {
+	required IdData id = 1;
+}
+
+/**
  * Error Message
  */ message Error {
 	enum ErrorType {

@@ -8,7 +8,6 @@ import info.kwarc.sally.planetary.ListOntologyConcepts;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,9 +16,14 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Response;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import sally.Cookie;
+import sally.IdData;
 import sally.RangeSelection;
+import sally.TheoChangeWindow;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -28,6 +32,11 @@ public class ASMEditorInterface {
 
 	String name;
 	String ontology;
+	Logger log;
+	
+	public ASMEditorInterface() {
+		log = LoggerFactory.getLogger(ASMEditorInterface.class);
+	}
 	
 	@GET
 	public String generateUI(@QueryParam("s") String token) throws IOException, TemplateException {
@@ -63,10 +72,10 @@ public class ASMEditorInterface {
 	}
 	
 	@POST
-	public Response respond(@FormParam("s") String token, @FormParam("action") String action, @FormParam("name") String name, @FormParam("ontology") String ontology){
+	public String respond(@FormParam("s") String token, @FormParam("action") String action, @FormParam("name") String name, @FormParam("ontology") String ontology){
 		SallyContext context = SallyContextManager.getInstance().getContext(token);
 		if (context == null) {
-			return Response.ok("invalid session").build();
+			return "invalid session";
 		}
 		
 		SallyInteraction interaction = context.getCurrentInteraction();
@@ -76,9 +85,23 @@ public class ASMEditorInterface {
 		
 		if (action.equals("Browse")) {
 			String url = interaction.getOneInteraction(new ListOntologyConcepts(), String.class);
-			return Response.temporaryRedirect(URI.create(url)).build();
+			log.debug("");
+			if (url == null)
+				return null;
+			TheoChangeWindow.Builder op = TheoChangeWindow.newBuilder().setUrl(url);
+			
+			Cookie cookie = context.getContextVar("Cookie", Cookie.class);
+			if (cookie != null)
+				op.setCookie(cookie);
+			
+			IdData wndID = context.getContextVar("ACMEditorWindowID", IdData.class);
+			if (wndID != null)
+				op.setWindowid(wndID);
+				
+			interaction.getOneInteraction(op.build(), Boolean.class);
+			
 		}
 		
-		return Response.ok("ok").build();
+		return "ok";
 	}
 }

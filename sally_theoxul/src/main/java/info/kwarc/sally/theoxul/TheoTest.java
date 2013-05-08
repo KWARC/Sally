@@ -20,9 +20,10 @@ public class TheoTest {
 		interaction.registerServices(cometd);
 		interaction.registerServices(new TheoService(xulPath, xulApp));
 
+		System.out.println(interaction);
 		TheoOpenWindow window = TheoOpenWindow.newBuilder()
 				.setPosition(ScreenCoordinates.newBuilder().setX(100).setY(100).build())
-				.setSizeX(300).setSizeY(100).setCookie("").setTitle("Create Link to Ontology")
+				.setSizeX(300).setSizeY(100).setTitle("Create Link to Ontology")
 				.setUrl("http://localhost:8080/asmeditor").build();
 
 		interaction.getOneInteraction(window, Boolean.class);

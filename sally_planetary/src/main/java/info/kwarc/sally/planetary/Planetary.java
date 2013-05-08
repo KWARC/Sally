@@ -21,6 +21,7 @@ import org.apache.xmlrpc.client.XmlRpcTransport;
 import org.apache.xmlrpc.client.XmlRpcTransportFactory;
 import org.slf4j.Logger;
 
+import sally.Cookie;
 import sally.MMTUri;
 import sally.ScreenCoordinates;
 import sally.TheoOpenWindow;
@@ -48,7 +49,7 @@ public class Planetary {
 	@SallyService
 	public void getServiceURI(ListOntologyConcepts request, SallyActionAcceptor acceptor, final SallyContext context) {
 		String cookie = getSessionCookie();
-		context.setContextVar("Cookie", cookie);
+		context.setContextVar("Cookie", Cookie.newBuilder().setCookie(cookie).setUrl(root).build());
 		acceptor.acceptResult(root);
 	}
 	

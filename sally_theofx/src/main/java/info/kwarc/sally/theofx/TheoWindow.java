@@ -32,6 +32,8 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
+import sally.Cookie;
+
 import netscape.javascript.JSObject;
 
 public class TheoWindow implements Runnable {
@@ -48,10 +50,10 @@ public class TheoWindow implements Runnable {
 	private JFrame frame = new JFrame();
 	private JPanel panel = new JPanel(new BorderLayout());
 	private boolean visible;
-	private String initCookies;
+	private Cookie initCookies;
 
 	public TheoWindow(int sizeX, int sizeY, int posX,
-			int posY, String stageTitle, String url, String cookies, boolean visible) {
+			int posY, String stageTitle, String url, Cookie cookies, boolean visible) {
 		super();
 		this.sizeY = sizeY;
 		this.sizeX = sizeX;
@@ -63,14 +65,18 @@ public class TheoWindow implements Runnable {
 		this.initCookies = cookies;
 	}
 
+	public void closeWindow() {
+		frame.setVisible(false);
+		frame.dispose();
+	}
+
 	public static TheoWindow addWindow(Integer sizeY, Integer sizeX,
-			Integer posX, Integer posY, String stageTitle, String url, String cookies, boolean visible){
+			Integer posX, Integer posY, String stageTitle, String url, Cookie cookies, boolean visible){
 		TheoWindow simple;
 		SwingUtilities.invokeLater(simple=new TheoWindow(sizeX, sizeY , posX, posY, stageTitle, url, cookies, visible));
 		return simple;
 	}
-	
-	
+
 	// private JLabel lblStatus = new JLabel();
 
 	// private JButton btnGo = new JButton("Go"); //Butonul cu Go din dreapta,
@@ -95,7 +101,7 @@ public class TheoWindow implements Runnable {
 	private class JavaApp {
 
 		public void openNewWindow(int sizeX, int sizeY, int posX,
-				int posY, String stageTitle, String url, String cookies, boolean visible) {
+				int posY, String stageTitle, String url, Cookie cookies, boolean visible) {
 			addWindow(sizeX, sizeY , posX, posY, "Theo", url, cookies, visible);
 		}
 	}
@@ -135,6 +141,18 @@ public class TheoWindow implements Runnable {
 		frame.addWindowListener(exitListener);
 	}
 
+	public void setCookie(String url, String cookies) {
+		URI uri = URI.create(url);
+		Map<String, List<String>> headers = new LinkedHashMap<String, List<String>>();
+		headers.put("Set-Cookie", Arrays.asList(cookies));
+		try {
+			java.net.CookieHandler.getDefault().put(uri, headers);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	private void createScene() {
 
 		Platform.runLater(new Runnable() {
@@ -143,16 +161,18 @@ public class TheoWindow implements Runnable {
 
 				WebView view = new WebView();
 				engine = view.getEngine();
-				URI uri = URI.create(url);
-				Map<String, List<String>> headers = new LinkedHashMap<String, List<String>>();
-				headers.put("Set-Cookie", Arrays.asList(initCookies));
-				try {
-					java.net.CookieHandler.getDefault().put(uri, headers);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 
+				if (initCookies != null) {
+					URI uri = URI.create(initCookies.getUrl());
+					Map<String, List<String>> headers = new LinkedHashMap<String, List<String>>();
+					headers.put("Set-Cookie", Arrays.asList(initCookies.getCookie()));
+					try {
+						java.net.CookieHandler.getDefault().put(uri, headers);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 				/*
 				 * engine.titleProperty().addListener(new
 				 * ChangeListener<String>() {
@@ -185,65 +205,65 @@ public class TheoWindow implements Runnable {
 				 */
 
 				engine.getLoadWorker().stateProperty()
-						.addListener(new ChangeListener<State>() {
+				.addListener(new ChangeListener<State>() {
 
-							public void changed(
-									ObservableValue<? extends State> ov,
-									State oldState, State newState) {
+					public void changed(
+							ObservableValue<? extends State> ov,
+							State oldState, State newState) {
 
-								if (newState == State.SUCCEEDED) {
-									JSObject win = (JSObject) engine
-											.executeScript("window");
-									win.setMember("app", new JavaApp());
-								}
-							}
-						});
+						if (newState == State.SUCCEEDED) {
+							JSObject win = (JSObject) engine
+									.executeScript("window");
+							win.setMember("app", new JavaApp());
+						}
+					}
+				});
 
 				engine.getLoadWorker().workDoneProperty()
-						.addListener(new ChangeListener<Number>() {
+				.addListener(new ChangeListener<Number>() {
 
-							public void changed(
-									ObservableValue<? extends Number> observableValue,
-									Number oldValue, final Number newValue) {
-								SwingUtilities.invokeLater(new Runnable() {
+					public void changed(
+							ObservableValue<? extends Number> observableValue,
+							Number oldValue, final Number newValue) {
+						SwingUtilities.invokeLater(new Runnable() {
 
-									public void run() {
-										progressBar.setValue(newValue
-												.intValue());
-									}
-								});
+							public void run() {
+								progressBar.setValue(newValue
+										.intValue());
 							}
 						});
+					}
+				});
 
 				engine.getLoadWorker().exceptionProperty()
-						.addListener(new ChangeListener<Throwable>() {
+				.addListener(new ChangeListener<Throwable>() {
 
-							public void changed(
-									ObservableValue<? extends Throwable> o,
-									Throwable old, final Throwable value) {
-								if (engine.getLoadWorker().getState() == FAILED) {
-									SwingUtilities.invokeLater(new Runnable() {
+					public void changed(
+							ObservableValue<? extends Throwable> o,
+							Throwable old, final Throwable value) {
+						if (engine.getLoadWorker().getState() == FAILED) {
+							SwingUtilities.invokeLater(new Runnable() {
 
-										public void run() {
-											JOptionPane
-													.showMessageDialog(
-															panel,
-															(value != null) ? engine
-																	.getLocation()
-																	+ "\n"
-																	+ value.getMessage()
-																	: engine.getLocation()
-																			+ "\nUnexpected error.",
-															"Loading error...",
-															JOptionPane.ERROR_MESSAGE);
-										}
-									});
+								public void run() {
+									JOptionPane
+									.showMessageDialog(
+											panel,
+											(value != null) ? engine
+													.getLocation()
+													+ "\n"
+													+ value.getMessage()
+													: engine.getLocation()
+													+ "\nUnexpected error.",
+													"Loading error...",
+													JOptionPane.ERROR_MESSAGE);
 								}
-							}
-						});
+							});
+						}
+					}
+				});
 
 				jfxPanel.setScene(new Scene(view));
-				
+
 			}
 		});
 	}
@@ -272,7 +292,7 @@ public class TheoWindow implements Runnable {
 	}
 
 	public void run() {
-		
+
 		frame.setBounds(posX, posY, sizeX, sizeY);
 		//frame.setPreferredSize(new Dimension(sizeX, sizeY));
 		// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -283,7 +303,7 @@ public class TheoWindow implements Runnable {
 
 		//frame.pack();
 		frame.setVisible(visible);
-		
+
 		frame.setAlwaysOnTop(true);
 	}
 

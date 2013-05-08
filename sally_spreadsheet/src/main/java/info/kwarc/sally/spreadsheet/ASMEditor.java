@@ -8,6 +8,7 @@ import info.kwarc.sally.core.comm.SallyMenuItem;
 
 import javax.ws.rs.GET;
 
+import sally.IdData;
 import sally.RangeSelection;
 import sally.ScreenCoordinates;
 import sally.TheoOpenWindow;
@@ -15,7 +16,7 @@ import sally.TheoOpenWindow;
 public class ASMEditor {
 
 	@SallyService
-	public void ASMEditService(RangeSelection cell, SallyActionAcceptor acceptor, SallyContext context) {
+	public void ASMEditService(RangeSelection cell, SallyActionAcceptor acceptor, final SallyContext context) {
 		final SallyInteraction sally = context.getCurrentInteraction();
 		context.setContextVar("ASMCellRange", cell);
 		
@@ -26,9 +27,10 @@ public class ASMEditor {
 			public void run() {
 				TheoOpenWindow window = TheoOpenWindow.newBuilder()
 					.setPosition(ScreenCoordinates.newBuilder().setX(100).setY(100).build())
-					.setSizeX(300).setSizeY(100).setCookie("").setTitle("Create Link to Ontology")
+					.setSizeX(300).setSizeY(100).setTitle("Create Link to Ontology")
 					.setUrl("http://localhost:8080/asmeditor?s="+session).build();
-				sally.getOneInteraction(window, Boolean.class);
+				IdData wndid = sally.getOneInteraction(window, IdData.class);
+				context.setContextVar("ACMEditorWindowID", wndid);
 			}
 		});	
 	}

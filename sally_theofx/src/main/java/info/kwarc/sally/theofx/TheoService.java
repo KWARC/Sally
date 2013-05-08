@@ -9,8 +9,10 @@ import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import javax.swing.AbstractButton;
@@ -21,13 +23,22 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import sally.IdData;
 import sally.ScreenCoordinates;
+import sally.TheoChangeWindow;
+import sally.TheoCloseWindow;
 import sally.TheoOpenWindow;
 
 public class TheoService {
 
 	SallyMenuItem chosenItem;
 	ScreenCoordinates coords;
+	HashMap<Integer, TheoWindow> openedWindows;
+	Random r = new Random();
+	
+	public TheoService() {
+		openedWindows = new HashMap<Integer, TheoWindow>();
+	}
 	
 	@SallyService
 	public void letUserChoose(ArrayList<SallyMenuItem> items, SallyActionAcceptor acceptor, SallyContext context) {
@@ -43,9 +54,37 @@ public class TheoService {
 	
 	@SallyService
 	public void openWindow(TheoOpenWindow newWindow, SallyActionAcceptor acceptor, SallyContext context) {
-		TheoWindow.addWindow(newWindow.getSizeY(), newWindow.getSizeX(), newWindow.getPosition().getX(), newWindow.getPosition().getY(), newWindow.getTitle(), newWindow.getUrl(), newWindow.getCookie(), true);
+		Integer resID = r.nextInt();
+		IdData id = IdData.newBuilder().setId(resID).build();
+		openedWindows.put(resID, TheoWindow.addWindow(newWindow.getSizeY(), newWindow.getSizeX(), newWindow.getPosition().getX(), newWindow.getPosition().getY(), newWindow.getTitle(), newWindow.getUrl(), newWindow.getCookie(), true));
+		acceptor.acceptResult(id);
+	}
+
+	@SallyService
+	public void changeWindow(TheoChangeWindow window, SallyActionAcceptor acceptor, SallyContext context) {
+		if (!openedWindows.containsKey(window.getWindowid().getId())) {
+			return;
+		}
+		TheoWindow w = openedWindows.get(window.getWindowid().getId());
+		
+		if (window.hasCookie()) {
+			w.setCookie(window.getCookie().getUrl(), window.getCookie().getCookie());
+		}
+		
+		if (window.hasUrl()) {
+			w.changeURL(window.getUrl());
+		}
 	}
 	
+	@SallyService
+	public void openWindow(TheoCloseWindow window, SallyActionAcceptor acceptor, SallyContext context) {
+		Integer resID = window.getId().getId();
+		TheoWindow wnd = openedWindows.get(resID);
+		if (wnd != null) {
+			wnd.closeWindow();
+		}
+	}
+
 	public SallyMenuItem letUserChoose(final List<SallyMenuItem> items) {
 		final JFrame frame = new JFrame("FrameDemo");
 		final JDialog dialog = new JDialog(frame, ModalityType.APPLICATION_MODAL);
