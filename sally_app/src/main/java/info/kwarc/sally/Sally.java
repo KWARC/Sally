@@ -1,6 +1,7 @@
 package info.kwarc.sally;
 
 import info.kwarc.sally.core.SallyInteraction;
+import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.comm.SallyModelRequest;
 import info.kwarc.sally.networking.cometd.CometD;
 import info.kwarc.sally.planetary.Planetary;
@@ -72,10 +73,13 @@ public class Sally {
 		/* CADAlexClick click = CADAlexClick.newBuilder().setFileName("http://blah.cad").setCadNodeId("bolt1").setPosition(ScreenCoordinates.newBuilder().setX(100).setY(100).build()).build();
 		sally.getPossibleInteractions("/service/alex/selectRange", click, MMTUri.class); */
 		
-		AlexClick click = AlexClick.newBuilder().setFileName("http://default-doc.xls").setPosition(ScreenCoordinates.newBuilder().setX(100).setY(100).build()).setSheet("Vendor A")
+		/* AlexClick click = AlexClick.newBuilder().setFileName("http://default-doc.xls").setPosition(ScreenCoordinates.newBuilder().setX(100).setY(100).build()).setSheet("Vendor A")
 					.setRange(RangeSelection.newBuilder().setSheet("Vendor B").setStartRow(8).setEndRow(8).setStartCol(7).setEndCol(12).build()).build();
-		sally.getPossibleInteractions("/service/alex/selectRange", click, MMTUri.class); 
+		sally.getPossibleInteractions("/service/alex/selectRange", click, MMTUri.class); */
 		
+		RangeSelection sel = RangeSelection.newBuilder().setSheet("Vendor B").setStartRow(8).setEndRow(8).setStartCol(7).setEndCol(12).build();
+		SallyMenuItem e = sally.getOneInteraction(sel, SallyMenuItem.class);
+		e.run();
 	}
 	
 }

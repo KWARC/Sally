@@ -27,7 +27,7 @@ public class ASMEditor {
 			public void run() {
 				TheoOpenWindow window = TheoOpenWindow.newBuilder()
 					.setPosition(ScreenCoordinates.newBuilder().setX(100).setY(100).build())
-					.setSizeX(300).setSizeY(100).setTitle("Create Link to Ontology")
+					.setSizeX(400).setSizeY(500).setTitle("Create Link to Ontology")
 					.setUrl("http://localhost:8080/asmeditor?s="+session).build();
 				IdData wndid = sally.getOneInteraction(window, IdData.class);
 				context.setContextVar("ACMEditorWindowID", wndid);

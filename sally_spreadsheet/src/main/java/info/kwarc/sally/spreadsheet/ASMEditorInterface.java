@@ -84,8 +84,9 @@ public class ASMEditorInterface {
 		this.ontology = ontology;
 		
 		if (action.equals("Browse")) {
+			log.debug("About to execute browse");
 			String url = interaction.getOneInteraction(new ListOntologyConcepts(), String.class);
-			log.debug("");
+			log.debug("URL "+url);
 			if (url == null)
 				return null;
 			TheoChangeWindow.Builder op = TheoChangeWindow.newBuilder().setUrl(url);

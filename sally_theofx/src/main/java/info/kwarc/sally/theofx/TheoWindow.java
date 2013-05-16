@@ -215,6 +215,7 @@ public class TheoWindow implements Runnable {
 							JSObject win = (JSObject) engine
 									.executeScript("window");
 							win.setMember("app", new JavaApp());
+							
 						}
 					}
 				});
@@ -323,7 +324,7 @@ public class TheoWindow implements Runnable {
 				public void run() {
 					String tmp = toURL(url);
 
-					tmp = toURL("http://" + url);
+					tmp = toURL(url);
 					engine.load(tmp);
 
 				}
