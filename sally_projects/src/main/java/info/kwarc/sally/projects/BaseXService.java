@@ -18,9 +18,7 @@ import org.apache.commons.vfs2.FileSelector;
 import org.apache.commons.vfs2.FileSystemException;
 import org.basex.core.cmd.CreateDB;
 import org.basex.core.cmd.Open;
-import org.basex.core.cmd.Replace;
 import org.basex.core.cmd.XQuery;
-import org.basex.examples.query.QueryProcessor;
 import org.basex.server.ClientSession;
 
 
@@ -69,7 +67,6 @@ public class BaseXService {
 	
 	public Set<String> getDBFileList(String dbName) {
 		Set<String> result = new HashSet<String>();
-	    QueryProcessor processor = new QueryProcessor(query, context);
 
 		String query = String.format("for $doc in collection('%s') return base-uri($doc)", dbName);
 		try {
