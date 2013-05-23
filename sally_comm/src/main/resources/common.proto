@@ -627,3 +627,9 @@ message TextFileNotifications {
 	required FileRef file = 1;
 	repeated TextNotification notifications = 2; 
 }
+
+message TextAutocomplete {
+	required FileRef file = 1;
+	required int32 offset = 2;
+	optional string fileContents = 3;
+}

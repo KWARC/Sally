@@ -25,12 +25,23 @@
 		</dependency>
 		<dependency>
 			<groupId>info.kwarc.sally</groupId>
+			<artifactId>sally_projects</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>info.kwarc.sally</groupId>
 			<artifactId>sally_comm</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>info.kwarc.sally</groupId>
 			<artifactId>references</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>info.kwarc.sally</groupId>
+			<artifactId>sally_theofx</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
@@ -54,6 +65,14 @@
 			<version>0.9</version>
 			<scope>system</scope>
 			<systemPath>${project.basedir}/lib/MarkerSets.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<artifactId>MarkerSets</artifactId>
+			<groupId>jedit</groupId>
+			<version>0.9</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/SideKick.jar</systemPath>
 		</dependency>
 
 	</dependencies>

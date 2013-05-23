@@ -1,5 +1,8 @@
 package info.kwarc.sally.networking.cometd;
 
+import java.io.IOException;
+import java.io.StringWriter;
+
 import info.kwarc.sally.core.SallyActionAcceptor;
 import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteraction;
@@ -30,16 +33,20 @@ import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.spi.container.servlet.ServletContainer;
 
 import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 
 public class CometD {
 	int port;
 	Server server;
 	CometdServlet cometdServlet;
-	private static Configuration cfg;
+	Configuration cfg;
+
+	private static SallyInteraction interaction;
 	Logger log;
-	
-	public static Configuration getTemplatingEngine() {
-		return cfg;
+		
+	public static SallyInteraction getInteraction() {
+		return interaction;
 	}
 	
 	public CometD(int port) {
@@ -58,7 +65,21 @@ public class CometD {
 		ServerSession sess = getBayeux().getSession(request.getClientID());
 		sess.deliver(sess, request.getChannel(), ProtoUtils.prepareProto(request.getMsg()), null);
 	}
-
+	
+	@SallyService(channel="/template/generate")
+	public void generateTemplate(TemplateRequest request, SallyActionAcceptor acceptor, SallyContext context) {
+		try {
+			StringWriter w = new StringWriter();
+			Template tpl = cfg.getTemplate(request.getTemplatePath());
+			tpl.process(request.getData(), w);
+			acceptor.acceptResult(w.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (TemplateException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	class CometDProtoService extends ProtoService {
 		SallyInteraction interaction;
 
@@ -77,6 +98,7 @@ public class CometD {
 	}
 
 	public void channelToInteraction(final SallyInteraction interaction) {
+		CometD.interaction = interaction;
 		new CometDProtoService(getBayeux(), "fowarder", interaction);
 	}
 

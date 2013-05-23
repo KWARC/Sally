@@ -1,7 +1,5 @@
 package info.kwarc.sally.projects;
 
-import info.kwarc.mmt.api.frontend.Controller;
-import info.kwarc.mmt.api.modules.DeclaredTheory;
 import info.kwarc.sally.core.SallyActionAcceptor;
 import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteraction;
@@ -10,7 +8,6 @@ import info.kwarc.sally.core.SallyService;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,19 +16,19 @@ import org.apache.commons.vfs2.FileObject;
 import org.apache.commons.vfs2.FileSelector;
 import org.apache.commons.vfs2.FileSystemException;
 
-public class MMTService {
+public class STexParser {
 
 	Pattern comments = Pattern.compile("%(.)*\n");
 	Pattern sms = Pattern.compile("\\\\((begin|end)\\{(module|symboldec)\\}|importmodule)");
 	Pattern idParser = Pattern.compile("^\\[[^\\]]*id=([a-zA-Z0-9-_]+)[^\\]]*\\]");
 	Pattern symbolModule = Pattern.compile("^\\[[^\\]]*name=([a-zA-Z0-9-_]+)[^\\]]*\\]");
 	Pattern importModule = Pattern.compile("^\\[([^\\]]*)\\]\\{([a-zA-Z0-9-_]+)\\}");
-	Controller mmtController;
+	Pattern extensionRemover = Pattern.compile("\\.[a-zA-Z0-9]+$");
+	Pattern pathMacro = Pattern.compile("^\\\\([a-zA-Z0-9-_]+)\\{(.*)\\}$");
 
-	public MMTService() {
-		mmtController = new Controller();
+	public STexParser() {
 	}
-
+	
 	public String getContent(InputStream is) {
 		StringWriter writer = new StringWriter();
 		try {
@@ -42,21 +39,24 @@ public class MMTService {
 		return writer.toString();
 	}
 
-	public String resolvePath(String file, String rootURL) {
-		file = file.replaceAll("\\\\SiSsI\\{", rootURL+"/");
-		file = file.replaceAll("\\\\KWARCslides\\{", rootURL+"/../slides/");
-		file = file.replaceAll("\\}", "");
-		System.out.println("resolved "+file);
+	public String resolvePath(String file, SallyInteraction interaction) {
+		Matcher m = pathMacro.matcher(file);
+		if (m.find()) {
+			String prefix = m.group(1);
+			String path = m.group(2);
+			String resPath = interaction.getOneInteraction("/alias/resolve", prefix, String.class);
+			if (resPath != null)
+				return resPath+"/"+path;
+			else
+				return "file:///unknown/alias/"+prefix+"/"+path;
+		}
 		return file;
 	}
-	
-	public void sTeXToMMT(String stex, String fileURL, String rootURL) {
+
+	public void sTeXToMMT(String stex, String fileURL, SallyInteraction interaction, STeXParsingEvents handler) {
 		// remove comments
-		System.out.println(fileURL);
 		stex = stex.replaceAll(comments.pattern(), "");
 		Matcher smsMatcher = sms.matcher(stex);
-
-		DeclaredTheory current = null;
 
 		for (int start = 0; smsMatcher.find(start);) {
 			// begin or end module
@@ -65,9 +65,8 @@ public class MMTService {
 			if ("begin".equals(smsMatcher.group(2)) && "module".equals(smsMatcher.group(3))) {
 				Matcher idMatcher = idParser.matcher(stex.subSequence(start, stex.length()));
 				if (idMatcher.find()) {
-					current = MMTWrapper.createTheory(fileURL, idMatcher.group(1));
-					mmtController.add(current);					
 					start += idMatcher.end();
+					handler.beginModule(fileURL, idMatcher.group(1), start);
 				} else {
 					System.out.println("Module without id in "+fileURL);
 				}
@@ -75,10 +74,8 @@ public class MMTService {
 				if ("begin".equals(smsMatcher.group(2)) && "symboldec".equals(smsMatcher.group(3))) {
 					Matcher symbolMatcher = symbolModule.matcher(stex.subSequence(start, stex.length()));				
 					if (symbolMatcher.find()) {
-						if (current == null) 
-							continue;
-						mmtController.add(MMTWrapper.createConstant(current, symbolMatcher.group(1)));
 						start += symbolMatcher.end();
+						handler.symbolDec(symbolMatcher.group(1), start);
 					} else {
 						System.out.println("Symbol without declarations");
 					}				
@@ -86,11 +83,10 @@ public class MMTService {
 					if ("importmodule".equals(smsMatcher.group(1))) {
 						Matcher importMatcher = importModule.matcher(stex.subSequence(start, stex.length()));
 						if (importMatcher.find()) {
-							if (current == null) 
-								continue;
-							String uri = resolvePath(importMatcher.group(1), rootURL);
+							String uri = resolvePath(importMatcher.group(1), interaction);
 							String theoryName = importMatcher.group(2);
-							mmtController.add(MMTWrapper.createImport(current, MMTWrapper.createTheory(uri, theoryName)));
+							start += importMatcher.end();
+							handler.importModule(uri, theoryName, start);
 						} else {
 							System.out.println("import module parameters could not be parsed");
 						}
@@ -98,22 +94,26 @@ public class MMTService {
 		}
 	}
 
-	public void doIndex(SallyInteraction interaction, FileSelector selector) {
-		List<FileObject> lst = interaction.getPossibleInteractions("/project", "get", FileObject.class);
+	public String removeExtension(String fileName) {
+		return extensionRemover.matcher(fileName).replaceFirst("");
+	}
+
+	public void doIndex(SallyInteraction interaction, FileSelector selector, FileObject root) {
 		try {
-			for (FileObject root : lst) {
-				for (FileObject file : root.findFiles(selector)) {
-					String stex = getContent(file.getContent().getInputStream());
-					sTeXToMMT(stex, file.getName().getParent().getPath() +"/" + file.getName().getBaseName(), root.getURL().toString());
-				}
+			for (FileObject file : root.findFiles(selector)) {
+				String stex = getContent(file.getContent().getInputStream());
+				String fileURI = removeExtension(file.getURL().toString());
+
+				sTeXToMMT(stex, fileURI, interaction, new MMTIndexHandler());
 			}
 		} catch (FileSystemException e) {
 			e.printStackTrace();
 		}
 	}
 
-	@SallyService(channel="/queryMMT")
-	public void doQuery(String query, SallyActionAcceptor acceptor, SallyContext context) {
-
+	@SallyService(channel="/indexes")
+	public void indexingService(String op, SallyActionAcceptor acceptor, SallyContext context) {
+		acceptor.acceptResult("stex");
 	}
+	
 }

@@ -1,0 +1,1 @@
+java -cp target/sally_jedit-0.0.1-SNAPSHOT-jar-with-dependencies.jar ARunner

@@ -1,6 +1,12 @@
 package info.kwarc.sally.jedit;
 
 import info.kwarc.sally.core.SallyInteraction;
+import info.kwarc.sally.core.comm.SallyMenuItem;
+import info.kwarc.sally.projects.STexParser;
+import info.kwarc.sally.projects.PathAliasManager;
+import info.kwarc.sally.projects.Project;
+import info.kwarc.sally.projects.TeXSelector;
+import info.kwarc.sally.theofx.TheoService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +22,31 @@ import org.gjt.sp.jedit.buffer.BufferListener;
 import org.gjt.sp.jedit.buffer.JEditBuffer;
 
 public class SallyPlugin extends EBPlugin {
-	SallyInteraction interaction;
+	static SallyInteraction interaction;
+	
+	public static SallyInteraction getInteraction() {
+		return interaction;
+	}
 	
 	public SallyPlugin() {
-		this.interaction = new SallyInteraction();
-		this.interaction.registerServices(new ReferencingService());
-		this.interaction.registerServices(new SVNService());
+		interaction = new SallyInteraction();
+		//this.interaction.registerServices(new ReferencingService());
+		//this.interaction.registerServices(new SVNService());
+
+		interaction.registerServices(new Project("/home/costea/kwarc/stc/sissi"));
+		interaction.registerServices(new TheoService());
+		Project serv = new Project("/home/costea/kwarc/stc");
+		
+		STexParser mmt = new STexParser();
+		PathAliasManager alias = new PathAliasManager();
+		alias.addPrefix("SiSsI", "file:///home/costea/kwarc/stc/sissi");
+		alias.addPrefix("KWARCslides", "file:///home/costea/kwarc/stc/slides");
+
+		interaction.registerServices(serv);
+		interaction.registerServices(mmt);
+		interaction.registerServices(new TheoService());
+		interaction.registerServices(alias);
+		//mmt.doIndex(interaction, new TeXSelector());
 	}
 	
 	@Override
@@ -46,6 +71,11 @@ public class SallyPlugin extends EBPlugin {
 		
 		public void addMarker(int line, String text) {
 			MarkerSetsPlugin.getActiveMarkerSet().add(new FileMarker(getPath(), line, text));
+			List<SallyMenuItem> items = interaction.getPossibleInteractions("/config", "get", SallyMenuItem.class);
+			System.out.println("items "+items.size());
+			SallyMenuItem chosen = interaction.getOneInteraction(items, SallyMenuItem.class);
+			System.out.println("chosen =");
+			chosen.run();
 		}
 
 		public String getPath() {
@@ -100,6 +130,8 @@ public class SallyPlugin extends EBPlugin {
 			if (buf.isNewFile()) {
 				return;
 			}
+			
+			
 			interaction.registerServices(new SallyJEditService(new ITextBufferAdapter(buf), interaction));
 		}
 	}

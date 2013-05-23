@@ -6,6 +6,8 @@ import info.kwarc.mmt.api.LocalName;
 import info.kwarc.mmt.api.LocalPath;
 import info.kwarc.mmt.api.MPath;
 import info.kwarc.mmt.api.frontend.Controller;
+import info.kwarc.mmt.api.frontend.NotFound;
+import info.kwarc.mmt.api.libraries.Library;
 import info.kwarc.mmt.api.modules.DeclaredTheory;
 import info.kwarc.mmt.api.parser.TextNotation;
 import info.kwarc.mmt.api.symbols.Constant;
@@ -27,7 +29,6 @@ public class MMTWrapper {
 	private static Option<String> noneString = Option.apply(null);
 	private static Option<TextNotation> noneTextNotation = Option.apply(null);
 
-	
 	static public DeclaredTheory createTheory(String file, String theoryName) {
 		DPath docPath = new DPath(URI.apply(file));
 		LocalPath localPath = new LocalPath(theoryName);
@@ -40,13 +41,24 @@ public class MMTWrapper {
 	
 	static public ArrayList<String> getConstantsInTheory(Controller mmtController, DeclaredTheory theory) {
 		ArrayList<String> result = new ArrayList<String>();
-		scala.collection.immutable.List<Content> declList = mmtController.memory().content().getDeclarationsInScope(theory.toTerm());
+		scala.collection.immutable.List<Content> declList;
+		Library lib = mmtController.memory().content();
+		try {
+			declList = lib.getDeclarationsInScope(theory.toTerm());
+		} catch (Throwable e) {
+			if (e instanceof NotFound) {
+				NotFound nf = (NotFound) e;
+				System.out.println("Could not find theory "+nf.path());
+			}
+			//e.printStackTrace();
+			return result;
+		}
 		Iterator<Content> declIterator = declList.iterator();
 		while (declIterator.hasNext()) {
 			Content contentDecl = declIterator.next();
 			if (contentDecl instanceof Constant) {
 				Constant constantDecl = (Constant) contentDecl;
-				System.out.println(constantDecl.name());
+				result.add(constantDecl.name().toString());
 			}
 		}		
 		return result;
@@ -65,12 +77,11 @@ public class MMTWrapper {
 	
 	static public DeclaredStructure createImport(DeclaredTheory from, DeclaredTheory to) {
 		return PlainInclude.apply(to.path(), from.path());
-		
 	}
 	
 	public static void main(String[] args) {
 		Controller mmtController = new Controller();
-		DeclaredTheory adminCosts = createTheory("file:///some/path/admincosts.tex", "admincosts");
+		DeclaredTheory adminCosts = createTheory("file:///home/costea/kwarc/stc/sissi/winograd/cds/admincosts.tex", "admincosts");
 		DeclaredTheory accountingBase = createTheory("file:///some/path/accountingbase.tex", "accountingbase");
 
 		mmtController.add(accountingBase);
@@ -82,7 +93,9 @@ public class MMTWrapper {
 		mmtController.add(createImport(adminCosts, accountingBase));
 		
 		mmtController.add(createConstant(adminCosts, "admincostsperti"));
-		getAllTheories(mmtController);
+		
+		getConstantsInTheory(mmtController, createTheory("file:///home/costea/kwarc/stc/sissi/winograd/cds/admincosts.tex", "admincosts"));
+		
 	}
 	
 }

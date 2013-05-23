@@ -53,6 +53,8 @@ plugin.info.kwarc.sally.jedit.SallyPlugin.depend.2=plugin marker.MarkerSetsPlugi
 #sidekick.parser.mmt.label=MMT parser
 #mode.mmt.sidekick.parser=mmt
 #mode.lf.sidekick.parser=mmt
+sidekick.parser.stex.label=sTeX parser
+mode.tex.sidekick.parser=stex
 
 # hyperlink
 #mode.mmt.hyperlink.source=mmt

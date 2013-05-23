@@ -18,6 +18,25 @@
 		</dependency>
 
 		<dependency>
+			<groupId>info.kwarc.mmt</groupId>
+			<artifactId>MMTWrapper</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>info.kwarc.sally</groupId>
+			<artifactId>sally_theofx</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>info.kwarc.sally</groupId>
+			<artifactId>sally_cometd</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+
+		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>1.3.2</version>
@@ -26,6 +45,13 @@
 		<dependency>
 			<groupId>info.kwarc.sally</groupId>
 			<artifactId>sally_core</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>info.kwarc.sally</groupId>
+			<artifactId>sally_comm</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
