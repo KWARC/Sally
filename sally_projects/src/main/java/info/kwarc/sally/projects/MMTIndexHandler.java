@@ -1,12 +1,5 @@
 package info.kwarc.sally.projects;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.tools.FileObject;
-
-import sally.TextAutocomplete;
-
 import info.kwarc.mmt.api.frontend.Controller;
 import info.kwarc.mmt.api.modules.DeclaredTheory;
 import info.kwarc.sally.core.SallyActionAcceptor;
@@ -14,14 +7,24 @@ import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.core.SallyService;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.vfs2.FileObject;
+
+
+import sally.TextAutocomplete;
+
 public class MMTIndexHandler implements IndexHandler, STeXParsingEvents  {
 	Controller mmtController;
 	DeclaredTheory current = null;
 	STexParser parser;
+	SallyInteraction interaction;
 
-	public MMTIndexHandler() {
+	public MMTIndexHandler(SallyInteraction interaction) {
 		mmtController = new Controller();
 		parser = new STexParser();
+		this.interaction = interaction;
 	}
 
 	public List<String> listAllTheories() {

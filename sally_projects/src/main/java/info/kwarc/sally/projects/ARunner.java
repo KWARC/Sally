@@ -14,7 +14,7 @@ public class ARunner {
 
 		Project serv = new Project("/home/costea/kwarc/stc");
 
-		serv.addIndexer(new MMTIndexHandler());
+		serv.addIndexer(new MMTIndexHandler(interaction));
 		
 		PathAliasManager alias = new PathAliasManager();
 		alias.addPrefix("SiSsI", "file:///home/costea/kwarc/stc/sissi");

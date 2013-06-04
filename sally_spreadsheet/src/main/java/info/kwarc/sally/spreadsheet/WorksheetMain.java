@@ -10,9 +10,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import sally.AlexClick;
-import sally.RangeSelection;
-import sally.ScreenCoordinates;
 import sally.SpreadsheetModel;
 
 public class WorksheetMain {

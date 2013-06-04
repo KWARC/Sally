@@ -1,6 +1,7 @@
 package info.kwarc.sally.projects;
 
-import javax.tools.FileObject;
+import org.apache.commons.vfs2.FileObject;
+
 
 public interface IndexHandler {
 	void restart(FileObject root);
