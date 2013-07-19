@@ -1,70 +1,23 @@
-package sally; /**
+package sally; 
+
+/**
 * very important, otherwise serialization will not work
 */
+
 option java_multiple_files = true;
-/**
- * Message for Alex to initialize itself
- */ message Init {
-	optional string options = 1;
-}
-
-message Document {
-	required string fileName = 1;
-	enum Player {
-		MS_EXCELL = 1;
-		OO_CALC = 2;
-		Inventor = 3;
-	}
-
-	required Player player = 2;
-}
-
-message ProjectProperties {
-	required string ConfigurationFile = 1;
-}
-
-message ConfigFile {
-	repeated Document projectFiles = 1;
-} /**
- * Range Selection
- */ message RangeSelection {
-	required int32 startRow = 1;
-	required int32 startCol = 2;
-	required int32 endRow = 3;
-	required int32 endCol = 4;
-	optional string sheet = 5;
-}
-
-message ScreenCoordinates {
-	required int32 x = 1;
-	required int32 y = 2;
-}
-
-message AlexClick {
-	required string Sheet = 1;
-	required RangeSelection range = 2;
-	required ScreenCoordinates position = 3;
-	required string fileName = 4;
-}
-
-message IdentificationData {
-	required string theory = 1;
-	required string symbol = 2;
-	repeated Parameter parameters = 3;
-}
-
-message Parameter {
-	required string key = 1;
-	required string value = 2;
-} 
 
 /**
- * Cookie
- */ 
+ * -------------------- THEO Messages ---------------------------
+ */
+
+/**
+ * Message storing Cookie information
+ */
 message Cookie {
 	required string url = 1;
 	required string cookie = 2;
 }
+
 
 /**
  * Opens a new Theo window at screen coordinates and browser URL
@@ -76,7 +29,7 @@ message TheoOpenWindow {
 	optional int32 sizeY = 4;
 	optional string title = 5;
 	optional Cookie cookie = 6;
-} 
+}
 
 /**
  * Opens a new Theo window at screen coordinates and browser URL
@@ -88,57 +41,42 @@ message TheoChangeWindow {
 	optional int32 sizeY = 4;
 	optional string title = 5;
 	optional Cookie cookie = 6;
-	required IdData windowid = 7;
+	required int32 windowid = 7;
 }
 
 /**
  * Closes a Theo window specified by certain ID
  */
 message TheoCloseWindow {
-	required IdData id = 1;
+	required int32 windowid = 1;
 }
 
+
 /**
- * Error Message
- */ message Error {
-	enum ErrorType {
-		GENERAL_ERROR = 0;
-		CANNOT_PARSE_MESSAGE = 1;
-		WRONG_PARAMS = 2;
-		WRONG_SENDER = 3;
-	}
+ * --------------- Alexes --------------------
+ */
 
-	required ErrorType code = 1;
-	optional string description = 2;
-} /**
- * semantic mode
- */ message SemanticMode {
-	enum SemMode {
-		DEFINITION_LOOKUP = 0;
-		SEMANTIC_NAVIGATION = 1;
-		SEMANTIC_MAPPING = 2;
-		SEMANTIC_VIEW = 3;
-		PROJECT_MODE = 4;
-	}
-
-	required SemMode mode = 1;
-	required string fileName = 2;
-} /**
+/**
  * Message
- */ message WhoAmI {
+ */
+ message WhoAmI {
 	enum ClientType {
 		Alex = 0;
 		Theo = 1;
-		Admin = 2;
-	} /**
+	}
+
+	/**
 	 * Environment in which the client in running
-	 */ enum
-	EnvironmentType {
+	 */
+	enum EnvironmentType {
 		Desktop = 0;
 		Web = 1;
-	} /**
+	}
+
+	/**
  	* Type of document
- 	*/ enum DocType {
+ 	*/
+ 	enum DocType {
 		Spreadsheet = 0;
 		Text = 1;
 		CAD = 2;
@@ -148,6 +86,63 @@ message TheoCloseWindow {
 	required EnvironmentType environmentType = 2;
 	required DocType documentType = 3;
 }
+
+/**
+ * Message containing all the Sally specific information
+ */
+message AlexData {
+	optional string fileName = 1;
+	optional string data = 2;
+}
+
+/**
+ * Message for Alex to initialize itself
+ */
+
+message Init {
+	optional string options = 1;
+}
+
+
+/**
+ * Screen Coordinates
+ */
+message ScreenCoordinates {
+	required int32 x = 1;
+	required int32 y = 2;
+}
+
+message Parameter {
+	required string key = 1;
+	required string value = 2;
+}
+
+
+/**
+ * --------------- Spreadsheet Alexes ----------------------------
+ */
+
+/**
+* Range Selection
+*/
+message RangeSelection {
+	required int32 startRow = 1;
+	required int32 startCol = 2;
+	required int32 endRow = 3;
+	required int32 endCol = 4;
+	optional string sheet = 5;
+}
+
+/**
+ * A spreadsheet Alex clicked
+ */
+message AlexClick {
+	required string Sheet = 1;
+	required RangeSelection range = 2;
+	required ScreenCoordinates position = 3;
+	required string fileName = 4;
+}
+
 // --------------------------------------------CAD MESSAGES-----------------------------------------------------------
 
 message CADAlexClick {
@@ -173,19 +168,6 @@ message CADSemanticData {
 }
 
 // --------------------------------------- SPREADSHEET MESSAGES-------------------------------------------------------
-
-// ++++ Basic Messages ++++
- message IdData {
-	required int32 id = 1;
-}
-
-message IdList {
-	repeated IdData ids = 1;
-}
-
-message StringData {
-	required string name = 1;
-}
 
 message CellPosition {
 // Just to be used by other messages, not directly. Use CellSpaceInformation instead.
@@ -309,9 +291,9 @@ enum DataParameter {
 
 message FBCreateData {
 	required RangeData range = 1;
-	required IdList legends = 2;
+	repeated int32 legends = 2;
 	optional DataParameter parameter = 3;
-	optional IdList connectToAll = 4;
+	repeated int32 connectToAll = 4;
 }
 
 message LegendCreateData {
@@ -455,10 +437,8 @@ message SemanticActionData {
 }
 
 message SemanticData {
-	optional string data = 1;
-	optional ProjectProperties projectConfig = 2;
-	optional ModelDataMsg absSpreadsheet = 3;
-	required string fileName = 4;
+	required string fileName = 1;
+	required SpreadsheetModel SpreadsheetModel = 2;
 } 
 
 message SpreadsheetModel {
@@ -467,7 +447,7 @@ message SpreadsheetModel {
 }
 
 message SpreadsheetOntologyPair {
-	required IdData asmid = 1;
+	required int32 asmid = 1;
 	required string uri = 2;
 }
 

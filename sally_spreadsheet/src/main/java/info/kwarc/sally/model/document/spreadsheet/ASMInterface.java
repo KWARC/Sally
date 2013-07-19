@@ -4,7 +4,6 @@ import info.kwarc.sally.model.ontology2.OntologyLinkedFB;
 import info.kwarc.sally.model.ontology2.OntologyLinkedLegendSubType;
 import info.kwarc.sally.model.ontology2.OntologyLinkedStructure;
 import info.kwarc.sally.model.ontology2.OntologyMapping;
-import info.kwarc.sally.model.ontology2.OntologySymbol;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sally.CellPosition;
-import sally.IdData;
 import sally.SpreadsheetOntologyPair;
 
 import com.hp.hpl.jena.rdf.model.Model;
@@ -41,8 +39,8 @@ public class ASMInterface {
 		return ontoMapping.getRDFModel();
 	}
 	
-	public void addOntologyLink(sally.IdData data, String ontologyURI) {
-		AbstractStructure structure = modelAdmin.getStructureForId(data.getId());
+	public void addOntologyLink(Integer data, String ontologyURI) {
+		AbstractStructure structure = modelAdmin.getStructureForId(data);
 		OntologyLinkedStructure ontoStructure = null;
 		
 		if (structure instanceof Legend) {
@@ -74,21 +72,19 @@ public class ASMInterface {
 		return link.getMainURI();
 	}
 	
-	public sally.IdData getWorksheetIDByName(sally.StringData name) {
+	public Integer getWorksheetIDByName(String name) {
 		int id = -1;
-		if (worksheetNames.containsKey(name.getName()))
-			id = worksheetNames.get(name.getName());
+		if (worksheetNames.containsKey(name))
+			id = worksheetNames.get(name);
 		else {
 			int maxId = 0;
 			for (Integer i : worksheetNames.values())
 				maxId = java.lang.Math.max(maxId, i);
 			id = maxId+1;
-			worksheetNames.put(name.getName(), id);
+			worksheetNames.put(name, id);
 		}
 		
-		sally.IdData.Builder idMsg = sally.IdData.newBuilder();
-		idMsg.setId(id);
-		return idMsg.build();
+		return id;
 	}
 	
 	public void setContent(sally.CellData cellInformation) {
@@ -102,7 +98,7 @@ public class ASMInterface {
 		}
 	}
 	
-	public sally.IdData createLegend(sally.LegendCreateData dataMsg ) {
+	public Integer createLegend(sally.LegendCreateData dataMsg ) {
 		setContent(dataMsg.getItems());
 		
 		List<CellSpaceInformation> legendPositions = modelAdmin.filterEmpty(convertRangeDataToPos(dataMsg.getItems()));
@@ -121,13 +117,13 @@ public class ASMInterface {
 		if (dataMsg.hasParameter()) 
 			param = StructureCreateParameter.DataParameter.values()[dataMsg.getParameter().ordinal()];
 	
-		return convertIdToMsg(modelAdmin.createLegend(new LegendMapping(modelAdmin.createAbstractElements(legendPositions, param), headerPosition, header)).getId() );
+		return modelAdmin.createLegend(new LegendMapping(modelAdmin.createAbstractElements(legendPositions, param), headerPosition, header)).getId();
 	}
 		
-	public sally.IdData createFB(sally.FBCreateData dataMsg) {
+	public Integer createFB(sally.FBCreateData dataMsg) {
 		setContent(dataMsg.getRange());
 		
-		List<Legend> legends = modelAdmin.getLegendsForIds(convertIdMsgToList(dataMsg.getLegends()));
+		List<Legend> legends = modelAdmin.getLegendsForIds(dataMsg.getLegendsList());
 		List<CellSpaceInformation> fbPositions = modelAdmin.filterEmpty(convertRangeDataToPos(dataMsg.getRange()));
 		
 		
@@ -137,29 +133,23 @@ public class ASMInterface {
 		Map<CellSpaceInformation, LegendProductEntry> domain = modelAdmin.createDomainInformation(fbPositions, legends);
 		
 		LegendProduct legendProduct = new LegendProduct(legends);
-		return convertIdToMsg(modelAdmin.createFB(new FunctionalBlockMapping(legendProduct, elements, domain)).getId() );
-
+		return modelAdmin.createFB(new FunctionalBlockMapping(legendProduct, elements, domain)).getId();
 	}
 	
-	public sally.IdList getFunctionalBlockIDs(sally.RangeSelection range) {
+	public List<Integer> getFunctionalBlockIDs(sally.RangeSelection range) {
 		CellSpaceInformation startPos = new CellSpaceInformation( range.getStartRow(), range.getStartCol());
 		CellSpaceInformation endPos = new CellSpaceInformation(range.getEndRow(), range.getEndCol());
-		return convertIdListToMsg( Util.convertFBsToIds( modelAdmin.getFBsForArea(startPos, endPos) ) );
+		return Util.convertFBsToIds( modelAdmin.getFBsForArea(startPos, endPos) );
 	}
 	
-	public sally.IdList getAllFunctionalBlocks() {
-		return convertIdListToMsg( Util.convertFBsToIds( modelAdmin.getAllFbs() ) );
+	public List<Integer> getAllFunctionalBlocks() {
+		return Util.convertFBsToIds( modelAdmin.getAllFbs() );
 	}
 
-	public sally.IdList getLabelBlockIDs(sally.RangeSelection range) {
+	public List<Integer> getLabelBlockIDs(sally.RangeSelection range) {
 		CellSpaceInformation startPos = new CellSpaceInformation(range.getStartRow(), range.getStartCol());
 		CellSpaceInformation endPos = new CellSpaceInformation(range.getEndRow(), range.getEndCol());
-		return convertIdListToMsg( Util.convertLegendsToIds( modelAdmin.getLegendsForArea(startPos, endPos) ));
-	}
-	
-	public sally.RangeSelection getBlockPosition(sally.IdData idMsg) {
-		return 	getBlockPosition(idMsg.getId());
- 
+		return Util.convertLegendsToIds( modelAdmin.getLegendsForArea(startPos, endPos) );
 	}
 	
 	public sally.RangeSelection getBlockPosition(int blockId) {
@@ -190,10 +180,10 @@ public class ASMInterface {
 			return null;
 	}
 	
-	public sally.IdList getSurroundingLegends(sally.RangeSelection range) {
+	public List<Integer> getSurroundingLegends(sally.RangeSelection range) {
 		CellSpaceInformation startPos = new CellSpaceInformation(range.getStartRow(), range.getStartCol());
 		CellSpaceInformation endPos = new CellSpaceInformation(range.getEndRow(), range.getEndCol());
-		return convertIdListToMsg( Util.convertLegendsToIds( modelAdmin.getSurroundingLegends(startPos, endPos, borderArea) ) );
+		return Util.convertLegendsToIds( modelAdmin.getSurroundingLegends(startPos, endPos, borderArea) );
 	}
 	
 	/**
@@ -210,10 +200,10 @@ public class ASMInterface {
 		return positionsMsg.build();
 	}
 	
-	public sally.IdList getLegendsinArea(sally.RangeSelection range) {
+	public List<Integer> getLegendsinArea(sally.RangeSelection range) {
 		CellSpaceInformation startPos = new CellSpaceInformation(range.getStartRow(), range.getStartCol());
 		CellSpaceInformation endPos = new CellSpaceInformation(range.getEndRow(), range.getEndCol());
-		return convertIdListToMsg( Util.convertLegendsToIds( modelAdmin.getLegendsForArea(startPos, endPos) ) );
+		return Util.convertLegendsToIds( modelAdmin.getLegendsForArea(startPos, endPos) );
 	}
 	
 	public sally.SpreadsheetModel serialize() {
@@ -221,7 +211,7 @@ public class ASMInterface {
 		model.setAsm(modelAdmin.getProtoBufRepresentation());
 		for (AbstractStructure struct : ontoMapping.getAllStructures()) {
 			model.addOntomapping(SpreadsheetOntologyPair.newBuilder()
-					.setAsmid(IdData.newBuilder().setId(struct.getId()).build())
+					.setAsmid(struct.getId())
 					.setUri(ontoMapping.getLinkingFor(struct).getMainURI())).build();
 			sally.RangeSelection range = getBlockPosition(struct.getId());
 						
@@ -246,31 +236,7 @@ public class ASMInterface {
 		return positionsMsg.build();
 	}
 	
-	private sally.IdList convertIdListToMsg(List<Integer> ids) {
-		sally.IdList.Builder idListMsg = sally.IdList.newBuilder();
-		for (Integer id : ids) {
-			sally.IdData.Builder idMsg = sally.IdData.newBuilder();
-			idMsg.setId(id);
-			idListMsg.addIds(idMsg);
-		}
-		return idListMsg.build();
-	}
-	
-	private List<Integer> convertIdMsgToList(sally.IdList idListMsg) {
-		List<Integer> ids = new ArrayList<Integer>();
-		
-		for (sally.IdData id : idListMsg.getIdsList())
-			ids.add(id.getId());
-		
-		return ids;
-	}
-	
-	private sally.IdData convertIdToMsg(int id) {
-		sally.IdData.Builder idMsg = sally.IdData.newBuilder();
-		idMsg.setId(id);
-		return idMsg.build();
-	}
-	
+
 	private List<CellSpaceInformation> convertRangeDataToPos(sally.RangeData data) {
 		List<CellSpaceInformation> positions = new ArrayList<CellSpaceInformation>();
 		for (sally.CellData cellData : data.getCellsList())
@@ -284,8 +250,8 @@ public class ASMInterface {
 			p.setDataParam( StructureCreateParameter.DataParameter.values()[msg.getParameter().ordinal()] );
 		
 		
-		if (msg.hasConnectToAll()) {
-			p.setConnectToAll( convertIdMsgToList(msg.getConnectToAll()) );
+		if (msg.getConnectToAllCount() > 0) {
+			p.setConnectToAll(msg.getConnectToAllList());
 		}
 		
 		return p;

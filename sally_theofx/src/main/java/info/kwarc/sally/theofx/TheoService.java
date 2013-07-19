@@ -23,7 +23,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import sally.IdData;
 import sally.ScreenCoordinates;
 import sally.TheoChangeWindow;
 import sally.TheoCloseWindow;
@@ -55,17 +54,16 @@ public class TheoService {
 	@SallyService
 	public void openWindow(TheoOpenWindow newWindow, SallyActionAcceptor acceptor, SallyContext context) {
 		Integer resID = r.nextInt();
-		IdData id = IdData.newBuilder().setId(resID).build();
 		openedWindows.put(resID, TheoWindow.addWindow(newWindow.getSizeY(), newWindow.getSizeX(), newWindow.getPosition().getX(), newWindow.getPosition().getY(), newWindow.getTitle(), newWindow.getUrl(), newWindow.getCookie(), true));
-		acceptor.acceptResult(id);
+		acceptor.acceptResult(resID);
 	}
 
 	@SallyService
 	public void changeWindow(TheoChangeWindow window, SallyActionAcceptor acceptor, SallyContext context) {
-		if (!openedWindows.containsKey(window.getWindowid().getId())) {
+		if (!openedWindows.containsKey(window.getWindowid())) {
 			return;
 		}
-		TheoWindow w = openedWindows.get(window.getWindowid().getId());
+		TheoWindow w = openedWindows.get(window.getWindowid());
 		
 		if (window.hasCookie()) {
 			w.setCookie(window.getCookie().getUrl(), window.getCookie().getCookie());
@@ -78,7 +76,7 @@ public class TheoService {
 	
 	@SallyService
 	public void openWindow(TheoCloseWindow window, SallyActionAcceptor acceptor, SallyContext context) {
-		Integer resID = window.getId().getId();
+		Integer resID = window.getWindowid();
 		TheoWindow wnd = openedWindows.get(resID);
 		if (wnd != null) {
 			wnd.closeWindow();

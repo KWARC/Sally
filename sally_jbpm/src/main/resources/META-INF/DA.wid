@@ -1,0 +1,22 @@
+import org.drools.process.core.datatype.impl.type.StringDataType;
+[
+  [
+    "name" : "DynamicApplicability",
+    "parameters" : [
+      "inputType" : new StringDataType(),
+      "outputType" : new StringDataType(),
+    ],
+    "displayName" : "DynamicApply",
+    "icon" : "icons/DA.png"
+  ],
+
+  [
+    "name" : "SallyTask",
+    "parameters" : [
+      "actionId" : new StringDataType(),
+    ],
+    "displayName" : "Sally Task",
+    "icon" : "icons/DA.png"
+  ]
+  
+]

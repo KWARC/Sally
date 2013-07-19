@@ -6,19 +6,17 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Arrays;
+import java.util.List;
 
 import sally.CellData;
 import sally.CellPosition;
 import sally.DataParameter;
 import sally.FBCreateData;
-import sally.IdData;
-import sally.IdList;
 import sally.LegendCreateData;
-import sally.ModelDataMsg;
 import sally.RangeData;
 import sally.RangeData.Builder;
 import sally.SpreadsheetModel;
-import sally.StringData;
 
 import com.hp.hpl.jena.rdf.model.Model;
 
@@ -29,14 +27,14 @@ public class IUIPaperData {
 		asm = new ASMInterface("http://iui-paper");
 	}
 
-	IdData createRowFB(int sheet, int startRow, int startCol, String [] content, IdData [] ids) {
+	Integer createRowFB(int sheet, int startRow, int startCol, String [] content, Integer [] ids) {
 		if (content.length == 0) {
 			return null;
 		}
 		return createFB(sheet, startRow, startCol, startRow, startCol+content.length-1, new String[][] {content}, ids);
 	}
 
-	IdData createColFB(int sheet, int startRow, int startCol, String [] content, IdData [] ids) {
+	Integer createColFB(int sheet, int startRow, int startCol, String [] content, Integer [] ids) {
 		if (content.length == 0) {
 			return null;
 		}
@@ -46,7 +44,7 @@ public class IUIPaperData {
 		return createFB(sheet, startRow, startCol, startRow+content.length-1, startCol, c, ids);
 	}
 
-	IdData createFB(int sheet, int startRow, int startCol, int endRow, int endCol, String [][] content, IdData [] ids) {
+	Integer createFB(int sheet, int startRow, int startCol, int endRow, int endCol, String [][] content, Integer [] ids) {
 		FBCreateData.Builder createData = FBCreateData.newBuilder();
 		RangeData.Builder range = RangeData.newBuilder();
 		for (int i=startRow; i<=endRow; ++i) {
@@ -56,24 +54,21 @@ public class IUIPaperData {
 			}
 		}
 		createData.setRange(range.build());
-		IdList.Builder list = IdList.newBuilder();
-		for (IdData data : ids) {
-			list.addIds(data);
-		}
-		createData.setLegends(list.build());
+		List<Integer> list = Arrays.asList(ids); 
+		createData.addAllLegends(list);
 		createData.setParameter(DataParameter.SameContentSameElement);
 		return asm.createFB(createData.build());
 	}
 
 	// This should be used for header and titles of data
-	IdData setHeaderLabel(int sheet, int startRow, int startCol, int length, String text) {
+	Integer setHeaderLabel(int sheet, int startRow, int startCol, int length, String text) {
 		String [] names = new String[length];
 		for (int i=0; i<length; ++i)
 			names[i] = text;
 		return setRowTableHeaders(sheet, startRow, startCol, names);
 	}
 
-	IdData setRowTableHeaders(int sheet, int startRow, int startCol, String [] text) {
+	Integer setRowTableHeaders(int sheet, int startRow, int startCol, String [] text) {
 		Builder rangeData = RangeData.newBuilder();
 		for (int i=0; i<text.length; ++i) {
 			CellData data = CellData.newBuilder().setPosition(sally.CellSpaceInformation.newBuilder().setWidth(1).setHeight(1).setPosition( sally.CellPosition.newBuilder().setSheet(sheet).setCol(i+startCol).setRow(startRow).build()).build()).setValue(text[i]).build();
@@ -82,7 +77,7 @@ public class IUIPaperData {
 		return asm.createLegend(LegendCreateData.newBuilder().setFileName("IUI.xls").setItems(rangeData).setParameter(DataParameter.SameContentSameElement).build());
 	}
 
-	IdData setColTableHeaders(int sheet, int startRow, int startCol, String [] text) {
+	Integer setColTableHeaders(int sheet, int startRow, int startCol, String [] text) {
 		Builder rangeData = RangeData.newBuilder();
 		for (int i=0; i<text.length; ++i) {
 			CellData data = CellData.newBuilder().setPosition(sally.CellSpaceInformation.newBuilder().setWidth(1).setHeight(1).setPosition( sally.CellPosition.newBuilder().setSheet(sheet).setCol(startCol).setRow(startRow+i).build()).build()).setValue(text[i]).build();
@@ -97,27 +92,27 @@ public class IUIPaperData {
 	}
 	
 	public void buildComareSheet() {
-		IdData workSheetid = asm.getWorksheetIDByName(StringData.newBuilder().setName("Pricing").build());
+		Integer workSheetid = asm.getWorksheetIDByName("Pricing");
 
-		IdData tableProps = setRowTableHeaders(workSheetid.getId(), 7, 1, new String[] {"Component", "Thread", "Color", "Head", "Type", "Quantity per flange"});
+		Integer tableProps = setRowTableHeaders(workSheetid, 7, 1, new String[] {"Component", "Thread", "Color", "Head", "Type", "Quantity per flange"});
 
-		IdData componentCol = setColTableHeaders(workSheetid.getId(), 8, 1, new String[] {"bolt", "nut", "gasket", "flange", "blind flange"});
-		IdData threadCol = setColTableHeaders(workSheetid.getId(), 8, 2, new String[] { "M15", "M15", "_", "M15", "M15"});
-		IdData colorCol = setColTableHeaders(workSheetid.getId(), 8, 3, new String[] { "black", "black", "_", "black", "black"});
-		IdData headCol = setColTableHeaders(workSheetid.getId(), 8, 4, new String[] { "machine", "_", "_", "_", "_"});
-		IdData typeCol = setColTableHeaders(workSheetid.getId(), 8, 5, new String[] { "_", "_", "standard", "_", "_"});
-		IdData quantityCol = setColTableHeaders(workSheetid.getId(), 8, 6, new String[] { "6", "6", "1", "1", "1"});
+		Integer componentCol = setColTableHeaders(workSheetid, 8, 1, new String[] {"bolt", "nut", "gasket", "flange", "blind flange"});
+		Integer threadCol = setColTableHeaders(workSheetid, 8, 2, new String[] { "M15", "M15", "_", "M15", "M15"});
+		Integer colorCol = setColTableHeaders(workSheetid, 8, 3, new String[] { "black", "black", "_", "black", "black"});
+		Integer headCol = setColTableHeaders(workSheetid, 8, 4, new String[] { "machine", "_", "_", "_", "_"});
+		Integer typeCol = setColTableHeaders(workSheetid, 8, 5, new String[] { "_", "_", "standard", "_", "_"});
+		Integer quantityCol = setColTableHeaders(workSheetid, 8, 6, new String[] { "6", "6", "1", "1", "1"});
 
-		IdData vendorA = setHeaderLabel(workSheetid.getId(), 5, 7, 2, "Vendor A");
-		IdData vendorB = setHeaderLabel(workSheetid.getId(), 5, 9, 2, "Vendor B");
-		IdData vendorC = setHeaderLabel(workSheetid.getId(), 5, 11, 2, "Vendor C");
+		Integer vendorA = setHeaderLabel(workSheetid, 5, 7, 2, "Vendor A");
+		Integer vendorB = setHeaderLabel(workSheetid, 5, 9, 2, "Vendor B");
+		Integer vendorC = setHeaderLabel(workSheetid, 5, 11, 2, "Vendor C");
 		
-		IdData costByPieceVendorA = createColFB(workSheetid.getId(), 8, 7, new String[] {"0.450 EUR", "0.460 EUR", "0.300 EUR", "0.310 EUR", "0.340 EUR"}, new IdData [] {componentCol, threadCol, colorCol, headCol, typeCol, quantityCol, vendorA});
-		IdData costTotalVendorA = createColFB(workSheetid.getId(), 8, 8, new String[] {"0.450 EUR", "0.460 EUR", "0.300 EUR", "0.310 EUR", "0.340 EUR"}, new IdData [] {componentCol, threadCol, colorCol, headCol, typeCol, quantityCol, vendorA});
-		IdData costByPieceVendorB = createColFB(workSheetid.getId(), 8, 9, new String[] {"0.450 EUR", "0.460 EUR", "0.300 EUR", "0.310 EUR", "0.340 EUR"}, new IdData [] {componentCol, threadCol, colorCol, headCol, typeCol, quantityCol, vendorB});
-		IdData costTotalVendorB = createColFB(workSheetid.getId(), 8, 10, new String[] {"0.450 EUR", "0.460 EUR", "0.300 EUR", "0.310 EUR", "0.340 EUR"}, new IdData [] {componentCol, threadCol, colorCol, headCol, typeCol, quantityCol, vendorB});
-		IdData costByPieceVendorC = createColFB(workSheetid.getId(), 8, 11, new String[] {"0.450 EUR", "0.460 EUR", "0.300 EUR", "0.310 EUR", "0.340 EUR"}, new IdData [] {componentCol, threadCol, colorCol, headCol, typeCol, quantityCol, vendorC});
-		IdData costTotalVendorC = createColFB(workSheetid.getId(), 8, 12, new String[] {"0.450 EUR", "0.460 EUR", "0.300 EUR", "0.310 EUR", "0.340 EUR"}, new IdData [] {componentCol, threadCol, colorCol, headCol, typeCol, quantityCol, vendorC});
+		Integer costByPieceVendorA = createColFB(workSheetid, 8, 7, new String[] {"0.450 EUR", "0.460 EUR", "0.300 EUR", "0.310 EUR", "0.340 EUR"}, new Integer [] {componentCol, threadCol, colorCol, headCol, typeCol, quantityCol, vendorA});
+		Integer costTotalVendorA = createColFB(workSheetid, 8, 8, new String[] {"0.450 EUR", "0.460 EUR", "0.300 EUR", "0.310 EUR", "0.340 EUR"}, new Integer [] {componentCol, threadCol, colorCol, headCol, typeCol, quantityCol, vendorA});
+		Integer costByPieceVendorB = createColFB(workSheetid, 8, 9, new String[] {"0.450 EUR", "0.460 EUR", "0.300 EUR", "0.310 EUR", "0.340 EUR"}, new Integer [] {componentCol, threadCol, colorCol, headCol, typeCol, quantityCol, vendorB});
+		Integer costTotalVendorB = createColFB(workSheetid, 8, 10, new String[] {"0.450 EUR", "0.460 EUR", "0.300 EUR", "0.310 EUR", "0.340 EUR"}, new Integer [] {componentCol, threadCol, colorCol, headCol, typeCol, quantityCol, vendorB});
+		Integer costByPieceVendorC = createColFB(workSheetid, 8, 11, new String[] {"0.450 EUR", "0.460 EUR", "0.300 EUR", "0.310 EUR", "0.340 EUR"}, new Integer [] {componentCol, threadCol, colorCol, headCol, typeCol, quantityCol, vendorC});
+		Integer costTotalVendorC = createColFB(workSheetid, 8, 12, new String[] {"0.450 EUR", "0.460 EUR", "0.300 EUR", "0.310 EUR", "0.340 EUR"}, new Integer [] {componentCol, threadCol, colorCol, headCol, typeCol, quantityCol, vendorC});
 
 		asm.addOntologyLink(componentCol, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/components.omdoc?component?component");
 		asm.addOntologyLink(threadCol, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexthread.omdoc?ISOhexthread?ISOhexthread");
@@ -140,26 +135,26 @@ public class IUIPaperData {
 	}
 	
 	public void buildVendorA() {
-		IdData workSheetid = asm.getWorksheetIDByName(StringData.newBuilder().setName("Vendor A").build());
+		Integer workSheetid = asm.getWorksheetIDByName("Vendor A");
 		
-		IdData vendA = setHeaderLabel(workSheetid.getId(), 1, 1, 8, "Price List of Vendor A");
+		Integer vendA = setHeaderLabel(workSheetid, 1, 1, 8, "Price List of Vendor A");
 		asm.addOntologyLink(vendA, "http://info.kwarc.sissi.winograd/vendor-A");
 		
 		
-		IdData discountMinQuantity = setRowTableHeaders(workSheetid.getId(), 4, 1, new String[] {"100", "1000", "10000", ">10000"} );
-		IdData discountRatesFB = createRowFB(workSheetid.getId(), 5, 1, new String[] {"100.000%", "99.000%", "95.000%", "90.000%"}, new IdData [] {vendA, discountMinQuantity});
+		Integer discountMinQuantity = setRowTableHeaders(workSheetid, 4, 1, new String[] {"100", "1000", "10000", ">10000"} );
+		Integer discountRatesFB = createRowFB(workSheetid, 5, 1, new String[] {"100.000%", "99.000%", "95.000%", "90.000%"}, new Integer [] {vendA, discountMinQuantity});
 		asm.addOntologyLink(discountMinQuantity, "http://info.kwarc.sissi.winograd/discount-min-quantities");
 		asm.addOntologyLink(discountRatesFB, "http://info.kwarc.sissi.winograd/discount-rates");
 		
-		IdData tableProps = setRowTableHeaders(workSheetid.getId(), 7, 1, new String[] {"Component", "Thread", "Color", "Head", "Type", "Basic Price"});
+		Integer tableProps = setRowTableHeaders(workSheetid, 7, 1, new String[] {"Component", "Thread", "Color", "Head", "Type", "Basic Price"});
 
-		IdData componentCol = setColTableHeaders(workSheetid.getId(), 8, 1, new String[] {"bolt", "bolt", "bolt", "bolt", "bolt", "bolt", "bolt", "bolt", "nut", "nut", "gasket", "flange", "flange", "flange", "blind flange", "blind flange", "blind flange" });
-		IdData threadCol = setColTableHeaders(workSheetid.getId(), 8, 2, new String[] { "M15", "M15", "M15", "M15", "M15", "M15", "M16", "M16", "M15", "M16", "_", "M15", "M15", "M16", "M15", "M16", "M17"});
-		IdData colorCol = setColTableHeaders(workSheetid.getId(), 8, 3, new String[] { "silver", "silver", "black", "silver", "red", "black", "black", "black", "black", "black", "_", "black", "silver", "black", "black", "black", "black"});
-		IdData headCol = setColTableHeaders(workSheetid.getId(), 8, 4, new String[] { "carriage", "stove", "machine", "machine", "machine", "machine", "machine", "machine", "_", "_", "_", "_", "_", "_", "_", "_", "_" });
-		IdData typeCol = setColTableHeaders(workSheetid.getId(), 8, 5, new String[] { "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "standard", "_", "_", "_", "_", "_", "_"});
+		Integer componentCol = setColTableHeaders(workSheetid, 8, 1, new String[] {"bolt", "bolt", "bolt", "bolt", "bolt", "bolt", "bolt", "bolt", "nut", "nut", "gasket", "flange", "flange", "flange", "blind flange", "blind flange", "blind flange" });
+		Integer threadCol = setColTableHeaders(workSheetid, 8, 2, new String[] { "M15", "M15", "M15", "M15", "M15", "M15", "M16", "M16", "M15", "M16", "_", "M15", "M15", "M16", "M15", "M16", "M17"});
+		Integer colorCol = setColTableHeaders(workSheetid, 8, 3, new String[] { "silver", "silver", "black", "silver", "red", "black", "black", "black", "black", "black", "_", "black", "silver", "black", "black", "black", "black"});
+		Integer headCol = setColTableHeaders(workSheetid, 8, 4, new String[] { "carriage", "stove", "machine", "machine", "machine", "machine", "machine", "machine", "_", "_", "_", "_", "_", "_", "_", "_", "_" });
+		Integer typeCol = setColTableHeaders(workSheetid, 8, 5, new String[] { "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "standard", "_", "_", "_", "_", "_", "_"});
 
-		IdData cost = createColFB(workSheetid.getId(), 8, 6, new String[] {"0.450 EUR", "0.460 EUR", "0.300 EUR", "0.310 EUR", "0.340 EUR", "0.350 EUR", "0.300 EUR", "0.350 EUR", "0.504 EUR", "0.498 EUR", "2.040 EUR", "1.080 EUR", "1.080 EUR", "1.090 EUR", "0.888 EUR", "0.888 EUR", "0.888 EUR"}, new IdData [] {componentCol, threadCol, colorCol, headCol, typeCol});
+		Integer cost = createColFB(workSheetid, 8, 6, new String[] {"0.450 EUR", "0.460 EUR", "0.300 EUR", "0.310 EUR", "0.340 EUR", "0.350 EUR", "0.300 EUR", "0.350 EUR", "0.504 EUR", "0.498 EUR", "2.040 EUR", "1.080 EUR", "1.080 EUR", "1.090 EUR", "0.888 EUR", "0.888 EUR", "0.888 EUR"}, new Integer [] {componentCol, threadCol, colorCol, headCol, typeCol});
 		
 		asm.addOntologyLink(componentCol, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?ISOhexbolt");
 		asm.addOntologyLink(threadCol, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexthread.omdoc?ISOhexthread?ISOhexthread");
@@ -213,7 +208,7 @@ public class IUIPaperData {
 		t.writeRDF();
 		t.writeProto();
 		
-		IdData workSheetid = t.getAsm().getWorksheetIDByName(StringData.newBuilder().setName("Vendor A").build());
-		System.out.println(t.getAsm().getOntologyForPosition(CellPosition.newBuilder().setSheet(workSheetid.getId()).setRow(8).setCol(2).build()));
+		Integer workSheetid = t.getAsm().getWorksheetIDByName("Vendor A");
+		System.out.println(t.getAsm().getOntologyForPosition(CellPosition.newBuilder().setSheet(workSheetid).setRow(8).setCol(2).build()));
 	}
 }

@@ -8,7 +8,6 @@ import info.kwarc.sally.core.comm.SallyMenuItem;
 
 import javax.ws.rs.GET;
 
-import sally.IdData;
 import sally.RangeSelection;
 import sally.ScreenCoordinates;
 import sally.TheoOpenWindow;
@@ -29,7 +28,7 @@ public class ASMEditor {
 					.setPosition(ScreenCoordinates.newBuilder().setX(100).setY(100).build())
 					.setSizeX(400).setSizeY(500).setTitle("Create Link to Ontology")
 					.setUrl("http://localhost:8080/asmeditor?s="+session).build();
-				IdData wndid = sally.getOneInteraction(window, IdData.class);
+				Integer wndid = sally.getOneInteraction(window, Integer.class);
 				context.setContextVar("ACMEditorWindowID", wndid);
 			}
 		});	

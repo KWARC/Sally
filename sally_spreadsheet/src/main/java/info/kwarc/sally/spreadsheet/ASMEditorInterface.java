@@ -21,7 +21,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sally.Cookie;
-import sally.IdData;
 import sally.RangeSelection;
 import sally.TheoChangeWindow;
 import freemarker.template.TemplateException;
@@ -91,7 +90,7 @@ public class ASMEditorInterface {
 			if (cookie != null)
 				op.setCookie(cookie);
 
-			IdData wndID = context.getContextVar("ACMEditorWindowID", IdData.class);
+			Integer wndID = context.getContextVar("ACMEditorWindowID", Integer.class);
 			if (wndID != null)
 				op.setWindowid(wndID);
 

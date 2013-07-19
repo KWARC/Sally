@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import sally.IdData;
 import sally.ScreenCoordinates;
 import sally.TheoOpenWindow;
 
@@ -54,7 +53,7 @@ public class PathAliasManager {
 				.setSizeX(400).setSizeY(300).setPosition(ScreenCoordinates.newBuilder().setX(300).setY(300))
 				.setUrl("http://localhost:8080/aliasmanager").build();
 		context.setContextVar("msg", "Alias path '"+prefix+"' is now known. Please use the form below to define it.");
-		IdData wndID = context.getCurrentInteraction().getOneInteraction(wnd, IdData.class);
+		Integer wndID = context.getCurrentInteraction().getOneInteraction(wnd, Integer.class);
 	}
 
 }

@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>sally_comm</name>
+	<name>sally_jbpm</name>
 	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
 		<buildCommand>
-			<name>org.eclipse.xtext.ui.shared.xtextBuilder</name>
+			<name>org.eclipse.jdt.core.javabuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.eclipse.jdt.core.javabuilder</name>
+			<name>org.hibernate.eclipse.console.hibernateBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.bpmn2.modeler.core.bpmn2Builder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
@@ -24,6 +29,7 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.m2e.core.maven2Nature</nature>
-		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
+		<nature>org.hibernate.eclipse.console.hibernateNature</nature>
+		<nature>org.eclipse.bpmn2.modeler.core.bpmn2Nature</nature>
 	</natures>
 </projectDescription>

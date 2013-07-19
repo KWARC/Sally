@@ -9,7 +9,7 @@ import java.util.HashMap;
 import org.apache.commons.codec.binary.Base64;
 import org.eclipse.jetty.util.ajax.JSON;
 
-import sally.SemanticData;
+import sally.AlexData;
 import sally.SpreadsheetModel;
 import sally.WhoAmI;
 import sally.WhoAmI.ClientType;
@@ -45,7 +45,7 @@ public class WorksheetFactory {
 	}
 	
 	@SallyService(channel="/service/sissi/loadSemanticData")
-	public void createWorksheet(SemanticData msg, SallyActionAcceptor acceptor, SallyContext context) {
+	public void createWorksheet(AlexData msg, SallyActionAcceptor acceptor, SallyContext context) {
 		WorksheetDocument doc = new WorksheetDocument(msg.getFileName());
 		
 		if (msg.hasData()) {

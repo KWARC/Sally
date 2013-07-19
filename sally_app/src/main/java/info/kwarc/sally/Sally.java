@@ -1,7 +1,6 @@
 package info.kwarc.sally;
 
 import info.kwarc.sally.core.SallyInteraction;
-import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.comm.SallyModelRequest;
 import info.kwarc.sally.networking.cometd.CometD;
 import info.kwarc.sally.planetary.Planetary;
@@ -16,12 +15,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
-
-import sally.AlexClick;
-import sally.CADAlexClick;
-import sally.MMTUri;
-import sally.RangeSelection;
-import sally.ScreenCoordinates;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
