@@ -96,6 +96,13 @@ message AlexData {
 }
 
 /**
+ * Message telling sally to show the Sally Frames
+ */
+message SallyFrame {
+	optional string fileName = 1;
+}
+
+/**
  * Message for Alex to initialize itself
  */
 

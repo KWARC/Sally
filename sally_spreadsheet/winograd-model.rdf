@@ -1,0 +1,337 @@
+<rdf:RDF
+    xmlns:asm="http://www.kwarc.info/sally/asm#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:im="http://www.kwarc.info/sally/im#"
+    xmlns:csm="http://www.kwarc.info/sally/csm#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" > 
+  <rdf:Description rdf:about="http://fex-paper/lb/7/machine">
+    <rdfs:label>machine</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?nutbolt?head"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/7/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/fb/9/value-13">
+    <asm:valueOf rdf:resource="http://fex-paper/lb/8/_"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/5/M17"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/4/blind flange"/>
+    <rdf:value>0.888 €</rdf:value>
+    <asm:partOfFunctionalBlock rdf:resource="http://fex-paper/fb/9"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/5/M15"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/7/_"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/6/black"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/5/M16"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/8/standard">
+    <rdfs:label>standard</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?solidobj?type"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/8/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/fb/9/value-7">
+    <asm:valueOf rdf:resource="http://fex-paper/lb/6/black"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/8/_"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/7/_"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/6/silver"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/5/M15"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/4/flange"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://fex-paper/fb/9"/>
+    <rdf:value>1.080 €</rdf:value>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/6/black">
+    <rdfs:label>black</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?color?color "/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/6/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/fb/2/value-2">
+    <asm:valueOf rdf:resource="http://fex-paper/lb/1/1000"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/0/Price List of Vendor A"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://fex-paper/fb/2"/>
+    <rdf:value>99.000%</rdf:value>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/6/silver">
+    <rdfs:label>silver</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?color?color "/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/6/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/6/red">
+    <rdfs:label>red</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?color?color "/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/6/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/4/gasket">
+    <rdfs:label>gasket</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?solidobj?type"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/4/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/1/&gt;10000">
+    <rdfs:label>&gt;10000</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?minimum-purchase"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/1/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/4/nut">
+    <rdfs:label>nut</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?solidobj?type"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/4/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/1/100">
+    <rdfs:label>100</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?minimum-purchase"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/1/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/fb/9/value-14">
+    <asm:valueOf rdf:resource="http://fex-paper/lb/8/_"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/7/_"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/6/black"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/5/M15"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/4/nut"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://fex-paper/fb/9"/>
+    <rdf:value>0.504 €</rdf:value>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/4/bolt">
+    <rdfs:label>bolt</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?solidobj?type"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/4/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/fb/9/value-8">
+    <asm:valueOf rdf:resource="http://fex-paper/lb/8/_"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/7/carriage"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/6/silver"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/5/M15"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/4/bolt"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://fex-paper/fb/9"/>
+    <rdf:value>0.450 €</rdf:value>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/fb/9">
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?price"/>
+    <asm:partOfFile rdf:resource="http://fex-paper"/>
+    <rdf:type rdf:nodeID="A0"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/7/stove">
+    <rdfs:label>stove</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?nutbolt?head"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/7/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/fb/2/value-3">
+    <asm:valueOf rdf:resource="http://fex-paper/lb/1/10000"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/0/Price List of Vendor A"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://fex-paper/fb/2"/>
+    <rdf:value>95.000%</rdf:value>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/fb/2">
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?discount"/>
+    <asm:partOfFile rdf:resource="http://fex-paper"/>
+    <rdf:type rdf:nodeID="A1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/5/M15">
+    <rdfs:label>M15</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?thread?screw-thread"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/5/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/4/blind flange">
+    <rdfs:label>blind flange</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?solidobj?type"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/4/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A1">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/0/">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+    <asm:partOfFile rdf:resource="http://fex-paper"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/1/">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+    <asm:partOfFile rdf:resource="http://fex-paper"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/fb/9/value-4">
+    <asm:valueOf rdf:resource="http://fex-paper/lb/8/_"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/7/machine"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/6/silver"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/5/M15"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/4/bolt"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://fex-paper/fb/9"/>
+    <rdf:value>0.310 €</rdf:value>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/fb/9/value-10">
+    <asm:valueOf rdf:resource="http://fex-paper/lb/5/M16"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/8/_"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/7/machine"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/6/black"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/5/M15"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/4/bolt"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://fex-paper/fb/9"/>
+    <rdf:value>0.350 €</rdf:value>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/1/10000">
+    <rdfs:label>10000</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?minimum-purchase"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/1/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/fb/9/value-11">
+    <asm:valueOf rdf:resource="http://fex-paper/lb/8/standard"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/7/_"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/6/_"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/5/_"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/4/gasket"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://fex-paper/fb/9"/>
+    <rdf:value>2.040 €</rdf:value>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/7/carriage">
+    <rdfs:label>carriage</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?nutbolt?head"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/7/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/8/">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+    <asm:partOfFile rdf:resource="http://fex-paper"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/fb/2/value-4">
+    <asm:valueOf rdf:resource="http://fex-paper/lb/1/100"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/0/Price List of Vendor A"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://fex-paper/fb/2"/>
+    <rdf:value>100.000%</rdf:value>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/5/M16">
+    <rdfs:label>M16</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?thread?screw-thread"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/5/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/fb/9/value-9">
+    <asm:valueOf rdf:resource="http://fex-paper/lb/8/_"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/7/machine"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/6/red"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/5/M15"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/4/bolt"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://fex-paper/fb/9"/>
+    <rdf:value>0.340 €</rdf:value>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/fb/9/value-15">
+    <asm:valueOf rdf:resource="http://fex-paper/lb/8/_"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/7/_"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/6/black"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/5/M16"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/4/flange"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://fex-paper/fb/9"/>
+    <rdf:value>1.090 €</rdf:value>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/5/">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+    <asm:partOfFile rdf:resource="http://fex-paper"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A0">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/1/1000">
+    <rdfs:label>1000</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?minimum-purchase"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/1/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/fb/9/value-5">
+    <asm:valueOf rdf:resource="http://fex-paper/lb/8/_"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/7/stove"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/6/silver"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/5/M15"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/4/bolt"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://fex-paper/fb/9"/>
+    <rdf:value>0.460 €</rdf:value>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/0/Price List of Vendor A">
+    <rdfs:label>Price List of Vendor A</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?seller"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/0/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/4/">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+    <asm:partOfFile rdf:resource="http://fex-paper"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/8/_">
+    <rdfs:label>_</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?solidobj?type"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/8/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/5/M17">
+    <rdfs:label>M17</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?thread?screw-thread"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/5/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/7/">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+    <asm:partOfFile rdf:resource="http://fex-paper"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/6/">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+    <asm:partOfFile rdf:resource="http://fex-paper"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/6/_">
+    <rdfs:label>_</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?color?color "/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/6/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/fb/9/value-6">
+    <asm:valueOf rdf:resource="http://fex-paper/lb/8/_"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/7/_"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/6/black"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/5/M16"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/4/nut"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://fex-paper/fb/9"/>
+    <rdf:value>0.498 €</rdf:value>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/5/_">
+    <rdfs:label>_</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?thread?screw-thread"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/5/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/4/flange">
+    <rdfs:label>flange</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?solidobj?type"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/4/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/7/_">
+    <rdfs:label>_</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?nutbolt?head"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/7/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/fb/2/value-1">
+    <asm:valueOf rdf:resource="http://fex-paper/lb/1/&gt;10000"/>
+    <asm:valueOf rdf:resource="http://fex-paper/lb/0/Price List of Vendor A"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://fex-paper/fb/2"/>
+    <rdf:value>90.000%</rdf:value>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+</rdf:RDF>

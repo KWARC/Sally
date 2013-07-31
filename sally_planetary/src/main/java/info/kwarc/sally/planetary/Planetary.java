@@ -1,12 +1,15 @@
 package info.kwarc.sally.planetary;
 
-import info.kwarc.sally.core.SallyActionAcceptor;
 import info.kwarc.sally.core.SallyContext;
+import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyService;
 import info.kwarc.sally.core.comm.SallyMenuItem;
+import info.kwarc.sally.core.interfaces.Theo;
+import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
@@ -19,15 +22,35 @@ import org.apache.xmlrpc.client.XmlRpcSunHttpTransport;
 import org.apache.xmlrpc.client.XmlRpcSunHttpTransportFactory;
 import org.apache.xmlrpc.client.XmlRpcTransport;
 import org.apache.xmlrpc.client.XmlRpcTransportFactory;
+import org.drools.runtime.process.ProcessInstance;
 import org.slf4j.Logger;
 
 import sally.Cookie;
 import sally.MMTUri;
-import sally.ScreenCoordinates;
-import sally.TheoOpenWindow;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.google.inject.name.Named;
+
+@Singleton
 public class Planetary {
 	String sessionCookie;
+	ISallyKnowledgeBase kb;
+	
+	@Inject
+	public Planetary(@Named("PlanetaryURL")String planetaryRoot, 
+					 @Named("PlanetaryEndPoint") String endPoint, 
+					 @Named("PlanetaryUser") String user, 
+					 @Named("PLanetaryPassword") String password,
+					 Theo theo,
+					 ISallyKnowledgeBase kb) {
+		endpointURL = planetaryRoot+"/"+endPoint;
+		this.kb = kb;
+		this.root = planetaryRoot;
+		this.user = user;
+		this.password = password;
+		this.theo = theo;
+	}
 
 	static final String METHOD_SYSTEM_CONNECT = "system.connect";
 	static final String METHOD_USER_LOGOUT = "user.logout";
@@ -40,6 +63,7 @@ public class Planetary {
 	String user; 
 	String password;
 	String root;
+	Theo theo;
 	
 	public String getDefinitionLookupURL(String mmtURI) {
 		String [] splits = mmtURI.split("\\?");
@@ -47,39 +71,24 @@ public class Planetary {
 	}
 	
 	@SallyService
-	public void getServiceURI(ListOntologyConcepts request, SallyActionAcceptor acceptor, final SallyContext context) {
+	public void getServiceURI(ListOntologyConcepts request, SallyInteractionResultAcceptor acceptor, final SallyContext context) {
 		String cookie = getSessionCookie();
 		context.setContextVar("Cookie", Cookie.newBuilder().setCookie(cookie).setUrl(root).build());
 		acceptor.acceptResult(root);
 	}
 	
 	@SallyService
-	public void planetaryServices(final MMTUri mmtURI, SallyActionAcceptor acceptor, final SallyContext context) {
-		ScreenCoordinates coords;
-		if (context.getContextVar("preferred_position") instanceof ScreenCoordinates) {
-			coords = (ScreenCoordinates) context.getContextVar("preferred_position");
-		} else {
-			coords = ScreenCoordinates.newBuilder().setX(200).setY(400).build();
-		}
-		
-		final TheoOpenWindow.Builder openWindow = TheoOpenWindow
-				.newBuilder()
-				.setSizeX(500).setSizeY(350)
-				.setPosition(coords);
-	
+	public void planetaryServices(final MMTUri mmtURI, SallyInteractionResultAcceptor acceptor, final SallyContext context) {
 		acceptor.acceptResult(new SallyMenuItem("Knowledge Base", "Definition Lookup") {
-			public void run() {			
-				openWindow.setTitle("Definition Lookup").setUrl(getDefinitionLookupURL(mmtURI.getUri()));
-				context.getCurrentInteraction().getOneInteraction(openWindow.build(), Boolean.class);
-				System.out.println("Doing definition lookup "+ openWindow.build());
+			public void run() {
+				HashMap<String, Object>  input = new  HashMap<String, Object>();
+				ProcessInstance processInstance = kb.getKnowledgeSession().startProcess("Sally.deflookup", input);
+				processInstance .signalEvent("Message-input", getDefinitionLookupURL(mmtURI.getUri()));
 			}
 		});
 
 		acceptor.acceptResult(new SallyMenuItem("Knowledge Base", "Semantic Navigation") {
 			public void run() {			
-				openWindow.setTitle("Definition Lookup").setUrl(getDefinitionLookupURL(mmtURI.getUri()));
-				context.getCurrentInteraction().getOneInteraction(openWindow.build(), Boolean.class);
-				System.out.println("Doing definition lookup "+ openWindow.build());
 			}
 		});
 	}
@@ -131,12 +140,6 @@ public class Planetary {
 		sessionCookie = null;
 	}
 
-	public Planetary(String planetaryRoot, String endPoint, String user, String password) {
-		endpointURL = planetaryRoot+"/"+endPoint;
-		this.root = planetaryRoot;
-		this.user = user;
-		this.password = password;
-	}
 
 	public void enable_sally(String service) {
 		try {

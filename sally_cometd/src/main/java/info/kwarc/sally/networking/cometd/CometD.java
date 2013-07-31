@@ -3,7 +3,7 @@ package info.kwarc.sally.networking.cometd;
 import java.io.IOException;
 import java.io.StringWriter;
 
-import info.kwarc.sally.core.SallyActionAcceptor;
+import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.core.SallyService;
@@ -59,7 +59,7 @@ public class CometD {
 	}
 	
 	@SallyService
-	public void sendMsg(CometDSendRequest request, SallyActionAcceptor acceptor, SallyContext context) {
+	public void sendMsg(CometDSendRequest request, SallyInteractionResultAcceptor acceptor, SallyContext context) {
 		log.debug(String.format("<-- [%s]: %s", request.getChannel(), request.getMsg().getClass().getName()));
 		
 		ServerSession sess = getBayeux().getSession(request.getClientID());
@@ -67,7 +67,7 @@ public class CometD {
 	}
 	
 	@SallyService(channel="/template/generate")
-	public void generateTemplate(TemplateRequest request, SallyActionAcceptor acceptor, SallyContext context) {
+	public void generateTemplate(TemplateRequest request, SallyInteractionResultAcceptor acceptor, SallyContext context) {
 		try {
 			StringWriter w = new StringWriter();
 			Template tpl = cfg.getTemplate(request.getTemplatePath());

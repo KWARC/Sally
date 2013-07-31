@@ -10,12 +10,14 @@
 	<name>Sally Project</name>
 
 	<modules>
+		<module>sally_app</module>
 		<module>sally_core</module>
 		<module>sally_comm</module>
 		<module>sally_planetary</module>
 		<module>sally_theofx</module>
 		<module>sally_cometd</module>
 		<module>sally_spreadsheet</module>
+		<module>sally_cad</module>
 		<module>sally_jedit</module>
 		<module>sally_projects</module>
 		<module>sally_theoxul</module>
@@ -45,22 +47,41 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.2</version>
-		</dependency>
 
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.2</version>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.0.13</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
 			<version>3.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.inject.extensions</groupId>
+			<artifactId>guice-assistedinject</artifactId>
+			<version>3.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-bpmn2</artifactId>
+			<version>5.4.0.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-test</artifactId>
+			<version>5.4.0.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>xml-apis</groupId>
+			<artifactId>xml-apis</artifactId>
+			<version>1.4.01</version>
 		</dependency>
 	</dependencies>
 </project>

@@ -1,14 +1,14 @@
 package info.kwarc.sally.theofx;
 
-import info.kwarc.sally.core.SallyActionAcceptor;
-import info.kwarc.sally.core.SallyContext;
-import info.kwarc.sally.core.SallyService;
+import info.kwarc.sally.core.CookieProvider;
+import info.kwarc.sally.core.ScreenCoordinatesProvider;
+import info.kwarc.sally.core.comm.Coordinates;
 import info.kwarc.sally.core.comm.SallyMenuItem;
+import info.kwarc.sally.core.interfaces.Theo;
 
 import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -23,43 +23,37 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import sally.ScreenCoordinates;
+import sally.Cookie;
 import sally.TheoChangeWindow;
-import sally.TheoCloseWindow;
-import sally.TheoOpenWindow;
 
-public class TheoService {
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+
+@Singleton
+public class TheoService implements Theo {
 
 	SallyMenuItem chosenItem;
-	ScreenCoordinates coords;
 	HashMap<Integer, TheoWindow> openedWindows;
 	Random r = new Random();
+	ScreenCoordinatesProvider coordProvider;
+	CookieProvider cookieProvider;
 	
-	public TheoService() {
+	@Inject
+	public TheoService(ScreenCoordinatesProvider coordProvider, CookieProvider cookieProvider) {
+		this.coordProvider = coordProvider;
+		this.cookieProvider = cookieProvider;
 		openedWindows = new HashMap<Integer, TheoWindow>();
 	}
 	
-	@SallyService
-	public void letUserChoose(ArrayList<SallyMenuItem> items, SallyActionAcceptor acceptor, SallyContext context) {
-		if (context.getContextVar("preferred_position") instanceof ScreenCoordinates) {
-			coords = (ScreenCoordinates) context.getContextVar("preferred_position");
-		} else {
-			coords = ScreenCoordinates.newBuilder().setX(200).setY(400).build();
-		}
-		
-		SallyMenuItem item = letUserChoose(items);
-		acceptor.acceptResult(item);
-	}
-	
-	@SallyService
-	public void openWindow(TheoOpenWindow newWindow, SallyActionAcceptor acceptor, SallyContext context) {
+	public int openWindow(String title, String URL, int sizeX, int sizeY) {
 		Integer resID = r.nextInt();
-		openedWindows.put(resID, TheoWindow.addWindow(newWindow.getSizeY(), newWindow.getSizeX(), newWindow.getPosition().getX(), newWindow.getPosition().getY(), newWindow.getTitle(), newWindow.getUrl(), newWindow.getCookie(), true));
-		acceptor.acceptResult(resID);
+		Coordinates coords = coordProvider.getRecommendedPosition();
+		Cookie cookies = Cookie.newBuilder().setCookie(cookieProvider.getCookies()).setUrl(cookieProvider.getUrl()).build();
+		openedWindows.put(resID, TheoWindow.addWindow(sizeY, sizeX, coords.getX(), coords.getY(), title, URL, cookies, true));
+		return resID;
 	}
 
-	@SallyService
-	public void changeWindow(TheoChangeWindow window, SallyActionAcceptor acceptor, SallyContext context) {
+	public void changeWindow(TheoChangeWindow window) {
 		if (!openedWindows.containsKey(window.getWindowid())) {
 			return;
 		}
@@ -74,10 +68,8 @@ public class TheoService {
 		}
 	}
 	
-	@SallyService
-	public void openWindow(TheoCloseWindow window, SallyActionAcceptor acceptor, SallyContext context) {
-		Integer resID = window.getWindowid();
-		TheoWindow wnd = openedWindows.get(resID);
+	public void closeWindow(int windowID) {
+		TheoWindow wnd = openedWindows.get(windowID);
 		if (wnd != null) {
 			wnd.closeWindow();
 		}
@@ -131,6 +123,8 @@ public class TheoService {
 			t.add(b);
 		}
 
+		Coordinates coords = coordProvider.getRecommendedPosition();
+		
 		dialog.setLocation(coords.getX(), coords.getY());
 		dialog.setContentPane(t);
 		dialog.pack();
@@ -140,5 +134,4 @@ public class TheoService {
 				
 		return chosenItem;
 	}
-
 }

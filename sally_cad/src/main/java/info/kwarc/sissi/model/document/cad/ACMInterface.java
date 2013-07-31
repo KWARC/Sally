@@ -1,5 +1,6 @@
 package info.kwarc.sissi.model.document.cad;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -9,9 +10,12 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.codec.binary.Base64;
+
 import sally.CADNode;
 import sally.CADSemanticData;
 import sally.Parameter;
+import sally.SpreadsheetModel;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
@@ -143,8 +147,12 @@ public class ACMInterface {
 		OutputStream file;
 		try {
 			file = new FileOutputStream(fileName);
-			exportSemanticData().writeTo(file);
-			file.close();
+			
+			ByteArrayOutputStream so = new ByteArrayOutputStream();
+			exportSemanticData().writeTo(so);
+			byte[] b = so.toByteArray();
+			file.write(Base64.encodeBase64(b));
+			file.close();			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

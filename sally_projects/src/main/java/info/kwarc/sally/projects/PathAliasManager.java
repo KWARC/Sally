@@ -1,6 +1,6 @@
 package info.kwarc.sally.projects;
 
-import info.kwarc.sally.core.SallyActionAcceptor;
+import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyService;
 
@@ -25,7 +25,7 @@ public class PathAliasManager {
 	static boolean done = false;
 	
 	@SallyService(channel="/alias/set")
-	public void setAliases(ArrayList<String> newAliases, SallyActionAcceptor acceptor, SallyContext context) {
+	public void setAliases(ArrayList<String> newAliases, SallyInteractionResultAcceptor acceptor, SallyContext context) {
 		aliases.clear();
 		for (String alias : newAliases) {
 			String [] t = alias.split("@");
@@ -34,7 +34,7 @@ public class PathAliasManager {
 	}
 	
 	@SallyService(channel="/alias/list")
-	public void getAliases(String op, SallyActionAcceptor acceptor, SallyContext context) {
+	public void getAliases(String op, SallyInteractionResultAcceptor acceptor, SallyContext context) {
 		if ("get".equals(op)) {
 			for (String prefix : aliases.keySet()) {
 				acceptor.acceptResult(prefix+"@"+aliases.get(prefix));
@@ -43,7 +43,7 @@ public class PathAliasManager {
 	}
 	
 	@SallyService(channel="/alias/resolve")
-	public void resolve(String prefix, SallyActionAcceptor acceptor, SallyContext context) {
+	public void resolve(String prefix, SallyInteractionResultAcceptor acceptor, SallyContext context) {
 		if (aliases.containsKey(prefix)) {
 			acceptor.acceptResult(aliases.get(prefix));
 			return;

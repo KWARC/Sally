@@ -1,11 +1,12 @@
 package info.kwarc.sally.spreadsheet;
 
-import info.kwarc.sally.core.SallyActionAcceptor;
+import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.core.SallyService;
 import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.comm.SallyModelRequest;
+import info.kwarc.sally.core.interfaces.Theo;
 import info.kwarc.sally.model.document.spreadsheet.ASMInterface;
 
 import java.io.FileInputStream;
@@ -19,18 +20,19 @@ import sally.MMTUri;
 import sally.RangeSelection;
 import sally.SpreadsheetModel;
 
+import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
+
 public class WorksheetDocument {
 
 	ASMInterface asm;
 	String filePath;
-
-	public WorksheetDocument() {
-		this("http://default-doc.xls");
-	}
-
-	public WorksheetDocument(String filePath) {
+	Theo theo;
+	
+	@Inject
+	public WorksheetDocument(@Assisted String filePath, @Assisted SpreadsheetModel data) {
 		asm = new ASMInterface(filePath);
-		this.filePath = filePath;
+		setSemanticData(data);
 	}
 
 	public void setSemanticData(SpreadsheetModel msg) {
@@ -76,12 +78,12 @@ public class WorksheetDocument {
 	}
 
 	@SallyService(channel="/get/semantics")
-	public void getModel(SallyModelRequest click, SallyActionAcceptor acceptor, SallyContext context) {
+	public void getModel(SallyModelRequest click, SallyInteractionResultAcceptor acceptor, SallyContext context) {
 		acceptor.acceptResult(asm.getRDFModel());
 	}
 
 	@SallyService(channel="/service/alex/selectRange")
-	public void alexClickInteraction(AlexClick click, SallyActionAcceptor acceptor, SallyContext context) {
+	public void alexClickInteraction(AlexClick click, SallyInteractionResultAcceptor acceptor, SallyContext context) {
 		System.out.println(filePath);
 		if (!click.getFileName().equals(filePath)) {
 			return;
@@ -108,12 +110,12 @@ public class WorksheetDocument {
 	}
 
 	@SallyService
-	public void getPositionFromMMTURI(MMTUri uri, SallyActionAcceptor acceptor, SallyContext context) {
+	public void getPositionFromMMTURI(MMTUri uri, SallyInteractionResultAcceptor acceptor, SallyContext context) {
 		acceptor.acceptResult(getPositionFromMMTURI(uri.getUri()));
 	}
 
 	@SallyService
-	public void getSemantics(CellPosition click, SallyActionAcceptor acceptor, SallyContext context) {
+	public void getSemantics(CellPosition click, SallyInteractionResultAcceptor acceptor, SallyContext context) {
 		String uri = getSemantics(click);
 		if (uri != null)
 			acceptor.acceptResult(MMTUri.newBuilder().setUri(uri).build());

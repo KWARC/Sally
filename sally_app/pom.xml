@@ -21,6 +21,25 @@
 			<artifactId>sally_cad</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>info.kwarc.sally</groupId>
+			<artifactId>sally_jbpm</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>info.kwarc.sally</groupId>
+			<artifactId>sally_theofx</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>info.kwarc.sally</groupId>
+			<artifactId>sally_planetary</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
 		<dependency>
 			<groupId>info.kwarc.sally</groupId>
 			<artifactId>sally_comm</artifactId>
@@ -31,5 +50,7 @@
 			<artifactId>commons-io</artifactId>
 			<version>1.3.2</version>
 		</dependency>
+		
+		
 	</dependencies>
 </project>

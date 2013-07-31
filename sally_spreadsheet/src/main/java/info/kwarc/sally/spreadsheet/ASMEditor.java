@@ -1,6 +1,6 @@
 package info.kwarc.sally.spreadsheet;
 
-import info.kwarc.sally.core.SallyActionAcceptor;
+import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.core.SallyService;
@@ -15,7 +15,7 @@ import sally.TheoOpenWindow;
 public class ASMEditor {
 
 	@SallyService
-	public void ASMEditService(RangeSelection cell, SallyActionAcceptor acceptor, final SallyContext context) {
+	public void ASMEditService(RangeSelection cell, SallyInteractionResultAcceptor acceptor, final SallyContext context) {
 		final SallyInteraction sally = context.getCurrentInteraction();
 		context.setContextVar("ASMCellRange", cell);
 		

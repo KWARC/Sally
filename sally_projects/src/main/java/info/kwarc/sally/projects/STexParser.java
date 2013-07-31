@@ -1,6 +1,6 @@
 package info.kwarc.sally.projects;
 
-import info.kwarc.sally.core.SallyActionAcceptor;
+import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.core.SallyService;
@@ -112,7 +112,7 @@ public class STexParser {
 	}
 
 	@SallyService(channel="/indexes")
-	public void indexingService(String op, SallyActionAcceptor acceptor, SallyContext context) {
+	public void indexingService(String op, SallyInteractionResultAcceptor acceptor, SallyContext context) {
 		acceptor.acceptResult("stex");
 	}
 	

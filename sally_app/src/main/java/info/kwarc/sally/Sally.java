@@ -6,7 +6,6 @@ import info.kwarc.sally.networking.cometd.CometD;
 import info.kwarc.sally.planetary.Planetary;
 import info.kwarc.sally.spreadsheet.ASMEditor;
 import info.kwarc.sally.spreadsheet.WorksheetDocument;
-import info.kwarc.sally.spreadsheet.WorksheetFactory;
 import info.kwarc.sally.theofx.TheoService;
 import info.kwarc.sissi.model.document.cad.CADDocument;
 
@@ -40,6 +39,7 @@ public class Sally {
 	}
 	
 	public static void main(String[] args) {
+		/*
 		SallyInteraction sally = new SallyInteraction();
 		CometD cometD = new CometD(8080);
 		cometD.start();
@@ -62,6 +62,7 @@ public class Sally {
 		sally.registerServices(new ASMEditor());
 
 		export(sally);
+		*/
 
 		/* CADAlexClick click = CADAlexClick.newBuilder().setFileName("http://blah.cad").setCadNodeId("bolt1").setPosition(ScreenCoordinates.newBuilder().setX(100).setY(100).build()).build();
 		sally.getPossibleInteractions("/service/alex/selectRange", click, MMTUri.class); */

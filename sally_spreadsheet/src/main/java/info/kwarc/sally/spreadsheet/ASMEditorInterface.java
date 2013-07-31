@@ -5,7 +5,6 @@ import info.kwarc.sally.core.SallyContextManager;
 import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.networking.cometd.CometD;
 import info.kwarc.sally.networking.cometd.TemplateRequest;
-import info.kwarc.sally.planetary.ListOntologyConcepts;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -80,7 +79,8 @@ public class ASMEditorInterface {
 
 		if (action.equals("Browse")) {
 			log.debug("About to execute browse");
-			String url = interaction.getOneInteraction(new ListOntologyConcepts(), String.class);
+			//String url = interaction.getOneInteraction(new ListOntologyConcepts(), String.class);
+			String url = "";
 			log.debug("URL "+url);
 			if (url == null)
 				return null;

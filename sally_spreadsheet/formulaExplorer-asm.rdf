@@ -1,0 +1,157 @@
+<rdf:RDF
+    xmlns:asm="http://www.kwarc.info/sally/asm#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:im="http://www.kwarc.info/sally/im#"
+    xmlns:csm="http://www.kwarc.info/sally/csm#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" > 
+  <rdf:Description rdf:about="http://fex-paper/lb/15/SunVariance">
+    <rdfs:label>SunVariance</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/fex/cds/fex.omdoc?fex?sample-variance"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/15/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/16/RainVariance">
+    <rdfs:label>RainVariance</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/fex/cds/fex.omdoc?fex?sample-variance"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/16/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/2/SunUnits">
+    <rdfs:label>SunUnits</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/fex/cds/fex.omdoc?fex?fexUnit"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/2/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/fb/13/value-1">
+    <asm:valueOf rdf:resource="http://fex-paper/lb/10/Mean"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://fex-paper/fb/13"/>
+    <rdf:value>4.5</rdf:value>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/fb/12">
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/fex/cds/fex.omdoc?fex?meanRain"/>
+    <asm:partOfFile rdf:resource="http://fex-paper"/>
+    <rdf:type rdf:nodeID="A0"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/7/MeanRainDeviation">
+    <rdfs:label>MeanRainDeviation</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/fex/cds/fex.omdoc?fex?standard-deviation"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/7/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/10/Mean">
+    <rdfs:label>Mean</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/fex/cds/fex.omdoc?fex?mean"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/10/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/6/MeanSunDeviation">
+    <rdfs:label>MeanSunDeviation</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/fex/cds/fex.omdoc?fex?standard-deviation"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/6/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A0">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/16/">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+    <asm:partOfFile rdf:resource="http://fex-paper"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/3/RainUnits">
+    <rdfs:label>RainUnits</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/fex/cds/fex.omdoc?fex?fexUnit"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/3/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/1/Day3">
+    <rdfs:label>Day3</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/fex/cds/fex.omdoc?fex?fexDay"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/1/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/1/Day1">
+    <rdfs:label>Day1</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/fex/cds/fex.omdoc?fex?fexDay"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/1/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/15/">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+    <asm:partOfFile rdf:resource="http://fex-paper"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A1">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/10/">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+    <asm:partOfFile rdf:resource="http://fex-paper"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/0/Bremen">
+    <rdfs:label>Bremen</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/fex/cds/fex.omdoc?fex?Bremen"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/0/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/fb/13">
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/fex/cds/fex.omdoc?fex?meanMeans"/>
+    <asm:partOfFile rdf:resource="http://fex-paper"/>
+    <rdf:type rdf:nodeID="A2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/fb/11">
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/fex/cds/fex.omdoc?fex?meanSun"/>
+    <asm:partOfFile rdf:resource="http://fex-paper"/>
+    <rdf:type rdf:nodeID="A1"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A2">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/7/">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+    <asm:partOfFile rdf:resource="http://fex-paper"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/6/">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+    <asm:partOfFile rdf:resource="http://fex-paper"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/fb/11/value-1">
+    <asm:valueOf rdf:resource="http://fex-paper/lb/10/Mean"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://fex-paper/fb/11"/>
+    <rdf:value>1</rdf:value>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/3/">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+    <asm:partOfFile rdf:resource="http://fex-paper"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/0/">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+    <asm:partOfFile rdf:resource="http://fex-paper"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/fb/12/value-1">
+    <asm:valueOf rdf:resource="http://fex-paper/lb/10/Mean"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://fex-paper/fb/12"/>
+    <rdf:value>8</rdf:value>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/1/">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+    <asm:partOfFile rdf:resource="http://fex-paper"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/1/Day2">
+    <rdfs:label>Day2</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/fex/cds/fex.omdoc?fex?fexDay"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/1/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/1/Day4">
+    <rdfs:label>Day4</rdfs:label>
+    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/fex/cds/fex.omdoc?fex?fexDay"/>
+    <asm:partOfLegendBlock rdf:resource="http://fex-paper/lb/1/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://fex-paper/lb/2/">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+    <asm:partOfFile rdf:resource="http://fex-paper"/>
+  </rdf:Description>
+</rdf:RDF>

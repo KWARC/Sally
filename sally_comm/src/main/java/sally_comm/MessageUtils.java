@@ -9,4 +9,9 @@ public class MessageUtils {
 	public static WhoAmI createDesktopSpreadsheetAlex() {
 		return WhoAmI.newBuilder().setClientType(ClientType.Alex).setDocumentType(DocType.Spreadsheet).setEnvironmentType(EnvironmentType.Desktop).build();
 	}
+
+	public static WhoAmI createDesktopCADAlex() {
+		return WhoAmI.newBuilder().setClientType(ClientType.Alex).setDocumentType(DocType.CAD).setEnvironmentType(EnvironmentType.Desktop).build();
+	}
+
 }

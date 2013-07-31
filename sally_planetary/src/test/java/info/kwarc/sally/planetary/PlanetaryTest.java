@@ -8,8 +8,8 @@ public class PlanetaryTest {
 	
 	@Before
 	public void setup() {
-		p = new Planetary("http://localhost/drupal_planetary", "sally", "test", "123");
-		
+		//p = new Planetary("http://localhost/drupal_planetary", "sally", "test", "123");
+		p = null;
 	}
 	
 	@Test

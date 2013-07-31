@@ -1,5 +1,5 @@
 package info.kwarc.sally.projects;
-import info.kwarc.sally.core.SallyActionAcceptor;
+import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyService;
 import info.kwarc.sally.networking.cometd.ConfigMeta;
@@ -41,19 +41,19 @@ public class Project {
 	}
 	
 	@SallyService(channel="/configure")
-	public void getConfigUrl(String op, SallyActionAcceptor acceptor, SallyContext context) {
+	public void getConfigUrl(String op, SallyInteractionResultAcceptor acceptor, SallyContext context) {
 		acceptor.acceptResult(new ConfigMeta("pm", "http://localhost:8080/projectmanager", "Configure current project"));
 	}
 	
 	@SallyService(channel="/project")
-	public void getProjectRoot(String op, SallyActionAcceptor acceptor, SallyContext context) {
+	public void getProjectRoot(String op, SallyInteractionResultAcceptor acceptor, SallyContext context) {
 		if (op.equals("get")) {
 			acceptor.acceptResult(this);
 		}
 	}
 	
 	@SallyService(channel="/project/setPath")
-	public void setProjectRoot(String newPath, SallyActionAcceptor acceptor, SallyContext context) {
+	public void setProjectRoot(String newPath, SallyInteractionResultAcceptor acceptor, SallyContext context) {
 		path = newPath;
 	}
 	
@@ -69,7 +69,7 @@ public class Project {
 
 	
 	@SallyService(channel="/project/getFile")
-	public void getProjectFile(String fileURI, SallyActionAcceptor acceptor, SallyContext context) {
+	public void getProjectFile(String fileURI, SallyInteractionResultAcceptor acceptor, SallyContext context) {
 		if (fileURI.startsWith(path)) {
 			try {
 				FileObject resolvedFile = root.resolveFile(fileURI);

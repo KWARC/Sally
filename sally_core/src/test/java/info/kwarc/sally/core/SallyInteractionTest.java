@@ -1,6 +1,6 @@
 package info.kwarc.sally.core;
 
-import info.kwarc.sally.core.SallyActionAcceptor;
+import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.core.SallyService;
@@ -15,16 +15,16 @@ public class SallyInteractionTest {
 	SallyInteraction interaction = new SallyInteraction();
 
 	@SallyService
-	public void Test(Integer i, SallyActionAcceptor acceptor, SallyContext context) {	
+	public void Test(Integer i, SallyInteractionResultAcceptor acceptor, SallyContext context) {	
 		acceptor.acceptResult("test");
 	}
 
 	@SallyService
-	public void TestFalse(Integer i, SallyActionAcceptor acceptor) {
+	public void TestFalse(Integer i, SallyInteractionResultAcceptor acceptor) {
 	}
 
 	@SallyService
-	public void TestFalse2(Float i, SallyActionAcceptor acceptor, Integer k) {	
+	public void TestFalse2(Float i, SallyInteractionResultAcceptor acceptor, Integer k) {	
 	}
 
 	@SallyService
@@ -33,7 +33,7 @@ public class SallyInteractionTest {
 	
 	@Before
 	public void test() {
-		Assert.assertTrue(SallyActionAcceptor.class.isAssignableFrom(SallyActionAcceptor.class));
+		Assert.assertTrue(SallyInteractionResultAcceptor.class.isAssignableFrom(SallyInteractionResultAcceptor.class));
 		interaction.registerServices(this);
 		Assert.assertEquals(1, interaction.map.size());
 	}

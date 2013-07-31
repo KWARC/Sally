@@ -12,6 +12,9 @@ import java.util.Stack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.inject.Singleton;
+
+@Singleton
 public class SallyInteraction {
 	static class ChannelClass {
 		String channel;
@@ -60,6 +63,7 @@ public class SallyInteraction {
 		MethodExec(Object obj, Method m) {
 			this.obj = obj;
 			this.m = m;
+			this.m.setAccessible(true);
 		}
 
 		public void setMethod(Method m) {
@@ -78,7 +82,7 @@ public class SallyInteraction {
 			return obj;
 		}
 		
-		public void exec(Object obj2, SallyActionAcceptor acceptor, SallyContext context) {
+		public void exec(Object obj2, SallyInteractionResultAcceptor acceptor, SallyContext context) {
 			try {
 				m.invoke(obj, obj2, acceptor, context);
 			} catch (IllegalArgumentException e) {
@@ -125,7 +129,7 @@ public class SallyInteraction {
 				log.error(String.format("Method %s.%s is not a valid SallyService. Param count != 3", obj.getClass().getName(),m.getName()));
 				continue;
 			}
-			if (!SallyActionAcceptor.class.isAssignableFrom(parameters[1])) {
+			if (!SallyInteractionResultAcceptor.class.isAssignableFrom(parameters[1])) {
 				log.error(String.format("Method %s.%s is not a valid SallyService. 2nd argument should be assignable to SallyActionAcceptor", obj.getClass().getName(),m.getName()));
 				continue;
 			}
@@ -167,7 +171,7 @@ public class SallyInteraction {
 		Stack<Object> stack = new Stack<Object>();
 		stack.add(obj);memoizer.add(obj);
 		
-		SallyActionAcceptor acceptor = new SallyActionAcceptor() {
+		SallyInteractionResultAcceptor acceptor = new SallyInteractionResultAcceptor() {
 			@SuppressWarnings("unchecked")
 			public void acceptResult(Object obj) {
 				if (choices.size() >= limit)

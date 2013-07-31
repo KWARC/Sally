@@ -25,5 +25,5 @@ SELECT ?y ?fbi WHERE {
    ?t im:ontologyURI ?y.
    ?t rdfs:label ?z.
 
-   <http://blah.cad/bolt1> acm:valueOf ?t
+   <http://default.cad/uri/bolt1> acm:valueOf ?t
 }

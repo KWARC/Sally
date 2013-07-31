@@ -1,5 +1,5 @@
 package info.kwarc.sally.projects;
-import info.kwarc.sally.core.SallyActionAcceptor;
+import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.core.SallyService;
@@ -107,7 +107,7 @@ public class BaseXService {
 	}
 
 	@SallyService(channel="/queryXML")
-	public void doQuery(String query, SallyActionAcceptor acceptor, SallyContext context) {
+	public void doQuery(String query, SallyInteractionResultAcceptor acceptor, SallyContext context) {
 	}
 
 }

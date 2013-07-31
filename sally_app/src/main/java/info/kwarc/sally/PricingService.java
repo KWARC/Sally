@@ -1,8 +1,8 @@
 package info.kwarc.sally;
 
-import info.kwarc.sally.core.SallyActionAcceptor;
 import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteraction;
+import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyService;
 import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.comm.SallyModelRequest;
@@ -42,6 +42,7 @@ public class PricingService {
 		List<Model> models = sally.getPossibleInteractions("/get/semantics", new SallyModelRequest(), Model.class);
 		for (Model mod : models) {
 			common.add(mod);
+			System.out.println(mod);
 		}
 	}
 	
@@ -58,7 +59,7 @@ public class PricingService {
 	}
 	
 	@SallyService
-	public void pricingService(MMTUri uri, SallyActionAcceptor acceptor, SallyContext context) {
+	public void pricingService(MMTUri uri, SallyInteractionResultAcceptor acceptor, SallyContext context) {
 		SallyInteraction sally = context.getCurrentInteraction();
 		
 		if (common == null)
