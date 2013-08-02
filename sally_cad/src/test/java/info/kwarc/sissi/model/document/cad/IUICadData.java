@@ -10,7 +10,8 @@ public class IUICadData {
 
 	public void run() {
 		CADNode.Builder root = CADNode.newBuilder().setId("pipe_end");
-		String ht = "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexthread.omdoc?ISOhexthread?ISOhexthread";
+		
+		String ht = "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?ISOhexthread";
 		String ct = "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/components.omdoc?component?component";
 		String boltIM = "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?ISOhexbolt";
 		

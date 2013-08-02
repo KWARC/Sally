@@ -1,6 +1,8 @@
 package info.kwarc.sally;
 
 import info.kwarc.sally.injection.Configuration;
+import info.kwarc.sally.networking.ConnectionManager;
+import info.kwarc.sally.networking.interfaces.IConnectionManager;
 import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
 import info.kwarc.sissi.bpm.injection.TestableKnowledeBase;
 import info.kwarc.sissi.bpm.tasks.TestCounterHandler;
@@ -87,7 +89,7 @@ public class ConnectionManagerTest extends JbpmJUnitTestCase {
 	
 	@Test
 	public void testForwarding() {
-		ConnectionManager c = i.getInstance(ConnectionManager.class);
+		IConnectionManager c = i.getInstance(ConnectionManager.class);
 		ISallyKnowledgeBase kb = i.getInstance(ISallyKnowledgeBase.class);
 		c.newClient("user1");
 

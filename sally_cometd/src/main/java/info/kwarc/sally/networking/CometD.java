@@ -1,13 +1,12 @@
-package info.kwarc.sally.networking.cometd;
+package info.kwarc.sally.networking;
+
+import info.kwarc.sally.networking.interfaces.IConnectionManager;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.Map;
 
-import info.kwarc.sally.core.SallyInteractionResultAcceptor;
-import info.kwarc.sally.core.SallyContext;
-import info.kwarc.sally.core.SallyInteraction;
-import info.kwarc.sally.core.SallyService;
-
+import org.cometd.bayeux.Channel;
 import org.cometd.bayeux.server.BayeuxServer;
 import org.cometd.bayeux.server.ServerChannel;
 import org.cometd.bayeux.server.ServerSession;
@@ -28,6 +27,7 @@ import com.github.jucovschi.ProtoCometD.CommunicationCallback;
 import com.github.jucovschi.ProtoCometD.CommunicationContext;
 import com.github.jucovschi.ProtoCometD.ProtoService;
 import com.github.jucovschi.ProtoCometD.ProtoUtils;
+import com.google.inject.Inject;
 import com.google.protobuf.AbstractMessage;
 import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.spi.container.servlet.ServletContainer;
@@ -41,65 +41,72 @@ public class CometD {
 	Server server;
 	CometdServlet cometdServlet;
 	Configuration cfg;
+	IConnectionManager connManager;
 
-	private static SallyInteraction interaction;
 	Logger log;
-		
-	public static SallyInteraction getInteraction() {
-		return interaction;
-	}
-	
-	public CometD(int port) {
+
+	@Inject
+	public CometD(int port, IConnectionManager connManager) {
 		this.port = port;
 		log = LoggerFactory.getLogger(CometD.class);
+		this.connManager = connManager;
 	}
-	
+
 	BayeuxServerImpl getBayeux() {
 		return cometdServlet.getBayeux();
 	}
-	
-	@SallyService
-	public void sendMsg(CometDSendRequest request, SallyInteractionResultAcceptor acceptor, SallyContext context) {
+
+	public void sendMsg(CometDSendRequest request) {
 		log.debug(String.format("<-- [%s]: %s", request.getChannel(), request.getMsg().getClass().getName()));
-		
+
 		ServerSession sess = getBayeux().getSession(request.getClientID());
 		sess.deliver(sess, request.getChannel(), ProtoUtils.prepareProto(request.getMsg()), null);
 	}
-	
-	@SallyService(channel="/template/generate")
-	public void generateTemplate(TemplateRequest request, SallyInteractionResultAcceptor acceptor, SallyContext context) {
+
+	public String generateTemplate(String templatePath, Object data) {
+		StringWriter w = new StringWriter();
+		Template tpl;
 		try {
-			StringWriter w = new StringWriter();
-			Template tpl = cfg.getTemplate(request.getTemplatePath());
-			tpl.process(request.getData(), w);
-			acceptor.acceptResult(w.toString());
+			tpl = cfg.getTemplate(templatePath);
+			tpl.process(data, w);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (TemplateException e) {
 			e.printStackTrace();
 		}
+		return w.toString();
 	}
-	
-	class CometDProtoService extends ProtoService {
-		SallyInteraction interaction;
 
-		public CometDProtoService(BayeuxServer bayeux, String name, SallyInteraction interaction) {
+	class CometDProtoService extends ProtoService {
+		IConnectionManager connManager;
+		
+		public CometDProtoService(BayeuxServer bayeux, String name, IConnectionManager connManager) {
 			super(bayeux, name);
-			this.interaction = interaction;
+			this.connManager = connManager;
+			
 			addService("/service/**", CommunicationCallback.newBuilder().allowMessages(AbstractMessage.class).build("forward", this));
+			
+			addService(Channel.META_CONNECT, "onConnect");
+			addService(Channel.META_DISCONNECT, "onDisconnect");
+
 		}
 
 		public AbstractMessage forward(ServerSession remote, final AbstractMessage msg, CommunicationContext context) {
+			log.info(remote.getId()+" got message "+msg);
 			log.debug(String.format("--> [%s]: %s", context.getChannel(), msg.getClass().getName()));
-			SallyContext interactionContext = interaction.getContext();
-			interactionContext.setContextVar("senderID", remote.getId());
-			return interaction.getOneInteraction(context.getChannel(), msg, AbstractMessage.class);
+			connManager.newMessage(remote.getId(), msg);
+			return null;
 		}
-	}
-
-	public void channelToInteraction(final SallyInteraction interaction) {
-		CometD.interaction = interaction;
-		new CometDProtoService(getBayeux(), "fowarder", interaction);
+		
+		public void onConnect(ServerSession remote, Map<String, Object> data) {
+			log.info(remote.getId()+" connected");
+			this.connManager.newClient(remote.getId());
+		}
+		
+		public void onDisconnect(ServerSession remote, Map<String, Object> data) {
+			log.info(remote.getId()+" disconnected");
+			this.connManager.disconnect(remote.getId());
+		}
 	}
 
 	public void registerListener(String channelName, ServerChannel.MessageListener listener) {
@@ -110,7 +117,7 @@ public class CometD {
 	}
 
 	public void start() {
-		server = new Server(8080);
+		server = new Server(port);
 		HandlerList handlers = new HandlerList();
 
 		ResourceHandler resource_handler = new ResourceHandler();
@@ -141,6 +148,8 @@ public class CometD {
 				e.printStackTrace();
 			}
 		}
+		
+		new CometDProtoService(getBayeux(), "", connManager);
 	}
 
 	private class CometDThread implements Runnable {

@@ -3,12 +3,8 @@ package info.kwarc.sally.spreadsheet;
 import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyContextManager;
 import info.kwarc.sally.core.SallyInteraction;
-import info.kwarc.sally.networking.cometd.CometD;
-import info.kwarc.sally.networking.cometd.TemplateRequest;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -20,7 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sally.Cookie;
-import sally.RangeSelection;
 import sally.TheoChangeWindow;
 import freemarker.template.TemplateException;
 
@@ -37,6 +32,7 @@ public class ASMEditorInterface {
 
 	@GET
 	public String generateUI(@QueryParam("s") String token) throws IOException, TemplateException {
+		/*
 		SallyContext context = SallyContextManager.getInstance().getContext(token);
 		if (context == null) {
 			return "invalid session";
@@ -62,7 +58,8 @@ public class ASMEditorInterface {
 		templateData.put("EndCol", Integer.toString(cellPosition.getEndCol()));
 		templateData.put("token", token);
 
-		return interaction.getOneInteraction("/template", new TemplateRequest("asmeditor/asmeditor.ftl", templateData), String.class);
+		return interaction.getOneInteraction("/template", new TemplateRequest("asmeditor/asmeditor.ftl", templateData), String.class); */
+		return "";
 	}
 
 	@POST

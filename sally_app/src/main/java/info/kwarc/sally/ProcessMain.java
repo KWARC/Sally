@@ -1,8 +1,15 @@
 package info.kwarc.sally;
 
+import java.io.FileReader;
+import java.io.FileWriter;
+
 import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.injection.Configuration;
-import info.kwarc.sally.networking.cometd.CometD;
+import info.kwarc.sally.networking.CometD;
+import info.kwarc.sally.networking.ConnectionManager;
+import info.kwarc.sally.networking.ConnectionPlayer;
+import info.kwarc.sally.networking.ConnectionRecorder;
+import info.kwarc.sally.networking.interfaces.IConnectionManager;
 import info.kwarc.sally.planetary.Planetary;
 import info.kwarc.sissi.bpm.BPMNUtils;
 import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
@@ -28,11 +35,17 @@ public class ProcessMain {
 				new ProductionRemoteKnowledgeBase(), 
 				new ProductionSallyActions()
 		);
+
+		IConnectionManager realConn = i.getInstance(ConnectionManager.class);
+		//ConnectionRecorder conn = new ConnectionRecorder(new FileWriter("rec.json"), realConn);
 		
-		CometD cometD = new CometD(8181);
+		ConnectionPlayer player = new ConnectionPlayer(new FileReader("rec.json"));
 
-		ConnectionManager conn = i.getInstance(ConnectionManager.class);
+		//CometD cometD = new CometD(8181, realConn);
+		//cometD.start();
+		player.start(realConn);
 
+/*		
 		conn.newClient("spread");
 		conn.newMessage("spread", MessageUtils.createDesktopSpreadsheetAlex());
 
@@ -54,7 +67,8 @@ public class ProcessMain {
 
 		SallyFrame frame =  SallyFrame.newBuilder().setFileName("pipe-end.cad").build();
 		conn.newMessage("cad", frame);
-
+		*/
+		//conn.close();
 		BPMNUtils.showStatus(i.getInstance(ISallyKnowledgeBase.class).getKnowledgeSession());
 	}
 

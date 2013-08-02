@@ -31,7 +31,7 @@
 
 		<dependency>
 			<groupId>info.kwarc.sally</groupId>
-			<artifactId>sally_cometd</artifactId>
+			<artifactId>sally_net</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 

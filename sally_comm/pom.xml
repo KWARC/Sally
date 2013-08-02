@@ -39,7 +39,7 @@
 								</goals>
 							</execution>
 
-							<execution>
+<!-- 						<execution>
 								<id>javascript</id>
 								<phase>generate-sources</phase>
 								<configuration>
@@ -53,7 +53,8 @@
 								<goals>
 									<goal>run</goal>
 								</goals>
-							</execution>
+							</execution> -->	
+							
 						</executions>
 					</plugin>
 				</plugins>

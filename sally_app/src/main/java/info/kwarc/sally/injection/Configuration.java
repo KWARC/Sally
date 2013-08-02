@@ -2,11 +2,11 @@ package info.kwarc.sally.injection;
 
 import org.slf4j.Logger;
 
-import info.kwarc.sally.ConnectionManager;
 import info.kwarc.sally.PricingService;
 import info.kwarc.sally.ProcessDocMappings;
 import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.core.interfaces.Theo;
+import info.kwarc.sally.networking.ConnectionManager;
 import info.kwarc.sally.planetary.injection.PlanetaryModule;
 import info.kwarc.sally.spreadsheet.injection.SpreadsheetModule;
 import info.kwarc.sally.theofx.TheoService;

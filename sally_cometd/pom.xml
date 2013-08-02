@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>sally_cometd</artifactId>
+	<artifactId>sally_net</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<dependencies>
@@ -9,6 +9,21 @@
 			<groupId>info.kwarc.sally</groupId>
 			<artifactId>sally_core</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>info.kwarc.sally</groupId>
+			<artifactId>sally_jbpm</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-lgpl</artifactId>
+			<version>1.9.13</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-lgpl</artifactId>
+			<version>1.9.13</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>

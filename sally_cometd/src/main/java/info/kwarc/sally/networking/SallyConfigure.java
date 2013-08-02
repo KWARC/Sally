@@ -1,4 +1,4 @@
-package info.kwarc.sally.networking.cometd;
+package info.kwarc.sally.networking;
 
 import info.kwarc.sally.core.SallyInteraction;
 
@@ -13,10 +13,13 @@ public class SallyConfigure {
 
 	@GET
 	public String generateConfig() {
+		/*
 		SallyInteraction interaction = CometD.getInteraction();
 		List<ConfigMeta> configurations = interaction.getPossibleInteractions("/configure", "get", ConfigMeta.class);
 		HashMap<String, Object> templateMap = new HashMap<String, Object>();
 		templateMap.put("configs", configurations);
 		return interaction.getOneInteraction("/template/generate", new TemplateRequest("/config/config.tpl", templateMap), String.class);
+		*/
+		return "";
 	}
 }

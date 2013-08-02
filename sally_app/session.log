@@ -1,0 +1,2297 @@
+<object-stream>
+<org.drools.audit.event.RuleFlowLogEvent>
+  <type>8</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+</org.drools.audit.event.RuleFlowLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>1</nodeId>
+  <nodeName>New Connection</nodeName>
+  <nodeInstanceId>0</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>1</nodeId>
+  <nodeName>New Connection</nodeName>
+  <nodeInstanceId>0</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:1</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:0</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:1</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:0</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:6</nodeId>
+  <nodeName>WhoAmI</nodeName>
+  <nodeInstanceId>1:1</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:6</nodeId>
+  <nodeName>WhoAmI</nodeName>
+  <nodeInstanceId>1:1</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:1</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:0</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:1</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:0</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>1</nodeId>
+  <nodeName>New Connection</nodeName>
+  <nodeInstanceId>0</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>1</nodeId>
+  <nodeName>New Connection</nodeName>
+  <nodeInstanceId>0</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowLogEvent>
+  <type>9</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+</org.drools.audit.event.RuleFlowLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>32</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <variableId>AlexInfo</variableId>
+  <variableInstanceId>AlexInfo</variableInstanceId>
+  <objectToString>clientType: Alex
+environmentType: Desktop
+documentType: CAD
+</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>33</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <variableId>AlexInfo</variableId>
+  <variableInstanceId>AlexInfo</variableInstanceId>
+  <objectToString>clientType: Alex
+environmentType: Desktop
+documentType: CAD
+</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:6</nodeId>
+  <nodeName>WhoAmI</nodeName>
+  <nodeInstanceId>1:1</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:2</nodeId>
+  <nodeName>Init Theo</nodeName>
+  <nodeInstanceId>1:2</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:2</nodeId>
+  <nodeName>Init Theo</nodeName>
+  <nodeInstanceId>1:2</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:3</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:3</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:4</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:4</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:4</nodeId>
+  <nodeName>AlexData</nodeName>
+  <nodeInstanceId>1:5</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:4</nodeId>
+  <nodeName>AlexData</nodeName>
+  <nodeInstanceId>1:5</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:4</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:4</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:8</nodeId>
+  <nodeName>onForward</nodeName>
+  <nodeInstanceId>1:6</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:8</nodeId>
+  <nodeName>onForward</nodeName>
+  <nodeInstanceId>1:6</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:4</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:4</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:3</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:3</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:2</nodeId>
+  <nodeName>Init Theo</nodeName>
+  <nodeInstanceId>1:2</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:2</nodeId>
+  <nodeName>Init Theo</nodeName>
+  <nodeInstanceId>1:2</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:6</nodeId>
+  <nodeName>WhoAmI</nodeName>
+  <nodeInstanceId>1:1</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>32</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <variableId>AlexDocData</variableId>
+  <variableInstanceId>AlexDocData</variableInstanceId>
+  <objectToString>fileName: &quot;D:\\kwarc\\FormalCAD\\Examples\\models\\pipe-end.iam&quot;
+data: &quot;Ci9EOlxrd2FyY1xGb3JtYWxDQURcRXhhbXBsZXNcbW9kZWxzXHBpcGUtZW5kLmlhbRKZDgovRDpca3dhcmNcRm9ybWFsQ0FEXEV4YW1wbGVzXG1vZGVsc1xwaXBlLWVuZC5pYW0aHQoRY29ycnVnYXRlZC1waXBlOjESCG9ic29sZXRlGlAKDmJsaW5kIGZsYW5nZToxEghvYnNvbGV0ZSIWCgZzeW1ib2wSDGJsaW5kLWZsYW5nZSIcCgZ0aGVvcnkSEmZsYW5nZS1ib2x0LWdhc2tldBqDAQoGYm9sdDoxEghvYnNvbGV0ZSJjCgZtbXR1cmkSWWh0dHBzOi8vdG50Lmt3YXJjLmluZm8vcmVwb3Mvc3RjL2ZjYWQvZmxhbmdlL2Nkcy9JU09oZXhib2x0Lm9tZG9jP0lTT2hleGJvbHQ/SVNPaGV4dGhyZWFkIgoKBGFyZzESAjEwGn8KBW51dDoxEghvYnNvbGV0ZSIKCgRhcmcxEgIxMCJgCgZtbXR1cmkSVmh0dHBzOi8vdG50Lmt3YXJjLmluZm8vcmVwb3Mvc3RjL2ZjYWQvZmxhbmdlL2Nkcy9JU09oZXhudXQub21kb2M/SVNPaGV4bnV0P0lTTy1oZXgtbnV0GksKCGdhc2tldDoxEghvYnNvbGV0ZSIXCgZzeW1ib2wSDWZsYW5nZS1nYXNrZXQiHAoGdGhlb3J5EhJmbGFuZ2UtYm9sdC1nYXNrZXQagwEKBmJvbHQ6MhIIb2Jzb2xldGUiYwoGbW10dXJpEllodHRwczovL3RudC5rd2FyYy5pbmZvL3JlcG9zL3N0Yy9mY2FkL2ZsYW5nZS9jZHMvSVNPaGV4Ym9sdC5vbWRvYz9JU09oZXhib2x0P0lTT2hleHRocmVhZCIKCgRhcmcxEgIxMBp/CgVudXQ6MhIIb2Jzb2xldGUiCgoEYXJnMRICMTAiYAoGbW10dXJpElZodHRwczovL3RudC5rd2FyYy5pbmZvL3JlcG9zL3N0Yy9mY2FkL2ZsYW5nZS9jZHMvSVNPaGV4bnV0Lm9tZG9jP0lTT2hleG51dD9JU08taGV4LW51dBqDAQoGYm9sdDozEghvYnNvbGV0ZSJjCgZtbXR1cmkSWWh0dHBzOi8vdG50Lmt3YXJjLmluZm8vcmVwb3Mvc3RjL2ZjYWQvZmxhbmdlL2Nkcy9JU09oZXhib2x0Lm9tZG9jP0lTT2hleGJvbHQ/SVNPaGV4dGhyZWFkIgoKBGFyZzESAjEwGn8KBW51dDozEghvYnNvbGV0ZSIKCgRhcmcxEgIxMCJgCgZtbXR1cmkSVmh0dHBzOi8vdG50Lmt3YXJjLmluZm8vcmVwb3Mvc3RjL2ZjYWQvZmxhbmdlL2Nkcy9JU09oZXhudXQub21kb2M/SVNPaGV4bnV0P0lTTy1oZXgtbnV0GoMBCgZib2x0OjQSCG9ic29sZXRlImMKBm1tdHVyaRJZaHR0cHM6Ly90bnQua3dhcmMuaW5mby9yZXBvcy9zdGMvZmNhZC9mbGFuZ2UvY2RzL0lTT2hleGJvbHQub21kb2M/SVNPaGV4Ym9sdD9JU09oZXh0aHJlYWQiCgoEYXJnMRICMTAafwoFbnV0OjQSCG9ic29sZXRlIgoKBGFyZzESAjEwImAKBm1tdHVyaRJWaHR0cHM6Ly90bnQua3dhcmMuaW5mby9yZXBvcy9zdGMvZmNhZC9mbGFuZ2UvY2RzL0lTT2hleG51dC5vbWRvYz9JU09oZXhudXQ/SVNPLWhleC1udXQagwEKBmJvbHQ6NRIIb2Jzb2xldGUiYwoGbW10dXJpEllodHRwczovL3RudC5rd2FyYy5pbmZvL3JlcG9zL3N0Yy9mY2FkL2ZsYW5nZS9jZHMvSVNPaGV4Ym9sdC5vbWRvYz9JU09oZXhib2x0P0lTT2hleHRocmVhZCIKCgRhcmcxEgIxMBp/CgVudXQ6NRIIb2Jzb2xldGUiCgoEYXJnMRICMTAiYAoGbW10dXJpElZodHRwczovL3RudC5rd2FyYy5pbmZvL3JlcG9zL3N0Yy9mY2FkL2ZsYW5nZS9jZHMvSVNPaGV4bnV0Lm9tZG9jP0lTT2hleG51dD9JU08taGV4LW51dBqDAQoGYm9sdDo2EghvYnNvbGV0ZSJjCgZtbXR1cmkSWWh0dHBzOi8vdG50Lmt3YXJjLmluZm8vcmVwb3Mvc3RjL2ZjYWQvZmxhbmdlL2Nkcy9JU09oZXhib2x0Lm9tZG9jP0lTT2hleGJvbHQ/SVNPaGV4dGhyZWFkIgoKBGFyZzESAjEwGn8KBW51dDo2EghvYnNvbGV0ZSIKCgRhcmcxEgIxMCJgCgZtbXR1cmkSVmh0dHBzOi8vdG50Lmt3YXJjLmluZm8vcmVwb3Mvc3RjL2ZjYWQvZmxhbmdlL2Nkcy9JU09oZXhudXQub21kb2M/SVNPaGV4bnV0P0lTTy1oZXgtbnV0&quot;
+</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>33</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <variableId>AlexDocData</variableId>
+  <variableInstanceId>AlexDocData</variableInstanceId>
+  <objectToString>fileName: &quot;D:\\kwarc\\FormalCAD\\Examples\\models\\pipe-end.iam&quot;
+data: &quot;Ci9EOlxrd2FyY1xGb3JtYWxDQURcRXhhbXBsZXNcbW9kZWxzXHBpcGUtZW5kLmlhbRKZDgovRDpca3dhcmNcRm9ybWFsQ0FEXEV4YW1wbGVzXG1vZGVsc1xwaXBlLWVuZC5pYW0aHQoRY29ycnVnYXRlZC1waXBlOjESCG9ic29sZXRlGlAKDmJsaW5kIGZsYW5nZToxEghvYnNvbGV0ZSIWCgZzeW1ib2wSDGJsaW5kLWZsYW5nZSIcCgZ0aGVvcnkSEmZsYW5nZS1ib2x0LWdhc2tldBqDAQoGYm9sdDoxEghvYnNvbGV0ZSJjCgZtbXR1cmkSWWh0dHBzOi8vdG50Lmt3YXJjLmluZm8vcmVwb3Mvc3RjL2ZjYWQvZmxhbmdlL2Nkcy9JU09oZXhib2x0Lm9tZG9jP0lTT2hleGJvbHQ/SVNPaGV4dGhyZWFkIgoKBGFyZzESAjEwGn8KBW51dDoxEghvYnNvbGV0ZSIKCgRhcmcxEgIxMCJgCgZtbXR1cmkSVmh0dHBzOi8vdG50Lmt3YXJjLmluZm8vcmVwb3Mvc3RjL2ZjYWQvZmxhbmdlL2Nkcy9JU09oZXhudXQub21kb2M/SVNPaGV4bnV0P0lTTy1oZXgtbnV0GksKCGdhc2tldDoxEghvYnNvbGV0ZSIXCgZzeW1ib2wSDWZsYW5nZS1nYXNrZXQiHAoGdGhlb3J5EhJmbGFuZ2UtYm9sdC1nYXNrZXQagwEKBmJvbHQ6MhIIb2Jzb2xldGUiYwoGbW10dXJpEllodHRwczovL3RudC5rd2FyYy5pbmZvL3JlcG9zL3N0Yy9mY2FkL2ZsYW5nZS9jZHMvSVNPaGV4Ym9sdC5vbWRvYz9JU09oZXhib2x0P0lTT2hleHRocmVhZCIKCgRhcmcxEgIxMBp/CgVudXQ6MhIIb2Jzb2xldGUiCgoEYXJnMRICMTAiYAoGbW10dXJpElZodHRwczovL3RudC5rd2FyYy5pbmZvL3JlcG9zL3N0Yy9mY2FkL2ZsYW5nZS9jZHMvSVNPaGV4bnV0Lm9tZG9jP0lTT2hleG51dD9JU08taGV4LW51dBqDAQoGYm9sdDozEghvYnNvbGV0ZSJjCgZtbXR1cmkSWWh0dHBzOi8vdG50Lmt3YXJjLmluZm8vcmVwb3Mvc3RjL2ZjYWQvZmxhbmdlL2Nkcy9JU09oZXhib2x0Lm9tZG9jP0lTT2hleGJvbHQ/SVNPaGV4dGhyZWFkIgoKBGFyZzESAjEwGn8KBW51dDozEghvYnNvbGV0ZSIKCgRhcmcxEgIxMCJgCgZtbXR1cmkSVmh0dHBzOi8vdG50Lmt3YXJjLmluZm8vcmVwb3Mvc3RjL2ZjYWQvZmxhbmdlL2Nkcy9JU09oZXhudXQub21kb2M/SVNPaGV4bnV0P0lTTy1oZXgtbnV0GoMBCgZib2x0OjQSCG9ic29sZXRlImMKBm1tdHVyaRJZaHR0cHM6Ly90bnQua3dhcmMuaW5mby9yZXBvcy9zdGMvZmNhZC9mbGFuZ2UvY2RzL0lTT2hleGJvbHQub21kb2M/SVNPaGV4Ym9sdD9JU09oZXh0aHJlYWQiCgoEYXJnMRICMTAafwoFbnV0OjQSCG9ic29sZXRlIgoKBGFyZzESAjEwImAKBm1tdHVyaRJWaHR0cHM6Ly90bnQua3dhcmMuaW5mby9yZXBvcy9zdGMvZmNhZC9mbGFuZ2UvY2RzL0lTT2hleG51dC5vbWRvYz9JU09oZXhudXQ/SVNPLWhleC1udXQagwEKBmJvbHQ6NRIIb2Jzb2xldGUiYwoGbW10dXJpEllodHRwczovL3RudC5rd2FyYy5pbmZvL3JlcG9zL3N0Yy9mY2FkL2ZsYW5nZS9jZHMvSVNPaGV4Ym9sdC5vbWRvYz9JU09oZXhib2x0P0lTT2hleHRocmVhZCIKCgRhcmcxEgIxMBp/CgVudXQ6NRIIb2Jzb2xldGUiCgoEYXJnMRICMTAiYAoGbW10dXJpElZodHRwczovL3RudC5rd2FyYy5pbmZvL3JlcG9zL3N0Yy9mY2FkL2ZsYW5nZS9jZHMvSVNPaGV4bnV0Lm9tZG9jP0lTT2hleG51dD9JU08taGV4LW51dBqDAQoGYm9sdDo2EghvYnNvbGV0ZSJjCgZtbXR1cmkSWWh0dHBzOi8vdG50Lmt3YXJjLmluZm8vcmVwb3Mvc3RjL2ZjYWQvZmxhbmdlL2Nkcy9JU09oZXhib2x0Lm9tZG9jP0lTT2hleGJvbHQ/SVNPaGV4dGhyZWFkIgoKBGFyZzESAjEwGn8KBW51dDo2EghvYnNvbGV0ZSIKCgRhcmcxEgIxMCJgCgZtbXR1cmkSVmh0dHBzOi8vdG50Lmt3YXJjLmluZm8vcmVwb3Mvc3RjL2ZjYWQvZmxhbmdlL2Nkcy9JU09oZXhudXQub21kb2M/SVNPaGV4bnV0P0lTTy1oZXgtbnV0&quot;
+</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:4</nodeId>
+  <nodeName>AlexData</nodeName>
+  <nodeInstanceId>1:5</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:5</nodeId>
+  <nodeName>Create Document</nodeName>
+  <nodeInstanceId>1:7</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>32</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <variableId>input</variableId>
+  <variableInstanceId>input</variableInstanceId>
+  <objectToString>info.kwarc.sissi.model.document.cad.CADDocument@14f5c01</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>33</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <variableId>input</variableId>
+  <variableInstanceId>input</variableInstanceId>
+  <objectToString>info.kwarc.sissi.model.document.cad.CADDocument@14f5c01</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowLogEvent>
+  <type>8</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+</org.drools.audit.event.RuleFlowLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>9</nodeId>
+  <nodeName>StartCADWorkflow</nodeName>
+  <nodeInstanceId>0</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>9</nodeId>
+  <nodeName>StartCADWorkflow</nodeName>
+  <nodeInstanceId>0</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>4</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>2</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>4</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>2</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>8</nodeId>
+  <nodeName>SallyFrame</nodeName>
+  <nodeInstanceId>4</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>8</nodeId>
+  <nodeName>SallyFrame</nodeName>
+  <nodeInstanceId>4</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>4</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>2</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>4</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>2</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>10</nodeId>
+  <nodeName>CADAlexClick</nodeName>
+  <nodeInstanceId>5</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>10</nodeId>
+  <nodeName>CADAlexClick</nodeName>
+  <nodeInstanceId>5</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>4</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>2</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>4</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>2</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>5</nodeId>
+  <nodeName>on Disconnect</nodeName>
+  <nodeInstanceId>3</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>5</nodeId>
+  <nodeName>on Disconnect</nodeName>
+  <nodeInstanceId>3</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>4</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>2</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>4</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>2</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>9</nodeId>
+  <nodeName>StartCADWorkflow</nodeName>
+  <nodeInstanceId>0</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>9</nodeId>
+  <nodeName>StartCADWorkflow</nodeName>
+  <nodeInstanceId>0</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowLogEvent>
+  <type>9</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+</org.drools.audit.event.RuleFlowLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:5</nodeId>
+  <nodeName>Create Document</nodeName>
+  <nodeInstanceId>1:7</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:8</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:8</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:9</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:9</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:8</nodeId>
+  <nodeName>onForward</nodeName>
+  <nodeInstanceId>1:11</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:8</nodeId>
+  <nodeName>onForward</nodeName>
+  <nodeInstanceId>1:11</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:9</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:9</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:4</nodeId>
+  <nodeName>AlexData</nodeName>
+  <nodeInstanceId>1:10</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:4</nodeId>
+  <nodeName>AlexData</nodeName>
+  <nodeInstanceId>1:10</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:9</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:9</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:8</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:8</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:5</nodeId>
+  <nodeName>Create Document</nodeName>
+  <nodeInstanceId>1:7</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:5</nodeId>
+  <nodeName>Create Document</nodeName>
+  <nodeInstanceId>1:7</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:4</nodeId>
+  <nodeName>AlexData</nodeName>
+  <nodeInstanceId>1:5</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>32</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <variableId>evt</variableId>
+  <variableInstanceId>evt</variableInstanceId>
+  <objectToString>info.kwarc.sally.core.MessageForward@f08f2a</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>33</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <variableId>evt</variableId>
+  <variableInstanceId>evt</variableInstanceId>
+  <objectToString>info.kwarc.sally.core.MessageForward@f08f2a</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:8</nodeId>
+  <nodeName>onForward</nodeName>
+  <nodeInstanceId>1:11</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:9</nodeId>
+  <nodeName>Forward</nodeName>
+  <nodeInstanceId>1:12</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>32</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <variableId>clickEvt</variableId>
+  <variableInstanceId>clickEvt</variableInstanceId>
+  <objectToString>cadNodeId: &quot;bolt:1&quot;
+position {
+  x: 827
+  y: 184
+}
+fileName: &quot;D:\\kwarc\\FormalCAD\\Examples\\models\\pipe-end.iam&quot;
+</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>33</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <variableId>clickEvt</variableId>
+  <variableInstanceId>clickEvt</variableInstanceId>
+  <objectToString>cadNodeId: &quot;bolt:1&quot;
+position {
+  x: 827
+  y: 184
+}
+fileName: &quot;D:\\kwarc\\FormalCAD\\Examples\\models\\pipe-end.iam&quot;
+</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>10</nodeId>
+  <nodeName>CADAlexClick</nodeName>
+  <nodeInstanceId>5</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>11</nodeId>
+  <nodeName>Forward Selection</nodeName>
+  <nodeInstanceId>6</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>11</nodeId>
+  <nodeName>Forward Selection</nodeName>
+  <nodeInstanceId>6</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>7</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>7</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>4</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>8</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>4</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>8</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>8</nodeId>
+  <nodeName>SallyFrame</nodeName>
+  <nodeInstanceId>10</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>8</nodeId>
+  <nodeName>SallyFrame</nodeName>
+  <nodeInstanceId>10</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>4</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>8</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>4</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>8</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>5</nodeId>
+  <nodeName>on Disconnect</nodeName>
+  <nodeInstanceId>9</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>5</nodeId>
+  <nodeName>on Disconnect</nodeName>
+  <nodeInstanceId>9</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>4</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>8</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>4</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>8</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>10</nodeId>
+  <nodeName>CADAlexClick</nodeName>
+  <nodeInstanceId>11</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>10</nodeId>
+  <nodeName>CADAlexClick</nodeName>
+  <nodeInstanceId>11</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>4</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>8</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>4</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>8</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>7</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>7</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>11</nodeId>
+  <nodeName>Forward Selection</nodeName>
+  <nodeInstanceId>6</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>11</nodeId>
+  <nodeName>Forward Selection</nodeName>
+  <nodeInstanceId>6</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>10</nodeId>
+  <nodeName>CADAlexClick</nodeName>
+  <nodeInstanceId>5</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:9</nodeId>
+  <nodeName>Forward</nodeName>
+  <nodeInstanceId>1:12</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:13</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:13</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:14</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:14</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:8</nodeId>
+  <nodeName>onForward</nodeName>
+  <nodeInstanceId>1:16</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:8</nodeId>
+  <nodeName>onForward</nodeName>
+  <nodeInstanceId>1:16</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:14</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:14</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:4</nodeId>
+  <nodeName>AlexData</nodeName>
+  <nodeInstanceId>1:15</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:4</nodeId>
+  <nodeName>AlexData</nodeName>
+  <nodeInstanceId>1:15</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:14</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:14</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:13</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:13</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:9</nodeId>
+  <nodeName>Forward</nodeName>
+  <nodeInstanceId>1:12</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:9</nodeId>
+  <nodeName>Forward</nodeName>
+  <nodeInstanceId>1:12</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:8</nodeId>
+  <nodeName>onForward</nodeName>
+  <nodeInstanceId>1:11</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>32</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <variableId>evt</variableId>
+  <variableInstanceId>evt</variableInstanceId>
+  <objectToString>info.kwarc.sally.core.MessageForward@d69fc5</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>33</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <variableId>evt</variableId>
+  <variableInstanceId>evt</variableInstanceId>
+  <objectToString>info.kwarc.sally.core.MessageForward@d69fc5</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:8</nodeId>
+  <nodeName>onForward</nodeName>
+  <nodeInstanceId>1:16</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:9</nodeId>
+  <nodeName>Forward</nodeName>
+  <nodeInstanceId>1:17</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>8</nodeId>
+  <nodeName>SallyFrame</nodeName>
+  <nodeInstanceId>10</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>3</nodeId>
+  <nodeName>DA</nodeName>
+  <nodeInstanceId>12</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>32</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <variableId>MenuItems</variableId>
+  <variableInstanceId>MenuItems</variableInstanceId>
+  <objectToString>[]</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>33</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <variableId>MenuItems</variableId>
+  <variableInstanceId>MenuItems</variableInstanceId>
+  <objectToString>[]</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>3</nodeId>
+  <nodeName>DA</nodeName>
+  <nodeInstanceId>12</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>1</nodeId>
+  <nodeName>Let User Choose</nodeName>
+  <nodeInstanceId>13</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>1</nodeId>
+  <nodeName>Let User Choose</nodeName>
+  <nodeInstanceId>13</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>2</nodeId>
+  <nodeName>Run Choice</nodeName>
+  <nodeInstanceId>14</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>2</nodeId>
+  <nodeName>Run Choice</nodeName>
+  <nodeInstanceId>14</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>15</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>15</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>4</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>16</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>4</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>16</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>5</nodeId>
+  <nodeName>on Disconnect</nodeName>
+  <nodeInstanceId>17</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>5</nodeId>
+  <nodeName>on Disconnect</nodeName>
+  <nodeInstanceId>17</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>4</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>16</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>4</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>16</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>10</nodeId>
+  <nodeName>CADAlexClick</nodeName>
+  <nodeInstanceId>19</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>10</nodeId>
+  <nodeName>CADAlexClick</nodeName>
+  <nodeInstanceId>19</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>4</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>16</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>4</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>16</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>8</nodeId>
+  <nodeName>SallyFrame</nodeName>
+  <nodeInstanceId>18</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>8</nodeId>
+  <nodeName>SallyFrame</nodeName>
+  <nodeInstanceId>18</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>4</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>16</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>4</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>16</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>15</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>15</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>2</nodeId>
+  <nodeName>Run Choice</nodeName>
+  <nodeInstanceId>14</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>2</nodeId>
+  <nodeName>Run Choice</nodeName>
+  <nodeInstanceId>14</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>1</nodeId>
+  <nodeName>Let User Choose</nodeName>
+  <nodeInstanceId>13</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>1</nodeId>
+  <nodeName>Let User Choose</nodeName>
+  <nodeInstanceId>13</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>3</nodeId>
+  <nodeName>DA</nodeName>
+  <nodeInstanceId>12</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>3</nodeId>
+  <nodeName>DA</nodeName>
+  <nodeInstanceId>12</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.cad</processId>
+  <processName>cad</processName>
+  <processInstanceId>2</processInstanceId>
+  <nodeId>8</nodeId>
+  <nodeName>SallyFrame</nodeName>
+  <nodeInstanceId>10</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:9</nodeId>
+  <nodeName>Forward</nodeName>
+  <nodeInstanceId>1:17</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:18</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:18</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:19</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:19</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:8</nodeId>
+  <nodeName>onForward</nodeName>
+  <nodeInstanceId>1:21</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:8</nodeId>
+  <nodeName>onForward</nodeName>
+  <nodeInstanceId>1:21</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:19</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:19</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:4</nodeId>
+  <nodeName>AlexData</nodeName>
+  <nodeInstanceId>1:20</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:4</nodeId>
+  <nodeName>AlexData</nodeName>
+  <nodeInstanceId>1:20</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:19</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:19</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:18</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:18</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:9</nodeId>
+  <nodeName>Forward</nodeName>
+  <nodeInstanceId>1:17</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:9</nodeId>
+  <nodeName>Forward</nodeName>
+  <nodeInstanceId>1:17</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:8</nodeId>
+  <nodeName>onForward</nodeName>
+  <nodeInstanceId>1:16</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>32</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <variableId>evt</variableId>
+  <variableInstanceId>evt</variableInstanceId>
+  <objectToString>info.kwarc.sally.core.MessageForward@38f04c</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>33</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <variableId>evt</variableId>
+  <variableInstanceId>evt</variableInstanceId>
+  <objectToString>info.kwarc.sally.core.MessageForward@38f04c</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:8</nodeId>
+  <nodeName>onForward</nodeName>
+  <nodeInstanceId>1:21</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:9</nodeId>
+  <nodeName>Forward</nodeName>
+  <nodeInstanceId>1:22</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:9</nodeId>
+  <nodeName>Forward</nodeName>
+  <nodeInstanceId>1:22</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:23</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:23</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:24</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:24</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:8</nodeId>
+  <nodeName>onForward</nodeName>
+  <nodeInstanceId>1:26</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:8</nodeId>
+  <nodeName>onForward</nodeName>
+  <nodeInstanceId>1:26</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:24</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:24</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:4</nodeId>
+  <nodeName>AlexData</nodeName>
+  <nodeInstanceId>1:25</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:4</nodeId>
+  <nodeName>AlexData</nodeName>
+  <nodeInstanceId>1:25</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:24</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:24</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:23</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:23</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:9</nodeId>
+  <nodeName>Forward</nodeName>
+  <nodeInstanceId>1:22</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:9</nodeId>
+  <nodeName>Forward</nodeName>
+  <nodeInstanceId>1:22</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:8</nodeId>
+  <nodeName>onForward</nodeName>
+  <nodeInstanceId>1:21</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>32</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <variableId>evt</variableId>
+  <variableInstanceId>evt</variableInstanceId>
+  <objectToString>info.kwarc.sally.core.MessageForward@44aaa2</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>33</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <variableId>evt</variableId>
+  <variableInstanceId>evt</variableInstanceId>
+  <objectToString>info.kwarc.sally.core.MessageForward@44aaa2</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:8</nodeId>
+  <nodeName>onForward</nodeName>
+  <nodeInstanceId>1:26</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:9</nodeId>
+  <nodeName>Forward</nodeName>
+  <nodeInstanceId>1:27</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:9</nodeId>
+  <nodeName>Forward</nodeName>
+  <nodeInstanceId>1:27</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:28</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:28</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:29</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:29</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:8</nodeId>
+  <nodeName>onForward</nodeName>
+  <nodeInstanceId>1:31</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:8</nodeId>
+  <nodeName>onForward</nodeName>
+  <nodeInstanceId>1:31</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:29</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:29</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:4</nodeId>
+  <nodeName>AlexData</nodeName>
+  <nodeInstanceId>1:30</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:4</nodeId>
+  <nodeName>AlexData</nodeName>
+  <nodeInstanceId>1:30</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:29</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:29</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:28</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:28</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:9</nodeId>
+  <nodeName>Forward</nodeName>
+  <nodeInstanceId>1:27</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:9</nodeId>
+  <nodeName>Forward</nodeName>
+  <nodeInstanceId>1:27</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:8</nodeId>
+  <nodeName>onForward</nodeName>
+  <nodeInstanceId>1:26</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>32</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <variableId>evt</variableId>
+  <variableInstanceId>evt</variableInstanceId>
+  <objectToString>info.kwarc.sally.core.MessageForward@831d65</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>33</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <variableId>evt</variableId>
+  <variableInstanceId>evt</variableInstanceId>
+  <objectToString>info.kwarc.sally.core.MessageForward@831d65</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:8</nodeId>
+  <nodeName>onForward</nodeName>
+  <nodeInstanceId>1:31</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:9</nodeId>
+  <nodeName>Forward</nodeName>
+  <nodeInstanceId>1:32</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:9</nodeId>
+  <nodeName>Forward</nodeName>
+  <nodeInstanceId>1:32</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:33</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:33</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:34</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:34</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:4</nodeId>
+  <nodeName>AlexData</nodeName>
+  <nodeInstanceId>1:35</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:4</nodeId>
+  <nodeName>AlexData</nodeName>
+  <nodeInstanceId>1:35</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:34</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:34</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:8</nodeId>
+  <nodeName>onForward</nodeName>
+  <nodeInstanceId>1:36</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:8</nodeId>
+  <nodeName>onForward</nodeName>
+  <nodeInstanceId>1:36</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:34</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:7</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:34</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:33</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:3</nodeId>
+  <nodeName></nodeName>
+  <nodeInstanceId>1:33</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:9</nodeId>
+  <nodeName>Forward</nodeName>
+  <nodeInstanceId>1:32</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:9</nodeId>
+  <nodeName>Forward</nodeName>
+  <nodeInstanceId>1:32</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>Sally.connect</processId>
+  <processName>connect</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>2:8</nodeId>
+  <nodeName>onForward</nodeName>
+  <nodeInstanceId>1:31</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>

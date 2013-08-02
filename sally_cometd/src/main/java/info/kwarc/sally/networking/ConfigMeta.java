@@ -1,4 +1,4 @@
-package info.kwarc.sally.networking.cometd;
+package info.kwarc.sally.networking;
 
 public class ConfigMeta {
 	public String id;

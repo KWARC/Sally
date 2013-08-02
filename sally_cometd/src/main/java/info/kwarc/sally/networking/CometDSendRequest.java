@@ -1,4 +1,4 @@
-package info.kwarc.sally.networking.cometd;
+package info.kwarc.sally.networking;
 
 import com.google.protobuf.AbstractMessage;
 

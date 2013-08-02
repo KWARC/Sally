@@ -2,7 +2,7 @@ package info.kwarc.sally;
 
 import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.core.comm.SallyModelRequest;
-import info.kwarc.sally.networking.cometd.CometD;
+import info.kwarc.sally.networking.CometD;
 import info.kwarc.sally.planetary.Planetary;
 import info.kwarc.sally.spreadsheet.ASMEditor;
 import info.kwarc.sally.spreadsheet.WorksheetDocument;
