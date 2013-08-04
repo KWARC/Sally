@@ -1,0 +1,11 @@
+#ifndef __info_kwarc_sally_librealex_xlibrealex_idl__
+#define __info_kwarc_sally_librealex_xlibrealex_idl__
+
+module info { module kwarc { module sally { module LibreAlex { 	
+
+	interface XLibreAlex {
+
+	};
+
+ }; }; }; };
+#endif

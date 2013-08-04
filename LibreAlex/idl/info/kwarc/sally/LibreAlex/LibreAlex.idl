@@ -1,0 +1,12 @@
+#ifndef __info_kwarc_sally_librealex_librealex_idl__
+#define __info_kwarc_sally_librealex_librealex_idl__
+
+#include <info/kwarc/sally/LibreAlex/XLibreAlex.idl>
+module info { module kwarc { module sally { module LibreAlex { 	
+
+	service LibreAlex : info::kwarc::sally::LibreAlex::XLibreAlex {
+
+	};
+
+ }; }; }; };
+#endif

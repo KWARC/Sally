@@ -1,0 +1,45 @@
+  <?xml version='1.0' encoding='UTF-8'?>
+<oor:component-data xmlns:oor="http://openoffice.org/2001/registry"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" oor:name="Addons"
+	oor:package="org.openoffice.Office">
+	<node oor:name="AddonUI">
+		<node oor:name="OfficeMenuBar">
+			<node oor:name="info.kwarc.sissi.ooalex" oor:op="replace">
+				<prop oor:name="Title" oor:type="xs:string">
+					<value />
+					<value xml:lang="en-US">Sally</value>
+				</prop>
+				<prop oor:name="Context" oor:type="xs:string">
+					<value>com.sun.star.sheet.SpreadsheetDocument</value>
+				</prop>
+				<node oor:name="Submenu">
+					<node oor:name="m1" oor:op="replace">
+						<prop oor:name="URL" oor:type="xs:string">
+							<value>info.kwarc.sissi.ooalex:start</value>
+						</prop>
+						<prop oor:name="Title" oor:type="xs:string">
+							<value />
+							<value xml:lang="en-US">Start Sally</value>
+						</prop>
+						<prop oor:name="Target" oor:type="xs:string">
+							<value>_self</value>
+						</prop>
+					</node>
+
+					<node oor:name="m2" oor:op="replace">
+						<prop oor:name="URL" oor:type="xs:string">
+							<value>info.kwarc.sissi.ooalex:stop</value>
+						</prop>
+						<prop oor:name="Title" oor:type="xs:string">
+							<value />
+							<value xml:lang="en-US">Stop Sally</value>
+						</prop>
+						<prop oor:name="Target" oor:type="xs:string">
+							<value>_self</value>
+						</prop>
+					</node>
+				</node>
+			</node>
+		</node>
+	</node>
+</oor:component-data>
