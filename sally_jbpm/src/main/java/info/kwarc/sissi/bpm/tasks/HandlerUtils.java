@@ -1,14 +1,35 @@
 package info.kwarc.sissi.bpm.tasks;
 
+import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import org.drools.runtime.process.WorkItemManager;
+import org.drools.runtime.process.ProcessInstance;
+import org.jbpm.ruleflow.instance.RuleFlowProcessInstance;
 
 import com.google.protobuf.AbstractMessage;
 import com.google.protobuf.Descriptors.FieldDescriptor;
 
 public class HandlerUtils {
+
+	public static Map<String, Object> getProcessVariables(ProcessInstance pi) {
+		if (pi instanceof RuleFlowProcessInstance) {
+			return ((RuleFlowProcessInstance) pi).getVariables();
+		}
+		return new HashMap<String, Object>();
+	}
+	
+	public static <T> T safeGet(Map<String, Object> map, String key, Class<T> cls) {
+		Object t = map.get(key);
+		if (t==null)
+			return null;
+		if (cls.isAssignableFrom(t.getClass())) {
+			return (T) t;
+		}			
+		return null;
+	}
+	
 	public static String guessOutputName(Map<String, Object> params) {
 		for (String param : params.keySet()) {
 			if (param.endsWith("Output")) {
@@ -18,11 +39,11 @@ public class HandlerUtils {
 		return null;
 	}
 	
-	public static HashMap<String, TestCounterHandler> registerCounterHandlers(WorkItemManager manager, String ...handlers) {
+	public static HashMap<String, TestCounterHandler> registerCounterHandlers(ISallyKnowledgeBase kb, String ...handlers) {
 		HashMap<String, TestCounterHandler> result = new HashMap<String, TestCounterHandler>();
 		for (String handler : handlers) {
 			TestCounterHandler counterHandler = new TestCounterHandler();
-			manager.registerWorkItemHandler(handler, counterHandler);
+			kb.registerWorkItemHandler(handler, counterHandler);
 			result.put(handler, counterHandler);
 		}
 		return result;

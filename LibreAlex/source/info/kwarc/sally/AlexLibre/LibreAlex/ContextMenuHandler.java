@@ -1,5 +1,9 @@
 package info.kwarc.sally.AlexLibre.LibreAlex;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.sun.star.awt.MenuBar;
 import com.sun.star.beans.XPropertySet;
 import com.sun.star.ui.ActionTriggerSeparatorType;
 import com.sun.star.ui.ContextMenuExecuteEvent;
@@ -9,10 +13,17 @@ import com.sun.star.uno.UnoRuntime;
 
 public class ContextMenuHandler implements XContextMenuInterceptor {
 
+	Logger log;
+	
+	public ContextMenuHandler() {
+		log = LoggerFactory.getLogger(getClass());
+	}
+	
 	@Override
 	public ContextMenuInterceptorAction notifyContextMenuExecute(
 			ContextMenuExecuteEvent aEvent) {
 		try {
+			log.info("Getting actions");
 			com.sun.star.container.XIndexContainer xContextMenu = aEvent.ActionTriggerContainer;
 			com.sun.star.lang.XMultiServiceFactory xMenuElementFactory = (com.sun.star.lang.XMultiServiceFactory) UnoRuntime
 					.queryInterface(
@@ -62,6 +73,7 @@ public class ContextMenuHandler implements XContextMenuInterceptor {
 								xMenuElementFactory
 								.createInstance("com.sun.star.ui.ActionTrigger"));
 
+				
 				xMenuEntry.setPropertyValue("Text", new String(
 						"Show Frames"));
 				xMenuEntry.setPropertyValue("CommandURL", new String(
@@ -75,10 +87,9 @@ public class ContextMenuHandler implements XContextMenuInterceptor {
 
 				return com.sun.star.ui.ContextMenuInterceptorAction.EXECUTE_MODIFIED;
 			}
-		} catch (com.sun.star.beans.UnknownPropertyException ex) {
-		} catch (com.sun.star.lang.IndexOutOfBoundsException ex) {
-		} catch (com.sun.star.uno.Exception ex) {
 		} catch (java.lang.Exception ex) {
+			log.error(ex.getMessage());
+			ex.printStackTrace();
 		}
 		return com.sun.star.ui.ContextMenuInterceptorAction.IGNORED;
 	}

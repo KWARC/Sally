@@ -54,7 +54,7 @@ public class ForwardToDoc implements WorkItemHandler {
 				throw new Exception("No process ID corresponds to file name "+fileName);
 
 			System.out.println("Forwarded to process id="+pforward);
-			BPMNUtils.sendMessageOrForward(kb.getKnowledgeSession().getProcessInstance(pforward), msg.getType(), msg.getData());
+			BPMNUtils.sendMessageOrForward(kb.getProcessInstance(pforward), msg.getType(), msg.getData());
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		} finally {

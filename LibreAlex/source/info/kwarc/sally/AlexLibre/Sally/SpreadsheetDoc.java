@@ -18,6 +18,7 @@ public class SpreadsheetDoc {
 	XSpreadsheetDocument xSpreadsheetDocument;
 	Logger log;
 	static final String hidenSheetName = "sally";
+	SallyCommunication comm;
 	
 	/**
 	 * Add selection change listener for a spreadsheet program
@@ -35,16 +36,17 @@ public class SpreadsheetDoc {
 				.queryInterface(XSelectionSupplier.class,
 						xSheetView);
 
-		xSelectionSupplier.addSelectionChangeListener(new LibreSelectionChange(xSpreadsheetDocument));
+		xSelectionSupplier.addSelectionChangeListener(new LibreSelectionChange(xSpreadsheetDocument, comm));
 	}
 	
 	void init() {
 		startSelectionListen(xSpreadsheetDocument);
-		getSemanticData();
+		comm.sendMessage("/service/alex/semanticdata", getSemanticData());
 	}
 	
-	public SpreadsheetDoc(XSpreadsheetDocument xSpreadsheetDocument) {
+	public SpreadsheetDoc(XSpreadsheetDocument xSpreadsheetDocument, SallyCommunication comm) {
 		this.xSpreadsheetDocument = xSpreadsheetDocument;
+		this.comm = comm;
 		log = LoggerFactory.getLogger(getClass());
 		init();
 	}

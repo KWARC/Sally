@@ -1,7 +1,5 @@
 package info.kwarc.sissi.bpm;
 
-import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +13,6 @@ import org.drools.logger.KnowledgeRuntimeLogger;
 import org.drools.logger.KnowledgeRuntimeLoggerFactory;
 import org.drools.process.instance.WorkItemHandler;
 import org.drools.runtime.StatefulKnowledgeSession;
-import org.drools.runtime.process.ProcessInstance;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -23,7 +20,7 @@ import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 
 @Singleton
-public class RemotePkgKnowledgeBase implements ISallyKnowledgeBase {
+public class RemotePkgKnowledgeBase extends AbstractKnowledgeBase {
 	KnowledgeBuilder kbuilder;
 	KnowledgeBase kb;
 	StatefulKnowledgeSession ksession;
@@ -63,20 +60,9 @@ public class RemotePkgKnowledgeBase implements ISallyKnowledgeBase {
 		}
 		klogger = KnowledgeRuntimeLoggerFactory.newThreadedFileLogger(ksession, "session", 500);
 	}
-	
+
 	@Override
-	public StatefulKnowledgeSession getKnowledgeSession() {
+	protected StatefulKnowledgeSession getSession() {
 		return ksession;
-	}
-
-	@Override
-	public ProcessInstance startProcess(String processID) {
-		return ksession.startProcess(processID);
-	}
-
-	@Override
-	public ProcessInstance startProcess(String processID,
-			Map<String, Object> obj) {
-		return ksession.startProcess(processID, obj);
 	}
 }

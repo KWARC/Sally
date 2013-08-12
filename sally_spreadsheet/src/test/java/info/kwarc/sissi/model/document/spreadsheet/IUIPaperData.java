@@ -2,12 +2,15 @@ package info.kwarc.sissi.model.document.spreadsheet;
 
 import info.kwarc.sally.model.document.spreadsheet.ASMInterface;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.List;
+
+import org.apache.commons.codec.binary.Base64;
 
 import sally.CellData;
 import sally.CellPosition;
@@ -146,16 +149,19 @@ public class IUIPaperData {
 		asm.addOntologyLink(discountMinQuantity, "http://info.kwarc.sissi.winograd/discount-min-quantities");
 		asm.addOntologyLink(discountRatesFB, "http://info.kwarc.sissi.winograd/discount-rates");
 		
-		Integer tableProps = setRowTableHeaders(workSheetid, 7, 1, new String[] {"Component", "Thread", "Color", "Head", "Type", "Basic Price"});
+		Integer tableProps = setRowTableHeaders(workSheetid, 7, 1, new String[] {"Part No", "Component", "Thread", "Color", "Head", "Type", "Basic Price"});
+		Integer componentCol = setColTableHeaders(workSheetid, 8, 2, new String[] {"bolt", "bolt", "bolt", "bolt", "bolt", "bolt", "bolt", "bolt", "nut", "nut", "gasket", "flange", "flange", "flange", "blind flange", "blind flange", "blind flange" });
+		Integer threadCol = setColTableHeaders(workSheetid, 8, 3, new String[] { "M15", "M15", "M15", "M15", "M15", "M15", "M16", "M16", "M15", "M16", "_", "M15", "M15", "M16", "M15", "M16", "M17"});
+		Integer colorCol = setColTableHeaders(workSheetid, 8, 4, new String[] { "silver", "silver", "black", "silver", "red", "black", "black", "black", "black", "black", "_", "black", "silver", "black", "black", "black", "black"});
+		Integer headCol = setColTableHeaders(workSheetid, 8, 5, new String[] { "carriage", "stove", "machine", "machine", "machine", "machine", "machine", "machine", "_", "_", "_", "_", "_", "_", "_", "_", "_" });
+		Integer typeCol = setColTableHeaders(workSheetid, 8, 6, new String[] { "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "standard", "_", "_", "_", "_", "_", "_"});
+		Integer cost = setColTableHeaders(workSheetid, 8, 7, new String[] {"0.450 EUR", "0.460 EUR", "0.300 EUR", "0.310 EUR", "0.340 EUR", "0.350 EUR", "0.300 EUR", "0.350 EUR", "0.504 EUR", "0.498 EUR", "2.040 EUR", "1.080 EUR", "1.080 EUR", "1.090 EUR", "0.888 EUR", "0.888 EUR", "0.888 EUR"});
 
-		Integer componentCol = setColTableHeaders(workSheetid, 8, 1, new String[] {"bolt", "bolt", "bolt", "bolt", "bolt", "bolt", "bolt", "bolt", "nut", "nut", "gasket", "flange", "flange", "flange", "blind flange", "blind flange", "blind flange" });
-		Integer threadCol = setColTableHeaders(workSheetid, 8, 2, new String[] { "M15", "M15", "M15", "M15", "M15", "M15", "M16", "M16", "M15", "M16", "_", "M15", "M15", "M16", "M15", "M16", "M17"});
-		Integer colorCol = setColTableHeaders(workSheetid, 8, 3, new String[] { "silver", "silver", "black", "silver", "red", "black", "black", "black", "black", "black", "_", "black", "silver", "black", "black", "black", "black"});
-		Integer headCol = setColTableHeaders(workSheetid, 8, 4, new String[] { "carriage", "stove", "machine", "machine", "machine", "machine", "machine", "machine", "_", "_", "_", "_", "_", "_", "_", "_", "_" });
-		Integer typeCol = setColTableHeaders(workSheetid, 8, 5, new String[] { "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "standard", "_", "_", "_", "_", "_", "_"});
+		Integer componentIDs = createColFB(workSheetid, 8, 1, new String[] {"a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8", "a9", "a10", "a11", "a12", "a13", "a14", "a15", "a16", "a17"}, 
+				new Integer[]{componentCol, threadCol, colorCol, headCol, typeCol, cost});
 
-		Integer cost = createColFB(workSheetid, 8, 6, new String[] {"0.450 EUR", "0.460 EUR", "0.300 EUR", "0.310 EUR", "0.340 EUR", "0.350 EUR", "0.300 EUR", "0.350 EUR", "0.504 EUR", "0.498 EUR", "2.040 EUR", "1.080 EUR", "1.080 EUR", "1.090 EUR", "0.888 EUR", "0.888 EUR", "0.888 EUR"}, new Integer [] {componentCol, threadCol, colorCol, headCol, typeCol});
-		
+		asm.addOntologyLink(tableProps, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/component.omdoc?component?ids");
+		asm.addOntologyLink(componentIDs, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/component.omdoc?component?ids");
 		asm.addOntologyLink(componentCol, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?ISOhexbolt");
 		asm.addOntologyLink(threadCol, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexthread.omdoc?ISOhexthread?ISOhexthread");
 		asm.addOntologyLink(colorCol, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color");
@@ -182,9 +188,14 @@ public class IUIPaperData {
 	public void writeProto() {
 		OutputStream file;
 		try {
-			file = new FileOutputStream("iui-model.bin");
+			file = new FileOutputStream("iui-model.rdf.64");
+			ByteArrayOutputStream so = new ByteArrayOutputStream();
 			SpreadsheetModel model = getAsm().serialize();
-			model.writeTo(file);
+			model.writeTo(so);
+			byte[] b = so.toByteArray();
+			file.write(Base64.encodeBase64(b));
+			file.close();
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

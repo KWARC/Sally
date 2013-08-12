@@ -1,7 +1,5 @@
 package info.kwarc.sissi.bpm;
 
-import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,46 +12,43 @@ import org.drools.logger.KnowledgeRuntimeLogger;
 import org.drools.logger.KnowledgeRuntimeLoggerFactory;
 import org.drools.process.instance.WorkItemHandler;
 import org.drools.runtime.StatefulKnowledgeSession;
-import org.drools.runtime.process.ProcessInstance;
 
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 
 @Singleton
-public class LocalBPMNKnowledgeBase implements ISallyKnowledgeBase {
+public class LocalBPMNKnowledgeBase extends AbstractKnowledgeBase {
 
 	StatefulKnowledgeSession ksession;
 	KnowledgeBase kbase;
 	KnowledgeRuntimeLogger klogger;
-	String files[];
+	String file;
 	
 	Map<String, WorkItemHandler> handlers; 
 
 	@Inject
 	public LocalBPMNKnowledgeBase(
-			@Named("DynamicApplicability") WorkItemHandler dynamicApplicability,
-			@Named("SallyTask") WorkItemHandler sallyTask,
-			@Named("BPMN Files") String [] files
+			@Named("WorkItemHandlers") HashMap<String, Class<? extends WorkItemHandler>> handlerClasses,
+			@Named("SallyPackage") String file,
+			Injector injector
 		) {
 
-		this.files = files;
 		handlers = new HashMap<String, WorkItemHandler>();
-		handlers.put("DynamicApplicability", dynamicApplicability);
-		handlers.put("SallyTask", sallyTask);
+		for (String taskName : handlerClasses.keySet()) {
+			handlers.put(taskName, injector.getInstance(handlerClasses.get(taskName)));
+		}
+		
+		this.file = file;
 		ksession = null;
-	}
-
-	private void initIfNecessary() {
-		if (ksession == null) {
-			try {
-				init();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		try {
+			init();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
-	
+
 	public void init() throws Exception {
 		kbase = readKnowledgeBase();
 		ksession = kbase.newStatefulKnowledgeSession();
@@ -72,32 +67,13 @@ public class LocalBPMNKnowledgeBase implements ISallyKnowledgeBase {
 	
 	KnowledgeBase readKnowledgeBase() throws Exception {
 		KnowledgeBuilder kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
-		for (String file : files) {
-			kbuilder.add(ResourceFactory.newClassPathResource(file), ResourceType.BPMN2);
-		}
+		kbuilder.add(ResourceFactory.newClassPathResource(file), ResourceType.PKG);
 		return kbuilder.newKnowledgeBase();
 	}
 
 	@Override
-	public StatefulKnowledgeSession getKnowledgeSession() {
-		initIfNecessary();
+	protected StatefulKnowledgeSession getSession() {
 		return ksession;
-	}
-
-	@Override
-	public ProcessInstance startProcess(String processID) {
-		initIfNecessary();
-		if (ksession == null)
-			return null;
-		return ksession.startProcess(processID);
-	}
-
-	@Override
-	public ProcessInstance startProcess(String processID, Map<String, Object> obj) {
-		initIfNecessary();
-		if (ksession == null)
-			return null;
-		return ksession.startProcess(processID, obj);
 	}
 
 }

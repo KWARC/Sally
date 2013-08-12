@@ -57,10 +57,9 @@ public class CADInteractionTest extends JbpmJUnitTestCase {
 	@Test
 	public void testWorkflow() {
 		ISallyKnowledgeBase kb = i.getInstance(ISallyKnowledgeBase.class);
-		WorkItemManager manager = kb.getKnowledgeSession().getWorkItemManager(); 
-		HashMap<String, TestCounterHandler> counters = HandlerUtils.registerCounterHandlers(manager, "DynamicApplicability", "LetUserChoose", "RunChoice", "CADSelectionForwarder");
+		HashMap<String, TestCounterHandler> counters = HandlerUtils.registerCounterHandlers(kb, "DynamicApplicability", "LetUserChoose", "RunChoice", "CADSelectionForwarder");
 		
-		ProcessInstance inst = kb.startProcess("Sally.cad");
+		ProcessInstance inst = kb.startProcess(null, "Sally.cad");
 		inst.signalEvent("Message-CADAlexClick", null);
 
 		Assert.assertEquals(1, counters.get("CADSelectionForwarder").getExecuted());
@@ -76,12 +75,11 @@ public class CADInteractionTest extends JbpmJUnitTestCase {
 	@Test
 	public void testDAConnections() {
 		ISallyKnowledgeBase kb = i.getInstance(ISallyKnowledgeBase.class);
-		WorkItemManager manager = kb.getKnowledgeSession().getWorkItemManager(); 
 
-		manager.registerWorkItemHandler("DynamicApplicability", new TestInputTypeHandler(String.class, SallyMenuItem.class));
-		manager.registerWorkItemHandler("LetUserChoose", i.getInstance(LetUserChoose.class));
-		manager.registerWorkItemHandler("RunChoice", i.getInstance(RunChoice.class));
-		manager.registerWorkItemHandler("CADSelectionForwarder", new SystemOutWorkItemHandler());
+		kb.registerWorkItemHandler("DynamicApplicability", new TestInputTypeHandler(String.class, SallyMenuItem.class));
+		kb.registerWorkItemHandler("LetUserChoose", i.getInstance(LetUserChoose.class));
+		kb.registerWorkItemHandler("RunChoice", i.getInstance(RunChoice.class));
+		kb.registerWorkItemHandler("CADSelectionForwarder", new SystemOutWorkItemHandler());
 
 		SallyInteraction interaction = i.getInstance(SallyInteraction.class);
 
@@ -103,7 +101,7 @@ public class CADInteractionTest extends JbpmJUnitTestCase {
 			}
 		});	
 
-		ProcessInstance inst = kb.startProcess("Sally.cad");
+		ProcessInstance inst = kb.startProcess(null, "Sally.cad");
 
 		CADAlexClick click = CADAlexClick.newBuilder().setFileName("test.cad").setCadNodeId("bolt1").setPosition(ScreenCoordinates.newBuilder().setX(100).setY(100).build()).build();
 		inst.signalEvent("Message-CADAlexClick", click);

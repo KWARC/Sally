@@ -1,13 +1,15 @@
 package info.kwarc.sally.spreadsheet;
 
-import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteraction;
+import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyService;
 import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.comm.SallyModelRequest;
 import info.kwarc.sally.core.interfaces.Theo;
 import info.kwarc.sally.model.document.spreadsheet.ASMInterface;
+import info.kwarc.sally.networking.interfaces.IMessageCallback;
+import info.kwarc.sally.networking.interfaces.INetworkSender;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,8 +17,14 @@ import java.io.IOException;
 import java.util.List;
 
 import sally.AlexClick;
+import sally.AlexRangeRequest;
+import sally.CellData;
 import sally.CellPosition;
+import sally.DataParameter;
+import sally.LegendCreateData;
 import sally.MMTUri;
+import sally.RangeData;
+import sally.RangeData.Builder;
 import sally.RangeSelection;
 import sally.SpreadsheetModel;
 
@@ -25,14 +33,34 @@ import com.google.inject.assistedinject.Assisted;
 
 public class WorksheetDocument {
 
+	INetworkSender sender;
+	
 	ASMInterface asm;
 	String filePath;
 	Theo theo;
-	
+
+	public String getFilePath() {
+		return filePath;
+	}
+
 	@Inject
-	public WorksheetDocument(@Assisted String filePath, @Assisted SpreadsheetModel data) {
+	public WorksheetDocument(@Assisted String filePath, @Assisted SpreadsheetModel data, @Assisted INetworkSender sender) {
 		asm = new ASMInterface(filePath);
+		this.filePath = filePath;
+		this.sender = sender;
 		setSemanticData(data);
+	}
+	
+	public void getData(String sheet, int startRow, int endRow, int startCol, int endCol) {
+		RangeSelection sel = RangeSelection.newBuilder().setSheet(sheet).setStartRow(startRow).setEndRow(endRow).setStartCol(startCol).setEndCol(endCol).build();
+		AlexRangeRequest request = AlexRangeRequest.newBuilder().setFileName(filePath).addSelection(sel).build();
+		sender.sendMessage("/get/data", request, new IMessageCallback() {
+			
+			@Override
+			public void onMessage() {
+				
+			}
+		});
 	}
 
 	public void setSemanticData(SpreadsheetModel msg) {
@@ -63,6 +91,14 @@ public class WorksheetDocument {
 		return asm.getOntologyForPosition(click);
 	}
 
+	public List<Integer> getFBForRange(RangeSelection range) {
+		return asm.getFunctionalBlockIDs(range);
+	}
+
+	public List<Integer> getLabelsForRange(RangeSelection range) {
+		return asm.getLabelBlockIDs(range);
+	}
+
 	/**
 	 * Heuristic to get a position in the speadsheet matching the MMT uri
 	 * @param mmtURI
@@ -82,9 +118,9 @@ public class WorksheetDocument {
 		acceptor.acceptResult(asm.getRDFModel());
 	}
 
-	@SallyService(channel="/service/alex/selectRange")
+
+	@SallyService
 	public void alexClickInteraction(AlexClick click, SallyInteractionResultAcceptor acceptor, SallyContext context) {
-		System.out.println(filePath);
 		if (!click.getFileName().equals(filePath)) {
 			return;
 		}
@@ -102,11 +138,21 @@ public class WorksheetDocument {
 		MMTUri mmtURI = interaction.getOneInteraction(pos, MMTUri.class);
 		items = interaction.getPossibleInteractions(sel, SallyMenuItem.class);
 		items.addAll(interaction.getPossibleInteractions(mmtURI, SallyMenuItem.class));
-
-		SallyMenuItem item = interaction.getOneInteraction(items, SallyMenuItem.class);
-		if (item != null) {
-			item.run();
+		for (SallyMenuItem r : items) {
+			acceptor.acceptResult(r);
 		}
+	}
+
+	public void createLabelBlock(RangeSelection range, String ontology) {
+		Builder rangeData = RangeData.newBuilder();
+		int sheetID = asm.getWorksheetIDByName(range.getSheet());
+		for (int row=range.getStartRow(); row<=range.getEndRow(); ++row) {
+			for (int col=range.getStartCol(); row<=range.getEndCol(); ++col) {
+				CellData data = CellData.newBuilder().setPosition(sally.CellSpaceInformation.newBuilder().setWidth(1).setHeight(1).setPosition( sally.CellPosition.newBuilder().setSheet(sheetID).setCol(row).setRow(col).build()).build()).setValue("").build();
+				rangeData.addCells(data);
+			}
+		}
+		asm.createLegend(LegendCreateData.newBuilder().setFileName(filePath).setParameter(DataParameter.SameContentSameElement).setItems(rangeData.build()).build());
 	}
 
 	@SallyService

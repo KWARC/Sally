@@ -79,15 +79,15 @@ com.sun.star.frame.XDispatch, com.sun.star.frame.XDispatchProvider, com.sun.star
 			/* IN */String sTargetFrameName,
 			/* IN */int iSearchFlags) {
 		XDispatch xRet = null;
-
+		log.info("Query dispatching "+aURL.Path+" "+aURL.Protocol);
 		if (aURL.Protocol.compareTo("info.kwarc.sissi.ooalex:") == 0) {
-			if (aURL.Path.compareTo("start") == 0 && !SallyManager.getInstance().getStarted()) {
+			if (aURL.Path.compareTo("start") == 0) {
 				xRet = this;				
 			}
-			if (aURL.Path.compareTo("stop") == 0 && !SallyManager.getInstance().getStarted()) {
+			if (aURL.Path.compareTo("stop") == 0) {
 				xRet = this;
 			}
-			if (aURL.Path.compareTo("showframes") == 0 && !SallyManager.getInstance().getStarted()) {
+			if (aURL.Path.compareTo("showframes") == 0) {
 				xRet = this;
 			}			
 		}
@@ -112,14 +112,6 @@ com.sun.star.frame.XDispatch, com.sun.star.frame.XDispatchProvider, com.sun.star
 
 	}
 
-	private void startMenuClicked() {
-		SallyManager.getInstance().startSally(m_xContext);
-	}
-
-	private void stopMenuClicked() {
-		SallyManager.getInstance().stopSally(m_xContext);
-	}
-
 	@Override
 	public void dispatch(/* IN */com.sun.star.util.URL aURL,
 			/* IN */com.sun.star.beans.PropertyValue[] aArguments) {
@@ -129,7 +121,7 @@ com.sun.star.frame.XDispatch, com.sun.star.frame.XDispatchProvider, com.sun.star
 			 */
 			if (aURL.Path.compareTo("start") == 0) {
 				log.debug("dispatching start in "+this+" with "+aArguments.length);
-				startMenuClicked();
+				SallyManager.getInstance().startSally(m_xContext);
 			}
 
 			/*
@@ -137,14 +129,15 @@ com.sun.star.frame.XDispatch, com.sun.star.frame.XDispatchProvider, com.sun.star
 			 */
 			if (aURL.Path.compareTo("stop") == 0) {
 				log.debug("dispatching stop in "+this+" with "+aArguments.length);
-				stopMenuClicked();
+				SallyManager.getInstance().stopSally(m_xContext);
 			}
 
 			/*
 			 * Start Sally if the start option is pressed.
 			 */
 			if (aURL.Path.compareTo("showframes") == 0) {
-				SallyManager.getInstance().showFrames();
+				log.info("Showing frames");
+				SallyManager.getInstance().showFrames(m_xContext);
 			}
 		}
 	}

@@ -141,6 +141,16 @@ message RangeSelection {
 }
 
 /**
+ * message to a SpreadsheetAlex to perform an action on a range e.g.
+ * if sent to /service/get/data channel, it should return data in that Range
+ * if sent to /service/alex/select channel, it should select given range
+ */
+message AlexRangeRequest {
+	required string fileName = 1;
+	repeated RangeSelection selection = 2;
+}
+
+/**
  * A spreadsheet Alex clicked
  */
 message AlexClick {
@@ -184,12 +194,29 @@ message CellPosition {
 	required int32 col = 3;
 }
 
-message NavigateTo { // DEPRECATED !!!!! Use CellSpaceInformation instead.
-
-	required int32 sheet = 1;
-	required int32 row = 2;
-	required int32 col = 3;
+// These are temporary data types and must be removed when the ASM will be used
+message ConcreteCellData {
+        required int32 row = 3;
+        required int32 col = 4;
+	required string formula = 1;
+        required string value = 2;
 }
+
+message ConcreteSheetData {
+	required string sheetname = 1;
+        required int32 startRow = 3;
+        required int32 startCol = 4;
+	required int32 endRow = 5;
+        required int32 endCol = 6;
+        repeated ConcreteCellData cellinf = 2;
+}
+
+message ConcreteDocumentData {
+        required string filename = 1;
+        repeated ConcreteSheetData sheets = 2;
+	// This is the end of the stupid data types that replace the ASM for the FormulaParser implementation.
+}
+
 
 message CellSpaceInformation {
 	required CellPosition position = 1;
@@ -524,19 +551,6 @@ message TheoNavigateTo {
 }
 //https://developers.google.com/protocol-buffers/docs/techniques
 
-/* This is my first shot at this:
- * I found two solutions to this one
- * The first one is stupid and involves a relation between the name of the enum elements and the type of the message
- * The second one involves a required string that represents the type of the message and each variable name has to have the name of the type with a underline instead of dots. I use this to automatically detect which variable to set in javascript.
- */
-message ContainerMessage {
-	required string type = 1;
-	required string actionId = 2;
-	required string callback = 3;
-	optional sally.Frame sally_Frame = 7;
-	optional sally.FormulaInfo sally_FormulaInfo = 10;
-}
-
 message Frame {
 	required string uid = 1;
 	required string actionId = 2;
@@ -567,7 +581,6 @@ message FormulaMap {
 	required string filename = 1;
 	repeated FormulaSheetData sheets = 2;
 	// This is the end of the stupid data types that replace the ASM for the FormulaParser implementation.
-
 }
 
 // Make a request from Alex to Sally for the ASM.

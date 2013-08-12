@@ -1,11 +1,14 @@
 package info.kwarc.sally.AlexLibre.Sally;
 
 import info.kwarc.sally.AlexLibre.LibreAlex.ContextMenuHandler;
+import info.kwarc.sally.AlexLibre.Sally.handlers.GetDataRange;
 
 import java.util.HashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import sally.SallyFrame;
 
 import com.sun.star.container.XEnumeration;
 import com.sun.star.frame.XController;
@@ -35,7 +38,12 @@ public class SallyManager {
 	private ContextMenuHandler contextMenuHandler;
 	
 	XComponentContext m_xContext;
+	SallyCommunication comm;
 
+	public XComponentContext getContext() {
+		return m_xContext;
+	}
+	
 	Logger log;
 
 	HashMap<XSpreadsheetDocument, SpreadsheetDoc> docMap;
@@ -45,6 +53,9 @@ public class SallyManager {
 		log = LoggerFactory.getLogger(this.getClass());
 		docMap = new HashMap<XSpreadsheetDocument, SpreadsheetDoc>();
 		contextMenuHandler = new ContextMenuHandler();
+		comm = new SallyCommunication("http://localhost", 8181);
+		comm.addHandler(new GetDataRange());
+		comm.start();
 	}
 
 	public boolean getStarted() {
@@ -70,7 +81,7 @@ public class SallyManager {
 				continue;
 			}
 			log.info("Starting to look after "+SallyUtils.getDocumentName(xSpreadsheetDocument));
-			docMap.put(xSpreadsheetDocument, new SpreadsheetDoc(xSpreadsheetDocument));
+			docMap.put(xSpreadsheetDocument, new SpreadsheetDoc(xSpreadsheetDocument, comm));
 		}
 	}
 
@@ -98,6 +109,7 @@ public class SallyManager {
 
 	public void startSally(XComponentContext m_xContext) {
 		this.m_xContext = m_xContext;
+		log.info("start context = "+m_xContext);
 		if (started)
 			return;
 		started = true;
@@ -116,6 +128,7 @@ public class SallyManager {
 	public void stopSally(XComponentContext m_xContext) {
 		if (!started)
 			return;
+		log.info("end context = "+m_xContext);
 		started = false;
 		this.m_xContext = m_xContext;
 
@@ -127,7 +140,21 @@ public class SallyManager {
 		}
 	}
 	
-	public void showFrames() {
-		log.info("showing frames");
+	public void showFrames(XComponentContext m_xContext) {
+		log.info("frames context = "+m_xContext);
+		try {
+			XDesktop xDesktop = SallyUtils.getDesktop(m_xContext);
+			log.info("got desktop");
+			
+			XSpreadsheetDocument xSpreadsheetDocument = (XSpreadsheetDocument) UnoRuntime
+					.queryInterface(XSpreadsheetDocument.class,
+							xDesktop.getCurrentComponent());
+			
+			log.info("sending frame request ");
+			comm.sendMessage("/service/alex/sallyFrame", SallyFrame.newBuilder().setFileName(SallyUtils.getDocumentName(xSpreadsheetDocument)).build());
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+		}
 	}
 }

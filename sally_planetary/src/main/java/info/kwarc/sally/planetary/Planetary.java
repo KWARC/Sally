@@ -81,8 +81,10 @@ public class Planetary {
 	public void planetaryServices(final MMTUri mmtURI, SallyInteractionResultAcceptor acceptor, final SallyContext context) {
 		acceptor.acceptResult(new SallyMenuItem("Knowledge Base", "Definition Lookup") {
 			public void run() {
+				Long parentProcessInstanceID = context.getContextVar("processInstanceId", Long.class);
+
 				HashMap<String, Object>  input = new  HashMap<String, Object>();
-				ProcessInstance processInstance = kb.getKnowledgeSession().startProcess("Sally.deflookup", input);
+				ProcessInstance processInstance = kb.startProcess(parentProcessInstanceID, "Sally.deflookup", input);
 				processInstance .signalEvent("Message-input", getDefinitionLookupURL(mmtURI.getUri()));
 			}
 		});

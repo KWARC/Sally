@@ -1,11 +1,9 @@
 package info.kwarc.sissi.bpm.injection;
 
+import info.kwarc.sissi.bpm.AbstractKnowledgeBase;
 import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
 
-import java.util.Map;
-
 import org.drools.runtime.StatefulKnowledgeSession;
-import org.drools.runtime.process.ProcessInstance;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
@@ -20,7 +18,7 @@ public class TestableKnowledeBase extends AbstractModule {
 	}
 
 	@Singleton
-	static class JUnitKnowledge implements ISallyKnowledgeBase {
+	static class JUnitKnowledge extends AbstractKnowledgeBase {
 		StatefulKnowledgeSession ksession;
 
 		@Inject
@@ -30,19 +28,8 @@ public class TestableKnowledeBase extends AbstractModule {
 		}
 
 		@Override
-		public StatefulKnowledgeSession getKnowledgeSession() {
+		protected StatefulKnowledgeSession getSession() {
 			return ksession;
-		}
-
-		@Override
-		public ProcessInstance startProcess(String processID) {
-			return ksession.startProcess(processID);
-		}
-
-		@Override
-		public ProcessInstance startProcess(String processID,
-				Map<String, Object> obj) {
-			return ksession.startProcess(processID, obj);
 		}
 	}
 

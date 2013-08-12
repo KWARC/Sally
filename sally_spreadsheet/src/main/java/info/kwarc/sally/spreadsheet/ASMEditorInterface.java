@@ -1,10 +1,14 @@
 package info.kwarc.sally.spreadsheet;
 
-import info.kwarc.sally.core.SallyContext;
-import info.kwarc.sally.core.SallyContextManager;
-import info.kwarc.sally.core.SallyInteraction;
+import freemarker.template.TemplateException;
+import info.kwarc.sally.networking.CometDSendRequest;
+import info.kwarc.sally.networking.TemplateEngine;
+import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
+import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -12,43 +16,47 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 
+import org.drools.runtime.process.ProcessInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sally.Cookie;
-import sally.TheoChangeWindow;
-import freemarker.template.TemplateException;
+import sally.AlexRangeRequest;
+import sally.RangeSelection;
 
-@Path("/asmeditor")
+import com.google.inject.Inject;
+
+@Path("/sally/asmeditor")
 public class ASMEditorInterface {
 
 	String name;
 	String ontology;
 	Logger log;
+	ISallyKnowledgeBase kb;
+	TemplateEngine templ;
 
-	public ASMEditorInterface() {
+	@Inject
+	public ASMEditorInterface(ISallyKnowledgeBase kb, TemplateEngine templ) {
 		log = LoggerFactory.getLogger(ASMEditorInterface.class);
+		this.kb = kb;
+		this.templ = templ;
 	}
 
 	@GET
-	public String generateUI(@QueryParam("s") String token) throws IOException, TemplateException {
-		/*
-		SallyContext context = SallyContextManager.getInstance().getContext(token);
-		if (context == null) {
+	public String generateUI(@QueryParam("pid") Long processInstanceID) throws IOException, TemplateException {
+		ProcessInstance  pi = kb.getProcessInstance(processInstanceID);
+		if (pi == null) {
+			return "invalid session";
+		}
+		
+		Map<String, Object> vars = HandlerUtils.getProcessVariables(pi);
+		if (vars == null ){
 			return "invalid session";
 		}
 
-		RangeSelection cellPosition = context.getContextVar("ASMCellRange", RangeSelection.class);
+		RangeSelection cellPosition = HandlerUtils.getFirstTypedParameter(vars, RangeSelection.class);
 		if (cellPosition == null) {
 			return "session did not provide a valid cell range";
 		}
-
-		ASMEditorInterface formData = context.getContextVar("ASMFormData", ASMEditorInterface.class);
-		if (formData == null) {
-			formData = this;
-			context.setContextVar("ASMFormData", formData);
-		}
-		SallyInteraction interaction = CometD.getInteraction();
 
 		Map<String, String> templateData = new HashMap<String, String>();
 		templateData.put("Sheet", cellPosition.getSheet());
@@ -56,45 +64,36 @@ public class ASMEditorInterface {
 		templateData.put("StartCol", Integer.toString(cellPosition.getStartCol()));
 		templateData.put("EndRow", Integer.toString(cellPosition.getEndRow()));
 		templateData.put("EndCol", Integer.toString(cellPosition.getEndCol()));
-		templateData.put("token", token);
+		templateData.put("token", Long.toString(processInstanceID));
 
-		return interaction.getOneInteraction("/template", new TemplateRequest("asmeditor/asmeditor.ftl", templateData), String.class); */
-		return "";
+		return templ.generateTemplate("asmeditor/asmeditor.ftl", templateData);
 	}
 
 	@POST
-	public String respond(@FormParam("s") String token, @FormParam("action") String action, @FormParam("name") String name, @FormParam("ontology") String ontology){
-		SallyContext context = SallyContextManager.getInstance().getContext(token);
-		if (context == null) {
+	public String respond(@QueryParam("pid") Long processInstanceID, @FormParam("rangeType") String rangeType, @FormParam("IM") String ontology){
+		ProcessInstance  pi = kb.getProcessInstance(processInstanceID);
+		if (pi == null) {
+			return "invalid session";
+		}
+		
+		Map<String, Object> vars = HandlerUtils.getProcessVariables(pi);
+		if (vars == null ){
 			return "invalid session";
 		}
 
-		SallyInteraction interaction = context.getCurrentInteraction();
-
-		this.name = name;
-		this.ontology = ontology;
-
-		if (action.equals("Browse")) {
-			log.debug("About to execute browse");
-			//String url = interaction.getOneInteraction(new ListOntologyConcepts(), String.class);
-			String url = "";
-			log.debug("URL "+url);
-			if (url == null)
-				return null;
-			TheoChangeWindow.Builder op = TheoChangeWindow.newBuilder().setUrl(url);
-
-			Cookie cookie = context.getContextVar("Cookie", Cookie.class);
-			if (cookie != null)
-				op.setCookie(cookie);
-
-			Integer wndID = context.getContextVar("ACMEditorWindowID", Integer.class);
-			if (wndID != null)
-				op.setWindowid(wndID);
-
-			interaction.getOneInteraction(op.build(), Boolean.class);
-
+		RangeSelection cellPosition = HandlerUtils.getFirstTypedParameter(vars, RangeSelection.class);
+		if (cellPosition == null) {
+			return "session did not provide a valid cell range";
 		}
-
+		
+		WorksheetDocument doc = HandlerUtils.getFirstTypedParameter(vars, WorksheetDocument.class);
+		if (doc == null) {
+			return "not document found";
+		}
+		
+		AlexRangeRequest rangeRequest = AlexRangeRequest.newBuilder().setFileName(doc.getFilePath()).addSelection(cellPosition).build();
+		kb.propagateParentMessage(processInstanceID, "Message-onSendMessage", new CometDSendRequest("/service/get/data", rangeRequest));
+		
 		return "ok";
 	}
 }

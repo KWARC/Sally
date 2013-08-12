@@ -41,14 +41,13 @@ public class DefinitionLookupTest extends JbpmJUnitTestCase {
 	@Test
 	public void testWorkflow() {
 		ISallyKnowledgeBase kb = i.getInstance(ISallyKnowledgeBase.class);
-		WorkItemManager manager = kb.getKnowledgeSession().getWorkItemManager(); 
-		HashMap<String, TestCounterHandler> counters = HandlerUtils.registerCounterHandlers(manager, "theoWindowCreate", "theoWindowUpdate");
+		HashMap<String, TestCounterHandler> counters = HandlerUtils.registerCounterHandlers(kb, "theoWindowCreate", "theoWindowUpdate");
 
 
 		HashMap<String, Object>  input = new  HashMap<String, Object>();
 		input.put("URLOutput", "testurl");
 
-		ProcessInstance inst = kb.startProcess("Sally.deflookup", input);
+		ProcessInstance inst = kb.startProcess(null, "Sally.deflookup", input);
 		inst.signalEvent("Message-input", "test.url");
 		inst.signalEvent("Message-selectionChanged", null);
 
@@ -59,11 +58,10 @@ public class DefinitionLookupTest extends JbpmJUnitTestCase {
 	@Test
 	public void testInputs() {
 		ISallyKnowledgeBase kb = i.getInstance(ISallyKnowledgeBase.class);
-		WorkItemManager manager = kb.getKnowledgeSession().getWorkItemManager(); 
-		manager.registerWorkItemHandler("theoWindowCreate", new TestInputTypeHandler(String.class));
-		manager.registerWorkItemHandler("theoWindowUpdate", new TestInputTypeHandler(CADAlexClick.class));
+		kb.registerWorkItemHandler("theoWindowCreate", new TestInputTypeHandler(String.class));
+		kb.registerWorkItemHandler("theoWindowUpdate", new TestInputTypeHandler(CADAlexClick.class));
 
-		ProcessInstance inst = kb.startProcess("Sally.deflookup");
+		ProcessInstance inst = kb.startProcess(null, "Sally.deflookup");
 		inst.signalEvent("Message-input", "test.url");
 		inst.signalEvent("Message-selectionChanged", CADAlexClick.newBuilder().buildPartial());
 	}

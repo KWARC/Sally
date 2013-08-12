@@ -2,6 +2,7 @@ package info.kwarc.sissi.bpm.tasks;
 
 import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.core.interfaces.SallyTask;
+import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
 
 import org.drools.process.instance.WorkItemHandler;
 import org.drools.runtime.process.WorkItem;
@@ -15,11 +16,13 @@ import com.google.inject.Inject;
 public class DynamicApplyHandler implements WorkItemHandler {
 	SallyInteraction interaction;
 	Logger log;
-
+	ISallyKnowledgeBase kb;
+	
 	@Inject
-	public DynamicApplyHandler(SallyInteraction interaction) {
+	public DynamicApplyHandler(SallyInteraction interaction, ISallyKnowledgeBase kb) {
 		this.interaction = interaction;
 		log = LoggerFactory.getLogger(this.getClass());
+		this.kb = kb;
 	}
 
 	public void abortWorkItem(WorkItem arg0, WorkItemManager arg1) {
@@ -40,6 +43,7 @@ public class DynamicApplyHandler implements WorkItemHandler {
 
 			Class<?> c = Class.forName(output);
 
+			interaction.getContext().setContextVar("processInstanceId", arg0.getProcessInstanceId());
 			arg0.getResults().put("result", interaction.getPossibleInteractions(o, c));
 		} catch (Exception e) {
 			log.error(e.getMessage());

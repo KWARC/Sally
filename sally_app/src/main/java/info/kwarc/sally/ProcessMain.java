@@ -1,25 +1,13 @@
 package info.kwarc.sally;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-
 import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.injection.Configuration;
 import info.kwarc.sally.networking.CometD;
-import info.kwarc.sally.networking.ConnectionManager;
-import info.kwarc.sally.networking.ConnectionPlayer;
-import info.kwarc.sally.networking.ConnectionRecorder;
-import info.kwarc.sally.networking.interfaces.IConnectionManager;
+import info.kwarc.sally.networking.Injection.ProductionNetworking;
 import info.kwarc.sally.planetary.Planetary;
-import info.kwarc.sissi.bpm.BPMNUtils;
-import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
-import info.kwarc.sissi.bpm.injection.ProductionRemoteKnowledgeBase;
+import info.kwarc.sally.spreadsheet.ASMEditor;
+import info.kwarc.sissi.bpm.injection.ProductionLocalKnowledgeBase;
 import info.kwarc.sissi.bpm.injection.ProductionSallyActions;
-import sally.AlexData;
-import sally.CADAlexClick;
-import sally.SallyFrame;
-import sally.ScreenCoordinates;
-import sally_comm.MessageUtils;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -32,18 +20,22 @@ public class ProcessMain {
 	public static final void main(String[] args) throws Exception {
 		Injector i = Guice.createInjector(
 				new Configuration(),
-				new ProductionRemoteKnowledgeBase(), 
-				new ProductionSallyActions()
+				//new ProductionRemoteKnowledgeBase(), 
+				new ProductionLocalKnowledgeBase(), 
+				new ProductionSallyActions(),
+				new ProductionNetworking()
 		);
 
-		IConnectionManager realConn = i.getInstance(ConnectionManager.class);
-		//ConnectionRecorder conn = new ConnectionRecorder(new FileWriter("rec.json"), realConn);
-		
-		ConnectionPlayer player = new ConnectionPlayer(new FileReader("rec.json"));
+		SallyInteraction interaction = i.getInstance(SallyInteraction.class);
+		interaction.registerServices(i.getInstance(Planetary.class));
+		interaction.registerServices(i.getInstance(PricingService.class));
+		interaction.registerServices(i.getInstance(ASMEditor.class));
 
-		//CometD cometD = new CometD(8181, realConn);
-		//cometD.start();
-		player.start(realConn);
+		CometD cometD = i.getInstance(CometD.class);
+		cometD.start();
+
+		//ConnectionPlayer player = i.getInstance(IConnectionPlayerFactory.class).create(new FileReader("rec_spreadsheet.json"));
+		//player.start();
 
 /*		
 		conn.newClient("spread");
@@ -69,7 +61,7 @@ public class ProcessMain {
 		conn.newMessage("cad", frame);
 		*/
 		//conn.close();
-		BPMNUtils.showStatus(i.getInstance(ISallyKnowledgeBase.class).getKnowledgeSession());
+		//BPMNUtils.showStatus(i.getInstance(ISallyKnowledgeBase.class).getKnowledgeSession());
 	}
 
 }

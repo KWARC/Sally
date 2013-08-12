@@ -108,6 +108,7 @@ public class SallyUtils {
 			return null;
 		} catch (com.sun.star.lang.DisposedException e) {
 			accessibleTableCache = null;
+			return getCellRangePosition(frame, addr);
 		}
 		XAccessibleComponent accessibleComponent = (XAccessibleComponent) UnoRuntime
 				.queryInterface(XAccessibleComponent.class, cellToRight);

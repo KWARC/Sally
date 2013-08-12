@@ -2,11 +2,15 @@ package info.kwarc.sissi.bpm.inferfaces;
 
 import java.util.Map;
 
-import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.process.ProcessInstance;
+import org.drools.runtime.process.WorkItemHandler;
 
 public interface ISallyKnowledgeBase {
-	StatefulKnowledgeSession getKnowledgeSession();
-	ProcessInstance startProcess(String processID);
-	ProcessInstance startProcess(String processID, Map<String, Object> obj);
+	ProcessInstance startProcess(Long parentProcessInstanceID, String processID);
+	ProcessInstance startProcess(Long parentProcessInstanceID, String processID, Map<String, Object> obj);
+	
+	ProcessInstance getProcessInstance(Long processinstanceID);
+	void registerWorkItemHandler(String Name, WorkItemHandler handler);
+	
+	boolean propagateParentMessage(Long currentProcessInstanceID, String message_id, Object input);
 }

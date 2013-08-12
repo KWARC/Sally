@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="LibreAlex">
+    <property environment="env"/>
+    <property name="ECLIPSE_HOME" value="../../../../../opt/eclipse"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.7"/>
+    <property name="source" value="1.7"/>
+    <path id="URE libraries.libraryclasspath">
+        <pathelement location="../../../../../opt/libreoffice3.6/ure/share/java/unoloader.jar"/>
+        <pathelement location="../../../../../opt/libreoffice3.6/ure/share/java/unoil.jar"/>
+        <pathelement location="../../../../../opt/libreoffice3.6/ure/share/java/ridl.jar"/>
+        <pathelement location="../../../../../opt/libreoffice3.6/ure/share/java/jurt.jar"/>
+        <pathelement location="../../../../../opt/libreoffice3.6/ure/share/java/juh.jar"/>
+    </path>
+    <path id="LibreAlex.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="build"/>
+        <pathelement location="lib/logback-classic-1.0.13.jar"/>
+        <pathelement location="lib/logback-core-1.0.13.jar"/>
+        <pathelement location="lib/slf4j-api-1.7.5.jar"/>
+        <pathelement location="testlibs/bootstrapconnector.jar"/>
+        <pathelement location="lib/sally_comm.jar"/>
+        <pathelement location="lib/protobuf-java-2.5.0.jar"/>
+        <pathelement location="lib/bayeux-api-2.4.2.jar"/>
+        <pathelement location="lib/cometd-java-client-2.4.2.jar"/>
+        <pathelement location="lib/cometd-java-common-2.4.2.jar"/>
+        <pathelement location="lib/commons-codec-1.6.jar"/>
+        <pathelement location="lib/gson-1.7.1.jar"/>
+        <pathelement location="lib/jetty-all-8.0.4.v20111024.jar"/>
+        <path refid="URE libraries.libraryclasspath"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="source">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="source"/>
+            <classpath refid="LibreAlex.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+    <target name="Standalone">
+        <java classname="info.kwarc.sally.AlexLibre.Standalone" failonerror="true" fork="yes">
+            <classpath refid="LibreAlex.classpath"/>
+        </java>
+    </target>
+</project>

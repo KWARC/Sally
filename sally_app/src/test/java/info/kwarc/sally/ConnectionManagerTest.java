@@ -39,8 +39,8 @@ public class ConnectionManagerTest extends JbpmJUnitTestCase {
 		TestCounterHandler cntInit = new TestCounterHandler();
 		TestCounterHandler cntCreateDoc = new TestCounterHandler();
 		
-		kb.getKnowledgeSession().getWorkItemManager().registerWorkItemHandler("InitTheo", cntInit);
-		kb.getKnowledgeSession().getWorkItemManager().registerWorkItemHandler("CreateDoc", cntCreateDoc);
+		kb.registerWorkItemHandler("InitTheo", cntInit);
+		kb.registerWorkItemHandler("CreateDoc", cntCreateDoc);
 		
 		c.newClient("user");
 		c.newMessage("user", "Message-WhoAmI", "Spreadsheet");
@@ -49,7 +49,7 @@ public class ConnectionManagerTest extends JbpmJUnitTestCase {
 		c.newMessage("user", "Message-Disconnect", null);
 		
 		ProcessInstance processInstance = c.getState("user");
-		assertProcessInstanceCompleted(processInstance.getId(), kb.getKnowledgeSession());
+		Assert.assertNull("Process did not complete", kb.getProcessInstance(processInstance.getId()));
 
 		Assert.assertEquals(1, cntInit.getExecuted());
 		Assert.assertEquals(2, cntCreateDoc.getExecuted());
@@ -63,8 +63,8 @@ public class ConnectionManagerTest extends JbpmJUnitTestCase {
 		TestCounterHandler cntInit = new TestCounterHandler();
 		TestCounterHandler cntCreateDoc = new TestCounterHandler();
 		
-		kb.getKnowledgeSession().getWorkItemManager().registerWorkItemHandler("InitTheo", cntInit);
-		kb.getKnowledgeSession().getWorkItemManager().registerWorkItemHandler("CreateDoc", cntCreateDoc);
+		kb.registerWorkItemHandler("InitTheo", cntInit);
+		kb.registerWorkItemHandler("CreateDoc", cntCreateDoc);
 		
 		c.newClient("user1");
 		c.newClient("user2");
@@ -80,8 +80,8 @@ public class ConnectionManagerTest extends JbpmJUnitTestCase {
 		ProcessInstance user1 = c.getState("user1");
 		ProcessInstance user2 = c.getState("user1");
 
-		assertProcessInstanceCompleted(user1.getId(), kb.getKnowledgeSession());
-		assertProcessInstanceCompleted(user2.getId(), kb.getKnowledgeSession());
+		Assert.assertNull("Process did not complete", kb.getProcessInstance(user1.getId()));
+		Assert.assertNull("Process did not complete", kb.getProcessInstance(user2.getId()));
 
 		Assert.assertEquals(2, cntInit.getExecuted());
 		Assert.assertEquals(4, cntCreateDoc.getExecuted());
@@ -96,9 +96,9 @@ public class ConnectionManagerTest extends JbpmJUnitTestCase {
 		TestCounterHandler cntInit = new TestCounterHandler();
 		TestCounterHandler cntCreateDoc = new TestCounterHandler();
 		TestCounterHandler cntForward = new TestCounterHandler();
-		kb.getKnowledgeSession().getWorkItemManager().registerWorkItemHandler("InitTheo", cntInit);
-		kb.getKnowledgeSession().getWorkItemManager().registerWorkItemHandler("CreateDoc", cntCreateDoc);
-		kb.getKnowledgeSession().getWorkItemManager().registerWorkItemHandler("forwardToDoc", cntForward);
+		kb.registerWorkItemHandler("InitTheo", cntInit);
+		kb.registerWorkItemHandler("CreateDoc", cntCreateDoc);
+		kb.registerWorkItemHandler("forwardToDoc", cntForward);
 
 		c.newMessage("user1", "Message-WhoAmI", "Spreadsheet");
 		c.newMessage("user1", "Message-AlexData", "a.xls");

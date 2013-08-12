@@ -15,7 +15,7 @@
 		<module>sally_comm</module>
 		<module>sally_planetary</module>
 		<module>sally_theofx</module>
-		<module>sally_cometd</module>
+		<module>sally_net</module>
 		<module>sally_spreadsheet</module>
 		<module>sally_cad</module>
 		<module>sally_jedit</module>
