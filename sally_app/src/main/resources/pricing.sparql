@@ -1,3 +1,5 @@
+#finds all bolts that have some cost associated with them and 
+
 PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
 PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX im:      <http://www.kwarc.info/sally/im#>
@@ -5,25 +7,14 @@ PREFIX asm:      <http://www.kwarc.info/sally/asm#>
 PREFIX csm:      <http://www.kwarc.info/sally/csm#>
 PREFIX acm:      <http://www.kwarc.info/sally/acm#>
 
-
-#  - fbi is a functional block instance (i.e. cell in a functional block)
-#  - fb (the functional block of fbi) - should point to some "summary total cost"
-#  - x a legend to which fbi is linked to
-#  - t is a CAD object property 
-#    (t and x should have the same interpretation mapping and label)
-#  - 
-
-SELECT ?y ?fbi WHERE {
+SELECT ?fbi ?costval ?threadval WHERE {
    ?fbi a asm:FunctionalInstance.
-   ?fbi asm:valueOf ?x.
-   ?fbi asm:partOfFunctionalBlock ?fb.
-   ?fb im:ontologyURI <https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?total>.
-
-   ?x im:ontologyURI ?y.
-   ?x rdfs:label ?z.
-
-   ?t im:ontologyURI ?y.
-   ?t rdfs:label ?z.
-
-   <http://default.cad/uri/bolt1> acm:valueOf ?t
+   ?fbi asm:valueOf ?obj.
+   ?obj im:ontologyURI <https://tnt.kwarc.info/repos/stc/fcad/flange/cds/nutbolt.omdoc?nutbolt?bolt>.
+   ?fbi asm:valueOf ?cost.
+   ?cost im:ontologyURI <https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost>.
+   ?cost rdfs:label ?costval.
+   ?fbi asm:valueOf ?thread.
+   ?thread im:ontologyURI <https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread>.
+   ?thread rdfs:label ?threadval.
 }

@@ -166,5 +166,4 @@ public class WorksheetDocument {
 		if (uri != null)
 			acceptor.acceptResult(MMTUri.newBuilder().setUri(uri).build());
 	}
-
 }
