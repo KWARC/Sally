@@ -62,8 +62,15 @@ public class SpreadsheetDoc {
 					.queryInterface(XSpreadsheet.class, op);
 			
 			alexData.setFileName(SallyUtils.getDocumentName(xSpreadsheetDocument));
-			XCell xCell = xSpreadsheet.getCellByPosition(0, 0);
-			alexData.setData(xCell.getFormula());
+			int row = 0;
+			String data = "";
+			XCell xCell;
+			do {
+				xCell = xSpreadsheet.getCellByPosition(0, row++);
+				log.info("Cell "+row+" 0" + xCell.getFormula());
+				data += xCell.getFormula();
+			} while (xCell.getFormula().length()>0);
+			alexData.setData(data);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

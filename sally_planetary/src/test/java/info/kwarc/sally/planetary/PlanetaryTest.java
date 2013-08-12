@@ -20,7 +20,7 @@ public class PlanetaryTest {
 	
 	@Test
 	public void testGetURI() {
-		System.out.println(p.getDefinitionLookupURL("https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?ISOhexbolt"));
+		//System.out.println(p.getDefinitionLookupURL("https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?ISOhexbolt"));
 	}
 
 }

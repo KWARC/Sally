@@ -63,7 +63,7 @@ public class CADInteractionTest extends JbpmJUnitTestCase {
 		inst.signalEvent("Message-CADAlexClick", null);
 
 		Assert.assertEquals(1, counters.get("CADSelectionForwarder").getExecuted());
-		inst.signalEvent("Message-CADFrame", null);
+		inst.signalEvent("Message-SallyFrame", null);
 		Assert.assertEquals(1, counters.get("DynamicApplicability").getExecuted());
 		Assert.assertEquals(1, counters.get("LetUserChoose").getExecuted());
 		Assert.assertEquals(1, counters.get("RunChoice").getExecuted());
