@@ -253,6 +253,7 @@ public class IUIPaperData {
 			file = new FileOutputStream("iui-model.rdf.64");
 			ByteArrayOutputStream so = new ByteArrayOutputStream();
 			SpreadsheetModel model = getAsm().serialize();
+			System.out.println(model);
 			model.writeTo(so);
 			byte[] b = Base64.encodeBase64(so.toByteArray());
 			int off = 0; int len = b.length;

@@ -478,6 +478,12 @@ message SemanticData {
 message SpreadsheetModel {
 	required ModelDataMsg asm = 1;
 	repeated SpreadsheetOntologyPair ontomapping = 2;
+	repeated WorksheetIDPair sheetMapping = 3;
+}
+
+message WorksheetIDPair {
+	required string worksheet = 1;
+	required int32 id = 2;
 }
 
 message SpreadsheetOntologyPair {
