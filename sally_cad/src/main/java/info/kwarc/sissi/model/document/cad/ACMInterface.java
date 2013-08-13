@@ -31,15 +31,30 @@ public class ACMInterface {
 	Map<String, CADNode> index;
 	
 	public void setDocumentURI(String documentURI) {
-		this.documentURI = documentURI;
+		this.documentURI = makeValidDocURI(documentURI);
 	}
 	
 	public String getDocumentURI() {
 		return documentURI;
 	}
 	
+	public static String makeValidDocURI(String URI) {
+		URI = URI.replace(':', '_');
+		URI = URI.replace('\\', '_');
+		return "file://"+URI;
+	}
+	
+	public static String makeValidNodeURI(String nodeId) {
+		nodeId = nodeId.replace(':', '_');
+		nodeId = nodeId.replace('\\', '_');
+		return nodeId;
+	}
+	
 	public Resource getResource(String documentURI, CADNode node) {
-		return model.createResource(documentURI+"/"+node.getId());
+		String nodeID = node.getId();
+		nodeID = nodeID.replace(':', '_');
+		nodeID = nodeID.replace('\\', '_');
+		return model.createResource(documentURI+"/"+nodeID);
 	}
 	
 	Map<String, Integer> props;
@@ -69,6 +84,8 @@ public class ACMInterface {
 		}
 		
 		nodeRes.addProperty(RDF.type, ACM.CADObject);
+		nodeRes.addProperty(RDFS.label, model.createLiteral(node.getId()));
+
 		if (node.hasImUri()) {
 			nodeRes.addProperty(IM.ontologyURI, model.createResource(node.getImUri()));
 		}
@@ -86,8 +103,8 @@ public class ACMInterface {
 				currentID = props.get(hashKey);
 
 			Resource propRes = model.createResource(documentURI+"/prop/"+currentID);
-			propRes.addProperty(RDFS.label, value);
-			propRes.addProperty(IM.ontologyURI, model.createResource(property));
+			propRes.addProperty(ACM.hasKey, model.createLiteral(property));
+			propRes.addProperty(ACM.hasValue, model.createLiteral(value));
 			
 			nodeRes.addProperty(ACM.valueOf, propRes);
 		}
@@ -182,6 +199,6 @@ public class ACMInterface {
 		index = new HashMap<String, CADNode>();
 		props = new HashMap<String, Integer>();
 		IDs = 0;
-		this.documentURI = documentURI;
+		this.documentURI = makeValidDocURI(documentURI);
 	}	
 }

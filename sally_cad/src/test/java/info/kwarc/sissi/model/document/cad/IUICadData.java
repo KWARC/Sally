@@ -17,22 +17,22 @@ public class IUICadData {
 		
 		root.addChildren(CADNode.newBuilder().setId("bolt1")
 				.setImUri(boltIM)
-				.addParameters(Parameter.newBuilder().setKey(ht).setValue("M15").build())
+				.addParameters(Parameter.newBuilder().setKey(ht).setValue("M10").build())
 				.addParameters(Parameter.newBuilder().setKey(ct).setValue("bolt").build()).build());
 		
 		root.addChildren(CADNode.newBuilder().setId("bolt2")
 				.setImUri(boltIM)
-				.addParameters(Parameter.newBuilder().setKey(ht).setValue("M15").build())
+				.addParameters(Parameter.newBuilder().setKey(ht).setValue("M10").build())
 				.addParameters(Parameter.newBuilder().setKey(ct).setValue("bolt").build()).build());
 
 		root.addChildren(CADNode.newBuilder().setId("bolt3")
 				.setImUri(boltIM)
-				.addParameters(Parameter.newBuilder().setKey(ht).setValue("M15").build())
+				.addParameters(Parameter.newBuilder().setKey(ht).setValue("M10").build())
 				.addParameters(Parameter.newBuilder().setKey(ct).setValue("bolt").build()).build());
 		
 		root.addChildren(CADNode.newBuilder().setId("bolt4")
 				.setImUri(boltIM)
-				.addParameters(Parameter.newBuilder().setKey(ht).setValue("M15").build())
+				.addParameters(Parameter.newBuilder().setKey(ht).setValue("M10").build())
 				.addParameters(Parameter.newBuilder().setKey(ct).setValue("bolt").build()).build());
 		
 		ACMInterface acm = new ACMInterface("http://blah.cad");
