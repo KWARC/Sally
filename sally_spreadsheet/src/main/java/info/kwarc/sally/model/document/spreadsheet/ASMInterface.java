@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import sally.CellPosition;
 import sally.SpreadsheetOntologyPair;
+import sally.WorksheetIDPair;
 
 import com.hp.hpl.jena.rdf.model.Model;
 
@@ -213,18 +214,27 @@ public class ASMInterface {
 			model.addOntomapping(SpreadsheetOntologyPair.newBuilder()
 					.setAsmid(struct.getId())
 					.setUri(ontoMapping.getLinkingFor(struct).getMainURI())).build();
-			sally.RangeSelection range = getBlockPosition(struct.getId());
-						
+			// sally.RangeSelection range = getBlockPosition(struct.getId());  // ?			
 		}
+		
+		for (String worksheet : worksheetNames.keySet()) {
+			model.addSheetMapping(sally.WorksheetIDPair.newBuilder()
+					.setWorksheet(worksheet)
+					.setId(worksheetNames.get(worksheet)).build());
+		}
+		
 		return model.build();
 	}
 	
 	public void reconstruct(sally.SpreadsheetModel modelData) {
 		modelAdmin.createModel(modelData.getAsm());
 		for (SpreadsheetOntologyPair pair : modelData.getOntomappingList()) {
-			
 			addOntologyLink(pair.getAsmid(), pair.getUri());
 		}
+		for (WorksheetIDPair pair : modelData.getSheetMappingList()) {
+			worksheetNames.put(pair.getWorksheet(), pair.getId());
+		}
+		
 	}
 	
 	public sally.CellPositions getRelevantLegendPositions(sally.CellSpaceInformation position) {

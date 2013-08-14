@@ -18,6 +18,14 @@ message Cookie {
 	required string cookie = 2;
 }
 
+/**
+ * Message sent to Alexes telling them to make themselves top most
+ */
+
+message SwitchToApp {
+	required string fileName = 1;
+}
+
 
 /**
  * Opens a new Theo window at screen coordinates and browser URL
@@ -85,14 +93,6 @@ message TheoCloseWindow {
 	required ClientType clientType = 1;
 	required EnvironmentType environmentType = 2;
 	required DocType documentType = 3;
-}
-
-/**
- * Message sent to Alexes telling them to make themselves top most
- */
-
-message SwitchToApp {
-	required string fileName = 1;
 }
 
 /**
@@ -486,6 +486,12 @@ message SemanticData {
 message SpreadsheetModel {
 	required ModelDataMsg asm = 1;
 	repeated SpreadsheetOntologyPair ontomapping = 2;
+	repeated WorksheetIDPair sheetMapping = 3;
+}
+
+message WorksheetIDPair {
+	required string worksheet = 1;
+	required int32 id = 2;
 }
 
 message SpreadsheetOntologyPair {
