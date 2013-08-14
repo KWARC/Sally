@@ -40,6 +40,8 @@ public class Manager {
 
 	
 	// ---------- Methods for the Spreadsheet Annotation Model ----------
+	
+	// ++++ Block operations ++++
 
 	public Block getOrCreateAtomicBlock(CellSpaceInformation position) {
 		if (positionToAtomicBlock.containsKey(position))
@@ -68,6 +70,47 @@ public class Manager {
 		return createBlock(blocks);
 	}
 	
+	public Block getBlockByID(int id) {
+		return blocks.get(id);
+	}
+	
+	public List<Block> getBlocksForPosition(CellSpaceInformation position) {
+		return new ArrayList<Block>(positionToBlocks.get(position));
+	}
+	
+	public List<Block> getBlocksInRange(RangeInformation range) {
+		List<CellSpaceInformation> positions = Util.expandRange(
+				new CellSpaceInformation(range.getWorksheet(), range.getStartRow(), range.getStartCol()),
+				new CellSpaceInformation(range.getWorksheet(), range.getEndRow(), range.getEndCol()));
+		List<Block> blocks = new ArrayList<Block>();
+		
+		for (CellSpaceInformation pos : positions) {
+			List<Block> found = getBlocksForPosition(pos);
+			for (Block b : found)
+				if (!blocks.contains(b))
+					blocks.add(b);
+		}
+		
+		return blocks;
+	}
+	
+	private void addPositionToBlockLink(CellSpaceInformation position, Block block) {
+		if (positionToBlocks.containsKey(position)) {
+			positionToBlocks.get(position).add(block);
+		} else {
+			List<Block> blockList = new ArrayList<Block>();
+			blockList.add(block);
+			positionToBlocks.put(position, blockList);
+		}
+	}
+	
+	private void addPositionsToBlockLink(List<CellSpaceInformation> positions, Block block) {
+		for (CellSpaceInformation position : positions)
+			addPositionToBlockLink(position, block);
+	}
+	
+	// ++++ Relation operations ++++
+	
 	public Relation createFunctionalRelation(List<Block> blocks, String function) {
 		maxRelationID++;
 		List<CellTuple> cellRelations = createFunctionalCellRelations(blocks);
@@ -78,16 +121,8 @@ public class Manager {
 		return r;
 	}
 	
-	public Block getBlockByID(int id) {
-		return blocks.get(id);
-	}
-	
 	public Relation getRelationByID(int id) {
 		return relations.get(id);
-	}
-	
-	public List<Block> getBlocksForPosition(CellSpaceInformation position) {
-		return new ArrayList<Block>(positionToBlocks.get(position));
 	}
 	
 	public List<Relation> getRelationForPosition(CellSpaceInformation position) {
@@ -113,22 +148,7 @@ public class Manager {
 		}
 		return cellRelations;
 	}
-	
-	private void addPositionToBlockLink(CellSpaceInformation position, Block block) {
-		if (positionToBlocks.containsKey(position)) {
-			positionToBlocks.get(position).add(block);
-		} else {
-			List<Block> blockList = new ArrayList<Block>();
-			blockList.add(block);
-			positionToBlocks.put(position, blockList);
-		}
-	}
-	
-	private void addPositionsToBlockLink(List<CellSpaceInformation> positions, Block block) {
-		for (CellSpaceInformation position : positions)
-			addPositionToBlockLink(position, block);
-	}
-	
+
 	private void addPositionToRelationLink(CellSpaceInformation position, Relation relation) {
 		if (positionToRelations.containsKey(position)) {
 			positionToRelations.get(position).add(relation);
