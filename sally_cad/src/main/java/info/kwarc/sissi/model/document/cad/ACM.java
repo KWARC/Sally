@@ -23,6 +23,9 @@ public class ACM {
     
     public static final Property partOf = property( "partOf" );
 
+    public static final Property hasKey = property( "hasKey" );
+    public static final Property hasValue = property( "hasValue" );
+
     public static final Property valueOf = property( "valueOf" );
     public static final Property partOfFile = property( "partOfFile" );
 

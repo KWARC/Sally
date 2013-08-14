@@ -1,0 +1,28 @@
+#finds all bolts that have some cost associated with them and 
+
+PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX im:      <http://www.kwarc.info/sally/im#>
+PREFIX asm:      <http://www.kwarc.info/sally/asm#>
+PREFIX csm:      <http://www.kwarc.info/sally/csm#>
+PREFIX acm:      <http://www.kwarc.info/sally/acm#>
+
+SELECT ?cadobj ?cadobjim ?objthread ?fbi ?costval ?threadval WHERE {
+   ?cadobj rdf:type acm:CADObject.
+   ?cadobj im:ontologyURI ?cadobjim.
+   ?cadobj rdfs:label "%s".
+   
+   ?cadobj acm:valueOf ?cadargs.
+   ?cadargs acm:hasKey "arg1".
+   ?cadargs acm:hasValue ?objthread.
+
+   ?fbi a asm:FunctionalInstance.
+   ?fbi asm:valueOf ?obj.
+   ?obj im:ontologyURI ?cadobjim.
+   ?fbi asm:valueOf ?cost.
+   ?cost im:ontologyURI <https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost>.
+   ?cost rdfs:label ?costval.
+   ?fbi asm:valueOf ?thread.
+   ?thread im:ontologyURI <https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread>.
+   ?thread rdfs:label ?threadval.
+}

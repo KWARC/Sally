@@ -24,7 +24,7 @@ public class CADDocument {
 
 	@Inject
 	public CADDocument(@Assisted String filePath, @Assisted CADSemanticData data) {
-		acm = new ACMInterface();
+		acm = new ACMInterface(data.getFileName());
 		this.data = data;
 		init();
 	}

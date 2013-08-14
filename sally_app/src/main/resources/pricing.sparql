@@ -7,14 +7,38 @@ PREFIX asm:      <http://www.kwarc.info/sally/asm#>
 PREFIX csm:      <http://www.kwarc.info/sally/csm#>
 PREFIX acm:      <http://www.kwarc.info/sally/acm#>
 
-SELECT ?fbi ?costval ?threadval WHERE {
+SELECT ?cadobj ?cadobjim ?objthread ?fbi ?file ?costval ?threadval ?colorval ?vendorval WHERE {
+   ?cadobj rdf:type acm:CADObject.
+   ?cadobj im:ontologyURI ?cadobjim.
+   ?cadobj rdfs:label "%s".
+   
+	OPTIONAL {
+                ?cadobj acm:valueOf ?cadargs.
+   		?cadargs acm:hasKey "arg1".
+   		?cadargs acm:hasValue ?objthread.
+	}
+
+   ?fbi asm:partOfFunctionalBlock ?fb.
+   ?fb asm:partOfFile ?file.
+
    ?fbi a asm:FunctionalInstance.
    ?fbi asm:valueOf ?obj.
-   ?obj im:ontologyURI <https://tnt.kwarc.info/repos/stc/fcad/flange/cds/nutbolt.omdoc?nutbolt?bolt>.
+   ?obj im:ontologyURI ?cadobjim.
    ?fbi asm:valueOf ?cost.
    ?cost im:ontologyURI <https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost>.
    ?cost rdfs:label ?costval.
+   
+OPTIONAL {
    ?fbi asm:valueOf ?thread.
    ?thread im:ontologyURI <https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread>.
    ?thread rdfs:label ?threadval.
+   }
+
+   ?fbi asm:valueOf ?color.
+   ?color im:ontologyURI <https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color>.
+   ?color rdfs:label ?colorval.
+
+   ?fbi asm:valueOf ?vendor.
+   ?vendor im:ontologyURI <https://tnt.kwarc.info/repos/stc/fcad/flange/cds/vendor.omdoc?vendor?vendor>.
+   ?vendor rdfs:label ?vendorval.
 }

@@ -110,7 +110,7 @@ public class FexData {
 		Integer tableProps = setRowTableHeaders(wid, 7, 1, new String[] {"Component", "Thread", "Color", "Head", "Type", "Basic Price"});
 
 		Integer componentCol = setColTableHeaders(wid, 8, 1, new String[] {"bolt", "bolt", "bolt", "bolt", "bolt", "bolt", "bolt", "bolt", "nut", "nut", "gasket", "flange", "flange", "flange", "blind flange", "blind flange", "blind flange" });
-		Integer threadCol = setColTableHeaders(wid, 8, 2, new String[] { "M15", "M15", "M15", "M15", "M15", "M15", "M16", "M16", "M15", "M16", "_", "M15", "M15", "M16", "M15", "M16", "M17"});
+		Integer threadCol = setColTableHeaders(wid, 8, 2, new String[] { "M10", "M10", "M10", "M10", "M10", "M10", "M16", "M16", "M10", "M16", "_", "M10", "M10", "M16", "M10", "M16", "M17"});
 		Integer colorCol = setColTableHeaders(wid, 8, 3, new String[] { "silver", "silver", "black", "silver", "red", "black", "black", "black", "black", "black", "_", "black", "silver", "black", "black", "black", "black"});
 		Integer headCol = setColTableHeaders(wid, 8, 4, new String[] { "carriage", "stove", "machine", "machine", "machine", "machine", "machine", "machine", "_", "_", "_", "_", "_", "_", "_", "_", "_" });
 		Integer typeCol = setColTableHeaders(wid, 8, 5, new String[] { "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "standard", "_", "_", "_", "_", "_", "_"});

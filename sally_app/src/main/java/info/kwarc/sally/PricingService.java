@@ -6,18 +6,23 @@ import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyService;
 import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.comm.SallyModelRequest;
+import info.kwarc.sally.core.interfaces.Theo;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
-import java.util.HashMap;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import sally.MMTUri;
+import sally.CADAlexClick;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
@@ -27,25 +32,32 @@ import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 
+@Singleton
 public class PricingService {
 
 	String pricingSparql;
 	Model common;
-	
-	public PricingService() {
+	Theo theo;
+	SallyInteraction sally;
+	Logger log;
+
+	@Inject
+	public PricingService(Theo theo, SallyInteraction sally) {
+		this.theo = theo;
 		loadPricingSparql();
 		common = null;
+		this.sally = sally;
+		log = LoggerFactory.getLogger(getClass());
 	}
-	
-	private void loadModels(SallyInteraction sally) {
+
+	private void loadModels() {
 		common = ModelFactory.createDefaultModel();
 		List<Model> models = sally.getPossibleInteractions("/get/semantics", new SallyModelRequest(), Model.class);
 		for (Model mod : models) {
 			common.add(mod);
-			System.out.println(mod);
 		}
 	}
-	
+
 	private void loadPricingSparql() {
 		try {
 			InputStream is = getClass().getResourceAsStream("/pricing.sparql");
@@ -57,50 +69,58 @@ public class PricingService {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@SallyService
-	public void pricingService(MMTUri uri, SallyInteractionResultAcceptor acceptor, SallyContext context) {
-		SallyInteraction sally = context.getCurrentInteraction();
-		
-		if (common == null)
-			loadModels(sally);
-		if (common == null) {
+	public void pricingService(final CADAlexClick uri, SallyInteractionResultAcceptor acceptor, SallyContext context) {
+		final Collection<String> files = getFiles(queryModel(uri.getCadNodeId()));
+		if (files.size() ==0)
 			return;
+
+		for (final String file : files) {
+			acceptor.acceptResult(new SallyMenuItem("Pricing", file) {
+				@Override
+				public void run() {
+					log.warn("opening "+file);
+					theo.openWindow("Pricing results", "http://localhost:8181/sally/pricing?node="+uri.getCadNodeId()+"&file="+file, 300, 600);
+				}
+			});
 		}
-		final String cellURI = queryModel(common, uri);
-		if (cellURI == null)
-			return;
-		
-		acceptor.acceptResult(new SallyMenuItem("Pricing", "Open blah.xls") {
-			@Override
-			public void run() {
-				System.out.println("Navigate to " +cellURI);
-			}
-		});
+	}
+
+	public boolean isResultOk(QuerySolution sol) {
+		String objthread = sol.get("objthread").asLiteral().getString();
+		String threadVal = sol.get("threadval").asLiteral().getString();
+		if (objthread.length()==0) {
+			return true;
+		}
+		return threadVal.contains(objthread);
 	}
 	
-	public String queryModel(Model model, MMTUri uri) {
-		Query query = QueryFactory.create(pricingSparql);
-		QueryExecution qe = QueryExecutionFactory.create(query, model);
-		ResultSet results = qe.execSelect();
-		Map<String, Integer> cnt = new HashMap<String, Integer>();
-		int cntMax = -1;
-		String fbiMax = "";
-		
+	public Collection<String> getFiles(ResultSet results) {
+		HashSet<String> result = new HashSet<String>();
+		if (results == null)
+			return result;
+
 		while (results.hasNext()) {
 			QuerySolution sol = results.next();
-			String fbi = sol.get("fbi").asResource().toString();
-			if (!cnt.containsKey(fbi))
-				cnt.put(fbi, 0);
-			cnt.put(fbi, cnt.get(fbi) + 1);
-			if (cnt.get(fbi) > cntMax) {
-				cntMax = cnt.get(fbi);
-				fbiMax = fbi;
+			if (!isResultOk(sol)) {
+				continue;
 			}
+			result.add(sol.get("file").toString());
 		}
-		if (cntMax != -1)
-			return fbiMax;
-		else 
+		return result;
+	}
+
+	public ResultSet queryModel(String uri) {
+		if (common == null)
+			loadModels();
+		if (common == null) {
 			return null;
+		}
+
+		String queryStr = String.format(pricingSparql, uri);
+		Query query = QueryFactory.create(queryStr);
+		QueryExecution qe = QueryExecutionFactory.create(query, common);
+		return qe.execSelect();		
 	}
 }
