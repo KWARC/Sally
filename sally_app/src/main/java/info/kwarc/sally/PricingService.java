@@ -11,11 +11,13 @@ import info.kwarc.sally.core.interfaces.Theo;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
-import java.util.HashMap;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import sally.CADAlexClick;
 
@@ -37,15 +39,17 @@ public class PricingService {
 	Model common;
 	Theo theo;
 	SallyInteraction sally;
-	
+	Logger log;
+
 	@Inject
 	public PricingService(Theo theo, SallyInteraction sally) {
 		this.theo = theo;
 		loadPricingSparql();
 		common = null;
 		this.sally = sally;
+		log = LoggerFactory.getLogger(getClass());
 	}
-	
+
 	private void loadModels() {
 		common = ModelFactory.createDefaultModel();
 		List<Model> models = sally.getPossibleInteractions("/get/semantics", new SallyModelRequest(), Model.class);
@@ -53,7 +57,7 @@ public class PricingService {
 			common.add(mod);
 		}
 	}
-	
+
 	private void loadPricingSparql() {
 		try {
 			InputStream is = getClass().getResourceAsStream("/pricing.sparql");
@@ -65,28 +69,55 @@ public class PricingService {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@SallyService
 	public void pricingService(final CADAlexClick uri, SallyInteractionResultAcceptor acceptor, SallyContext context) {
-		final ResultSet cellURI = queryModel(uri.getCadNodeId());
-		if (cellURI == null || !cellURI.hasNext())
+		final Collection<String> files = getFiles(queryModel(uri.getCadNodeId()));
+		if (files.size() ==0)
 			return;
-		
-		acceptor.acceptResult(new SallyMenuItem("Pricing", "Open pricing.xls") {
-			@Override
-			public void run() {
-				theo.openWindow("Pricing results", "http://localhost:8181/sally/pricing?node="+uri.getCadNodeId(), 300, 600);
-			}
-		});
+
+		for (final String file : files) {
+			acceptor.acceptResult(new SallyMenuItem("Pricing", file) {
+				@Override
+				public void run() {
+					log.warn("opening "+file);
+					theo.openWindow("Pricing results", "http://localhost:8181/sally/pricing?node="+uri.getCadNodeId()+"&file="+file, 300, 600);
+				}
+			});
+		}
+	}
+
+	public boolean isResultOk(QuerySolution sol) {
+		String objthread = sol.get("objthread").asLiteral().getString();
+		String threadVal = sol.get("threadval").asLiteral().getString();
+		if (objthread.length()==0) {
+			return true;
+		}
+		return threadVal.contains(objthread);
 	}
 	
+	public Collection<String> getFiles(ResultSet results) {
+		HashSet<String> result = new HashSet<String>();
+		if (results == null)
+			return result;
+
+		while (results.hasNext()) {
+			QuerySolution sol = results.next();
+			if (!isResultOk(sol)) {
+				continue;
+			}
+			result.add(sol.get("file").toString());
+		}
+		return result;
+	}
+
 	public ResultSet queryModel(String uri) {
 		if (common == null)
 			loadModels();
 		if (common == null) {
 			return null;
 		}
-		
+
 		String queryStr = String.format(pricingSparql, uri);
 		Query query = QueryFactory.create(queryStr);
 		QueryExecution qe = QueryExecutionFactory.create(query, common);

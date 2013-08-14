@@ -1,0 +1,7 @@
+table {
+	width: 50%;
+}
+
+.result-row:hover {
+	background:highlight;
+}
