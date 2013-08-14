@@ -6,6 +6,7 @@ import info.kwarc.sally.networking.interfaces.INetworkSender;
 import info.kwarc.sally.networking.interfaces.INetworkSenderAdapter;
 
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.Map;
 
 import org.cometd.bayeux.Channel;
@@ -72,7 +73,6 @@ public class CometD implements Provider<INetworkSenderAdapter> {
 		this.port = port;
 		log = LoggerFactory.getLogger(CometD.class);
 		this.connManager = connManager;
-		log.error("new CometD instance");
 	}
 	
 	BayeuxServerImpl getBayeux() {
@@ -81,10 +81,13 @@ public class CometD implements Provider<INetworkSenderAdapter> {
 
 	class CometDProtoService extends ProtoService {
 		IConnectionManager connManager;
+		HashSet<String> clients;
 		
 		public CometDProtoService(BayeuxServer bayeux, String name, IConnectionManager connManager) {
 			super(bayeux, name);
 			this.connManager = connManager;
+			
+			clients = new HashSet<String>();
 			
 			addService("/service/**", CommunicationCallback.newBuilder().allowMessages(AbstractMessage.class).build("forward", this));
 			
@@ -94,15 +97,18 @@ public class CometD implements Provider<INetworkSenderAdapter> {
 		}
 
 		public AbstractMessage forward(ServerSession remote, final AbstractMessage msg, CommunicationContext context) {
+			if (!clients.contains(remote.getId())) {
+				log.info("client "+remote.getId()+" connected");
+				connManager.newClient(remote.getId());
+				clients.add(remote.getId());
+			}
 			log.info(remote.getId()+" got message "+msg);
 			log.debug(String.format("--> [%s]: %s", context.getChannel(), msg.getClass().getName()));
 			connManager.newMessage(remote.getId(), msg);
 			return null;
 		}
 		
-		public void onConnect(ServerSession remote, Map<String, Object> data) {
-			log.info(remote.getId()+" connected");
-			this.connManager.newClient(remote.getId());
+		public void onConnect(ServerSession cometd, Map<String, Object> data) {
 		}
 		
 		public void onDisconnect(ServerSession remote, Map<String, Object> data) {
@@ -188,7 +194,12 @@ public class CometD implements Provider<INetworkSenderAdapter> {
 			return;
 		}
 		
-		sess.deliver(sess, channel, data, "asd");
+		try {
+			sess.deliver(sess, channel, data, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override

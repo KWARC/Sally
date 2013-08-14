@@ -88,6 +88,14 @@ message TheoCloseWindow {
 }
 
 /**
+ * Message sent to Alexes telling them to make themselves top most
+ */
+
+message SwitchToApp {
+	required string fileName = 1;
+}
+
+/**
  * Message containing all the Sally specific information
  */
 message AlexData {

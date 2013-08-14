@@ -15,7 +15,7 @@ $(function() {
 </script>
 
 <table>
-<#list details as solution>
+<#list solutions as solution>
 <tr  class="result-row">
 <td>${solution.get("vendorval")}</td> <td>${solution.get("threadval")}</td><td>${solution.get("colorval")}</td><td>${solution.get("costval")}</td>
 </tr>

@@ -27,6 +27,7 @@ import sally.RangeData;
 import sally.RangeData.Builder;
 import sally.RangeSelection;
 import sally.SpreadsheetModel;
+import sally.SwitchToApp;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
@@ -49,6 +50,29 @@ public class WorksheetDocument {
 		this.filePath = filePath;
 		this.sender = sender;
 		setSemanticData(data);
+	}
+	
+	public void switchToApp() {
+		SwitchToApp request = SwitchToApp.newBuilder().setFileName(filePath).build();
+		sender.sendMessage("/do/switch", request, new IMessageCallback() {
+			
+			@Override
+			public void onMessage() {
+				
+			}
+		});
+	}
+	
+	public void selectRange(String sheet, int startRow, int endRow, int startCol, int endCol) {
+		RangeSelection sel = RangeSelection.newBuilder().setSheet(sheet).setStartRow(startRow).setEndRow(endRow).setStartCol(startCol).setEndCol(endCol).build();
+		AlexRangeRequest request = AlexRangeRequest.newBuilder().setFileName(filePath).addSelection(sel).build();
+
+		sender.sendMessage("/do/select", request, new IMessageCallback() {
+			@Override
+			public void onMessage() {
+				
+			}
+		});
 	}
 	
 	public void getData(String sheet, int startRow, int endRow, int startCol, int endCol) {

@@ -7,7 +7,7 @@ PREFIX asm:      <http://www.kwarc.info/sally/asm#>
 PREFIX csm:      <http://www.kwarc.info/sally/csm#>
 PREFIX acm:      <http://www.kwarc.info/sally/acm#>
 
-SELECT ?cadobj ?cadobjim ?objthread ?fbi ?file ?costval ?threadval ?colorval ?vendorval WHERE {
+SELECT ?objthread ?fbi ?file ?costval ?threadval ?colorval ?vendorval ?x ?y WHERE {
    ?cadobj rdf:type acm:CADObject.
    ?cadobj im:ontologyURI ?cadobjim.
    ?cadobj rdfs:label "%s".
@@ -20,7 +20,7 @@ SELECT ?cadobj ?cadobjim ?objthread ?fbi ?file ?costval ?threadval ?colorval ?ve
 
    ?fbi asm:partOfFunctionalBlock ?fb.
    ?fb asm:partOfFile ?file.
-
+   
    ?fbi a asm:FunctionalInstance.
    ?fbi asm:valueOf ?obj.
    ?obj im:ontologyURI ?cadobjim.

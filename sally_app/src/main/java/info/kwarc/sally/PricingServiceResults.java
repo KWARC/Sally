@@ -35,7 +35,6 @@ public class PricingServiceResults {
 		log.warn(file);
 		ResultSet results = pricingService.queryModel(node);
 		HashMap<String, Object> objects = new HashMap<String, Object>();
-		int sols = 0;
 		List<QuerySolution> details = new ArrayList<QuerySolution>();
 		while (results.hasNext()) {
 			QuerySolution sol = results.next();
@@ -45,11 +44,9 @@ public class PricingServiceResults {
 			if (!pricingService.isResultOk(sol)) {
 				continue;
 			}
-			sols++;
 			details.add(sol);
 		}
-		objects.put("sols", Integer.toString(sols));
-		objects.put("details", details);
+		objects.put("solutions", details);
 		return te.generateTemplate("pricing/pricing.ftl", objects);
 	}
 }
