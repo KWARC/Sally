@@ -95,6 +95,8 @@ public class IUIPaperData {
 	public void setData() {
 		buildPricingSheet();
 		buildVendorA();
+		buildVendorB();
+		buildVendorC();
 	}
 	
 	static final String boltURI="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/nutbolt.omdoc?nutbolt?bolt";
@@ -159,16 +161,17 @@ public class IUIPaperData {
 		Integer workSheetid = asm.getWorksheetIDByName("Vendor A");
 		
 		Integer vendA = setHeaderLabel(workSheetid, 1, 1, 8, "Price List of Vendor A");
-		asm.addOntologyLink(vendA, "http://info.kwarc.sissi.winograd/vendor-A");
-		
+		asm.addOntologyLink(vendA, "http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?seller");
 		
 		Integer discountMinQuantity = setRowTableHeaders(workSheetid, 4, 1, new String[] {"100", "1000", "10000", ">10000"} );
 		Integer discountRatesFB = createRowFB(workSheetid, 5, 1, new String[] {"100.000%", "99.000%", "95.000%", "90.000%"}, new Integer [] {vendA, discountMinQuantity});
-		asm.addOntologyLink(discountMinQuantity, "http://info.kwarc.sissi.winograd/discount-min-quantities");
-		asm.addOntologyLink(discountRatesFB, "http://info.kwarc.sissi.winograd/discount-rates");
+		//asm.addOntologyLink(discountMinQuantity, "http://info.kwarc.sissi.winograd/discount-min-quantities");
+		asm.addOntologyLink(discountMinQuantity,  "http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?minimum-purchase");
+		//asm.addOntologyLink(discountRatesFB, "http://info.kwarc.sissi.winograd/discount-rates");
+		asm.addOntologyLink(discountRatesFB,  "http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?discount");
 		
 		//Integer tableProps = setRowTableHeaders(workSheetid, 7, 1, new String[] {"Part No", "Component", "Thread", "Color", "Head", "Type", "Basic Price"});
-		Integer vendorA = setColTableHeaders(workSheetid, 8, 9, new String[] {"Vendor A", "Vendor A", "Vendor A", "Vendor A", "Vendor A","Vendor A","Vendor A","Vendor A","Vendor A","Vendor A","Vendor A","Vendor A","Vendor A","Vendor A","Vendor A","Vendor A","Vendor A","Vendor A","Vendor A","Vendor A","Vendor A","Vendor A","Vendor A","Vendor A","Vendor A","Vendor A","Vendor A","Vendor A"});
+		Integer vendorA = setColTableHeaders(workSheetid, 8, 9, new String[] {"Vendor A", "Vendor A", "Vendor A", "Vendor A", "Vendor A", "Vendor A", "Vendor A", "Vendor A", "Vendor A", "Vendor A", "Vendor A", "Vendor A", "Vendor A", "Vendor A", "Vendor A", "Vendor A", "Vendor A"});
 		
 		Integer boltsCol = setColTableHeaders(workSheetid, 8, 2, new String[] {"bolt", "bolt", "bolt", "bolt", "bolt", "bolt", "bolt", "bolt"});
 		Integer boltThreadCol = setColTableHeaders(workSheetid, 8, 3, new String[] { "M10", "M10", "M10", "M10", "M10", "M10", "M16", "M16"});
@@ -190,7 +193,7 @@ public class IUIPaperData {
 
 
 		Integer nutCol = setColTableHeaders(workSheetid, 16, 2, new String[] {"nut", "nut"});
-		Integer nutThreadCol = setColTableHeaders(workSheetid, 16, 3, new String[] { "M10", "M16"});
+		Integer nutThreadCol = setColTableHeaders(workSheetid, 16, 3, new String[] { "M10", "M12"});
 		Integer nutColorCol = setColTableHeaders(workSheetid, 16, 4, new String[] { "black", "black"});
 		Integer nutCostCol = setColTableHeaders(workSheetid, 16, 7, new String[] {"0.450 EUR", "0.460 EUR"});
 		Integer nutPartNo = createColFB(workSheetid, 16, 1, new String[] {"a9", "a10"}, new Integer[]{nutCol, nutThreadCol, nutColorCol, nutCostCol, vendorA});
@@ -223,17 +226,179 @@ public class IUIPaperData {
 		asm.addOntologyLink(flangeCostCol, costURI);
 		asm.addOntologyLink(flangePartNo, partNoURI);
 
-		Integer bindflangeCol = setColTableHeaders(workSheetid, 22, 2, new String[] {"bind-flange", "bind-flange", "bind-flange"});
-		Integer bindflangeThreadCol = setColTableHeaders(workSheetid, 22, 3, new String[] { "M10", "M16", "M17"});
-		Integer bindflangeColorCol = setColTableHeaders(workSheetid, 22, 4, new String[] { "black", "black", "black"});
-		Integer bindflangeCostCol = setColTableHeaders(workSheetid, 22, 7, new String[] {"0.888 EUR", "0.888 EUR", "0.888 EUR"});
-		Integer bindflangePartNo = createColFB(workSheetid, 22, 1, new String[] {"a15", "a16", "a17"}, new Integer[]{bindflangeCol, bindflangeThreadCol, bindflangeColorCol, bindflangeCostCol, vendorA});
+		Integer blindflangeCol = setColTableHeaders(workSheetid, 22, 2, new String[] {"blind-flange", "blind-flange", "blind-flange"});
+		Integer blindflangeThreadCol = setColTableHeaders(workSheetid, 22, 3, new String[] { "M10", "M16", "M17"});
+		Integer blindflangeColorCol = setColTableHeaders(workSheetid, 22, 4, new String[] { "black", "black", "black"});
+		Integer blindflangeCostCol = setColTableHeaders(workSheetid, 22, 7, new String[] {"0.888 EUR", "0.888 EUR", "0.888 EUR"});
+		Integer blindflangePartNo = createColFB(workSheetid, 22, 1, new String[] {"a15", "a16", "a17"}, new Integer[]{blindflangeCol, blindflangeThreadCol, blindflangeColorCol, blindflangeCostCol, vendorA});
 
-		asm.addOntologyLink(bindflangeCol, blindFlangeURI);
-		asm.addOntologyLink(bindflangeThreadCol, threadTypeURI);
-		asm.addOntologyLink(bindflangeColorCol, colorURI);
-		asm.addOntologyLink(bindflangeCostCol, costURI);
-		asm.addOntologyLink(bindflangePartNo, partNoURI);
+		asm.addOntologyLink(blindflangeCol, blindFlangeURI);
+		asm.addOntologyLink(blindflangeThreadCol, threadTypeURI);
+		asm.addOntologyLink(blindflangeColorCol, colorURI);
+		asm.addOntologyLink(blindflangeCostCol, costURI);
+		asm.addOntologyLink(blindflangePartNo, partNoURI);
+	}
+	
+	public void buildVendorB() {
+		Integer workSheetid = asm.getWorksheetIDByName("Vendor B");
+		
+		Integer vendB = setHeaderLabel(workSheetid, 1, 1, 8, "Price List of Vendor B");
+		asm.addOntologyLink(vendB, "http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?seller");
+		
+		
+		Integer discountMinQuantity = setRowTableHeaders(workSheetid, 4, 1, new String[] {"100", "1000", "10000", ">10000"} );
+		Integer discountRatesFB = createRowFB(workSheetid, 5, 1, new String[] {"100.000%", "96.000%", "92.000%", "90.000%"}, new Integer [] {vendB, discountMinQuantity});
+		asm.addOntologyLink(discountMinQuantity,  "http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?minimum-purchase");
+		asm.addOntologyLink(discountRatesFB,  "http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?discount");
+		
+		//Integer tableProps = setRowTableHeaders(workSheetid, 7, 1, new String[] {"Part No", "Component", "Thread", "Color", "Head", "Type", "Basic Price"});
+		Integer vendorB = setColTableHeaders(workSheetid, 8, 9, new String[] {"Vendor B", "Vendor B", "Vendor B", "Vendor B", "Vendor B", "Vendor B", "Vendor B", "Vendor B", "Vendor B", "Vendor B", "Vendor B", "Vendor B", "Vendor B", "Vendor B", "Vendor B", "Vendor B", "Vendor B"});		
+		
+		Integer boltsCol = setColTableHeaders(workSheetid, 8, 2, new String[] {"bolt", "bolt", "bolt", "bolt", "bolt", "bolt", "bolt", "bolt"});
+		Integer boltThreadCol = setColTableHeaders(workSheetid, 8, 3, new String[] { "M10", "M10", "M10", "M10", "M10", "M10", "M12", "M16"});
+		Integer boltColorCol = setColTableHeaders(workSheetid, 8, 4, new String[] { "silver", "red", "black", "silver", "red", "red", "black", "red"});
+		Integer boltHeadCol = setColTableHeaders(workSheetid, 8, 5, new String[] { "carriage", "stove", "machine", "machine", "machine", "carriage", "machine", "stove"});
+		Integer boltCostCol = setColTableHeaders(workSheetid, 8, 7, new String[] {"0.440 EUR", "0.465 EUR", "0.350 EUR", "0.320 EUR", "0.370 EUR", "0.360 EUR", "0.400 EUR", "0.350 EUR"});
+		
+		Integer boltPartNo = createColFB(workSheetid, 8, 1, new String[] {"b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8"}, 
+				new Integer[]{boltsCol, boltThreadCol, boltColorCol, boltHeadCol, boltCostCol, vendorB});
+
+		//asm.addOntologyLink(tableProps, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/component.omdoc?component?ids");
+		asm.addOntologyLink(boltPartNo, partNoURI);
+		asm.addOntologyLink(boltsCol, boltURI);
+		asm.addOntologyLink(boltThreadCol, threadTypeURI);
+		asm.addOntologyLink(boltColorCol, colorURI);
+		asm.addOntologyLink(boltHeadCol, headTypeURI);
+		asm.addOntologyLink(boltCostCol, costURI);
+		asm.addOntologyLink(vendorB, vendorURI);
+
+
+		Integer nutCol = setColTableHeaders(workSheetid, 16, 2, new String[] {"nut", "nut","nut", "nut"});
+		Integer nutThreadCol = setColTableHeaders(workSheetid, 16, 3, new String[] { "M10", "M10","M12", "M10"});
+		Integer nutColorCol = setColTableHeaders(workSheetid, 16, 4, new String[] { "red", "silver", "black", "black"});
+		Integer nutCostCol = setColTableHeaders(workSheetid, 16, 7, new String[] {"0.518 EUR", "0.518 EUR","0.498 EUR", "0.500 EUR"});
+		Integer nutPartNo = createColFB(workSheetid, 16, 1, new String[] {"b9", "b10","b11", "b12"}, new Integer[]{nutCol, nutThreadCol, nutColorCol, nutCostCol, vendorB});
+
+		asm.addOntologyLink(nutCol, nutURI);
+		asm.addOntologyLink(nutThreadCol, threadTypeURI);
+		asm.addOntologyLink(nutColorCol, colorURI);
+		asm.addOntologyLink(nutCostCol, costURI);
+		asm.addOntologyLink(nutPartNo, partNoURI);
+
+		Integer gasketCol = setColTableHeaders(workSheetid, 20, 2, new String[] {"gasket"});
+		Integer gasketTypeCol = setColTableHeaders(workSheetid, 20, 6, new String[] {"standard"});
+		Integer gasketCost = setColTableHeaders(workSheetid, 20, 7, new String[] {"2.000 EUR"});
+		Integer gasketPartNo = createColFB(workSheetid, 20, 1, new String[] {"b13"}, new Integer[]{gasketCol, gasketTypeCol, gasketCost, vendorB});
+		
+		asm.addOntologyLink(gasketCol, gasketURI);
+		asm.addOntologyLink(gasketTypeCol, gasketType);
+		asm.addOntologyLink(gasketCost, costURI);
+		asm.addOntologyLink(gasketPartNo, partNoURI);
+
+		Integer flangeCol = setColTableHeaders(workSheetid, 21, 2, new String[] {"flange", "flange"});
+		Integer flangeThreadCol = setColTableHeaders(workSheetid, 21, 3, new String[] { "M10", "M12"});
+		Integer flangeColorCol = setColTableHeaders(workSheetid, 21, 4, new String[] { "black", "black"});
+		Integer flangeCostCol = setColTableHeaders(workSheetid, 21, 7, new String[] {"1.400 EUR", "1.425 EUR"});
+		Integer flangePartNo = createColFB(workSheetid, 21, 1, new String[] {"b14", "b15"}, new Integer[]{flangeCol, flangeThreadCol, flangeColorCol, flangeCostCol, vendorB});
+
+		asm.addOntologyLink(flangeCol, flangeURI);
+		asm.addOntologyLink(flangeThreadCol, threadTypeURI);
+		asm.addOntologyLink(flangeColorCol, colorURI);
+		asm.addOntologyLink(flangeCostCol, costURI);
+		asm.addOntologyLink(flangePartNo, partNoURI);
+
+		Integer blindflangeCol = setColTableHeaders(workSheetid, 23, 2, new String[] {"blind-flange", "blind-flange"});
+		Integer blindflangeThreadCol = setColTableHeaders(workSheetid, 23, 3, new String[] { "M10", "M12"});
+		Integer blindflangeColorCol = setColTableHeaders(workSheetid, 23, 4, new String[] { "black", "black"});
+		Integer blindflangeCostCol = setColTableHeaders(workSheetid, 23, 7, new String[] {"0.200 EUR", "0.250 EUR"});
+		Integer blindflangePartNo = createColFB(workSheetid, 23, 1, new String[] {"b16", "b17"}, new Integer[]{blindflangeCol, blindflangeThreadCol, blindflangeColorCol, blindflangeCostCol, vendorB});
+
+		asm.addOntologyLink(blindflangeCol, blindFlangeURI);
+		asm.addOntologyLink(blindflangeThreadCol, threadTypeURI);
+		asm.addOntologyLink(blindflangeColorCol, colorURI);
+		asm.addOntologyLink(blindflangeCostCol, costURI);
+		asm.addOntologyLink(blindflangePartNo, partNoURI);
+	}
+	
+	public void buildVendorC() {
+		Integer workSheetid = asm.getWorksheetIDByName("Vendor C");
+		
+		Integer vendC = setHeaderLabel(workSheetid, 1, 1, 8, "Price List of Vendor C");
+		asm.addOntologyLink(vendC, "http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?seller");
+		
+		
+		Integer discountMinQuantity = setRowTableHeaders(workSheetid, 4, 1, new String[] {"100", "1000", "10000", ">10000"} );
+		Integer discountRatesFB = createRowFB(workSheetid, 5, 1, new String[] {"100.000%", "97.000%", "93.000%", "89.000%"}, new Integer [] {vendC, discountMinQuantity});
+		asm.addOntologyLink(discountMinQuantity,  "http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?minimum-purchase");
+		asm.addOntologyLink(discountRatesFB,  "http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?discount");
+		
+		//Integer tableProps = setRowTableHeaders(workSheetid, 7, 1, new String[] {"Part No", "Component", "Thread", "Color", "Head", "Type", "Basic Price"});
+		Integer vendorC = setColTableHeaders(workSheetid, 8, 9, new String[] {"Vendor C", "Vendor C", "Vendor C", "Vendor C", "Vendor C", "Vendor C", "Vendor C", "Vendor C", "Vendor C", "Vendor C", "Vendor C", "Vendor C", "Vendor C", "Vendor C", "Vendor C", "Vendor C", "Vendor C"});
+		
+		Integer boltsCol = setColTableHeaders(workSheetid, 8, 2, new String[] {"bolt", "bolt", "bolt", "bolt", "bolt", "bolt", "bolt", "bolt"});
+		Integer boltThreadCol = setColTableHeaders(workSheetid, 8, 3, new String[] { "M10", "M10", "M10", "M10", "M10", "M10", "M12", "M12"});
+		Integer boltColorCol = setColTableHeaders(workSheetid, 8, 4, new String[] { "silver", "red", "red", "silver", "black", "red", "black", "red"});
+		Integer boltHeadCol = setColTableHeaders(workSheetid, 8, 5, new String[] { "carriage", "stove", "machine", "machine", "machine", "carriage", "machine", "stove"});
+		Integer boltCostCol = setColTableHeaders(workSheetid, 8, 7, new String[] {"0.600 EUR", "0.400 EUR", "0.390 EUR", "0.300 EUR", "0.350 EUR", "0.365 EUR", "0.380 EUR", "0.320 EUR"});
+		
+		Integer boltPartNo = createColFB(workSheetid, 8, 1, new String[] {"c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8"}, 
+				new Integer[]{boltsCol, boltThreadCol, boltColorCol, boltHeadCol, boltCostCol, vendorC});
+
+		//asm.addOntologyLink(tableProps, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/component.omdoc?component?ids");
+		asm.addOntologyLink(boltPartNo, partNoURI);
+		asm.addOntologyLink(boltsCol, boltURI);
+		asm.addOntologyLink(boltThreadCol, threadTypeURI);
+		asm.addOntologyLink(boltColorCol, colorURI);
+		asm.addOntologyLink(boltHeadCol, headTypeURI);
+		asm.addOntologyLink(boltCostCol, costURI);
+		asm.addOntologyLink(vendorC, vendorURI);
+
+
+		Integer nutCol = setColTableHeaders(workSheetid, 16, 2, new String[] {"nut", "nut","nut", "nut"});
+		Integer nutThreadCol = setColTableHeaders(workSheetid, 16, 3, new String[] { "M10", "M10","M10", "M12"});
+		Integer nutColorCol = setColTableHeaders(workSheetid, 16, 4, new String[] { "red", "black","silver", "black"});
+		Integer nutCostCol = setColTableHeaders(workSheetid, 16, 7, new String[] {"0.500 EUR", "0.500 EUR","0.550 EUR", "0.698 EUR"});
+		Integer nutPartNo = createColFB(workSheetid, 16, 1, new String[] {"c9", "c10","c11", "c12"}, new Integer[]{nutCol, nutThreadCol, nutColorCol, nutCostCol, vendorC});
+
+		asm.addOntologyLink(nutCol, nutURI);
+		asm.addOntologyLink(nutThreadCol, threadTypeURI);
+		asm.addOntologyLink(nutColorCol, colorURI);
+		asm.addOntologyLink(nutCostCol, costURI);
+		asm.addOntologyLink(nutPartNo, partNoURI);
+
+		Integer gasketCol = setColTableHeaders(workSheetid, 20, 2, new String[] {"gasket"});
+		Integer gasketTypeCol = setColTableHeaders(workSheetid, 20, 6, new String[] {"standard"});
+		Integer gasketCost = setColTableHeaders(workSheetid, 20, 7, new String[] {"3.000 EUR"});
+		Integer gasketPartNo = createColFB(workSheetid, 20, 1, new String[] {"c13"}, new Integer[]{gasketCol, gasketTypeCol, gasketCost, vendorC});
+		
+		asm.addOntologyLink(gasketCol, gasketURI);
+		asm.addOntologyLink(gasketTypeCol, gasketType);
+		asm.addOntologyLink(gasketCost, costURI);
+		asm.addOntologyLink(gasketPartNo, partNoURI);
+
+		Integer flangeCol = setColTableHeaders(workSheetid, 21, 2, new String[] {"flange", "flange"});
+		Integer flangeThreadCol = setColTableHeaders(workSheetid, 21, 3, new String[] { "M10", "M10"});
+		Integer flangeColorCol = setColTableHeaders(workSheetid, 21, 4, new String[] { "black", "silver"});
+		Integer flangeCostCol = setColTableHeaders(workSheetid, 21, 7, new String[] {"1.104 EUR", "1.104 EUR"});
+		Integer flangePartNo = createColFB(workSheetid, 21, 1, new String[] {"c14", "c15"}, new Integer[]{flangeCol, flangeThreadCol, flangeColorCol, flangeCostCol, vendorC});
+
+		asm.addOntologyLink(flangeCol, flangeURI);
+		asm.addOntologyLink(flangeThreadCol, threadTypeURI);
+		asm.addOntologyLink(flangeColorCol, colorURI);
+		asm.addOntologyLink(flangeCostCol, costURI);
+		asm.addOntologyLink(flangePartNo, partNoURI);
+
+		Integer blindflangeCol = setColTableHeaders(workSheetid, 23, 2, new String[] {"blind-flange", "blind-flange"});
+		Integer blindflangeThreadCol = setColTableHeaders(workSheetid, 23, 3, new String[] { "M12", "M12"});
+		Integer blindflangeColorCol = setColTableHeaders(workSheetid, 23, 4, new String[] { "black", "silver"});
+		Integer blindflangeCostCol = setColTableHeaders(workSheetid, 23, 7, new String[] {"0.800 EUR", "0.800 EUR"});
+		Integer blindflangePartNo = createColFB(workSheetid, 23, 1, new String[] {"c16", "c17"}, new Integer[]{blindflangeCol, blindflangeThreadCol, blindflangeColorCol, blindflangeCostCol, vendorC});
+
+		asm.addOntologyLink(blindflangeCol, blindFlangeURI);
+		asm.addOntologyLink(blindflangeThreadCol, threadTypeURI);
+		asm.addOntologyLink(blindflangeColorCol, colorURI);
+		asm.addOntologyLink(blindflangeCostCol, costURI);
+		asm.addOntologyLink(blindflangePartNo, partNoURI);
 	}
 
 	public void writeRDF() {
