@@ -53,6 +53,12 @@ public class ManagerTest {
 		
 		List<Relation> p2 = manager.getRelationForPosition(new CellSpaceInformation("Table1", 2, 3));
 		assertEquals(new Integer(1), new Integer(p2.size()));
+		
+		List<CellTuple> relation = manager.getCellRelationsForPosition(new CellSpaceInformation("Table1", 2, 3));
+		assertEquals(new Integer(1), new Integer(relation.size()));
+		assertTrue(relation.get(0).contains((new CellSpaceInformation("Table1", 2, 0))));
+		assertTrue(relation.get(0).contains((new CellSpaceInformation("Table1", 1, 3))));
+		assertFalse(relation.get(0).contains((new CellSpaceInformation("Table1", 2, 2))));
 	}
 
 }

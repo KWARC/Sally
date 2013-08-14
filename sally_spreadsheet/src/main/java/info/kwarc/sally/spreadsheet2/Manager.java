@@ -105,6 +105,15 @@ public class Manager {
 		return cellRelations;
 	}
 	
+	public List<CellTuple> getCellRelationsForPosition(CellSpaceInformation position, Relation r) {
+		List<CellTuple> cellRelations = new ArrayList<CellTuple>();
+		if (r instanceof RelationFunctional) {
+			RelationFunctional relFunc = (RelationFunctional) r;
+			cellRelations.addAll(relFunc.getCellRelationFor(position));
+		}
+		return cellRelations;
+	}
+	
 	private void addPositionToBlockLink(CellSpaceInformation position, Block block) {
 		if (positionToBlocks.containsKey(position)) {
 			positionToBlocks.get(position).add(block);
