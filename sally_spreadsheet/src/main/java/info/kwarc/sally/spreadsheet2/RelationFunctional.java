@@ -3,10 +3,14 @@ package info.kwarc.sally.spreadsheet2;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class RelationFunctional extends Relation {
 	String function;
 	List<CellTuple> cellRelations;
 	
+	final Logger logger = LoggerFactory.getLogger(RelationFunctional.class);
 		
 	public RelationFunctional(int id, List<Block> blocks, String function, List<CellTuple> cellRelations) {
 		super(id, blocks);
@@ -78,14 +82,16 @@ public class RelationFunctional extends Relation {
 	}
 	
 	private Boolean isConsistent(List<Block> blocks, List<CellTuple> cellRelations) {
+
 		boolean consistent = true;
 		for (CellTuple tuple : cellRelations) {
-			if (tuple.getSize() != blocks.size())
-					consistent = false;
-			else {
+			if (tuple.getSize() != blocks.size()) {
+				consistent = false;
+			} else {
 				for (int i = 0; i < tuple.getSize(); i++) {
-					if (!blocks.get(i).getCells().contains(tuple.getTuple().get(i)))
+					if (!blocks.get(i).getCells().contains(tuple.getTuple().get(i))) {
 						consistent = false;
+					}
 				}
 			}
 			

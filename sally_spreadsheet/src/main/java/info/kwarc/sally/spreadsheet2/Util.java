@@ -125,4 +125,11 @@ public class Util {
 		return allPositions;
 	}
 	
+	public static List<Integer> convertBlocksToIDs(List<Block> blocks) {
+		List<Integer> ids = new ArrayList<Integer>();
+		for (Block b : blocks)
+			ids.add(b.getId());
+		return ids;
+	}
+	
 }

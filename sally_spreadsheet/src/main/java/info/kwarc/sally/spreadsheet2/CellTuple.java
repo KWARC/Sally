@@ -28,4 +28,14 @@ public class CellTuple {
 		return tuple.contains(position);
 	}
 
+	public String toString() {
+		String strRep = "[";
+		for (CellSpaceInformation p : tuple)
+			strRep = strRep + p.toString() + ",";
+		if (strRep.endsWith(","))
+			strRep = strRep.substring(0, strRep.length()-1);
+		strRep = strRep + "]";
+		return strRep;
+	}
+
 }

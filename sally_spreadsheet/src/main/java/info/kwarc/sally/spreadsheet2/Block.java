@@ -19,5 +19,7 @@ public abstract class Block {
 	}
 	
 	abstract public List<CellSpaceInformation> getCells();
+	
+	abstract public List<Block> getSubBlocks();
 
 }

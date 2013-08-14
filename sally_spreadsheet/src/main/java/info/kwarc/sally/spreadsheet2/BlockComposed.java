@@ -44,5 +44,9 @@ public class BlockComposed extends Block {
 			cells.addAll(b.getCells());
 		return cells;
 	}
+	
+	public List<Block> getSubBlocks() {
+		return new ArrayList<Block>(blocks);
+	}
 
 }

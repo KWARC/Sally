@@ -16,8 +16,9 @@ public class Manager {
 	Map<Integer, Relation> relations;
 	int maxBlockID, maxRelationID;
 	
-	Map<CellSpaceInformation, List<Integer>> positionToBlockId;
-	Map<CellSpaceInformation, List<Integer>> positionToRelationId;
+	Map<CellSpaceInformation, Block> positionToAtomicBlock;
+	Map<CellSpaceInformation, List<Block>> positionToBlocks;
+	Map<CellSpaceInformation, List<Relation>> positionToRelations;
 	
 	final Logger logger = LoggerFactory.getLogger(Manager.class);
 	
@@ -32,42 +33,49 @@ public class Manager {
 		this.maxBlockID = 0;
 		this.maxRelationID = 0;
 		
-		positionToBlockId = new HashMap<CellSpaceInformation, List<Integer>>();
-		positionToRelationId = new HashMap<CellSpaceInformation, List<Integer>>();
+		positionToAtomicBlock = new HashMap<CellSpaceInformation, Block>();
+		positionToBlocks = new HashMap<CellSpaceInformation, List<Block>>();
+		positionToRelations = new HashMap<CellSpaceInformation, List<Relation>>();
 	}
 
 	
 	// ---------- Methods for the Spreadsheet Annotation Model ----------
 
-	public int createAtomicBlock(CellSpaceInformation position) {
-		maxBlockID++;
-		blocks.put(maxBlockID, new BlockAtomic(maxBlockID, position));
-		addPositionToBlockLink(position, maxBlockID);
-		return maxBlockID;
+	public Block getOrCreateAtomicBlock(CellSpaceInformation position) {
+		if (positionToAtomicBlock.containsKey(position))
+			return positionToAtomicBlock.get(position);
+		else {
+			maxBlockID++;
+			Block b = new BlockAtomic(maxBlockID, position);
+			blocks.put(maxBlockID, b);
+			addPositionToBlockLink(position, b);
+			return b;
+		}
 	}
 	
-	public int createBlock(List<Block> blocks) {
+	public Block createBlock(List<Block> subBlocks) {
 		maxBlockID++;
-		this.blocks.put(maxBlockID, new BlockComposed(maxBlockID, blocks));
-		for (Block block : blocks )
-			addPositionsToBlockLink(block.getCells(), maxBlockID);
-		return maxBlockID;
+		Block b = new BlockComposed(maxBlockID, subBlocks);
+		blocks.put(maxBlockID, b);
+	    addPositionsToBlockLink(b.getCells(), b);
+		return b;
 	}
 	
-	public int createComposedBlock(List<CellSpaceInformation> positions) {
+	public Block createComposedBlock(List<CellSpaceInformation> positions) {
 		List<Block> blocks = new ArrayList<Block>();
 		for (CellSpaceInformation pos : positions)
-			blocks.add(getBlockByID(createAtomicBlock(pos)));
+			blocks.add(getOrCreateAtomicBlock(pos));
 		return createBlock(blocks);
 	}
 	
-	public int createFunctionalRelation(List<Block> blocks, String function) {
-		List<CellTuple> cellRelations = createFunctionalCellRelations(blocks);
+	public Relation createFunctionalRelation(List<Block> blocks, String function) {
 		maxRelationID++;
-		this.relations.put(maxRelationID, new RelationFunctional(maxRelationID, blocks, function, cellRelations));
+		List<CellTuple> cellRelations = createFunctionalCellRelations(blocks);
+		Relation r = new RelationFunctional(maxRelationID, blocks, function, cellRelations);
+		this.relations.put(maxRelationID, r);
 		for (Block block : blocks )
-			addPositionsToRelationLink(block.getCells(), maxRelationID);
-		return maxRelationID;
+			addPositionsToRelationLink(block.getCells(), r);
+		return r;
 	}
 	
 	public Block getBlockByID(int id) {
@@ -78,18 +86,17 @@ public class Manager {
 		return relations.get(id);
 	}
 	
-	public List<Integer> getBlocksForPosition(CellSpaceInformation position) {
-		return new ArrayList<Integer>(positionToBlockId.get(position));
+	public List<Block> getBlocksForPosition(CellSpaceInformation position) {
+		return new ArrayList<Block>(positionToBlocks.get(position));
 	}
 	
-	public List<Integer> getRelationForPosition(CellSpaceInformation position) {
-		return new ArrayList<Integer>(positionToRelationId.get(position));
+	public List<Relation> getRelationForPosition(CellSpaceInformation position) {
+		return new ArrayList<Relation>(positionToRelations.get(position));
 	}
 	
 	public List<CellTuple> getCellRelationsForPosition(CellSpaceInformation position) {
 		List<CellTuple> cellRelations = new ArrayList<CellTuple>();
-		for (Integer relationId : getRelationForPosition(position)) {
-			Relation r = getRelationByID(relationId);
+		for (Relation r : getRelationForPosition(position)) {
 			if (r instanceof RelationFunctional) {
 				RelationFunctional relFunc = (RelationFunctional) r;
 				cellRelations.addAll(relFunc.getCellRelationFor(position));
@@ -98,44 +105,45 @@ public class Manager {
 		return cellRelations;
 	}
 	
-	private void addPositionToBlockLink(CellSpaceInformation position, int id) {
-		if (positionToBlockId.containsKey(position)) {
-			positionToBlockId.get(position).add(id);
+	private void addPositionToBlockLink(CellSpaceInformation position, Block block) {
+		if (positionToBlocks.containsKey(position)) {
+			positionToBlocks.get(position).add(block);
 		} else {
-			List<Integer> idList = new ArrayList<Integer>();
-			idList.add(id);
-			positionToBlockId.put(position, idList);
+			List<Block> blockList = new ArrayList<Block>();
+			blockList.add(block);
+			positionToBlocks.put(position, blockList);
 		}
 	}
 	
-	private void addPositionsToBlockLink(List<CellSpaceInformation> positions, int id) {
+	private void addPositionsToBlockLink(List<CellSpaceInformation> positions, Block block) {
 		for (CellSpaceInformation position : positions)
-			addPositionToBlockLink(position, id);
+			addPositionToBlockLink(position, block);
 	}
 	
-	private void addPositionToRelationLink(CellSpaceInformation position, int id) {
-		if (positionToRelationId.containsKey(position)) {
-			positionToRelationId.get(position).add(id);
+	private void addPositionToRelationLink(CellSpaceInformation position, Relation relation) {
+		if (positionToRelations.containsKey(position)) {
+			positionToRelations.get(position).add(relation);
 		} else {
-			List<Integer> idList = new ArrayList<Integer>();
-			idList.add(id);
-			positionToRelationId.put(position, idList);
+			List<Relation> relList = new ArrayList<Relation>();
+			relList.add(relation);
+			positionToRelations.put(position, relList);
 		}
 	}
 	
-	private void addPositionsToRelationLink(List<CellSpaceInformation> positions, int id) {
+	private void addPositionsToRelationLink(List<CellSpaceInformation> positions, Relation rel) {
 		for (CellSpaceInformation position : positions)
-			addPositionToRelationLink(position, id);
+			addPositionToRelationLink(position, rel);
 	}
 	
 	private List<CellTuple> createFunctionalCellRelations(List<Block> blocks) {
 		List<CellTuple> cellRelations = new ArrayList<CellTuple>();
+		List<Block> allBlocks = new ArrayList<Block>(blocks);
 		
-		Block codomain = blocks.get(blocks.size()-1);
-		blocks.remove(blocks.size()-1);
+		Block codomain = allBlocks.get(blocks.size()-1);
+		allBlocks.remove(allBlocks.size()-1);
 		
 		for (CellSpaceInformation pos : codomain.getCells())
-			cellRelations.add(getAssociatedCells(blocks, pos));
+			cellRelations.add(getAssociatedCells(allBlocks, pos));
 		
 		return cellRelations;
 	}

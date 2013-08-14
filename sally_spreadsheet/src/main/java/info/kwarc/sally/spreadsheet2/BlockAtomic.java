@@ -44,5 +44,10 @@ public class BlockAtomic extends Block {
 		cells.add(position);
 		return cells;
 	}
+	
+	@Override
+	public List<Block> getSubBlocks() {
+		return new ArrayList<Block>();
+	}
 
 }
