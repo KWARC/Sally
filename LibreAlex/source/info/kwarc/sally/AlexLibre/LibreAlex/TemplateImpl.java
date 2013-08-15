@@ -1,15 +1,14 @@
 package info.kwarc.sally.AlexLibre.LibreAlex;
 
-import com.sun.star.uno.XComponentContext;
-import com.sun.star.lib.uno.helper.Factory;
 import com.sun.star.lang.XSingleComponentFactory;
-import com.sun.star.registry.XRegistryKey;
+import com.sun.star.lib.uno.helper.Factory;
 import com.sun.star.lib.uno.helper.WeakBase;
+import com.sun.star.registry.XRegistryKey;
+import com.sun.star.uno.XComponentContext;
 
 
 public final class TemplateImpl extends WeakBase
-   implements com.sun.star.lang.XServiceInfo,
-              info.kwarc.sally.LibreAlex.XLibreAlex
+   implements com.sun.star.lang.XServiceInfo
 {
     private final XComponentContext m_xContext;
     private static final String m_implementationName = TemplateImpl.class.getName();

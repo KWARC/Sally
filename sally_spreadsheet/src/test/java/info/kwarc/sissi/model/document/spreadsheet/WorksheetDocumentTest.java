@@ -1,8 +1,9 @@
 package info.kwarc.sissi.model.document.spreadsheet;
 
+import info.kwarc.sally.core.ScreenCoordinatesProvider;
+import info.kwarc.sally.core.interfaces.IPositionProvider;
 import info.kwarc.sally.networking.interfaces.IMessageCallback;
 import info.kwarc.sally.networking.interfaces.INetworkSender;
-import info.kwarc.sally.networking.interfaces.NetworkSenderMock;
 import info.kwarc.sally.spreadsheet.WorksheetDocument;
 import info.kwarc.sally.spreadsheet.interfaces.WorksheetFactory;
 
@@ -35,6 +36,7 @@ public class WorksheetDocumentTest {
 
 			@Override
 			protected void configure() {
+				bind(IPositionProvider.class).to(ScreenCoordinatesProvider.class);
 				install(new FactoryModuleBuilder().build(WorksheetFactory.class));
 			}
 		});

@@ -1,7 +1,16 @@
-table {
-	width: 50%;
+body {
+	
 }
 
-.result-row:hover {
+table {
+	width: 100%;
+}
+
+table.tablesorter .result-row:hover {
 	background:highlight;
 }
+
+table.tablesorter .result-row:hover {
+	background:highlight;
+}
+

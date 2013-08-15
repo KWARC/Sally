@@ -20,7 +20,7 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sally.CADAlexClick;
+import sally.MMTUri;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -34,10 +34,10 @@ import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 @Singleton
-public class PricingService {
+public class InstanceService {
 
-	String pricingSparql;
-	String navigateSparql;
+	String instanceSparql;
+
 	Model common;
 	Theo theo;
 	SallyInteraction sally;
@@ -45,10 +45,9 @@ public class PricingService {
 	ISallyKnowledgeBase kb;
 
 	@Inject
-	public PricingService(Theo theo, SallyInteraction sally, ISallyKnowledgeBase kb) {
+	public InstanceService(Theo theo, SallyInteraction sally, ISallyKnowledgeBase kb) {
 		this.theo = theo;
-		pricingSparql = loadSparql("/pricing.sparql");
-		navigateSparql = loadSparql("/navigate.sparql");
+		instanceSparql = loadSparql("/instance.sparql");
 		
 		common = null;
 		this.sally = sally;
@@ -78,30 +77,25 @@ public class PricingService {
 	}
 
 	@SallyService
-	public void pricingService(final CADAlexClick uri, SallyInteractionResultAcceptor acceptor, final SallyContext context) {
-		final Collection<String> files = getFiles(queryModel(uri.getCadNodeId()));
+	public void pricingService(final MMTUri uri, SallyInteractionResultAcceptor acceptor, final SallyContext context) {
+		final Collection<String> files = getFiles(queryModel(uri.getUri()));
 		if (files.size() ==0)
 			return;
 
 		for (final String file : files) {
-			acceptor.acceptResult(new SallyMenuItem("Pricing", file) {
+			acceptor.acceptResult(new SallyMenuItem("Instance", file) {
 				@Override
 				public void run() {
 					kb.signal_global_event("switch_app", file);
 
-					theo.openWindow("Pricing results", "http://localhost:8181/sally/pricing?node="+uri.getCadNodeId()+"&file="+file, 450, 600);
+					theo.openWindow("Pricing results", "http://localhost:8181/sally/instance?node="+uri.getUri()+"&file="+file, 300, 600);
 				}
 			});
 		}
 	}
 
 	public boolean isResultOk(QuerySolution sol) {
-		String objthread = sol.get("objthread").asLiteral().getString();
-		String threadVal = sol.get("threadval").asLiteral().getString();
-		if (objthread.length()==0) {
-			return true;
-		}
-		return threadVal.contains(objthread);
+		return true;
 	}
 
 	public Collection<String> getFiles(ResultSet results) {
@@ -126,23 +120,9 @@ public class PricingService {
 			return null;
 		}
 
-		String queryStr = String.format(pricingSparql, uri);
+		String queryStr = String.format(instanceSparql, uri);
 		Query query = QueryFactory.create(queryStr);
 		QueryExecution qe = QueryExecutionFactory.create(query, common);
 		return qe.execSelect();		
 	}
-	
-	public ResultSet getNavigate(String uri) {
-		//if (common == null)
-		loadModels();
-		if (common == null) {
-			return null;
-		}
-
-		String queryStr = String.format(navigateSparql, uri, uri, uri, uri, uri, uri);
-		Query query = QueryFactory.create(queryStr);
-		QueryExecution qe = QueryExecutionFactory.create(query, common);
-		return qe.execSelect();		
-	}
-
 }

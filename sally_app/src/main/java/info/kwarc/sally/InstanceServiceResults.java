@@ -16,23 +16,24 @@ import com.google.inject.Inject;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 
-@Path("sally/pricing")
-public class PricingServiceResults {
+@Path("sally/instance")
+public class InstanceServiceResults {
 
 	Logger log;
-	PricingService pricingService;
+	InstanceService instanceService;
 	TemplateEngine te;
 
 	@Inject
-	public PricingServiceResults(PricingService pricingService, TemplateEngine te ) {
-		this.pricingService = pricingService;
+	public InstanceServiceResults(InstanceService instanceService, TemplateEngine te ) {
+		this.instanceService = instanceService;
 		this.te = te;
 		log = org.slf4j.LoggerFactory.getLogger(getClass());
 	}
 
 	@GET
 	public String get(@QueryParam("node") String node, @QueryParam("file") String file){
-		ResultSet results = pricingService.queryModel(node);
+		log.warn(file);
+		ResultSet results = instanceService.queryModel(node);
 		HashMap<String, Object> objects = new HashMap<String, Object>();
 		List<QuerySolution> details = new ArrayList<QuerySolution>();
 		while (results.hasNext()) {
@@ -40,13 +41,13 @@ public class PricingServiceResults {
 			if (!sol.get("file").toString().equals(file)) {
 				continue;
 			}
-			if (!pricingService.isResultOk(sol)) {
+			if (!instanceService.isResultOk(sol)) {
 				continue;
 			}
 			details.add(sol);
 		}
 		objects.put("node", node);
 		objects.put("solutions", details);
-		return te.generateTemplate("pricing/pricing.ftl", objects);
+		return te.generateTemplate("instance/instance.ftl", objects);
 	}
 }

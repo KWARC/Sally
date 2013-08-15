@@ -15,7 +15,6 @@ import org.apache.commons.codec.binary.Base64;
 import sally.CADNode;
 import sally.CADSemanticData;
 import sally.Parameter;
-import sally.SpreadsheetModel;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
@@ -27,10 +26,12 @@ public class ACMInterface {
 
 	Model model;
 	String documentURI;
+	String fileURI;
 	CADNode rootNode;
 	Map<String, CADNode> index;
 	
 	public void setDocumentURI(String documentURI) {
+		this.fileURI = documentURI;
 		this.documentURI = makeValidDocURI(documentURI);
 	}
 	
@@ -80,7 +81,7 @@ public class ACMInterface {
 		if (parent != null) {
 			Resource parentRes = getResource(documentURI, parent);
 			nodeRes.addProperty(ACM.partOf, parentRes);
-			nodeRes.addProperty(ACM.partOfFile, documentURI);
+			nodeRes.addProperty(ACM.partOfFile, model.createLiteral(fileURI));
 		}
 		
 		nodeRes.addProperty(RDF.type, ACM.CADObject);
@@ -199,6 +200,7 @@ public class ACMInterface {
 		index = new HashMap<String, CADNode>();
 		props = new HashMap<String, Integer>();
 		IDs = 0;
+		this.fileURI = documentURI;
 		this.documentURI = makeValidDocURI(documentURI);
 	}	
 }

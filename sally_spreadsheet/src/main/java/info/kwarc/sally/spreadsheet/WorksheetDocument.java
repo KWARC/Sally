@@ -4,8 +4,10 @@ import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyService;
+import info.kwarc.sally.core.comm.Coordinates;
 import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.comm.SallyModelRequest;
+import info.kwarc.sally.core.interfaces.IPositionProvider;
 import info.kwarc.sally.core.interfaces.Theo;
 import info.kwarc.sally.model.document.spreadsheet.ASMInterface;
 import info.kwarc.sally.networking.interfaces.IMessageCallback;
@@ -15,6 +17,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
+import java.util.prefs.InvalidPreferencesFormatException;
 
 import sally.AlexClick;
 import sally.AlexRangeRequest;
@@ -24,6 +27,7 @@ import sally.DataParameter;
 import sally.LegendCreateData;
 import sally.MMTUri;
 import sally.RangeData;
+import sally.ScreenCoordinates;
 import sally.RangeData.Builder;
 import sally.RangeSelection;
 import sally.SpreadsheetModel;
@@ -39,16 +43,18 @@ public class WorksheetDocument {
 	ASMInterface asm;
 	String filePath;
 	Theo theo;
+	IPositionProvider provider;
 
 	public String getFilePath() {
 		return filePath;
 	}
 
 	@Inject
-	public WorksheetDocument(@Assisted String filePath, @Assisted SpreadsheetModel data, @Assisted INetworkSender sender) {
+	public WorksheetDocument(@Assisted String filePath, @Assisted SpreadsheetModel data, @Assisted INetworkSender sender, IPositionProvider provider) {
 		asm = new ASMInterface(filePath);
 		this.filePath = filePath;
 		this.sender = sender;
+		this.provider = provider;
 		setSemanticData(data);
 	}
 	
@@ -154,7 +160,8 @@ public class WorksheetDocument {
 		}
 		final SallyInteraction interaction = context.getCurrentInteraction();
 
-		context.setContextVar("preferred_position", click.getPosition());
+		ScreenCoordinates coords = click.getPosition();
+		provider.setRecommendedCoordinates(new Coordinates(coords.getX(), coords.getY()));
 
 		int sheet = getSheetId(click.getSheet());
 		RangeSelection sel = click.getRange();

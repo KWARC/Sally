@@ -98,11 +98,10 @@ public class CometD implements Provider<INetworkSenderAdapter> {
 
 		public AbstractMessage forward(ServerSession remote, final AbstractMessage msg, CommunicationContext context) {
 			if (!clients.contains(remote.getId())) {
-				log.info("client "+remote.getId()+" connected");
+				log.debug("client "+remote.getId()+" connected");
 				connManager.newClient(remote.getId());
 				clients.add(remote.getId());
 			}
-			log.info(remote.getId()+" got message "+msg);
 			log.debug(String.format("--> [%s]: %s", context.getChannel(), msg.getClass().getName()));
 			connManager.newMessage(remote.getId(), msg);
 			return null;
@@ -112,7 +111,7 @@ public class CometD implements Provider<INetworkSenderAdapter> {
 		}
 		
 		public void onDisconnect(ServerSession remote, Map<String, Object> data) {
-			log.info(remote.getId()+" disconnected");
+			log.debug(remote.getId()+" disconnected");
 			this.connManager.disconnect(remote.getId());
 		}
 	}

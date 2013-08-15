@@ -5,7 +5,7 @@ import info.kwarc.sally.ProcessDocMappings;
 import info.kwarc.sally.core.CookieProvider;
 import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.core.ScreenCoordinatesProvider;
-import info.kwarc.sally.core.injectors.TheoFirstChoice;
+import info.kwarc.sally.core.interfaces.IPositionProvider;
 import info.kwarc.sally.core.interfaces.Theo;
 import info.kwarc.sally.networking.CometD;
 import info.kwarc.sally.networking.ConnectionManager;
@@ -32,7 +32,7 @@ public class Configuration extends AbstractModule {
 		install(new TheoFX());
 		
 		bind(CookieProvider.class);
-		bind(ScreenCoordinatesProvider.class);
+		bind(IPositionProvider.class).to(ScreenCoordinatesProvider.class);
 		bind(IConnectionManager.class).to(ConnectionManager.class);
 		bind(SallyInteraction.class);
 		bind(PricingService.class);
