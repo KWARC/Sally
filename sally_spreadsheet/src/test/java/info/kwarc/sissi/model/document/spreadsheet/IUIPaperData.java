@@ -93,10 +93,12 @@ public class IUIPaperData {
 	}
 
 	public void setData() {
-		buildPricingSheet();
-		buildVendorA();
-		buildVendorB();
-		buildVendorC();
+		//buildPricingSheet();
+		//buildVendorA();
+		//buildVendorB();
+		//buildVendorC();
+		
+		buildContractCoolingSystem();
 	}
 	
 	static final String boltURI="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/nutbolt.omdoc?nutbolt?bolt";
@@ -401,6 +403,96 @@ public class IUIPaperData {
 		asm.addOntologyLink(blindflangePartNo, partNoURI);
 	}
 
+	public void buildContractCoolingSystem() {
+		Integer workSheetid = asm.getWorksheetIDByName("Contract-MECS");
+		String uriSize = "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/five-sizes.omdoc?five-sizes?five-point-size-scale";
+		//String uriQuantity = "https://tnt.kwarc.info/tntbase/stc/XHTMLBasicBrowser/slides/units/en/quantities.omdoc?quantities?quantity";
+		String uriPrice ="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/financial-transaction.omdoc?financial-transaction?transaction-price";
+		String uriPartNo = "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/partnumber.omdoc?partnumber?part-number";
+		
+		Integer mesc = setHeaderLabel(workSheetid, 1, 1, 8, "Component Marine Engine Cooling System of Contract 12440628");
+		asm.addOntologyLink(mesc, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/enclosed-cooling-system.omdoc?enclosed-cooling-system?enclosed-cooling-system");	
+		
+		
+		//Seacock		
+		Integer seacock_partMESC_ColName = setColTableHeaders(workSheetid, 4, 2, new String[] {"Seacock-2211", "Seacock-2211", "Seacock-2211"});
+		Integer seacock_partMESC_ColSize = setColTableHeaders(workSheetid, 4, 3, new String[] {"S", "M", "XL"});
+		Integer seacock_partMESC_ColPrice = setColTableHeaders(workSheetid, 4, 4, new String[] {"188.50 EUR", "328.50 EUR", "647.50 EUR"});
+		Integer seacock_partMESC = createColFB(workSheetid, 4, 1, new String[] {"1244-2211-1", "1244-2211-2", "1244-2211-4"}, 
+																  new Integer[]{seacock_partMESC_ColName, 
+																				seacock_partMESC_ColSize, 
+																				seacock_partMESC_ColPrice});
+		asm.addOntologyLink(seacock_partMESC, uriPartNo);
+		asm.addOntologyLink(seacock_partMESC_ColName, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/enclosed-cooling-system.omdoc?enclosed-cooling-system?seacock");
+		asm.addOntologyLink(seacock_partMESC_ColSize, uriSize);
+		asm.addOntologyLink(seacock_partMESC_ColPrice, uriPrice);
+		
+		//sea strainer
+		Integer seastrainer_partMESC_ColName = setColTableHeaders(workSheetid, 7, 2, new String[] {"Sea Strainer-2207", "Sea Strainer-2207", "Sea Strainer-2207"});
+		Integer seastrainer_partMESC_ColSize = setColTableHeaders(workSheetid, 7, 3, new String[] {"S", "L", "XL"});
+		Integer seastrainer_partMESC_ColPrice = setColTableHeaders(workSheetid, 7, 4, new String[] {"120.00 EUR", "130.00 EUR", "140.00 EUR"});
+		Integer seastrainer_partMESC = createColFB(workSheetid, 7, 1, new String[] {"1244-2207-1", "1244-2207-3", "1244-2207-4"}, 
+																  new Integer[]{seastrainer_partMESC_ColName, 
+																				seastrainer_partMESC_ColSize, 
+																				seastrainer_partMESC_ColPrice});
+		asm.addOntologyLink(seastrainer_partMESC, uriPartNo);
+		asm.addOntologyLink(seastrainer_partMESC_ColName, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/enclosed-cooling-system.omdoc?enclosed-cooling-system?sea-strainer");
+		asm.addOntologyLink(seastrainer_partMESC_ColSize, uriSize);
+		asm.addOntologyLink(seastrainer_partMESC_ColPrice, uriPrice);
+				
+		//pipe end
+		Integer pipeend_partMESC_ColName = setColTableHeaders(workSheetid, 10, 2, new String[] {"Pipe End-2172", "Pipe End-2172", "Pipe End-2172"});
+		Integer pipeend_partMESC_ColSize = setColTableHeaders(workSheetid, 10, 3, new String[] {"S", "M", "XL"});
+		Integer pipeend_partMESC_ColPrice = setColTableHeaders(workSheetid, 10, 4, new String[] {"6.40 EUR", "6.50 EUR", "6.60 EUR"});
+		Integer pipeend_partMESC = createColFB(workSheetid, 10, 1, new String[] {"1244-2172-1", "1244-2172-2", "1244-2172-4"}, 
+																  new Integer[]{pipeend_partMESC_ColName, 
+																				pipeend_partMESC_ColSize, 
+																				pipeend_partMESC_ColPrice});
+		asm.addOntologyLink(pipeend_partMESC, uriPartNo);
+		asm.addOntologyLink(pipeend_partMESC_ColName, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/piping.omdoc?piping?clean-out");
+		asm.addOntologyLink(pipeend_partMESC_ColSize, uriSize);
+		asm.addOntologyLink(pipeend_partMESC_ColPrice, uriPrice);	
+			
+		//hose
+		Integer hose_partMESC_ColName = setColTableHeaders(workSheetid, 13, 2, new String[] {"Hose-2256", "Hose-2256", "Hose-2256"});
+		Integer hose_partMESC_ColSize = setColTableHeaders(workSheetid, 13, 3, new String[] {"S", "M", "XL"});
+		Integer hose_partMESC_ColPrice = setColTableHeaders(workSheetid, 13, 4, new String[] {"20.88 EUR", "24.88 EUR", "28.88 EUR"});
+		Integer hose_partMESC = createColFB(workSheetid, 13, 1, new String[] {"1244-2256-1", "1244-2256-2", "1244-2256-4"}, 
+																  new Integer[]{hose_partMESC_ColName, 
+																				hose_partMESC_ColSize, 
+																				hose_partMESC_ColPrice});
+		asm.addOntologyLink(hose_partMESC, uriPartNo);
+		asm.addOntologyLink(hose_partMESC_ColName, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/piping.omdoc?piping?pipe");
+		asm.addOntologyLink(hose_partMESC_ColSize, uriSize);
+		asm.addOntologyLink(hose_partMESC_ColPrice, uriPrice);			
+		
+		//Water Pump
+		Integer waterpump_partMESC_ColName = setColTableHeaders(workSheetid, 16, 2, new String[] {"Water Pump-2198", "Water Pump-2198", "Water Pump-2198"});
+		Integer waterpump_partMESC_ColSize = setColTableHeaders(workSheetid, 16, 3, new String[] {"S", "M", "L"});
+		Integer waterpump_partMESC_ColPrice = setColTableHeaders(workSheetid, 16, 4, new String[] {"1,099.00 EUR", "2,299.00 EUR", "3,450.00 EUR"});
+		Integer waterpump_partMESC = createColFB(workSheetid, 16, 1, new String[] {"1244-2198-1", "1244-2198-2", "1244-2198-3"}, 
+																  new Integer[]{waterpump_partMESC_ColName, 
+																				waterpump_partMESC_ColSize, 
+																				waterpump_partMESC_ColPrice});
+		asm.addOntologyLink(waterpump_partMESC, uriPartNo);
+		asm.addOntologyLink(waterpump_partMESC_ColName, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/enclosed-cooling-system.omdoc?enclosed-cooling-system?water-pump");
+		asm.addOntologyLink(waterpump_partMESC_ColSize, uriSize);
+		asm.addOntologyLink(waterpump_partMESC_ColPrice, uriPrice);			
+		
+		//Quantity
+		//Integer partMESC = setColTableHeaders(workSheetid, 3, 1, new String[] {"1244-2211-1", "1244-2211-2", "1244-2211-4", "1244-2207-1", "1244-2207-3", "1244-2207-4", "1244-2172-1", "1244-2172-2", "1244-2172-2", "1244-2256-1", "1244-2256-2", "1244-2256-4", "1244-2198-1", "1244-2198-2", "1244-2198-3"}); 
+		//Integer partMESC_ColQuantity = createColFB(workSheetid, 3, 5, new String[] {"40", "20", "2", "40", "10", "4", "960", "720", "400", "480", "360", "200", "20", "10", "2"},
+		//															  new Integer[]{partMESC});
+		//asm.addOntologyLink(partMESC_ColQuantity, uriQuantity);
+		//Integer partMESC_ColVolumePrice = setColTableHeaders(workSheetid, 3, 6, new String[] {"7,540.00 EUR", "6,570.00 EUR", "1,295.00 EUR", "4,800.00 EUR", "1,300.00 EUR", "560.00 EUR", "6,144.00 EUR", "4,680.00 EUR", "2,640.00 EUR", "10,022.40 EUR", "8,956.80 EUR", "5,776.00 EUR", "21,980.00 EUR", "22,990.00 EUR", "6,900.00 EUR"});
+		//Part No uses Name, Size, Quantity and Price
+		//		new Integer[]{partMESC_ColQuantity, partMESC_ColVolumePrice});
+
+		//asm.addOntologyLink(tableProps, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/component.omdoc?component?ids");
+		//asm.addOntologyLink(partMESC, uriPartNo);
+	}
+	
+
 	public void writeRDF() {
 		OutputStream file;
 		try {
@@ -461,7 +553,5 @@ public class IUIPaperData {
 		t.writeRDF();
 		t.writeProto();
 		
-		Integer workSheetid = t.getAsm().getWorksheetIDByName("Vendor A");
-		System.out.println(t.getAsm().getOntologyForPosition(CellPosition.newBuilder().setSheet(workSheetid).setRow(8).setCol(2).build()));
 	}
 }
