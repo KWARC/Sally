@@ -405,13 +405,13 @@ public class IUIPaperData {
 	
 	public void buildContractCoolingSystem() {
 		Integer workSheetid = asm.getWorksheetIDByName("Contract-MECS");
-		String uriSize = "https://uri.com";
+		String uriSize = "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/five-sizes.omdoc?five-sizes?five-point-size-scale";
 		//String uriQuantity = "https://tnt.kwarc.info/tntbase/stc/XHTMLBasicBrowser/slides/units/en/quantities.omdoc?quantities?quantity";
 		String uriPrice ="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/financial-transaction.omdoc?financial-transaction?transaction-price";
 		String uriPartNo = "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/partnumber.omdoc?partnumber?part-number";
 		
 		Integer mesc = setHeaderLabel(workSheetid, 1, 1, 8, "Component Marine Engine Cooling System of Contract 12440628");
-		asm.addOntologyLink(mesc, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/partnumber.omdoc?partnumber?part-number");	
+		asm.addOntologyLink(mesc, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/enclosed-cooling-system.omdoc?enclosed-cooling-system?enclosed-cooling-system");	
 		
 		
 		//Seacock		
@@ -480,10 +480,12 @@ public class IUIPaperData {
 		asm.addOntologyLink(waterpump_partMESC_ColPrice, uriPrice);			
 		
 		//Quantity
-		//Integer partMESC_ColQuantity = setColTableHeaders(workSheetid, 3, 5, new String[] {"40", "20", "2", "40", "10", "4", "960", "720", "400", "480", "360", "200", "20", "10", "2"});
+		//Integer partMESC = setColTableHeaders(workSheetid, 3, 1, new String[] {"1244-2211-1", "1244-2211-2", "1244-2211-4", "1244-2207-1", "1244-2207-3", "1244-2207-4", "1244-2172-1", "1244-2172-2", "1244-2172-2", "1244-2256-1", "1244-2256-2", "1244-2256-4", "1244-2198-1", "1244-2198-2", "1244-2198-3"}); 
+		//Integer partMESC_ColQuantity = createColFB(workSheetid, 3, 5, new String[] {"40", "20", "2", "40", "10", "4", "960", "720", "400", "480", "360", "200", "20", "10", "2"},
+		//															  new Integer[]{partMESC});
+		//asm.addOntologyLink(partMESC_ColQuantity, uriQuantity);
 		//Integer partMESC_ColVolumePrice = setColTableHeaders(workSheetid, 3, 6, new String[] {"7,540.00 EUR", "6,570.00 EUR", "1,295.00 EUR", "4,800.00 EUR", "1,300.00 EUR", "560.00 EUR", "6,144.00 EUR", "4,680.00 EUR", "2,640.00 EUR", "10,022.40 EUR", "8,956.80 EUR", "5,776.00 EUR", "21,980.00 EUR", "22,990.00 EUR", "6,900.00 EUR"});
 		//Part No uses Name, Size, Quantity and Price
-		//Integer partMESC = createColFB(workSheetid, 3, 1, new String[] {"1244-2211-1", "1244-2211-2", "1244-2211-4", "1244-2207-1", "1244-2207-3", "1244-2207-4", "1244-2172-1", "1244-2172-2", "1244-2172-2", "1244-2256-1", "1244-2256-2", "1244-2256-4", "1244-2198-1", "1244-2198-2", "1244-2198-3"}, 
 		//		new Integer[]{partMESC_ColQuantity, partMESC_ColVolumePrice});
 
 		//asm.addOntologyLink(tableProps, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/component.omdoc?component?ids");
