@@ -4,2401 +4,444 @@
     xmlns:im="http://www.kwarc.info/sally/im#"
     xmlns:csm="http://www.kwarc.info/sally/csm#"
     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" > 
-  <rdf:Description rdf:about="http://iui-paper/lb/81/machine">
-    <rdfs:label>machine</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?head"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/81/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/83/value-6">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/77/Vendor C"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/82/0.600 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/81/carriage"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/80/silver"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/79/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/78/bolt"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/83"/>
-    <rdf:value>c1</rdf:value>
+  <rdf:Description rdf:about="http://iui-paper/fb/20/value-2">
+    <asm:valueOf rdf:resource="http://iui-paper/lb/19/3,450.00 EUR"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/18/L"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/17/Water Pump-2198"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/20"/>
+    <rdf:value>1244-2198-3</rdf:value>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://iui-paper/fb/12/value-1">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/1"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/gasket"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/8/Vendor B"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/standard"/>
-    <rdf:value>0.300 EUR</rdf:value>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/_"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/11/6.40 EUR"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/10/S"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/9/Pipe End-2172"/>
     <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/12"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/25/value-4">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/19/Vendor A"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/24/0.300 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/23/machine"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/22/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/21/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/20/bolt"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/25"/>
-    <rdf:value>a3</rdf:value>
+    <rdf:value>1244-2172-1</rdf:value>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/30">
+  <rdf:Description rdf:about="http://iui-paper/lb/10/XL">
+    <rdfs:label>XL</rdfs:label>
+    <im:ontologyURI rdf:resource="https://uri.com"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/10/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://iui-paper/fb/4">
     <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/partnumber.omdoc?partnumber?part-number"/>
     <asm:partOfFile rdf:resource="http://iui-paper"/>
     <rdf:type rdf:nodeID="A0"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/38/1.090 EUR">
-    <rdfs:label>1.090 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/38/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/92/value-1">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/77/Vendor C"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/91/3.000 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/90/standard"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/89/gasket"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/92"/>
-    <rdf:value>c13</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/44/value-1">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/19/Vendor A"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/43/0.888 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/42/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/41/M16"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/40/blind-flange"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/44"/>
-    <rdf:value>a16</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/13/value-2">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/flange"/>
-    <rdf:value>0.310 EUR</rdf:value>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/_"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/8/Vendor B"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/1"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/13"/>
-  </rdf:Description>
   <rdf:Description rdf:nodeID="A1">
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/54/value-5">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/48/Vendor B"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/53/0.440 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/52/carriage"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/51/silver"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/50/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/49/bolt"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/54"/>
-    <rdf:value>b1</rdf:value>
+  <rdf:Description rdf:about="http://iui-paper/fb/8/value-1">
+    <asm:valueOf rdf:resource="http://iui-paper/lb/7/130.00 EUR"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/6/L"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/5/Sea Strainer-2207"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/8"/>
+    <rdf:value>1244-2207-3</rdf:value>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/88/value-3">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/77/Vendor C"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/87/0.698 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/86/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/85/M12"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/84/nut"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/88"/>
-    <rdf:value>c12</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/64/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/28/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
   </rdf:Description>
   <rdf:Description rdf:nodeID="A2">
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/10/value-2">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/6"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/7/Vendor A"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/10"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <rdf:value>0.450 EUR</rdf:value>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/machine"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/bolt"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/47/value-4">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/46/&gt;10000"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/45/Price List of Vendor B"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/47"/>
-    <rdf:value>90.000%</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/27/M10">
-    <rdfs:label>M10</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/27/"/>
+  <rdf:Description rdf:about="http://iui-paper/lb/7/130.00 EUR">
+    <rdfs:label>130.00 EUR</rdfs:label>
+    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/financial-transaction.omdoc?financial-transaction?transaction-price"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/7/"/>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="A0">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/18/value-4">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/17/&gt;10000"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/16/Price List of Vendor A"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/18"/>
-    <rdf:value>90.000%</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/26/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/70/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/1/flange">
-    <rdfs:label>flange</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/components.omdoc?component?component"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/1/"/>
+  <rdf:Description rdf:about="http://iui-paper/lb/10/S">
+    <rdfs:label>S</rdfs:label>
+    <im:ontologyURI rdf:resource="https://uri.com"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/10/"/>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/71/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/10">
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?bypiece"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-    <rdf:type rdf:nodeID="A3"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/75/100">
-    <rdfs:label>100</rdfs:label>
-    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?minimum-purchase"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/75/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A4">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/53/0.400 EUR">
-    <rdfs:label>0.400 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/53/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/82/0.320 EUR">
-    <rdfs:label>0.320 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/82/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/73">
+  <rdf:Description rdf:about="http://iui-paper/fb/20">
     <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/partnumber.omdoc?partnumber?part-number"/>
     <asm:partOfFile rdf:resource="http://iui-paper"/>
-    <rdf:type rdf:nodeID="A5"/>
+    <rdf:type rdf:nodeID="A1"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/62/2.000 EUR">
-    <rdfs:label>2.000 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/62/"/>
+  <rdf:Description rdf:about="http://iui-paper/lb/18/M">
+    <rdfs:label>M</rdfs:label>
+    <im:ontologyURI rdf:resource="https://uri.com"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/18/"/>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/25/value-3">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/19/Vendor A"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/24/0.300 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/23/machine"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/22/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/21/M16"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/20/bolt"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/25"/>
-    <rdf:value>a7</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/83/value-5">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/77/Vendor C"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/82/0.300 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/81/machine"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/80/silver"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/79/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/78/bolt"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/83"/>
-    <rdf:value>c4</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/69/blind-flange">
-    <rdfs:label>blind-flange</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/flange-bolt-gasket.omdoc?flange-bolt-gasket?blind-flange"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/69/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A6">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/10/value-3">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/standard"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/1"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/10"/>
-    <rdf:value>0.300 EUR</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/gasket"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/7/Vendor A"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/_"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/13/value-1">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/_"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/13"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/gasket"/>
-    <rdf:value>0.300 EUR</rdf:value>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/8/Vendor B"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/1"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/standard"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/54/value-4">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/48/Vendor B"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/53/0.350 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/52/stove"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/51/red"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/50/M16"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/49/bolt"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/54"/>
-    <rdf:value>b8</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/78/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/58/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/57/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/88/value-2">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/77/Vendor C"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/87/0.500 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/86/red"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/85/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/84/nut"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/88"/>
-    <rdf:value>c9</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/51/silver">
-    <rdfs:label>silver</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/51/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/72/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/47/value-3">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/46/1000"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/45/Price List of Vendor B"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/47"/>
-    <rdf:value>96.000%</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A7">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/84/nut">
-    <rdfs:label>nut</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexnut.omdoc?ISOhexnut?ISO-hex-nut"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/84/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/33/2.040 EUR">
-    <rdfs:label>2.040 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/33/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/56/M12">
-    <rdfs:label>M12</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/56/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A5">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/25/value-6">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/19/Vendor A"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/24/0.310 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/23/machine"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/22/silver"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/21/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/20/bolt"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/25"/>
-    <rdf:value>a4</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/12/value-3">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/8/Vendor B"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/_"/>
-    <rdf:value>0.340 EUR</rdf:value>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/12"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/blind flange"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/1"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/79/M12">
-    <rdfs:label>M12</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/79/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/78/bolt">
-    <rdfs:label>bolt</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/nutbolt.omdoc?nutbolt?bolt"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/78/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/1/blind flange">
-    <rdfs:label>blind flange</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/components.omdoc?component?component"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/1/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/33/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/82/0.365 EUR">
-    <rdfs:label>0.365 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/82/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/40/blind-flange">
-    <rdfs:label>blind-flange</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/flange-bolt-gasket.omdoc?flange-bolt-gasket?blind-flange"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/40/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/83/value-8">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/77/Vendor C"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/82/0.380 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/81/machine"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/80/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/79/M12"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/78/bolt"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/83"/>
-    <rdf:value>c7</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A8">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/22/black">
-    <rdfs:label>black</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/22/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/44/value-3">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/19/Vendor A"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/43/0.888 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/42/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/41/M17"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/40/blind-flange"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/44"/>
-    <rdf:value>a17</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/89/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/102">
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/partnumber.omdoc?partnumber?part-number"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-    <rdf:type rdf:nodeID="A9"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/80/black">
-    <rdfs:label>black</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/80/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/93/flange">
-    <rdfs:label>flange</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/flange-bolt-gasket.omdoc?flange-bolt-gasket?flange"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/93/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/10/value-4">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/1"/>
-    <rdf:value>0.310 EUR</rdf:value>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/flange"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/7/Vendor A"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/black"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/_"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/54/value-3">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/48/Vendor B"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/53/0.465 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/52/stove"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/51/red"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/50/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/49/bolt"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/54"/>
-    <rdf:value>b2</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/75/10000">
-    <rdfs:label>10000</rdfs:label>
-    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?minimum-purchase"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/75/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/88/value-1">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/77/Vendor C"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/87/0.500 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/86/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/85/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/84/nut"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/88"/>
-    <rdf:value>c10</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/53/0.465 EUR">
-    <rdfs:label>0.465 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/53/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/2/M10">
-    <rdfs:label>M10</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexthread.omdoc?ISOhexthread?ISOhexthread"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/2/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/23/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A10">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/18/value-2">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/17/10000"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/16/Price List of Vendor A"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/18"/>
-    <rdf:value>95.000%</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/92">
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/partnumber.omdoc?partnumber?part-number"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-    <rdf:type rdf:nodeID="A11"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/14/value-1">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/14"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/blind flange"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/_"/>
-    <rdf:value>0.340 EUR</rdf:value>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/1"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/9/Vendor C"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/91/3.000 EUR">
-    <rdfs:label>3.000 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/91/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A12">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/37/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/53/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/47/value-2">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/46/10000"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/45/Price List of Vendor B"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/47"/>
-    <rdf:value>92.000%</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/1/bolt">
-    <rdfs:label>bolt</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/components.omdoc?component?component"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/1/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/31/gasket">
-    <rdfs:label>gasket</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/flange-bolt-gasket.omdoc?flange-bolt-gasket?flange-gasket"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/31/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/53/0.320 EUR">
-    <rdfs:label>0.320 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/53/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/57/black">
-    <rdfs:label>black</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/57/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/6/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/12/value-2">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/black"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <rdf:value>0.310 EUR</rdf:value>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/1"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/8/Vendor B"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/flange"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/12"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/25/value-5">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/19/Vendor A"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/24/0.350 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/23/machine"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/22/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/21/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/20/bolt"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/25"/>
-    <rdf:value>a6</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/83/value-7">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/77/Vendor C"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/82/0.350 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/81/machine"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/80/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/79/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/78/bolt"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/83"/>
-    <rdf:value>c5</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/24/0.300 EUR">
-    <rdfs:label>0.300 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/24/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A13">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/54/value-2">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/48/Vendor B"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/53/0.400 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/52/machine"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/51/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/50/M12"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/49/bolt"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/54"/>
-    <rdf:value>b7</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/44/value-2">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/19/Vendor A"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/43/0.888 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/42/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/41/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/40/blind-flange"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/44"/>
-    <rdf:value>a15</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/10/value-5">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/1"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/black"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/blind flange"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/7/Vendor A"/>
-    <rdf:value>0.340 EUR</rdf:value>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/24/0.450 EUR">
-    <rdfs:label>0.450 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/24/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/24/0.460 EUR">
-    <rdfs:label>0.460 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/24/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/3/black">
-    <rdfs:label>black</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/3/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A14">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/18/value-3">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/17/1000"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/16/Price List of Vendor A"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/18"/>
-    <rdf:value>99.000%</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/47/value-1">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/46/100"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/45/Price List of Vendor B"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/47"/>
-    <rdf:value>100.000%</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A15">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/80/red">
-    <rdfs:label>red</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/80/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/101/0.800 EUR">
-    <rdfs:label>0.800 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/101/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/12/value-5">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/bolt"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/black"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/M10"/>
-    <rdf:value>0.450 EUR</rdf:value>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/8/Vendor B"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/12"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/machine"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/6"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/44">
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/partnumber.omdoc?partnumber?part-number"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-    <rdf:type rdf:nodeID="A13"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/54/value-1">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/48/Vendor B"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/53/0.370 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/52/machine"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/51/red"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/50/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/49/bolt"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/54"/>
-    <rdf:value>b5</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/79/M10">
-    <rdfs:label>M10</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/79/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/46/1000">
-    <rdfs:label>1000</rdfs:label>
-    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?minimum-purchase"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/46/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/82/0.400 EUR">
-    <rdfs:label>0.400 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/82/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/34">
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/partnumber.omdoc?partnumber?part-number"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-    <rdf:type rdf:nodeID="A14"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/96/1.104 EUR">
-    <rdfs:label>1.104 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/96/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/39/value-3">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/19/Vendor A"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/38/1.080 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/37/silver"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/36/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/35/flange"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/39"/>
-    <rdf:value>a13</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/65/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/82/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/29/0.460 EUR">
-    <rdfs:label>0.460 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/29/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/27/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/14/value-3">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/flange"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/M10"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/14"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/1"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/9/Vendor C"/>
-    <rdf:value>0.310 EUR</rdf:value>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/_"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/20/bolt">
-    <rdfs:label>bolt</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/nutbolt.omdoc?nutbolt?bolt"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/20/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/17/&gt;10000">
-    <rdfs:label>&gt;10000</rdfs:label>
-    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?minimum-purchase"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/17/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/2/_">
-    <rdfs:label>_</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexthread.omdoc?ISOhexthread?ISOhexthread"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/2/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/59">
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/partnumber.omdoc?partnumber?part-number"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-    <rdf:type rdf:nodeID="A16"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/50/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/85/M10">
-    <rdfs:label>M10</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/85/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A17">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/81/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/3/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/82/0.380 EUR">
-    <rdfs:label>0.380 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/82/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/61/standard">
-    <rdfs:label>standard</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/flange-bolt-gasket.omdoc?flange-bolt-gasket?gasket-type"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/61/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/75/1000">
-    <rdfs:label>1000</rdfs:label>
-    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?minimum-purchase"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/75/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/1/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/67/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/17/10000">
-    <rdfs:label>10000</rdfs:label>
-    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?minimum-purchase"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/17/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/12/value-4">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <rdf:value>0.460 EUR</rdf:value>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/nut"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/6"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/8/Vendor B"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/12"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/black"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/95/silver">
-    <rdfs:label>silver</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/95/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/13/value-5">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/_"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/bolt"/>
-    <rdf:value>0.450 EUR</rdf:value>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/machine"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/6"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/8/Vendor B"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/13"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/97">
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/partnumber.omdoc?partnumber?part-number"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-    <rdf:type rdf:nodeID="A18"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/49/bolt">
-    <rdfs:label>bolt</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/nutbolt.omdoc?nutbolt?bolt"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/49/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/69/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/5/_">
-    <rdfs:label>_</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/comp_types.omdoc?comptype?comptype"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/5/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/2/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/86/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/8/Vendor B">
-    <rdfs:label>Vendor B</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/vendors.omdoc?vendors?B"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/8/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/14/value-2">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/_"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <rdf:value>0.300 EUR</rdf:value>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/standard"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/1"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/_"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/14"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/gasket"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/9/Vendor C"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A19">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/87/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/66/black">
-    <rdfs:label>black</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/66/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/83">
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/partnumber.omdoc?partnumber?part-number"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-    <rdf:type rdf:nodeID="A20"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A20">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/46/100">
-    <rdfs:label>100</rdfs:label>
-    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?minimum-purchase"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/46/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/55/nut">
-    <rdfs:label>nut</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexnut.omdoc?ISOhexnut?ISO-hex-nut"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/55/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/25/value-2">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/19/Vendor A"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/24/0.460 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/23/stove"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/22/silver"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/21/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/20/bolt"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/25"/>
-    <rdf:value>a2</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/36/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/13/value-4">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/8/Vendor B"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/nut"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/6"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/black"/>
-    <rdf:value>0.460 EUR</rdf:value>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/13"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/M10"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/22/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/39/value-1">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/19/Vendor A"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/38/1.090 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/37/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/36/M16"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/35/flange"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/39"/>
-    <rdf:value>a14</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/53/0.440 EUR">
-    <rdfs:label>0.440 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/53/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/72/0.250 EUR">
-    <rdfs:label>0.250 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/72/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/5/standard">
-    <rdfs:label>standard</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/comp_types.omdoc?comptype?comptype"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/5/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/14/value-5">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/M10"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <rdf:value>0.450 EUR</rdf:value>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/machine"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/14"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/9/Vendor C"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/6"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/bolt"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/_"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/75/&gt;10000">
-    <rdfs:label>&gt;10000</rdfs:label>
-    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?minimum-purchase"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/75/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/24/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/6/6">
-    <rdfs:label>6</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/quantity.omdoc?quantity?quantity"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/6/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/35/flange">
-    <rdfs:label>flange</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/flange-bolt-gasket.omdoc?flange-bolt-gasket?flange"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/35/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/43/0.888 EUR">
-    <rdfs:label>0.888 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/43/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/48/Vendor B">
-    <rdfs:label>Vendor B</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/vendor.omdoc?vendor?vendor"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/48/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/85/M12">
-    <rdfs:label>M12</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/85/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/82/0.300 EUR">
-    <rdfs:label>0.300 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/82/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/15/value-5">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/9/Vendor C"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/machine"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/6"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/15"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/bolt"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/_"/>
-    <rdf:value>0.450 EUR</rdf:value>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/87/0.500 EUR">
-    <rdfs:label>0.500 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/87/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/24/0.350 EUR">
-    <rdfs:label>0.350 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/24/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/38/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/32/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/88/value-4">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/77/Vendor C"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/87/0.550 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/86/silver"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/85/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/84/nut"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/88"/>
-    <rdf:value>c11</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A9">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/5/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/13/value-3">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/blind flange"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/13"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/8/Vendor B"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/_"/>
-    <rdf:value>0.340 EUR</rdf:value>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/1"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/_"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/M10"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/74/Price List of Vendor C">
-    <rdfs:label>Price List of Vendor C</rdfs:label>
-    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?seller"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/74/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/20/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/25/value-1">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/19/Vendor A"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/24/0.450 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/23/carriage"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/22/silver"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/21/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/20/bolt"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/25"/>
-    <rdf:value>a1</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/17/100">
-    <rdfs:label>100</rdfs:label>
-    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?minimum-purchase"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/17/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/39/value-2">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/19/Vendor A"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/38/1.080 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/37/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/36/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/35/flange"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/39"/>
-    <rdf:value>a12</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/37/black">
-    <rdfs:label>black</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/37/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/14/value-4">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/_"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/14"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/nut"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/9/Vendor C"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/M10"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/_"/>
-    <rdf:value>0.460 EUR</rdf:value>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/6"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/22/red">
-    <rdfs:label>red</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/22/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/96/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/28/black">
-    <rdfs:label>black</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/28/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/23/carriage">
-    <rdfs:label>carriage</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?head"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/23/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/7/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/1/nut">
-    <rdfs:label>nut</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/components.omdoc?component?component"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/1/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/86/black">
-    <rdfs:label>black</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/86/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/94/M10">
-    <rdfs:label>M10</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/94/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/87/0.698 EUR">
-    <rdfs:label>0.698 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/87/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/15/value-3">
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/15"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/1"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/flange"/>
-    <rdf:value>0.310 EUR</rdf:value>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/9/Vendor C"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/91/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/98/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/60/gasket">
-    <rdfs:label>gasket</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/flange-bolt-gasket.omdoc?flange-bolt-gasket?flange-gasket"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/60/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/9/Vendor C">
-    <rdfs:label>Vendor C</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/vendors.omdoc?vendors?C"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/9/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/53/0.360 EUR">
-    <rdfs:label>0.360 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/53/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/24/0.340 EUR">
-    <rdfs:label>0.340 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/24/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/68/value-2">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/48/Vendor B"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/67/1.400 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/66/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/65/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/64/flange"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/68"/>
-    <rdf:value>b14</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/11/value-4">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/7/Vendor A"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/1"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/black"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <rdf:value>0.310 EUR</rdf:value>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/flange"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/11"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/_"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/18">
-    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?discount"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-    <rdf:type rdf:nodeID="A6"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/99/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/81/stove">
-    <rdfs:label>stove</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?head"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/81/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/36/M10">
-    <rdfs:label>M10</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/36/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/99/M12">
-    <rdfs:label>M12</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/99/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/42/black">
-    <rdfs:label>black</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/42/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/97/value-1">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/77/Vendor C"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/96/1.104 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/95/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/94/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/93/flange"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/97"/>
-    <rdf:value>c14</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/16/Price List of Vendor A">
-    <rdfs:label>Price List of Vendor A</rdfs:label>
-    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?seller"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/16/"/>
+  <rdf:Description rdf:about="http://iui-paper/lb/11/6.60 EUR">
+    <rdfs:label>6.60 EUR</rdfs:label>
+    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/financial-transaction.omdoc?financial-transaction?transaction-price"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/11/"/>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://iui-paper/lb/9/">
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
     <asm:partOfFile rdf:resource="http://iui-paper"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/52/carriage">
-    <rdfs:label>carriage</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?head"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/52/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/59/value-4">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/48/Vendor B"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/58/0.518 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/57/red"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/56/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/55/nut"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/59"/>
-    <rdf:value>b9</rdf:value>
+  <rdf:Description rdf:about="http://iui-paper/fb/16/value-1">
+    <asm:valueOf rdf:resource="http://iui-paper/lb/15/20.88 EUR"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/14/S"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/13/Hose-2256"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/16"/>
+    <rdf:value>1244-2256-1</rdf:value>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/101/">
+  <rdf:Description rdf:about="http://iui-paper/fb/8">
+    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/partnumber.omdoc?partnumber?part-number"/>
+    <asm:partOfFile rdf:resource="http://iui-paper"/>
+    <rdf:type rdf:nodeID="A3"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://iui-paper/lb/6/S">
+    <rdfs:label>S</rdfs:label>
+    <im:ontologyURI rdf:resource="https://uri.com"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/6/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://iui-paper/lb/2/M">
+    <rdfs:label>M</rdfs:label>
+    <im:ontologyURI rdf:resource="https://uri.com"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/2/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://iui-paper/lb/3/">
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
     <asm:partOfFile rdf:resource="http://iui-paper"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/15/value-4">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/9/Vendor C"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/_"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/15"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/nut"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/_"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/6"/>
-    <rdf:value>0.460 EUR</rdf:value>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/47">
-    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?discount"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-    <rdf:type rdf:nodeID="A15"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/22/silver">
-    <rdfs:label>silver</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/22/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/76">
-    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?discount"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-    <rdf:type rdf:nodeID="A12"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/17/1000">
-    <rdfs:label>1000</rdfs:label>
-    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?minimum-purchase"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/17/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/32/standard">
-    <rdfs:label>standard</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/flange-bolt-gasket.omdoc?flange-bolt-gasket?gasket-type"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/32/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/50/M12">
-    <rdfs:label>M12</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/50/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/4/machine">
-    <rdfs:label>machine</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?head"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/4/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/11/value-3">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/1"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/11"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/_"/>
-    <rdf:value>0.300 EUR</rdf:value>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/standard"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/gasket"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/7/Vendor A"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/46/&gt;10000">
-    <rdfs:label>&gt;10000</rdfs:label>
-    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?minimum-purchase"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/46/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/53/0.370 EUR">
-    <rdfs:label>0.370 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/53/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/66/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/67/1.400 EUR">
-    <rdfs:label>1.400 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/67/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/52/machine">
-    <rdfs:label>machine</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?head"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/52/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/97/value-2">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/77/Vendor C"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/96/1.104 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/95/silver"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/94/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/93/flange"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/97"/>
-    <rdf:value>c15</rdf:value>
+  <rdf:Description rdf:about="http://iui-paper/fb/20/value-3">
+    <asm:valueOf rdf:resource="http://iui-paper/lb/19/1,099.00 EUR"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/18/S"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/17/Water Pump-2198"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/20"/>
+    <rdf:value>1244-2198-1</rdf:value>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/41/M10">
-    <rdfs:label>M10</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/41/"/>
+  <rdf:Description rdf:about="http://iui-paper/lb/6/XL">
+    <rdfs:label>XL</rdfs:label>
+    <im:ontologyURI rdf:resource="https://uri.com"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/6/"/>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/3/_">
-    <rdfs:label>_</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/3/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/59/value-3">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/48/Vendor B"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/58/0.518 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/57/silver"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/56/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/55/nut"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/59"/>
-    <rdf:value>b10</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/45/Price List of Vendor B">
-    <rdfs:label>Price List of Vendor B</rdfs:label>
-    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?seller"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/45/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/19/Vendor A">
-    <rdfs:label>Vendor A</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/vendor.omdoc?vendor?vendor"/>
+  <rdf:Description rdf:about="http://iui-paper/lb/19/1,099.00 EUR">
+    <rdfs:label>1,099.00 EUR</rdfs:label>
+    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/financial-transaction.omdoc?financial-transaction?transaction-price"/>
     <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/19/"/>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/86/red">
-    <rdfs:label>red</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/86/"/>
+  <rdf:Description rdf:about="http://iui-paper/lb/15/24.88 EUR">
+    <rdfs:label>24.88 EUR</rdfs:label>
+    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/financial-transaction.omdoc?financial-transaction?transaction-price"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/15/"/>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/58/0.518 EUR">
-    <rdfs:label>0.518 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/58/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/82/0.600 EUR">
-    <rdfs:label>0.600 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/82/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/41/M17">
-    <rdfs:label>M17</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/41/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/53/0.350 EUR">
-    <rdfs:label>0.350 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/53/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/95/">
+  <rdf:Description rdf:about="http://iui-paper/lb/1/">
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
     <asm:partOfFile rdf:resource="http://iui-paper"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/11/value-2">
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/11"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/7/Vendor A"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/machine"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/6"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/bolt"/>
-    <rdf:value>0.450 EUR</rdf:value>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/M10"/>
+  <rdf:Description rdf:nodeID="A4">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/7/Vendor A">
-    <rdfs:label>Vendor A</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/vendors.omdoc?vendors?A"/>
+  <rdf:Description rdf:about="http://iui-paper/lb/0/">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+    <asm:partOfFile rdf:resource="http://iui-paper"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://iui-paper/lb/14/S">
+    <rdfs:label>S</rdfs:label>
+    <im:ontologyURI rdf:resource="https://uri.com"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/14/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://iui-paper/lb/10/">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+    <asm:partOfFile rdf:resource="http://iui-paper"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A3">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://iui-paper/fb/8/value-2">
+    <asm:valueOf rdf:resource="http://iui-paper/lb/7/120.00 EUR"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/6/S"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/5/Sea Strainer-2207"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/8"/>
+    <rdf:value>1244-2207-1</rdf:value>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://iui-paper/lb/2/">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+    <asm:partOfFile rdf:resource="http://iui-paper"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://iui-paper/lb/3/188.50 EUR">
+    <rdfs:label>188.50 EUR</rdfs:label>
+    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/financial-transaction.omdoc?financial-transaction?transaction-price"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/3/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://iui-paper/lb/11/6.40 EUR">
+    <rdfs:label>6.40 EUR</rdfs:label>
+    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/financial-transaction.omdoc?financial-transaction?transaction-price"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/11/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://iui-paper/lb/18/L">
+    <rdfs:label>L</rdfs:label>
+    <im:ontologyURI rdf:resource="https://uri.com"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/18/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://iui-paper/lb/7/140.00 EUR">
+    <rdfs:label>140.00 EUR</rdfs:label>
+    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/financial-transaction.omdoc?financial-transaction?transaction-price"/>
     <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/7/"/>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/15/value-1">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/blind flange"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/black"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/15"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/M10"/>
+  <rdf:Description rdf:about="http://iui-paper/lb/15/28.88 EUR">
+    <rdfs:label>28.88 EUR</rdfs:label>
+    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/financial-transaction.omdoc?financial-transaction?transaction-price"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/15/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://iui-paper/lb/11/">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+    <asm:partOfFile rdf:resource="http://iui-paper"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://iui-paper/lb/3/647.50 EUR">
+    <rdfs:label>647.50 EUR</rdfs:label>
+    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/financial-transaction.omdoc?financial-transaction?transaction-price"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/3/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://iui-paper/lb/18/">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
+    <asm:partOfFile rdf:resource="http://iui-paper"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://iui-paper/fb/12/value-3">
+    <asm:valueOf rdf:resource="http://iui-paper/lb/11/6.60 EUR"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/10/XL"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/9/Pipe End-2172"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/12"/>
+    <rdf:value>1244-2172-4</rdf:value>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/9/Vendor C"/>
-    <rdf:value>0.340 EUR</rdf:value>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/1"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/_"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://iui-paper/lb/5/Sea Strainer-2207">
+    <rdfs:label>Sea Strainer-2207</rdfs:label>
+    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/enclosed-cooling-system.omdoc?enclosed-cooling-system?sea-strainer"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/5/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://iui-paper/fb/4/value-1">
+    <asm:valueOf rdf:resource="http://iui-paper/lb/3/328.50 EUR"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/2/M"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/1/Seacock-2211"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/4"/>
+    <rdf:value>1244-2211-2</rdf:value>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://iui-paper/fb/12">
+    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/partnumber.omdoc?partnumber?part-number"/>
+    <asm:partOfFile rdf:resource="http://iui-paper"/>
+    <rdf:type rdf:nodeID="A4"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://iui-paper/lb/2/XL">
+    <rdfs:label>XL</rdfs:label>
+    <im:ontologyURI rdf:resource="https://uri.com"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/2/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://iui-paper/lb/17/">
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
     <asm:partOfFile rdf:resource="http://iui-paper"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/85/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
+  <rdf:Description rdf:nodeID="A0">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/73/value-2">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/48/Vendor B"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/72/0.200 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/71/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/70/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/69/blind-flange"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/73"/>
-    <rdf:value>b16</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/31/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/82/0.350 EUR">
-    <rdfs:label>0.350 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/82/"/>
+  <rdf:Description rdf:about="http://iui-paper/lb/11/6.50 EUR">
+    <rdfs:label>6.50 EUR</rdfs:label>
+    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/financial-transaction.omdoc?financial-transaction?transaction-price"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/11/"/>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/87/0.550 EUR">
-    <rdfs:label>0.550 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/87/"/>
+  <rdf:Description rdf:about="http://iui-paper/lb/3/328.50 EUR">
+    <rdfs:label>328.50 EUR</rdfs:label>
+    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/financial-transaction.omdoc?financial-transaction?transaction-price"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/3/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://iui-paper/lb/18/S">
+    <rdfs:label>S</rdfs:label>
+    <im:ontologyURI rdf:resource="https://uri.com"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/18/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://iui-paper/lb/15/20.88 EUR">
+    <rdfs:label>20.88 EUR</rdfs:label>
+    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/financial-transaction.omdoc?financial-transaction?transaction-price"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/15/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://iui-paper/fb/16">
+    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/partnumber.omdoc?partnumber?part-number"/>
+    <asm:partOfFile rdf:resource="http://iui-paper"/>
+    <rdf:type rdf:nodeID="A2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://iui-paper/lb/6/L">
+    <rdfs:label>L</rdfs:label>
+    <im:ontologyURI rdf:resource="https://uri.com"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/6/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://iui-paper/lb/19/3,450.00 EUR">
+    <rdfs:label>3,450.00 EUR</rdfs:label>
+    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/financial-transaction.omdoc?financial-transaction?transaction-price"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/19/"/>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://iui-paper/lb/19/">
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
     <asm:partOfFile rdf:resource="http://iui-paper"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/57/silver">
-    <rdfs:label>silver</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/57/"/>
+  <rdf:Description rdf:about="http://iui-paper/lb/14/XL">
+    <rdfs:label>XL</rdfs:label>
+    <im:ontologyURI rdf:resource="https://uri.com"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/14/"/>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/77/Vendor C">
-    <rdfs:label>Vendor C</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/vendor.omdoc?vendor?vendor"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/77/"/>
+  <rdf:Description rdf:about="http://iui-paper/lb/13/Hose-2256">
+    <rdfs:label>Hose-2256</rdfs:label>
+    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/piping.omdoc?piping?pipe"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/13/"/>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/23/stove">
-    <rdfs:label>stove</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?head"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/23/"/>
+  <rdf:Description rdf:about="http://iui-paper/lb/10/M">
+    <rdfs:label>M</rdfs:label>
+    <im:ontologyURI rdf:resource="https://uri.com"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/10/"/>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/55/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/56/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/59/value-2">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/48/Vendor B"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/58/0.500 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/57/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/56/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/55/nut"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/59"/>
-    <rdf:value>b12</rdf:value>
+  <rdf:Description rdf:about="http://iui-paper/fb/16/value-3">
+    <asm:valueOf rdf:resource="http://iui-paper/lb/15/24.88 EUR"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/14/M"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/13/Hose-2256"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/16"/>
+    <rdf:value>1244-2256-2</rdf:value>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/21/M16">
-    <rdfs:label>M16</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/21/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/4/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A11">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/51/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/41/M16">
-    <rdfs:label>M16</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/41/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/61/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/15/value-2">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/standard"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/9/Vendor C"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/_"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/15"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/gasket"/>
-    <rdf:value>0.300 EUR</rdf:value>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/1"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/_"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/102/value-1">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/77/Vendor C"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/101/0.800 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/100/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/99/M12"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/98/blind-flange"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/102"/>
-    <rdf:value>c16</rdf:value>
+  <rdf:Description rdf:about="http://iui-paper/fb/8/value-3">
+    <asm:valueOf rdf:resource="http://iui-paper/lb/7/140.00 EUR"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/6/XL"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/5/Sea Strainer-2207"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/8"/>
+    <rdf:value>1244-2207-4</rdf:value>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/62/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/68/value-1">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/48/Vendor B"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/67/1.425 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/66/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/65/M12"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/64/flange"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/68"/>
-    <rdf:value>b15</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/23/machine">
-    <rdfs:label>machine</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?head"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/23/"/>
+  <rdf:Description rdf:about="http://iui-paper/lb/7/120.00 EUR">
+    <rdfs:label>120.00 EUR</rdfs:label>
+    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/financial-transaction.omdoc?financial-transaction?transaction-price"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/7/"/>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/50/M10">
-    <rdfs:label>M10</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/50/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/16/">
+  <rdf:Description rdf:about="http://iui-paper/lb/6/">
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
     <asm:partOfFile rdf:resource="http://iui-paper"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/93/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/11/value-1">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/nut"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/black"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/6"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/11"/>
-    <rdf:value>0.460 EUR</rdf:value>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/7/Vendor A"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/M10"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/76/value-4">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/75/10000"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/74/Price List of Vendor C"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/76"/>
-    <rdf:value>93.000%</rdf:value>
+  <rdf:Description rdf:about="http://iui-paper/fb/4/value-3">
+    <asm:valueOf rdf:resource="http://iui-paper/lb/3/188.50 EUR"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/2/S"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/1/Seacock-2211"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/4"/>
+    <rdf:value>1244-2211-1</rdf:value>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/8/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
+  <rdf:Description rdf:about="http://iui-paper/fb/4/value-2">
+    <asm:valueOf rdf:resource="http://iui-paper/lb/3/647.50 EUR"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/2/XL"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/1/Seacock-2211"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/4"/>
+    <rdf:value>1244-2211-4</rdf:value>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/26/nut">
-    <rdfs:label>nut</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexnut.omdoc?ISOhexnut?ISO-hex-nut"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/26/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/60/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/88">
+  <rdf:Description rdf:about="http://iui-paper/lb/0/Component Marine Engine Cooling System of Contract 12440628">
+    <rdfs:label>Component Marine Engine Cooling System of Contract 12440628</rdfs:label>
     <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/partnumber.omdoc?partnumber?part-number"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-    <rdf:type rdf:nodeID="A10"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/0/"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/52/">
+  <rdf:Description rdf:about="http://iui-paper/lb/15/">
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
     <asm:partOfFile rdf:resource="http://iui-paper"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/15">
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?total"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-    <rdf:type rdf:nodeID="A21"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/73/value-1">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/48/Vendor B"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/72/0.250 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/71/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/70/M12"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/69/blind-flange"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/73"/>
-    <rdf:value>b17</rdf:value>
+  <rdf:Description rdf:about="http://iui-paper/fb/12/value-2">
+    <asm:valueOf rdf:resource="http://iui-paper/lb/11/6.50 EUR"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/10/M"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/9/Pipe End-2172"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/12"/>
+    <rdf:value>1244-2172-2</rdf:value>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/52/stove">
-    <rdfs:label>stove</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?head"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/52/"/>
+  <rdf:Description rdf:about="http://iui-paper/lb/17/Water Pump-2198">
+    <rdfs:label>Water Pump-2198</rdfs:label>
+    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/enclosed-cooling-system.omdoc?enclosed-cooling-system?water-pump"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/17/"/>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/68">
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/partnumber.omdoc?partnumber?part-number"/>
+  <rdf:Description rdf:about="http://iui-paper/lb/5/">
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
     <asm:partOfFile rdf:resource="http://iui-paper"/>
-    <rdf:type rdf:nodeID="A19"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/59/value-1">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/48/Vendor B"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/58/0.498 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/57/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/56/M12"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/55/nut"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/59"/>
-    <rdf:value>b11</rdf:value>
+  <rdf:Description rdf:about="http://iui-paper/fb/20/value-1">
+    <asm:valueOf rdf:resource="http://iui-paper/lb/19/2,299.00 EUR"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/18/M"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/17/Water Pump-2198"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/20"/>
+    <rdf:value>1244-2198-2</rdf:value>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/95/black">
-    <rdfs:label>black</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/95/"/>
+  <rdf:Description rdf:about="http://iui-paper/lb/9/Pipe End-2172">
+    <rdfs:label>Pipe End-2172</rdfs:label>
+    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/piping.omdoc?piping?clean-out"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/9/"/>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/21/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/35/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/30/value-2">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/19/Vendor A"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/29/0.450 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/28/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/27/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/26/nut"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/30"/>
-    <rdf:value>a9</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A16">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/90/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/76/value-3">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/75/1000"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/74/Price List of Vendor C"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/76"/>
-    <rdf:value>97.000%</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/83/value-1">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/77/Vendor C"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/82/0.390 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/81/machine"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/80/red"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/79/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/78/bolt"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/83"/>
-    <rdf:value>c3</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/46/10000">
-    <rdfs:label>10000</rdfs:label>
-    <im:ontologyURI rdf:resource="http://tnt.kwarc.info/repos/stc/sissi/flange/cds/price.omdoc?price?minimum-purchase"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/46/"/>
+  <rdf:Description rdf:about="http://iui-paper/lb/19/2,299.00 EUR">
+    <rdfs:label>2,299.00 EUR</rdfs:label>
+    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/financial-transaction.omdoc?financial-transaction?transaction-price"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/19/"/>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/58/0.498 EUR">
-    <rdfs:label>0.498 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/58/"/>
+  <rdf:Description rdf:about="http://iui-paper/lb/2/S">
+    <rdfs:label>S</rdfs:label>
+    <im:ontologyURI rdf:resource="https://uri.com"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/2/"/>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/102/value-2">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/77/Vendor C"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/101/0.800 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/100/silver"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/99/M12"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/98/blind-flange"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/102"/>
-    <rdf:value>c17</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/89/gasket">
-    <rdfs:label>gasket</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/flange-bolt-gasket.omdoc?flange-bolt-gasket?flange-gasket"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/89/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/98/blind-flange">
-    <rdfs:label>blind-flange</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/flange-bolt-gasket.omdoc?flange-bolt-gasket?blind-flange"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/98/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/21/M10">
-    <rdfs:label>M10</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/21/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/79/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/38/1.080 EUR">
-    <rdfs:label>1.080 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/38/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A22">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/29/0.450 EUR">
-    <rdfs:label>0.450 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/29/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/30/value-1">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/19/Vendor A"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/29/0.460 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/28/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/27/M12"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/26/nut"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/30"/>
-    <rdf:value>a10</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/100/black">
-    <rdfs:label>black</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/100/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/70/M10">
-    <rdfs:label>M10</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/70/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/86/silver">
-    <rdfs:label>silver</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/86/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/65/M10">
-    <rdfs:label>M10</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/65/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/80/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/81/carriage">
-    <rdfs:label>carriage</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?head"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/81/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/14">
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?bypiece"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-    <rdf:type rdf:nodeID="A1"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/72/0.200 EUR">
-    <rdfs:label>0.200 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/72/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/29/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/13">
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?total"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-    <rdf:type rdf:nodeID="A17"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/48/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/76/value-2">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/75/&gt;10000"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/74/Price List of Vendor C"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/76"/>
-    <rdf:value>89.000%</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/46/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/83/value-2">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/77/Vendor C"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/82/0.400 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/81/stove"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/80/red"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/79/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/78/bolt"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/83"/>
-    <rdf:value>c2</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/75/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/49/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/37/silver">
-    <rdfs:label>silver</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/37/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/58/0.500 EUR">
-    <rdfs:label>0.500 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/58/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/6/1">
-    <rdfs:label>1</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/quantity.omdoc?quantity?quantity"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/6/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/71/black">
-    <rdfs:label>black</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/71/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/45/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/4/_">
-    <rdfs:label>_</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?head"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/4/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/51/red">
-    <rdfs:label>red</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/51/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/67/1.425 EUR">
-    <rdfs:label>1.425 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/67/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A3">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/77/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/1/gasket">
-    <rdfs:label>gasket</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/components.omdoc?component?component"/>
+  <rdf:Description rdf:about="http://iui-paper/lb/1/Seacock-2211">
+    <rdfs:label>Seacock-2211</rdfs:label>
+    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/enclosed-cooling-system.omdoc?enclosed-cooling-system?seacock"/>
     <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/1/"/>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/50/M16">
-    <rdfs:label>M16</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/50/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/54/value-8">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/48/Vendor B"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/53/0.350 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/52/machine"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/51/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/50/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/49/bolt"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/54"/>
-    <rdf:value>b3</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/100/">
+  <rdf:Description rdf:about="http://iui-paper/lb/13/">
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
     <asm:partOfFile rdf:resource="http://iui-paper"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/57/red">
-    <rdfs:label>red</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/57/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A21">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/76/value-1">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/75/100"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/74/Price List of Vendor C"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/76"/>
-    <rdf:value>100.000%</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/65/M12">
-    <rdfs:label>M12</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/65/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/18/value-1">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/17/100"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/16/Price List of Vendor A"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/18"/>
-    <rdf:value>100.000%</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/74/">
+  <rdf:Description rdf:about="http://iui-paper/lb/14/">
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
     <asm:partOfFile rdf:resource="http://iui-paper"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/56/M10">
-    <rdfs:label>M10</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/56/"/>
+  <rdf:Description rdf:about="http://iui-paper/fb/16/value-2">
+    <asm:valueOf rdf:resource="http://iui-paper/lb/15/28.88 EUR"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/14/XL"/>
+    <asm:valueOf rdf:resource="http://iui-paper/lb/13/Hose-2256"/>
+    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/16"/>
+    <rdf:value>1244-2256-4</rdf:value>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://iui-paper/lb/14/M">
+    <rdfs:label>M</rdfs:label>
+    <im:ontologyURI rdf:resource="https://uri.com"/>
+    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/14/"/>
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/12">
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?bypiece"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-    <rdf:type rdf:nodeID="A22"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/41/">
+  <rdf:Description rdf:about="http://iui-paper/lb/7/">
     <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
     <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/40/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/27/M12">
-    <rdfs:label>M12</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/27/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/94/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/70/M12">
-    <rdfs:label>M12</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/70/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/42/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/84/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/82/0.390 EUR">
-    <rdfs:label>0.390 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/82/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/25/value-7">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/19/Vendor A"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/24/0.340 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/23/machine"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/22/red"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/21/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/20/bolt"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/25"/>
-    <rdf:value>a5</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A23">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/36/M16">
-    <rdfs:label>M16</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOmetricthread.omdoc?ISOmetricthread?sISOhexthread"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/36/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/43/">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendBlock"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/54/value-7">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/48/Vendor B"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/53/0.320 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/52/machine"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/51/silver"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/50/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/49/bolt"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/54"/>
-    <rdf:value>b4</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/63">
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/partnumber.omdoc?partnumber?part-number"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-    <rdf:type rdf:nodeID="A8"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/64/flange">
-    <rdfs:label>flange</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/flange-bolt-gasket.omdoc?flange-bolt-gasket?flange"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/64/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/51/black">
-    <rdfs:label>black</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/51/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/83/value-3">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/77/Vendor C"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/82/0.365 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/81/carriage"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/80/red"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/79/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/78/bolt"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/83"/>
-    <rdf:value>c6</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/63/value-1">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/48/Vendor B"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/62/2.000 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/61/standard"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/60/gasket"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/63"/>
-    <rdf:value>b13</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/11/value-5">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/7/Vendor A"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/1"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/_"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/11"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/blind flange"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <rdf:value>0.340 EUR</rdf:value>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/_"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/24/0.310 EUR">
-    <rdfs:label>0.310 EUR</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/24/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/39">
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/partnumber.omdoc?partnumber?part-number"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-    <rdf:type rdf:nodeID="A7"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/11">
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?total"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-    <rdf:type rdf:nodeID="A23"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/80/silver">
-    <rdfs:label>silver</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/80/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/90/standard">
-    <rdfs:label>standard</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/flange-bolt-gasket.omdoc?flange-bolt-gasket?gasket-type"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/90/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/34/value-1">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/19/Vendor A"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/33/2.040 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/32/standard"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/31/gasket"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/34"/>
-    <rdf:value>a11</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/54">
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/partnumber.omdoc?partnumber?part-number"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-    <rdf:type rdf:nodeID="A4"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/10/value-1">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/6/6"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/5/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/2/M10"/>
-    <rdf:value>0.460 EUR</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/4/_"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/1/nut"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/3/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/7/Vendor A"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/25">
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/partnumber.omdoc?partnumber?part-number"/>
-    <asm:partOfFile rdf:resource="http://iui-paper"/>
-    <rdf:type rdf:nodeID="A2"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/25/value-8">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/19/Vendor A"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/24/0.350 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/23/machine"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/22/black"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/21/M16"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/20/bolt"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/25"/>
-    <rdf:value>a8</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="A18">
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalBlock"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/54/value-6">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/48/Vendor B"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/53/0.360 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/52/carriage"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/51/red"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/50/M10"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/49/bolt"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/54"/>
-    <rdf:value>b6</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/lb/100/silver">
-    <rdfs:label>silver</rdfs:label>
-    <im:ontologyURI rdf:resource="https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color"/>
-    <asm:partOfLegendBlock rdf:resource="http://iui-paper/lb/100/"/>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#LegendInstance"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://iui-paper/fb/83/value-4">
-    <asm:valueOf rdf:resource="http://iui-paper/lb/77/Vendor C"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/82/0.320 EUR"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/81/stove"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/80/red"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/79/M12"/>
-    <asm:valueOf rdf:resource="http://iui-paper/lb/78/bolt"/>
-    <asm:partOfFunctionalBlock rdf:resource="http://iui-paper/fb/83"/>
-    <rdf:value>c8</rdf:value>
-    <rdf:type rdf:resource="http://www.kwarc.info/sally/asm#FunctionalInstance"/>
   </rdf:Description>
 </rdf:RDF>
