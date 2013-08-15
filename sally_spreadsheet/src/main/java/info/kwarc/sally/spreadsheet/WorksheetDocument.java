@@ -66,14 +66,18 @@ public class WorksheetDocument {
 	public void selectRange(String sheet, int startRow, int endRow, int startCol, int endCol) {
 		RangeSelection sel = RangeSelection.newBuilder().setSheet(sheet).setStartRow(startRow).setEndRow(endRow).setStartCol(startCol).setEndCol(endCol).build();
 		AlexRangeRequest request = AlexRangeRequest.newBuilder().setFileName(filePath).addSelection(sel).build();
+		selectRange(request);
+	}
 
+	public void selectRange(AlexRangeRequest request) {
 		sender.sendMessage("/do/select", request, new IMessageCallback() {
 			@Override
 			public void onMessage() {
 				
 			}
 		});
-	}
+	}	
+	
 	
 	public void getData(String sheet, int startRow, int endRow, int startCol, int endCol) {
 		RangeSelection sel = RangeSelection.newBuilder().setSheet(sheet).setStartRow(startRow).setEndRow(endRow).setStartCol(startCol).setEndCol(endCol).build();

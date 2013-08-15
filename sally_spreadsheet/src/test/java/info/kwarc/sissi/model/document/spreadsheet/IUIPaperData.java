@@ -424,6 +424,9 @@ public class IUIPaperData {
 			SpreadsheetModel model = getAsm().serialize();
 			model.writeTo(so);
 			byte[] b = Base64.encodeBase64(so.toByteArray());
+			file.write(b);
+			file.write(new byte[]{10, 10});
+
 			int off = 0; int len = b.length;
 			while (len>0) {
 				int toWrite = Math.min(10000, len);

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +38,11 @@ public class ASMInterface {
 	}
 	
 	public Model getRDFModel() {
-		return ontoMapping.getRDFModel();
+		return ontoMapping.getRDFModel(this);
+	}
+	
+	public Mapping getMappingFor(AbstractStructure struc) {
+		return modelAdmin.getMappingManager().getMappingFor(struc);
 	}
 	
 	public void addOntologyLink(Integer data, String ontologyURI) {
@@ -50,7 +55,7 @@ public class ASMInterface {
 			ontoStructure  = new OntologyLinkedFB(documentURI, ontologyURI, (FunctionalBlock) structure);
 		}
 	
-		ontoMapping.addMapping(ontoStructure, structure);
+		ontoMapping.addMapping(ontoStructure, structure, modelAdmin);
 	}
 	
 	
@@ -71,6 +76,14 @@ public class ASMInterface {
 		if (link == null)
 			return null;
 		return link.getMainURI();
+	}
+	
+	public String getWorksheetNameByID(Integer ID) {
+		for (Entry<String, Integer> entry: worksheetNames.entrySet()) {
+			if (entry.getValue().equals(ID))
+				return entry.getKey();
+		}
+		return null;
 	}
 	
 	public Integer getWorksheetIDByName(String name) {

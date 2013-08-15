@@ -37,6 +37,7 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 public class PricingService {
 
 	String pricingSparql;
+	String navigateSparql;
 	Model common;
 	Theo theo;
 	SallyInteraction sally;
@@ -46,7 +47,9 @@ public class PricingService {
 	@Inject
 	public PricingService(Theo theo, SallyInteraction sally, ISallyKnowledgeBase kb) {
 		this.theo = theo;
-		loadPricingSparql();
+		pricingSparql = loadSparql("/pricing.sparql");
+		navigateSparql = loadSparql("/navigate.sparql");
+		
 		common = null;
 		this.sally = sally;
 		this.kb = kb;
@@ -61,16 +64,17 @@ public class PricingService {
 		}
 	}
 
-	private void loadPricingSparql() {
+	private String loadSparql(String file) {
 		try {
-			InputStream is = getClass().getResourceAsStream("/pricing.sparql");
+			InputStream is = getClass().getResourceAsStream(file);
 			StringWriter writer = new StringWriter();
 			IOUtils.copy(is, writer);
-			pricingSparql = writer.toString();
+			return writer.toString();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 	@SallyService
@@ -127,4 +131,18 @@ public class PricingService {
 		QueryExecution qe = QueryExecutionFactory.create(query, common);
 		return qe.execSelect();		
 	}
+	
+	public ResultSet getNavigate(String uri) {
+		//if (common == null)
+		loadModels();
+		if (common == null) {
+			return null;
+		}
+
+		String queryStr = String.format(navigateSparql, uri, uri, uri, uri, uri, uri);
+		Query query = QueryFactory.create(queryStr);
+		QueryExecution qe = QueryExecutionFactory.create(query, common);
+		return qe.execSelect();		
+	}
+
 }
