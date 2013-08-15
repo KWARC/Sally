@@ -8,7 +8,7 @@
 $(function() {
 	$(".result-row").each(function(o, obj) {
 		$(obj).click(function() {
-			$.get("/sally/instance/navigate", {id:$(obj).attr("id"), id:$(obj).attr("file")}, function() {
+			$.get("/sally/instance/navigate", {uri:$(obj).attr("id"), file:$(obj).attr("file")}, function() {
 			});			
 		});
 	});

@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import sally.CADNavigateTo;
 
 import com.google.inject.Inject;
-import com.hp.hpl.jena.query.ResultSet;
 
 @Path("sally/instance/navigate")
 public class InstanceServiceNavigate {

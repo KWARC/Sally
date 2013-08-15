@@ -44,6 +44,9 @@ public class SwitchApp implements WorkItemHandler {
 			if (wd!=null && wd.getFilePath().equals(fileName)) {
 				wd.switchToApp();
 			}
+			if (cd!=null && cd.getFilePath().equals(fileName)) {
+				cd.switchToApp();
+			}
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		} finally {

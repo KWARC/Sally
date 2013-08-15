@@ -17,7 +17,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
-import java.util.prefs.InvalidPreferencesFormatException;
 
 import sally.AlexClick;
 import sally.AlexRangeRequest;
@@ -27,9 +26,9 @@ import sally.DataParameter;
 import sally.LegendCreateData;
 import sally.MMTUri;
 import sally.RangeData;
-import sally.ScreenCoordinates;
 import sally.RangeData.Builder;
 import sally.RangeSelection;
+import sally.ScreenCoordinates;
 import sally.SpreadsheetModel;
 import sally.SwitchToApp;
 

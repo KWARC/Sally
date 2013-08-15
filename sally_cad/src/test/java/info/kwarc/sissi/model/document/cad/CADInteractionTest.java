@@ -6,6 +6,8 @@ import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyService;
 import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.injectors.TheoFirstChoice;
+import info.kwarc.sally.networking.interfaces.IMessageCallback;
+import info.kwarc.sally.networking.interfaces.INetworkSender;
 import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
 import info.kwarc.sissi.bpm.injection.TestableKnowledeBase;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
@@ -35,6 +37,7 @@ import sally.ScreenCoordinates;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.protobuf.AbstractMessage;
 
 public class CADInteractionTest extends JbpmJUnitTestCase {
 
@@ -86,7 +89,21 @@ public class CADInteractionTest extends JbpmJUnitTestCase {
 		SallyInteraction interaction = i.getInstance(SallyInteraction.class);
 
 		CADFactory docFactory = i.getInstance(CADFactory.class);
-		CADDocument doc = docFactory.create("test1", alexData);
+		CADDocument doc = docFactory.create("test1", alexData, new INetworkSender() {
+			
+			@Override
+			public void sendMessage(String channel, AbstractMessage msg,
+					IMessageCallback callback) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void sendMessage(String channel, AbstractMessage msg) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		interaction.registerServices(doc);
 
 		interaction.registerServices(new Object() {

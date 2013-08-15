@@ -1,18 +1,22 @@
 package info.kwarc.sissi.model.document.cad;
 
-import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteraction;
+import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyService;
 import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.comm.SallyModelRequest;
+import info.kwarc.sally.networking.interfaces.IMessageCallback;
+import info.kwarc.sally.networking.interfaces.INetworkSender;
 
 import java.util.List;
 
 import sally.CADAlexClick;
+import sally.CADNavigateTo;
 import sally.CADNode;
 import sally.CADSemanticData;
 import sally.MMTUri;
+import sally.SwitchToApp;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
@@ -21,9 +25,37 @@ import com.hp.hpl.jena.rdf.model.Model;
 public class CADDocument {
 	ACMInterface acm;
 	CADSemanticData data;
+	String filePath;
+	INetworkSender sender;
+	
+	public String getFilePath() {
+		return filePath;
+	}
 
+	public void switchToApp() {
+		SwitchToApp request = SwitchToApp.newBuilder().setFileName(filePath).build();
+		sender.sendMessage("/do/switch", request, new IMessageCallback() {
+			
+			@Override
+			public void onMessage() {
+				
+			}
+		});
+	}
+	
+	public void selectRange(CADNavigateTo navigateTo) {
+		sender.sendMessage("/do/select", navigateTo, new IMessageCallback() {
+			@Override
+			public void onMessage() {
+				
+			}
+		});
+	}
+	
 	@Inject
-	public CADDocument(@Assisted String filePath, @Assisted CADSemanticData data) {
+	public CADDocument(@Assisted String filePath, @Assisted CADSemanticData data, @Assisted INetworkSender sender) {
+		this.sender = sender;
+		this.filePath = filePath;
 		acm = new ACMInterface(data.getFileName());
 		this.data = data;
 		init();

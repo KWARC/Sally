@@ -8,7 +8,7 @@ import info.kwarc.sally.networking.Injection.ProductionNetworking;
 import info.kwarc.sally.networking.interfaces.IConnectionManager;
 import info.kwarc.sally.planetary.Planetary;
 import info.kwarc.sally.spreadsheet.ASMEditor;
-import info.kwarc.sissi.bpm.injection.ProductionLocalKnowledgeBase;
+import info.kwarc.sissi.bpm.injection.ProductionRemoteKnowledgeBase;
 import info.kwarc.sissi.bpm.injection.ProductionSallyActions;
 
 import java.io.FileOutputStream;
@@ -16,7 +16,6 @@ import java.util.List;
 
 import sally.AlexClick;
 import sally.AlexData;
-import sally.CADAlexClick;
 import sally.RangeSelection;
 import sally.SallyFrame;
 import sally.ScreenCoordinates;
@@ -35,8 +34,8 @@ public class ProcessMain {
 	public static final void main(String[] args) throws Exception {
 		Injector i = Guice.createInjector(
 				new Configuration(),
-				//new ProductionRemoteKnowledgeBase(), 
-				new ProductionLocalKnowledgeBase(), 
+				new ProductionRemoteKnowledgeBase(), 
+				//new ProductionLocalKnowledgeBase(), 
 				new ProductionSallyActions(),
 				new ProductionNetworking()
 		);
@@ -78,7 +77,7 @@ public class ProcessMain {
 		common.write(file);
 		file.close();
 
-		/*
+		
 		AlexClick click = AlexClick.newBuilder().setFileName("file://pipe-end.xls").setPosition(ScreenCoordinates.newBuilder().setX(100).setY(100).build()).setSheet("Vendor A")
 				.setRange(RangeSelection.newBuilder().setStartCol(1).setEndCol(1).setStartRow(8).setEndRow(8).setSheet("Vendor A").build()).build();
 		conn.newMessage("spread", click);
@@ -86,14 +85,14 @@ public class ProcessMain {
 		SallyFrame frame =  SallyFrame.newBuilder().setFileName("file://pipe-end.xls").build();
 		conn.newMessage("spread", frame);
 
-		*/
+		/*
 		
 		CADAlexClick click = CADAlexClick.newBuilder().setFileName("pipe-end.iam").setCadNodeId("nut:1").setPosition(ScreenCoordinates.newBuilder().setX(100).setY(100).build()).build();
 		conn.newMessage("cad", click);
 
 		SallyFrame frame =  SallyFrame.newBuilder().setFileName("pipe-end.iam").build();
 		conn.newMessage("cad", frame);
-
+*/
 
 		/*
 		while (true) {

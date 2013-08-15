@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sally.AlexRangeRequest;
+import sally.CADNavigateTo;
 
 import com.google.inject.Inject;
 
@@ -33,6 +34,8 @@ public class NavigateTo implements WorkItemHandler {
 	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
 		AlexRangeRequest rangeInfo = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), AlexRangeRequest.class);
+		CADNavigateTo  navigateTo = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), CADNavigateTo.class);
+
 		Long pid = workItem.getProcessInstanceId();
 		Map<String, Object> vars = HandlerUtils.getProcessVariables(kb.getProcessInstance(pid));
 		
@@ -40,11 +43,13 @@ public class NavigateTo implements WorkItemHandler {
 		CADDocument cd = HandlerUtils.getFirstTypedParameter(vars, CADDocument.class);
 
 		try {
-			if (rangeInfo == null)
-				throw new Exception("FileName in SwitchApp cannot be null");
-
-			if (wd!=null && wd.getFilePath().equals(rangeInfo.getFileName())) {
+			
+			if (wd!=null && rangeInfo != null && wd.getFilePath().equals(rangeInfo.getFileName())) {
 				wd.selectRange(rangeInfo);
+			}
+			
+			if (cd!=null && navigateTo != null && cd.getFilePath().equals(rangeInfo.getFileName())) {
+				cd.selectRange(navigateTo);
 			}
 		} catch (Exception e) {
 			log.error(e.getMessage());

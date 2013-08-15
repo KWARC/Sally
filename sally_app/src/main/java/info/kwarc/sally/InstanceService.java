@@ -87,8 +87,9 @@ public class InstanceService {
 				@Override
 				public void run() {
 					kb.signal_global_event("switch_app", file);
-
-					theo.openWindow("Pricing results", "http://localhost:8181/sally/instance?node="+uri.getUri()+"&file="+file, 300, 600);
+					String URL = "http://localhost:8181/sally/instance?node="+uri.getUri()+"&file="+file;
+					log.info("opening "+URL);
+					theo.openWindow("Pricing results", URL, 300, 600);
 				}
 			});
 		}
