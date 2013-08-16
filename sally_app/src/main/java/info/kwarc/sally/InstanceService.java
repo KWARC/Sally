@@ -83,7 +83,7 @@ public class InstanceService {
 			return;
 
 		for (final String file : files) {
-			acceptor.acceptResult(new SallyMenuItem("Instance", file) {
+			acceptor.acceptResult(new SallyMenuItem("CAD Objects", file, "Open list of CAD objects corresponding to your selection") {
 				@Override
 				public void run() {
 					kb.signal_global_event("switch_app", file);

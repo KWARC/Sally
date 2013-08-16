@@ -61,7 +61,7 @@ public class ASMEditor {
 
 		final RangeSelection selection = cell.getRange();
 		if (doc.getFBForRange(selection).size()==0 || doc.getLabelsForRange(selection).size()==0) {
-			acceptor.acceptResult(new SallyMenuItem("Knowledge Base", "Create ontology links") {
+			acceptor.acceptResult(new SallyMenuItem("Knowledge Base", "Create ontology links", "Add new links to the ontology") {
 				@Override
 				public void run() {
 					HashMap<String, Object>  input = new  HashMap<String, Object>();
