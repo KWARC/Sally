@@ -1,6 +1,5 @@
 package info.kwarc.sally.theofx;
 
-import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.theofx.ui.TheoWindow;
 import javafx.application.Platform;
 import javafx.scene.web.WebEngine;
@@ -20,9 +19,9 @@ import com.google.protobuf.AbstractMessage;
 public class TheoApp {
 
 	public Logger loggr;
-	private int pid;
+	private Long pid;
 	
-	public TheoApp(int pid) {
+	public TheoApp(Long pid) {
 		this.loggr = LoggerFactory.getLogger(TheoWindow.class);
 		this.pid = pid;
 	}
@@ -122,7 +121,7 @@ public class TheoApp {
 	}
 	
 	
-	public void openNewWindow(int pid, int sizeX, int sizeY, int posX,
+	public void openNewWindow(Long pid, int sizeX, int sizeY, int posX,
 			int posY, String stageTitle, String url, Cookie cookies, boolean visible) {
 		TheoWindow.addWindow(pid, sizeX, sizeY , posX, posY, "Theo", url, cookies, visible);
 	}

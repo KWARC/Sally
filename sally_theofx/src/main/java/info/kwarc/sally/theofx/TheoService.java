@@ -8,6 +8,7 @@ import info.kwarc.sally.core.interfaces.Theo;
 import info.kwarc.sally.theofx.ui.TheoWindow;
 import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
 
+import java.awt.Color;
 import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -124,7 +125,10 @@ public class TheoService implements Theo {
 		
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		Set<String> frames = new HashSet<String>();
-		panel.add(new JLabel("Please select the frame:"));
+		JLabel ll = new JLabel("Please select the frame:");
+		ll.setForeground(Color.BLUE);
+
+		panel.add(ll);
 		//panel.add(new JLabel("                       "));
 
 		for (SallyMenuItem item : items) {
@@ -140,14 +144,14 @@ public class TheoService implements Theo {
 			panel.add(b);
 		}
 
-		//Coordinates coords = coordProvider.getRecommendedPosition();
 		
-		dialog.setLocation(100, 100);
-		//dialog.setLocation(coords.getX(), coords.getY());
-		dialog.setPreferredSize(new Dimension(200, 130));
+		Coordinates coords = coordProvider.getRecommendedPosition();
+		dialog.setLocation(coords.getX(), coords.getY());
+		dialog.setPreferredSize(new Dimension(200, 170));
 		dialog.setContentPane(panel);
 		dialog.pack();
 		dialog.setVisible(true);
+		dialog.setAlwaysOnTop(true);
 		
 		frame.removeAll();
 		frame.dispose();

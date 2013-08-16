@@ -1,7 +1,6 @@
 package info.kwarc.sally.theofx.ui;
 
 import static javafx.concurrent.Worker.State.FAILED;
-import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.theofx.TheoApp;
 
 import java.awt.BorderLayout;
@@ -31,7 +30,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 
 import netscape.javascript.JSObject;
@@ -43,7 +41,7 @@ import sally.Cookie;
 
 public class TheoWindow implements Runnable {
 
-	private int pid;
+	private Long pid;
 	private Logger loggr;
 	private UUID uid;
 	private int sizeY;
@@ -65,7 +63,7 @@ public class TheoWindow implements Runnable {
 
 	public static TheoWindow content;
 
-	public TheoWindow(int pid, int sizeX, int sizeY, int posX,
+	public TheoWindow(Long pid, int sizeX, int sizeY, int posX,
 			int posY, String stageTitle, String url, Cookie cookies, boolean visible) {
 		super();
 		this.pid = pid ;
@@ -92,7 +90,7 @@ public class TheoWindow implements Runnable {
 		frame.dispose();
 	}
 
-	public static TheoWindow addWindow(int pid, Integer sizeY, Integer sizeX,
+	public static TheoWindow addWindow(Long pid, Integer sizeY, Integer sizeX,
 			Integer posX, Integer posY, String stageTitle, String url, Cookie cookies, boolean visible){
 
 		try {
@@ -203,7 +201,7 @@ public class TheoWindow implements Runnable {
 								JSObject win = (JSObject) engine.executeScript("window");
 								loggr.info(win.toString()+" "+ this.getClass().toString());
 								//TODO change this int or add a new constructor
-								win.setMember("app", new TheoApp(1));
+								win.setMember("app", new TheoApp(1L));
 								loggr.info("New TheoApp added.");
 							}
 						}
@@ -327,7 +325,7 @@ public class TheoWindow implements Runnable {
 	}
 
 
-	public int getPID() {
+	public Long getPID() {
 		return this.pid;
 	}
 
