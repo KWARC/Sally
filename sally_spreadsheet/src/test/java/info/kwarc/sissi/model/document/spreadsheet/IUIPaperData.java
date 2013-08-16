@@ -490,6 +490,35 @@ public class IUIPaperData {
 
 		//asm.addOntologyLink(tableProps, "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/component.omdoc?component?ids");
 		//asm.addOntologyLink(partMESC, uriPartNo);
+		
+		Integer boltsCol = setColTableHeaders(workSheetid, 21, 2, new String[] {"Bolt-1001-machine", "Bolt-1001-carriage"});
+		Integer boltThreadCol = setColTableHeaders(workSheetid, 21, 7, new String[] {"M10", "M10"});
+		Integer boltColorCol = setColTableHeaders(workSheetid, 21, 9, new String[] { "black", "black"});
+		Integer boltHeadCol = setColTableHeaders(workSheetid, 21, 8, new String[] { "machine", "carriage"});
+		Integer boltCostCol = setColTableHeaders(workSheetid, 21, 4, new String[] {"0.60 EUR", "0.60 EUR"});
+		Integer boltPartNo = createColFB(workSheetid, 21, 1, new String[] {"1244-1001-1", "1244-1001-1"}, 
+				                         new Integer[]{boltsCol, boltThreadCol, boltColorCol, boltHeadCol, boltCostCol});
+		asm.addOntologyLink(boltPartNo, uriPartNo);
+		asm.addOntologyLink(boltsCol, boltURI);
+		asm.addOntologyLink(boltThreadCol, threadTypeURI);
+		asm.addOntologyLink(boltColorCol, colorURI);
+		asm.addOntologyLink(boltHeadCol, headTypeURI);
+		asm.addOntologyLink(boltCostCol, costURI);
+
+
+		Integer nutCol = setColTableHeaders(workSheetid, 23, 2, new String[] {"Nut-1013"});
+		Integer nutThreadCol = setColTableHeaders(workSheetid, 23, 7, new String[] {"M10"});
+		Integer nutColorCol = setColTableHeaders(workSheetid, 23, 9, new String[] {"black"});
+		Integer nutCostCol = setColTableHeaders(workSheetid, 23, 4, new String[] {"0.10 EUR"});
+		Integer nutPartNo = createColFB(workSheetid, 23, 1, new String[] {"1244-1013-3"}, 
+				                        new Integer[]{nutCol, nutThreadCol, nutColorCol, nutCostCol});
+
+		asm.addOntologyLink(nutCol, nutURI);
+		asm.addOntologyLink(nutThreadCol, threadTypeURI);
+		asm.addOntologyLink(nutColorCol, colorURI);
+		asm.addOntologyLink(nutCostCol, costURI);
+		asm.addOntologyLink(nutPartNo, uriPartNo);
+
 	}
 	
 
