@@ -78,12 +78,12 @@ public class ContextMenuHandler implements XContextMenuInterceptor {
 						"Show Frames"));
 				xMenuEntry.setPropertyValue("CommandURL", new String(
 						"info.kwarc.sissi.ooalex:showframes"));
-
+/*
 				xSubMenuContainer.insertByIndex(0, (Object) xMenuEntry);
 
 				xContextMenu.insertByIndex(0, (Object) xSeparator);
-
-				xContextMenu.insertByIndex(0, (Object) xRootMenuEntry);
+*/
+				xContextMenu.insertByIndex(0, (Object) xMenuEntry);
 
 				return com.sun.star.ui.ContextMenuInterceptorAction.EXECUTE_MODIFIED;
 			}

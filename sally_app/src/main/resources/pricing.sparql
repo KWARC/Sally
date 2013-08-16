@@ -7,9 +7,9 @@ PREFIX asm:      <http://www.kwarc.info/sally/asm#>
 PREFIX csm:      <http://www.kwarc.info/sally/csm#>
 PREFIX acm:      <http://www.kwarc.info/sally/acm#>
 
-SELECT ?objthread ?fbi ?file ?costval ?threadval ?colorval ?vendorval WHERE {
+SELECT ?objthread ?fbi ?file ?costval ?headval ?threadval ?colorval ?vendorval WHERE {
 
-  # looks for the CAD object with some input label (%s)
+  # looks for the CAD object with some input label 
   # it has the ontologyURI cadobjim
    ?cadobj rdf:type acm:CADObject.
    ?cadobj im:ontologyURI ?cadobjim.

@@ -1,7 +1,6 @@
 package info.kwarc.sally.theofx.ui;
 
 import static javafx.concurrent.Worker.State.FAILED;
-import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.theofx.TheoApp;
 
 import java.awt.BorderLayout;
@@ -31,7 +30,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 
 import netscape.javascript.JSObject;
@@ -203,7 +201,7 @@ public class TheoWindow implements Runnable {
 								JSObject win = (JSObject) engine.executeScript("window");
 								loggr.info(win.toString()+" "+ this.getClass().toString());
 								//TODO change this int or add a new constructor
-								win.setMember("app", new TheoApp(1));
+								win.setMember("app", new TheoApp(1L));
 								loggr.info("New TheoApp added.");
 							}
 						}

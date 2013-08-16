@@ -1,7 +1,6 @@
 package info.kwarc.sally;
 
 import info.kwarc.sally.core.SallyInteraction;
-import info.kwarc.sally.core.comm.SallyModelRequest;
 import info.kwarc.sally.injection.Configuration;
 import info.kwarc.sally.networking.CometD;
 import info.kwarc.sally.networking.Injection.ProductionNetworking;
@@ -11,20 +10,8 @@ import info.kwarc.sally.spreadsheet.ASMEditor;
 import info.kwarc.sissi.bpm.injection.ProductionLocalKnowledgeBase;
 import info.kwarc.sissi.bpm.injection.ProductionSallyActions;
 
-import java.io.FileOutputStream;
-import java.util.List;
-
-import sally.AlexClick;
-import sally.AlexData;
-import sally.RangeSelection;
-import sally.SallyFrame;
-import sally.ScreenCoordinates;
-import sally_comm.MessageUtils;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 /**
  * This is a sample file to launch a process.
@@ -54,6 +41,7 @@ public class ProcessMain {
 		//ConnectionPlayer player = i.getInstance(IConnectionPlayerFactory.class).create(new FileReader("rec_spreadsheet.json"));
 		//player.start();
 
+		/*
 		conn.newClient("spread");
 		conn.newMessage("spread", MessageUtils.createDesktopSpreadsheetAlex());
 
@@ -84,7 +72,7 @@ public class ProcessMain {
 
 		SallyFrame frame =  SallyFrame.newBuilder().setFileName("file://pipe-end.xls").build();
 		conn.newMessage("spread", frame);
-
+*/
 		/*
 		
 		CADAlexClick click = CADAlexClick.newBuilder().setFileName("pipe-end.iam").setCadNodeId("nut:1").setPosition(ScreenCoordinates.newBuilder().setX(100).setY(100).build()).build();
