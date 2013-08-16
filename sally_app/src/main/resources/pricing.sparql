@@ -7,11 +7,15 @@ PREFIX asm:      <http://www.kwarc.info/sally/asm#>
 PREFIX csm:      <http://www.kwarc.info/sally/csm#>
 PREFIX acm:      <http://www.kwarc.info/sally/acm#>
 
-SELECT ?objthread ?fbi ?file ?costval ?threadval ?colorval ?vendorval ?x ?y WHERE {
+SELECT ?objthread ?fbi ?file ?costval ?threadval ?colorval ?vendorval WHERE {
+
+  # looks for the CAD object with some input label (%s)
+  # it has the ontologyURI cadobjim
    ?cadobj rdf:type acm:CADObject.
    ?cadobj im:ontologyURI ?cadobjim.
    ?cadobj rdfs:label "%s".
    
+  #  tries to get the arg1 parameter   
 	OPTIONAL {
                 ?cadobj acm:valueOf ?cadargs.
    		?cadargs acm:hasKey "arg1".
@@ -20,10 +24,15 @@ SELECT ?objthread ?fbi ?file ?costval ?threadval ?colorval ?vendorval ?x ?y WHER
 
    ?fbi asm:partOfFunctionalBlock ?fb.
    ?fb asm:partOfFile ?file.
-   
+
+  # looks for functionblock FB - functional block
+  # FBI - functional block instance
    ?fbi a asm:FunctionalInstance.
    ?fbi asm:valueOf ?obj.
    ?obj im:ontologyURI ?cadobjim.
+
+  # making sure that functional block instance talks about a cost
+  # outputs it into costval
    ?fbi asm:valueOf ?cost.
    ?cost im:ontologyURI <https://tnt.kwarc.info/repos/stc/fcad/flange/cds/cost.omdoc?cost?cost>.
    ?cost rdfs:label ?costval.
@@ -41,4 +50,9 @@ OPTIONAL {
    ?fbi asm:valueOf ?vendor.
    ?vendor im:ontologyURI <https://tnt.kwarc.info/repos/stc/fcad/flange/cds/vendor.omdoc?vendor?vendor>.
    ?vendor rdfs:label ?vendorval.
+
+ 	?fbi asm:valueOf ?head.
+ 	?head im:ontologyURI <https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?head>.
+ 	?head rdfs:label ?headval.
+ 
 }

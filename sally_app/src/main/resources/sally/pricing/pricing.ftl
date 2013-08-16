@@ -22,11 +22,14 @@ $(function() {
 
 <h2>Pricing for CAD Node ${node}</h2>
 
+<span class="explanation">Select the spreadsheet item you want to navigate to</span>
+
 <table id="tbl" class="tablesorter">
 <thead>
 <tr>
 	<th>Vendor</th>
-	<th>Thread Type</th>
+	<th>Thread</th>
+	<th>Head</th>
 	<th>Color</th>
 	<th>Cost</th>
 </tr>
@@ -34,7 +37,7 @@ $(function() {
 <tbody>
 <#list solutions as solution>
 <tr  class="result-row" id="${solution.get("fbi")}">
-<td>${solution.get("vendorval")}</td> <td>${solution.get("threadval")}</td><td>${solution.get("colorval")}</td><td>${solution.get("costval")}</td>
+<td>${solution.get("vendorval")}</td> <td>${solution.get("threadval")}</td><td>${solution.get("headval")}</td><td>${solution.get("colorval")}</td><td>${solution.get("costval")}</td>
 </tr>
 </#list>
 </tbody>

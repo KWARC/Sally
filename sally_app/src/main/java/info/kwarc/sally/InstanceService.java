@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,14 +84,16 @@ public class InstanceService {
 			return;
 
 		for (final String file : files) {
-			acceptor.acceptResult(new SallyMenuItem("CAD Objects", file, "Open list of CAD objects corresponding to your selection") {
+			acceptor.acceptResult(new SallyMenuItem("CAD Objects", FilenameUtils.getName(file), "Open list of CAD objects corresponding to your selection") {
 				@Override
 				public void run() {
+					Long parentProcessInstanceID = context.getContextVar("processInstanceId", Long.class);
+
 					kb.signal_global_event("switch_app", file);
 					String URL = "http://localhost:8181/sally/instance?node="+uri.getUri()+"&file="+file;
 					log.info("opening "+URL);
 					//TODO Changed this temporarily to match with the processInstanceId argument
-					theo.openWindow(1, "Pricing results", URL, 300, 600);
+					theo.openWindow(parentProcessInstanceID, "Pricing results", URL, 300, 600);
 				}
 			});
 		}

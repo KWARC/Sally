@@ -50,7 +50,7 @@ public class TheoService implements Theo {
 		openedWindows = new HashMap<Integer, TheoWindow>();
 	}
 	
-	public int openWindow(int processInstanceID, String title, String URL, int sizeX, int sizeY) {
+	public int openWindow(Long processInstanceID, String title, String URL, int sizeX, int sizeY) {
 		Integer resID = r.nextInt();
 		Coordinates coords = coordProvider.getRecommendedPosition();
 		Cookie cookies = Cookie.newBuilder().setCookie(cookieProvider.getCookies()).setUrl(cookieProvider.getUrl()).build();
