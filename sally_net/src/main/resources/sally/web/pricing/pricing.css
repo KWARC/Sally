@@ -14,3 +14,6 @@ table.tablesorter .result-row:hover {
 	background:highlight;
 }
 
+.explanation {
+	color: blue;
+}

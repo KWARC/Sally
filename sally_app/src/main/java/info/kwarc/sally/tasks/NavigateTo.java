@@ -48,7 +48,7 @@ public class NavigateTo implements WorkItemHandler {
 				wd.selectRange(rangeInfo);
 			}
 			
-			if (cd!=null && navigateTo != null && cd.getFilePath().equals(rangeInfo.getFileName())) {
+			if (cd!=null && navigateTo != null && cd.getFilePath().equals(navigateTo.getFileName())) {
 				cd.selectRange(navigateTo);
 			}
 		} catch (Exception e) {
