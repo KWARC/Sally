@@ -87,10 +87,13 @@ public class InstanceService {
 			acceptor.acceptResult(new SallyMenuItem("CAD Objects", FilenameUtils.getName(file), "Open list of CAD objects corresponding to your selection") {
 				@Override
 				public void run() {
+					Long parentProcessInstanceID = context.getContextVar("processInstanceId", Long.class);
+
 					kb.signal_global_event("switch_app", file);
 					String URL = "http://localhost:8181/sally/instance?node="+uri.getUri()+"&file="+file;
 					log.info("opening "+URL);
-					theo.openWindow("Pricing results", URL, 300, 600);
+					//TODO Changed this temporarily to match with the processInstanceId argument
+					theo.openWindow(parentProcessInstanceID, "Pricing results", URL, 300, 600);
 				}
 			});
 		}

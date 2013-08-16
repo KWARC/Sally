@@ -22,7 +22,7 @@ public class TheoFirstChoice extends AbstractModule {
 		}
 
 		@Override
-		public int openWindow(String title, String URL, int sizeX, int sizeY) {
+		public int openWindow(Long inst, String title, String URL, int sizeX, int sizeY) {
 			System.out.println("opening a window with title "+title+" at URL"+URL);
 			return 0;
 		}

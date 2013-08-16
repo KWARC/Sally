@@ -83,14 +83,16 @@ public class PricingService {
 		final Collection<String> files = getFiles(queryModel(uri.getCadNodeId()));
 		if (files.size() ==0)
 			return;
+		
 
 		for (final String file : files) {
 			acceptor.acceptResult(new SallyMenuItem("Pricing", FilenameUtils.getName(file), "Open pricing information associated to the chosen CAD object") {
 				@Override
 				public void run() {
-					kb.signal_global_event("switch_app", file);
+					Long parentProcessInstanceID = context.getContextVar("processInstanceId", Long.class);
 
-					theo.openWindow("Instance Selector", "http://localhost:8181/sally/pricing?node="+uri.getCadNodeId()+"&file="+file, 450, 600);
+					kb.signal_global_event("switch_app", file);
+					theo.openWindow(parentProcessInstanceID,"Instance Selector", "http://localhost:8181/sally/pricing?node="+uri.getCadNodeId()+"&file="+file, 450, 600);
 				}
 			});
 		}

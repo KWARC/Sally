@@ -32,7 +32,7 @@ public class TheoWindowCreate implements WorkItemHandler {
 		try {
 			if (url == null) 
 				throw new Exception("No URL given");
-			theo.openWindow("", url, 400, 300);			
+			theo.openWindow(workItem.getProcessInstanceId(), "", url, 400, 300);			
 		} catch (Exception e) {
 			log.error(e.getMessage());
 			e.printStackTrace();
@@ -42,7 +42,8 @@ public class TheoWindowCreate implements WorkItemHandler {
 	}
 
 	@Override
-	public void abortWorkItem(WorkItem workItem, WorkItemManager manager) {
+	public void abortWorkItem(WorkItem arg0, WorkItemManager arg1) {
+		// TODO Auto-generated method stub
 		
 	}
 
