@@ -147,8 +147,9 @@ public class TheoService implements Theo {
 		dialog.setPreferredSize(new Dimension(200, 130));
 		dialog.setContentPane(panel);
 		dialog.pack();
-		dialog.setVisible(true);
 		
+		dialog.setVisible(true);
+		dialog.setAlwaysOnTop(true);
 		frame.removeAll();
 		frame.dispose();
 				

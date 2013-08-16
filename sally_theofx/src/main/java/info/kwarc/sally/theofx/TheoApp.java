@@ -122,7 +122,7 @@ public class TheoApp {
 	}
 	
 	
-	public void openNewWindow(int pid, int sizeX, int sizeY, int posX,
+	public void openNewWindow(Long pid, int sizeX, int sizeY, int posX,
 			int posY, String stageTitle, String url, Cookie cookies, boolean visible) {
 		TheoWindow.addWindow(pid, sizeX, sizeY , posX, posY, "Theo", url, cookies, visible);
 	}
