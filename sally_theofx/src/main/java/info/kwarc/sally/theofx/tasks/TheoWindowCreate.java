@@ -18,11 +18,13 @@ public class TheoWindowCreate implements WorkItemHandler {
 	ScreenCoordinatesProvider screenCoords;
 	Theo theo;
 	Logger log;
+	int processInstanceId;
 	
 	@Inject
-	public TheoWindowCreate(ScreenCoordinatesProvider screenCoords, Theo theo) {
+	public TheoWindowCreate(int processInstanceId, ScreenCoordinatesProvider screenCoords, Theo theo) {
 		this.screenCoords = screenCoords;
 		this.theo = theo;
+		this.processInstanceId = processInstanceId;
 		log = LoggerFactory.getLogger(this.getClass());
 	}
 	
@@ -32,7 +34,7 @@ public class TheoWindowCreate implements WorkItemHandler {
 		try {
 			if (url == null) 
 				throw new Exception("No URL given");
-			theo.openWindow("", url, 400, 300);			
+			theo.openWindow(this.processInstanceId, "", url, 400, 300);			
 		} catch (Exception e) {
 			log.error(e.getMessage());
 			e.printStackTrace();
@@ -42,7 +44,8 @@ public class TheoWindowCreate implements WorkItemHandler {
 	}
 
 	@Override
-	public void abortWorkItem(WorkItem workItem, WorkItemManager manager) {
+	public void abortWorkItem(WorkItem arg0, WorkItemManager arg1) {
+		// TODO Auto-generated method stub
 		
 	}
 
