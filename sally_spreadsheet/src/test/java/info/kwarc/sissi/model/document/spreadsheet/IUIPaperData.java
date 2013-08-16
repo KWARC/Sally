@@ -496,7 +496,7 @@ public class IUIPaperData {
 		Integer boltColorCol = setColTableHeaders(workSheetid, 21, 9, new String[] { "black", "black"});
 		Integer boltHeadCol = setColTableHeaders(workSheetid, 21, 8, new String[] { "machine", "carriage"});
 		Integer boltCostCol = setColTableHeaders(workSheetid, 21, 4, new String[] {"0.60 EUR", "0.60 EUR"});
-		Integer boltPartNo = createColFB(workSheetid, 21, 1, new String[] {"1244-1001-1", "1244-1001-1"}, 
+		Integer boltPartNo = createColFB(workSheetid, 21, 1, new String[] {"1244-1001-1", "1244-1001-7"}, 
 				                         new Integer[]{boltsCol, boltThreadCol, boltColorCol, boltHeadCol, boltCostCol});
 		asm.addOntologyLink(boltPartNo, uriPartNo);
 		asm.addOntologyLink(boltsCol, boltURI);
@@ -546,7 +546,7 @@ public class IUIPaperData {
 			model.writeTo(so);
 			byte[] b = Base64.encodeBase64(so.toByteArray());
 			file.write(b);
-			file.write(new byte[]{10, 10});
+			file.write(new byte[]{10, 49, 49, 10});
 
 			int off = 0; int len = b.length;
 			while (len>0) {

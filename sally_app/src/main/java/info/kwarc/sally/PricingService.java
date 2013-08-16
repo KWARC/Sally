@@ -9,6 +9,7 @@ import info.kwarc.sally.core.comm.SallyModelRequest;
 import info.kwarc.sally.core.interfaces.Theo;
 import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
@@ -63,6 +64,17 @@ public class PricingService {
 		for (Model mod : models) {
 			common.add(mod);
 		}
+
+		/*
+		try {
+			FileOutputStream file = new FileOutputStream("demo.rdf");
+			common.write(file);
+			file.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 */
 	}
 
 	private String loadSparql(String file) {

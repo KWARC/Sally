@@ -47,12 +47,15 @@ OPTIONAL {
    ?color im:ontologyURI <https://tnt.kwarc.info/repos/stc/fcad/flange/cds/colors.omdoc?color?color>.
    ?color rdfs:label ?colorval.
 
+OPTIONAL {
    ?fbi asm:valueOf ?vendor.
    ?vendor im:ontologyURI <https://tnt.kwarc.info/repos/stc/fcad/flange/cds/vendor.omdoc?vendor?vendor>.
    ?vendor rdfs:label ?vendorval.
-
- 	?fbi asm:valueOf ?head.
- 	?head im:ontologyURI <https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?head>.
- 	?head rdfs:label ?headval.
- 
+   }
+   
+    OPTIONAL {
+ 	  ?fbi asm:valueOf ?head.
+ 	  ?head im:ontologyURI <https://tnt.kwarc.info/repos/stc/fcad/flange/cds/ISOhexbolt.omdoc?ISOhexbolt?head>.
+ 	  ?head rdfs:label ?headval.
+    }
 }
