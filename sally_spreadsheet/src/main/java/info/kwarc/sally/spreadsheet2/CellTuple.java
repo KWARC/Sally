@@ -3,7 +3,7 @@ package info.kwarc.sally.spreadsheet2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CellTuple {
+class CellTuple {
 	
 	List<CellSpaceInformation> tuple;
 

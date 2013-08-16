@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Util {
+class Util {
 
 	public static CellSpaceInformation convertCellPosition(String position)  {
 		Pattern p = Pattern.compile("([A-Z]+)([0-9]+)");
@@ -131,5 +131,7 @@ public class Util {
 			ids.add(b.getId());
 		return ids;
 	}
+	
+
 	
 }

@@ -41,6 +41,7 @@ public class ManagerTest {
 		blocks.add(data);
 
  		relationID = manager.createFunctionalRelation(blocks, "");
+ 		logger.info("RelationID: " + relationID);
 	}
 
 	@Test

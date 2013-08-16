@@ -2,14 +2,22 @@ package info.kwarc.sally.spreadsheet2;
 
 import java.util.List;
 
-public abstract class Relation {
+abstract class Relation {
 	
 	int id;
 	List<Block> blocks;
+	OntologyRelationLink ontologyLink;
 	
 	public Relation(int id, List<Block> blocks) {
 		this.id = id;
 		this.blocks = blocks;
+		this.ontologyLink = null;
+	}
+	
+	public Relation(int id, List<Block> blocks, OntologyRelationLink ontologyLink) {
+		this.id = id;
+		this.blocks = blocks;
+		this.ontologyLink = ontologyLink;
 	}
 	
 
@@ -47,6 +55,14 @@ public abstract class Relation {
 	
 	public List<Block> getBlocks() {
 		return this.blocks;
+	}
+	
+	public OntologyRelationLink getOntologyLink() {
+		return ontologyLink;
+	}
+
+	public void setOntologyLink(OntologyRelationLink ontologyLink) {
+		this.ontologyLink = ontologyLink;
 	}
 
 }
