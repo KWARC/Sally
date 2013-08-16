@@ -1,6 +1,7 @@
 package info.kwarc.sally.AlexLibre.Sally;
 
 import info.kwarc.sally.AlexLibre.LibreAlex.ContextMenuHandler;
+import info.kwarc.sally.AlexLibre.Sally.handlers.DoSelect;
 import info.kwarc.sally.AlexLibre.Sally.handlers.GetDataRange;
 
 import java.util.HashMap;
@@ -55,11 +56,21 @@ public class SallyManager {
 		contextMenuHandler = new ContextMenuHandler();
 		comm = new SallyCommunication("http://localhost", 8181);
 		comm.addHandler(new GetDataRange());
+		comm.addHandler(new DoSelect());
 		comm.start();
 	}
 
 	public boolean getStarted() {
 		return started;
+	}
+	
+	public SpreadsheetDoc getSpreadsheetDoc(String fileName) {
+		for (XSpreadsheetDocument doc : docMap.keySet()) {
+			if (SallyUtils.getDocumentName(doc).equals(fileName)) {
+				return docMap.get(doc);
+			}
+		}
+		return null;
 	}
 
 	public void refreshDocList() throws Exception {
@@ -116,7 +127,8 @@ public class SallyManager {
 		
 		try {
 			XDesktop xDesktop = SallyUtils.getDesktop(m_xContext);
-			addContextMenu(xDesktop.getCurrentFrame());
+			if (xDesktop.getCurrentFrame()!=null)
+				addContextMenu(xDesktop.getCurrentFrame());
 			
 			refreshDocList();
 		} catch (Exception e) {

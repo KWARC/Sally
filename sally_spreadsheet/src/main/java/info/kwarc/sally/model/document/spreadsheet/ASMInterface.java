@@ -9,12 +9,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sally.CellPosition;
 import sally.SpreadsheetOntologyPair;
+import sally.WorksheetIDPair;
 
 import com.hp.hpl.jena.rdf.model.Model;
 
@@ -36,7 +38,11 @@ public class ASMInterface {
 	}
 	
 	public Model getRDFModel() {
-		return ontoMapping.getRDFModel();
+		return ontoMapping.getRDFModel(this);
+	}
+	
+	public Mapping getMappingFor(AbstractStructure struc) {
+		return modelAdmin.getMappingManager().getMappingFor(struc);
 	}
 	
 	public void addOntologyLink(Integer data, String ontologyURI) {
@@ -49,7 +55,7 @@ public class ASMInterface {
 			ontoStructure  = new OntologyLinkedFB(documentURI, ontologyURI, (FunctionalBlock) structure);
 		}
 	
-		ontoMapping.addMapping(ontoStructure, structure);
+		ontoMapping.addMapping(ontoStructure, structure, modelAdmin);
 	}
 	
 	
@@ -70,6 +76,14 @@ public class ASMInterface {
 		if (link == null)
 			return null;
 		return link.getMainURI();
+	}
+	
+	public String getWorksheetNameByID(Integer ID) {
+		for (Entry<String, Integer> entry: worksheetNames.entrySet()) {
+			if (entry.getValue().equals(ID))
+				return entry.getKey();
+		}
+		return null;
 	}
 	
 	public Integer getWorksheetIDByName(String name) {
@@ -213,18 +227,27 @@ public class ASMInterface {
 			model.addOntomapping(SpreadsheetOntologyPair.newBuilder()
 					.setAsmid(struct.getId())
 					.setUri(ontoMapping.getLinkingFor(struct).getMainURI())).build();
-			sally.RangeSelection range = getBlockPosition(struct.getId());
-						
+			// sally.RangeSelection range = getBlockPosition(struct.getId());  // ?			
 		}
+		
+		for (String worksheet : worksheetNames.keySet()) {
+			model.addSheetMapping(sally.WorksheetIDPair.newBuilder()
+					.setWorksheet(worksheet)
+					.setId(worksheetNames.get(worksheet)).build());
+		}
+		
 		return model.build();
 	}
 	
 	public void reconstruct(sally.SpreadsheetModel modelData) {
 		modelAdmin.createModel(modelData.getAsm());
 		for (SpreadsheetOntologyPair pair : modelData.getOntomappingList()) {
-			
 			addOntologyLink(pair.getAsmid(), pair.getUri());
 		}
+		for (WorksheetIDPair pair : modelData.getSheetMappingList()) {
+			worksheetNames.put(pair.getWorksheet(), pair.getId());
+		}
+		
 	}
 	
 	public sally.CellPositions getRelevantLegendPositions(sally.CellSpaceInformation position) {

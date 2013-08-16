@@ -7,6 +7,7 @@ import info.kwarc.sally.core.SallyService;
 import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.comm.SallyModelRequest;
 import info.kwarc.sally.core.interfaces.Theo;
+import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,6 +16,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,17 +38,22 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 public class PricingService {
 
 	String pricingSparql;
+	String navigateSparql;
 	Model common;
 	Theo theo;
 	SallyInteraction sally;
 	Logger log;
+	ISallyKnowledgeBase kb;
 
 	@Inject
-	public PricingService(Theo theo, SallyInteraction sally) {
+	public PricingService(Theo theo, SallyInteraction sally, ISallyKnowledgeBase kb) {
 		this.theo = theo;
-		loadPricingSparql();
+		pricingSparql = loadSparql("/pricing.sparql");
+		navigateSparql = loadSparql("/navigate.sparql");
+		
 		common = null;
 		this.sally = sally;
+		this.kb = kb;
 		log = LoggerFactory.getLogger(getClass());
 	}
 
@@ -58,30 +65,34 @@ public class PricingService {
 		}
 	}
 
-	private void loadPricingSparql() {
+	private String loadSparql(String file) {
 		try {
-			InputStream is = getClass().getResourceAsStream("/pricing.sparql");
+			InputStream is = getClass().getResourceAsStream(file);
 			StringWriter writer = new StringWriter();
 			IOUtils.copy(is, writer);
-			pricingSparql = writer.toString();
+			return writer.toString();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 	@SallyService
-	public void pricingService(final CADAlexClick uri, SallyInteractionResultAcceptor acceptor, SallyContext context) {
+	public void pricingService(final CADAlexClick uri, SallyInteractionResultAcceptor acceptor, final SallyContext context) {
 		final Collection<String> files = getFiles(queryModel(uri.getCadNodeId()));
 		if (files.size() ==0)
 			return;
+		
 
 		for (final String file : files) {
-			acceptor.acceptResult(new SallyMenuItem("Pricing", file) {
+			acceptor.acceptResult(new SallyMenuItem("Pricing", FilenameUtils.getName(file), "Open pricing information associated to the chosen CAD object") {
 				@Override
 				public void run() {
-					log.warn("opening "+file);
-					theo.openWindow("Pricing results", "http://localhost:8181/sally/pricing?node="+uri.getCadNodeId()+"&file="+file, 300, 600);
+					Long parentProcessInstanceID = context.getContextVar("processInstanceId", Long.class);
+
+					kb.signal_global_event("switch_app", file);
+					theo.openWindow(parentProcessInstanceID,"Instance Selector", "http://localhost:8181/sally/pricing?node="+uri.getCadNodeId()+"&file="+file, 450, 600);
 				}
 			});
 		}
@@ -95,7 +106,7 @@ public class PricingService {
 		}
 		return threadVal.contains(objthread);
 	}
-	
+
 	public Collection<String> getFiles(ResultSet results) {
 		HashSet<String> result = new HashSet<String>();
 		if (results == null)
@@ -112,8 +123,8 @@ public class PricingService {
 	}
 
 	public ResultSet queryModel(String uri) {
-		if (common == null)
-			loadModels();
+		//if (common == null)
+		loadModels();
 		if (common == null) {
 			return null;
 		}
@@ -123,4 +134,18 @@ public class PricingService {
 		QueryExecution qe = QueryExecutionFactory.create(query, common);
 		return qe.execSelect();		
 	}
+	
+	public ResultSet getNavigate(String uri) {
+		//if (common == null)
+		loadModels();
+		if (common == null) {
+			return null;
+		}
+
+		String queryStr = String.format(navigateSparql, uri, uri, uri, uri, uri, uri);
+		Query query = QueryFactory.create(queryStr);
+		QueryExecution qe = QueryExecutionFactory.create(query, common);
+		return qe.execSelect();		
+	}
+
 }

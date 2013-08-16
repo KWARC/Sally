@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.cometd.bayeux.Channel;
 import org.cometd.bayeux.Message;
 import org.cometd.bayeux.client.ClientSessionChannel;
 import org.cometd.client.BayeuxClient;
@@ -36,7 +37,7 @@ public class SallyCommunication {
 		msgHanders = new ArrayList<MessageHandler>();
 		log.info("Sally Comm initialized");
 	}
-	
+
 	public void addHandler(MessageHandler handler) {
 		msgHanders.add(handler);
 	}
@@ -50,25 +51,26 @@ public class SallyCommunication {
 
 		@Override
 		public void onMessage(ClientSessionChannel session, Message message) {
-			if (!message.containsKey("s") || !message.containsKey("type"))
+			if (message.getData() == null)
 				return;
 			AbstractMessage msg;
 			try {
-				msg = Util.restoreMessage(message);
+				msg = Util.restoreMessage(message.getDataAsMap());
 			} catch (Exception e) {
 				e.printStackTrace();
 				log.error(e.getMessage());
 				return;
 			}
+			log.info(message.getChannel()+" "+msg);
 			for (MessageHandler handler : msgHanders) {
-				Object response = handler.onMessage(session, msg);
+				Object response = handler.onMessage(session, message.getChannel(), msg);
 				if (response == null) 
 					continue;
 				if (response instanceof Boolean && ((Boolean) response))
 					break;
 				if (!(response instanceof AbstractMessage))
 					continue;
-				
+
 				Map<String, Object> json = Util.prepareMessage((AbstractMessage)response);
 				if (message.containsKey("msgid")) {
 					json.put("rmsgid", message.get("msgid").toString());
@@ -122,11 +124,23 @@ public class SallyCommunication {
 
 			client.handshake();
 			client.getChannel("/service/**").addListener(new MessageParser());
-			WhoAmI whoami = WhoAmI.newBuilder().setClientType(ClientType.Alex)
-					.setDocumentType(DocType.Spreadsheet)
-					.setEnvironmentType(EnvironmentType.Desktop).build();
-			sendMessage("/service/alex/register", whoami);
+			client.getChannel("/do/**").addListener(new MessageParser());
+			client.getChannel("/get/**").addListener(new MessageParser());
 
+			client.getChannel(Channel.META_HANDSHAKE).addListener(new ClientSessionChannel.MessageListener() 
+			{ 
+				public void onMessage(ClientSessionChannel channel, Message message)
+				{
+					if (message.isSuccessful())
+					{
+						log.info("handshaking ok");
+						WhoAmI whoami = WhoAmI.newBuilder().setClientType(ClientType.Alex)
+								.setDocumentType(DocType.Spreadsheet)
+								.setEnvironmentType(EnvironmentType.Desktop).build();
+						sendMessage("/service/alex/register", whoami);
+					}
+				}
+			});
 		} catch (Exception e) {
 			log.debug(e.getMessage());
 		}

@@ -4,6 +4,12 @@
 	<artifactId>sally_net</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
+	<parent>
+		<groupId>info.kwarc.sally</groupId>
+		<artifactId>sally</artifactId>
+		<version>1.0</version>
+	</parent>
+
 	<dependencies>
 		<dependency>
 			<groupId>info.kwarc.sally</groupId>
@@ -126,9 +132,5 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	<parent>
-		<groupId>info.kwarc.sally</groupId>
-		<artifactId>sally</artifactId>
-		<version>1.0</version>
-	</parent>
+
 </project>

@@ -4,8 +4,10 @@ import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyService;
+import info.kwarc.sally.core.comm.Coordinates;
 import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.comm.SallyModelRequest;
+import info.kwarc.sally.core.interfaces.IPositionProvider;
 import info.kwarc.sally.core.interfaces.Theo;
 import info.kwarc.sally.model.document.spreadsheet.ASMInterface;
 import info.kwarc.sally.networking.interfaces.IMessageCallback;
@@ -26,7 +28,9 @@ import sally.MMTUri;
 import sally.RangeData;
 import sally.RangeData.Builder;
 import sally.RangeSelection;
+import sally.ScreenCoordinates;
 import sally.SpreadsheetModel;
+import sally.SwitchToApp;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
@@ -38,18 +42,47 @@ public class WorksheetDocument {
 	ASMInterface asm;
 	String filePath;
 	Theo theo;
+	IPositionProvider provider;
 
 	public String getFilePath() {
 		return filePath;
 	}
 
 	@Inject
-	public WorksheetDocument(@Assisted String filePath, @Assisted SpreadsheetModel data, @Assisted INetworkSender sender) {
+	public WorksheetDocument(@Assisted String filePath, @Assisted SpreadsheetModel data, @Assisted INetworkSender sender, IPositionProvider provider) {
 		asm = new ASMInterface(filePath);
 		this.filePath = filePath;
 		this.sender = sender;
+		this.provider = provider;
 		setSemanticData(data);
 	}
+	
+	public void switchToApp() {
+		SwitchToApp request = SwitchToApp.newBuilder().setFileName(filePath).build();
+		sender.sendMessage("/do/switch", request, new IMessageCallback() {
+			
+			@Override
+			public void onMessage() {
+				
+			}
+		});
+	}
+	
+	public void selectRange(String sheet, int startRow, int endRow, int startCol, int endCol) {
+		RangeSelection sel = RangeSelection.newBuilder().setSheet(sheet).setStartRow(startRow).setEndRow(endRow).setStartCol(startCol).setEndCol(endCol).build();
+		AlexRangeRequest request = AlexRangeRequest.newBuilder().setFileName(filePath).addSelection(sel).build();
+		selectRange(request);
+	}
+
+	public void selectRange(AlexRangeRequest request) {
+		sender.sendMessage("/do/select", request, new IMessageCallback() {
+			@Override
+			public void onMessage() {
+				
+			}
+		});
+	}	
+	
 	
 	public void getData(String sheet, int startRow, int endRow, int startCol, int endCol) {
 		RangeSelection sel = RangeSelection.newBuilder().setSheet(sheet).setStartRow(startRow).setEndRow(endRow).setStartCol(startCol).setEndCol(endCol).build();
@@ -126,7 +159,8 @@ public class WorksheetDocument {
 		}
 		final SallyInteraction interaction = context.getCurrentInteraction();
 
-		context.setContextVar("preferred_position", click.getPosition());
+		ScreenCoordinates coords = click.getPosition();
+		provider.setRecommendedCoordinates(new Coordinates(coords.getX(), coords.getY()));
 
 		int sheet = getSheetId(click.getSheet());
 		RangeSelection sel = click.getRange();

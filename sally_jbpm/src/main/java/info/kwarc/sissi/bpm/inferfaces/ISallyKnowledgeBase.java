@@ -11,6 +11,7 @@ public interface ISallyKnowledgeBase {
 	
 	ProcessInstance getProcessInstance(Long processinstanceID);
 	void registerWorkItemHandler(String Name, WorkItemHandler handler);
+	void signal_global_event(String signal_ref, Object data);
 	
 	boolean propagateParentMessage(Long currentProcessInstanceID, String message_id, Object input);
 }

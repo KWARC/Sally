@@ -20,11 +20,14 @@ public class GetDataRange implements MessageHandler {
 	}
 
 	@Override
-	public Object onMessage(ClientSessionChannel session,
+	public Object onMessage(ClientSessionChannel session, String channel,
 			AbstractMessage msg) {
-		if (!session.getChannelId().toString().equals("/service/get/data") || !(msg instanceof AlexRangeRequest))
+		
+		if (!channel.equals("/get/data") || !(msg instanceof AlexRangeRequest))
 			return null;
 
+		
+		
 		m_xContext = SallyManager.getInstance().getContext();
 		try {
 			XDesktop desktop = SallyUtils.getDesktop(m_xContext);

@@ -1,7 +1,9 @@
 package info.kwarc.sally.model.ontology2;
 
+import info.kwarc.sally.model.document.spreadsheet.ASMInterface;
 import info.kwarc.sally.model.document.spreadsheet.AbstractSsElement;
 import info.kwarc.sally.model.document.spreadsheet.AbstractStructure;
+import info.kwarc.sally.model.document.spreadsheet.ModelAdministrator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,7 +32,7 @@ public class OntologyMapping {
 		return uriToElement.get(uri);
 	}
 	
-	public void addMapping(OntologyLinkedStructure mapping, AbstractStructure structure) {
+	public void addMapping(OntologyLinkedStructure mapping, AbstractStructure structure, ModelAdministrator modelAdmin) {
 		for (String uri : mapping.getAllURIs()) {
 			if (uriToElement.containsKey(uri) && !uriToElement.get(uri).equals(mapping.getElement(uri)) )
 				throw new java.lang.IllegalArgumentException("Same URI with different abstract element already existing.");
@@ -44,7 +46,7 @@ public class OntologyMapping {
 		}
 	}
 	
-	public Model getRDFModel() {
+	public Model getRDFModel(ASMInterface asmInterface) {
 		// create an empty Model
 		Model model = ModelFactory.createDefaultModel();
 		model.setNsPrefix("asm", ASM.getURI());
@@ -53,7 +55,7 @@ public class OntologyMapping {
 		
 		
 		for (OntologyLinkedStructure map : mappings.values())
-			map.exportIntoModel(model, this);
+			map.exportIntoModel(model, this, asmInterface);
 	
 		return model;
 	}

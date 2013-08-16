@@ -16,6 +16,11 @@ public abstract class AbstractKnowledgeBase implements ISallyKnowledgeBase{
 	protected abstract StatefulKnowledgeSession getSession();
 
 	@Override
+	public void signal_global_event(String signal_ref, Object data) {
+		getSession().signalEvent(signal_ref, data);
+	}
+	
+	@Override
 	public boolean propagateParentMessage(Long currentProcessInstanceID, String message_id, Object input) {
 		while (currentProcessInstanceID != null) {
 			ProcessInstance pi = getProcessInstance(currentProcessInstanceID);
