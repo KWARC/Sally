@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,7 +84,7 @@ public class InstanceService {
 			return;
 
 		for (final String file : files) {
-			acceptor.acceptResult(new SallyMenuItem("CAD Objects", file, "Open list of CAD objects corresponding to your selection") {
+			acceptor.acceptResult(new SallyMenuItem("CAD Objects", FilenameUtils.getName(file), "Open list of CAD objects corresponding to your selection") {
 				@Override
 				public void run() {
 					kb.signal_global_event("switch_app", file);
