@@ -84,7 +84,7 @@ public class PricingService {
 			return;
 
 		for (final String file : files) {
-			acceptor.acceptResult(new SallyMenuItem("Pricing", file) {
+			acceptor.acceptResult(new SallyMenuItem("Pricing", file, "Open pricing information associated to the chosen CAD object") {
 				@Override
 				public void run() {
 					kb.signal_global_event("switch_app", file);

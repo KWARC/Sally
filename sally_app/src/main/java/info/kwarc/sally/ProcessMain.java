@@ -8,7 +8,7 @@ import info.kwarc.sally.networking.Injection.ProductionNetworking;
 import info.kwarc.sally.networking.interfaces.IConnectionManager;
 import info.kwarc.sally.planetary.Planetary;
 import info.kwarc.sally.spreadsheet.ASMEditor;
-import info.kwarc.sissi.bpm.injection.ProductionRemoteKnowledgeBase;
+import info.kwarc.sissi.bpm.injection.ProductionLocalKnowledgeBase;
 import info.kwarc.sissi.bpm.injection.ProductionSallyActions;
 
 import java.io.FileOutputStream;
@@ -34,8 +34,8 @@ public class ProcessMain {
 	public static final void main(String[] args) throws Exception {
 		Injector i = Guice.createInjector(
 				new Configuration(),
-				new ProductionRemoteKnowledgeBase(), 
-				//new ProductionLocalKnowledgeBase(), 
+				//new ProductionRemoteKnowledgeBase(), 
+				new ProductionLocalKnowledgeBase(), 
 				new ProductionSallyActions(),
 				new ProductionNetworking()
 		);

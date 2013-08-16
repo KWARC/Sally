@@ -110,7 +110,7 @@ public class CADInteractionTest extends JbpmJUnitTestCase {
 			@SallyService
 			public void run(MMTUri input, SallyInteractionResultAcceptor acceptor,
 					SallyContext context) {
-				acceptor.acceptResult(new SallyMenuItem("frame1", "service1") {
+				acceptor.acceptResult(new SallyMenuItem("frame1", "service1", "") {
 
 					@Override
 					public void run() {

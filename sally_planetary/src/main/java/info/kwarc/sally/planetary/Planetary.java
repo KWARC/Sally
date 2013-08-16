@@ -79,7 +79,7 @@ public class Planetary {
 	
 	@SallyService
 	public void planetaryServices(final MMTUri mmtURI, SallyInteractionResultAcceptor acceptor, final SallyContext context) {
-		acceptor.acceptResult(new SallyMenuItem("Knowledge Base", "Definition Lookup") {
+		acceptor.acceptResult(new SallyMenuItem("Knowledge Base", "Definition Lookup", "Look up definition associated to the selected object") {
 			public void run() {
 				Long parentProcessInstanceID = context.getContextVar("processInstanceId", Long.class);
 
@@ -89,7 +89,7 @@ public class Planetary {
 			}
 		});
 
-		acceptor.acceptResult(new SallyMenuItem("Knowledge Base", "Semantic Navigation") {
+		acceptor.acceptResult(new SallyMenuItem("Knowledge Base", "Semantic Navigation", "Navigate dependencies associated to the selected object") {
 			public void run() {			
 			}
 		});
