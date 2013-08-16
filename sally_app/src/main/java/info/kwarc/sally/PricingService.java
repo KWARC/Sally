@@ -89,7 +89,7 @@ public class PricingService {
 				public void run() {
 					kb.signal_global_event("switch_app", file);
 
-					theo.openWindow("Pricing results", "http://localhost:8181/sally/pricing?node="+uri.getCadNodeId()+"&file="+file, 450, 600);
+					theo.openWindow(1,"Pricing results", "http://localhost:8181/sally/pricing?node="+uri.getCadNodeId()+"&file="+file, 450, 600);
 				}
 			});
 		}

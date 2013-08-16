@@ -89,7 +89,8 @@ public class InstanceService {
 					kb.signal_global_event("switch_app", file);
 					String URL = "http://localhost:8181/sally/instance?node="+uri.getUri()+"&file="+file;
 					log.info("opening "+URL);
-					theo.openWindow("Pricing results", URL, 300, 600);
+					//TODO Changed this temporarily to match with the processInstanceId argument
+					theo.openWindow(1, "Pricing results", URL, 300, 600);
 				}
 			});
 		}
