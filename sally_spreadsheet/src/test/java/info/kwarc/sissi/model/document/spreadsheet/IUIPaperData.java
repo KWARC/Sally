@@ -402,7 +402,7 @@ public class IUIPaperData {
 		asm.addOntologyLink(blindflangeCostCol, costURI);
 		asm.addOntologyLink(blindflangePartNo, partNoURI);
 	}
-
+	
 	public void buildContractCoolingSystem() {
 		Integer workSheetid = asm.getWorksheetIDByName("Contract-MECS");
 		String uriSize = "https://tnt.kwarc.info/repos/stc/fcad/flange/cds/five-sizes.omdoc?five-sizes?five-point-size-scale";
@@ -545,9 +545,6 @@ public class IUIPaperData {
 			SpreadsheetModel model = getAsm().serialize();
 			model.writeTo(so);
 			byte[] b = Base64.encodeBase64(so.toByteArray());
-			file.write(b);
-			file.write(new byte[]{10, 10});
-
 			int off = 0; int len = b.length;
 			while (len>0) {
 				int toWrite = Math.min(10000, len);
