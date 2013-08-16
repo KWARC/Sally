@@ -83,6 +83,8 @@ public class TheoService implements Theo {
 	public SallyMenuItem letUserChoose(final List<SallyMenuItem> items) {
 		final JFrame frame = new JFrame("Sally Services");
 		final JDialog dialog = new JDialog(frame, ModalityType.APPLICATION_MODAL);
+		dialog.setTitle("Sally Frames");
+		//dialog.setLayout(new BoxLayout(dialog.getContentPane(), BoxLayout.Y_AXIS));
 		final JPanel panel = new JPanel();
 		chosenItem = null;
 		
@@ -95,19 +97,22 @@ public class TheoService implements Theo {
 			public void actionPerformed(ActionEvent e) {
 				String chosen = e.getActionCommand();
 				panel.removeAll();
+				dialog.setTitle("Sally Services");
 				for (SallyMenuItem item : items) {
 					if (item.getFrame().equals(chosen)) {
 						final SallyMenuItem rr = item;
 						JButton b = new JButton(item.getService());
 						b.setHorizontalTextPosition(AbstractButton.CENTER);
-						b.setPreferredSize(new Dimension(10, 5));
+						//b.setPreferredSize(new Dimension(100, 50));
 						b.setActionCommand(item.getService());
+						b.setToolTipText(item.getExplanation());
 						b.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {	
 								chosenItem = rr;
 								dialog.setVisible(false);
 							}
 						});
+						
 						panel.add(b);
 					}
 				}
@@ -119,7 +124,8 @@ public class TheoService implements Theo {
 		
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		Set<String> frames = new HashSet<String>();
-		panel.add(new JLabel("Please select the frame"));
+		panel.add(new JLabel("Please select the frame:"));
+		//panel.add(new JLabel("                       "));
 
 		for (SallyMenuItem item : items) {
 			if (frames.contains(item.getFrame()))
@@ -127,8 +133,10 @@ public class TheoService implements Theo {
 			frames.add(item.getFrame());
 			JButton b = new JButton(item.getFrame());
 			b.setHorizontalTextPosition(AbstractButton.CENTER);
+			b.setPreferredSize(new Dimension(180, 25));
 			b.setActionCommand(item.getFrame());
 			b.addActionListener(frameListener);
+			System.out.println(b.getSize().toString());
 			panel.add(b);
 		}
 
@@ -136,9 +144,11 @@ public class TheoService implements Theo {
 		
 		dialog.setLocation(100, 100);
 		//dialog.setLocation(coords.getX(), coords.getY());
+		dialog.setPreferredSize(new Dimension(200, 130));
 		dialog.setContentPane(panel);
 		dialog.pack();
 		dialog.setVisible(true);
+		
 		frame.removeAll();
 		frame.dispose();
 				
