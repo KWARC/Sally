@@ -18,6 +18,14 @@ message Cookie {
 	required string cookie = 2;
 }
 
+/**
+ * Message sent to Alexes telling them to make themselves top most
+ */
+
+message SwitchToApp {
+	required string fileName = 1;
+}
+
 
 /**
  * Opens a new Theo window at screen coordinates and browser URL
@@ -169,7 +177,8 @@ message CADAlexClick {
 }
 
 message CADNavigateTo {
-	required string key = 1;
+	required string fileName = 1;
+	required string cadNodeId = 2;
 }
 
 message CADNode {

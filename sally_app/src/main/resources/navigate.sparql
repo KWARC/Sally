@@ -1,0 +1,16 @@
+PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX im:      <http://www.kwarc.info/sally/im#>
+PREFIX asm:      <http://www.kwarc.info/sally/asm#>
+PREFIX csm:      <http://www.kwarc.info/sally/csm#>
+PREFIX acm:      <http://www.kwarc.info/sally/acm#>
+
+select ?file ?sheet ?startrow ?endrow ?startcol ?endcol where {
+   <%s> csm:partOfSheet ?sheet.
+   <%s> csm:hasStartRow ?startrow.
+   <%s> csm:hasEndRow ?endrow.
+   <%s> csm:hasStartCol ?startcol.
+   <%s> csm:hasEndCol ?endcol.
+   <%s> asm:partOfFunctionalBlock ?x.
+   ?x asm:partOfFile ?file.
+}

@@ -19,7 +19,6 @@ import com.sun.star.util.URL;
 
 public final class LibreMenuHandler extends WeakBase
 implements com.sun.star.lang.XServiceInfo,
-info.kwarc.sally.LibreAlex.XLibreAlex,
 com.sun.star.frame.XDispatch, com.sun.star.frame.XDispatchProvider, com.sun.star.lang.XInitialization
 {
 	private final XComponentContext m_xContext;

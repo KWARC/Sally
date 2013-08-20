@@ -1,7 +1,9 @@
 package info.kwarc.sally.model.ontology2;
 
+import info.kwarc.sally.model.document.spreadsheet.ASMInterface;
 import info.kwarc.sally.model.document.spreadsheet.AbstractSsElement;
 import info.kwarc.sally.model.document.spreadsheet.Legend;
+import info.kwarc.sally.model.document.spreadsheet.ModelAdministrator;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Resource;
@@ -39,7 +41,7 @@ public class OntologyLinkedLegendSubType extends OntologyLinkedLegend {
 
 
 	@Override
-	public void exportIntoModel(Model model, OntologyMapping mapping) {
+	public void exportIntoModel(Model model, OntologyMapping mapping, ASMInterface asmInterface) {
 		Resource lbResource = model.createResource(itemPrefix);
 		Resource documentResource = model.createResource(documentURI);
 		lbResource.addProperty(ASM.partOfFile, documentResource);

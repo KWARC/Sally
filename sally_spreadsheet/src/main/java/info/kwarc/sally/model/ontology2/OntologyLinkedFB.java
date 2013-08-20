@@ -1,8 +1,11 @@
 package info.kwarc.sally.model.ontology2;
 
+import info.kwarc.sally.model.document.spreadsheet.ASMInterface;
 import info.kwarc.sally.model.document.spreadsheet.AbstractSsElement;
+import info.kwarc.sally.model.document.spreadsheet.CellSpaceInformation;
 import info.kwarc.sally.model.document.spreadsheet.FunctionalBlock;
 import info.kwarc.sally.model.document.spreadsheet.LegendProductEntry;
+import info.kwarc.sally.model.document.spreadsheet.Mapping;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,7 +61,7 @@ public class OntologyLinkedFB implements OntologyLinkedStructure {
 	}
 
 	@Override
-	public void exportIntoModel(Model model, OntologyMapping mapping) {
+	public void exportIntoModel(Model model, OntologyMapping mapping, ASMInterface asmInterface) {
 
 		Resource documentResource = model.createResource(documentURI);
 		Resource functionalBlockResource = model.createResource(documentURI+"/fb/"+fb.getId());
@@ -67,9 +70,20 @@ public class OntologyLinkedFB implements OntologyLinkedStructure {
 		functionalBlockResource.addProperty(ASM.partOfFile, documentResource);
 		functionalBlockResource.addProperty(IM.ontologyURI, model.createResource(ontoURI));
 		
+		Mapping map = asmInterface.getMappingFor(fb);
+		
 		for (AbstractSsElement fbValue : fb.getAllEntries()) {
 			Resource ontoValue = model.createResource(elementToURI.get(fbValue));
 			ontoValue.addProperty(RDF.type, ASM.FunctionalInstance);
+			
+			for (CellSpaceInformation csi : map.getPositionFor(fbValue)) {
+				ontoValue.addProperty(CSM.partOfSheet, asmInterface.getWorksheetNameByID(csi.getWorksheet()));
+				ontoValue.addProperty(CSM.hasStartRow, Integer.toString(csi.getRow()));
+				ontoValue.addProperty(CSM.hasEndRow, Integer.toString(csi.getRow()));
+				ontoValue.addProperty(CSM.hasStartCol, Integer.toString(csi.getColumn()));
+				ontoValue.addProperty(CSM.hasEndCol, Integer.toString(csi.getColumn()));
+			}
+			
 			ontoValue.addProperty(RDF.value, fbValue.getValue());
 			ontoValue.addProperty(ASM.partOfFunctionalBlock, functionalBlockResource);
 

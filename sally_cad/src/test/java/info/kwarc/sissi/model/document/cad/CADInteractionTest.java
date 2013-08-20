@@ -6,9 +6,10 @@ import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyService;
 import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.injectors.TheoFirstChoice;
+import info.kwarc.sally.networking.interfaces.IMessageCallback;
+import info.kwarc.sally.networking.interfaces.INetworkSender;
 import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
 import info.kwarc.sissi.bpm.injection.TestableKnowledeBase;
-import info.kwarc.sissi.bpm.tasks.DynamicApplyHandler;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 import info.kwarc.sissi.bpm.tasks.LetUserChoose;
 import info.kwarc.sissi.bpm.tasks.RunChoice;
@@ -21,8 +22,8 @@ import java.util.HashMap;
 
 import org.apache.commons.codec.binary.Base64;
 import org.drools.KnowledgeBase;
+import org.drools.builder.ResourceType;
 import org.drools.runtime.process.ProcessInstance;
-import org.drools.runtime.process.WorkItemManager;
 import org.jbpm.process.instance.impl.demo.SystemOutWorkItemHandler;
 import org.jbpm.test.JbpmJUnitTestCase;
 import org.junit.Assert;
@@ -36,6 +37,7 @@ import sally.ScreenCoordinates;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.protobuf.AbstractMessage;
 
 public class CADInteractionTest extends JbpmJUnitTestCase {
 
@@ -44,6 +46,9 @@ public class CADInteractionTest extends JbpmJUnitTestCase {
 
 	@Before
 	public void setup() throws Exception {
+		HashMap<String, ResourceType> resources = new HashMap<String, ResourceType>();
+		resources.put("Sally.pkg", ResourceType.PKG);
+		createKnowledgeBase(resources);
 		KnowledgeBase b = createKnowledgeBaseGuvnor("Sally");
 		String CADBase64 = "Cg9odHRwOi8vYmxhaC5jYWQSqgkKCHBpcGVfZW5kGqUCCgVib2x0MRJXaHR0cHM6Ly90bnQua3dhcmMuaW5mby9yZXBvcy9zdGMvZmNhZC9mbGFuZ2UvY2RzL0lTT2hleGJvbHQub21kb2M/SVNPaGV4Ym9sdD9JU09oZXhib2x0ImQKXWh0dHBzOi8vdG50Lmt3YXJjLmluZm8vcmVwb3Mvc3RjL2ZjYWQvZmxhbmdlL2Nkcy9JU09oZXh0aHJlYWQub21kb2M/SVNPaGV4dGhyZWFkP0lTT2hleHRocmVhZBIDTTE1Il0KVWh0dHBzOi8vdG50Lmt3YXJjLmluZm8vcmVwb3Mvc3RjL2ZjYWQvZmxhbmdlL2Nkcy9jb21wb25lbnRzLm9tZG9jP2NvbXBvbmVudD9jb21wb25lbnQSBGJvbHQapQIKBWJvbHQyEldodHRwczovL3RudC5rd2FyYy5pbmZvL3JlcG9zL3N0Yy9mY2FkL2ZsYW5nZS9jZHMvSVNPaGV4Ym9sdC5vbWRvYz9JU09oZXhib2x0P0lTT2hleGJvbHQiZApdaHR0cHM6Ly90bnQua3dhcmMuaW5mby9yZXBvcy9zdGMvZmNhZC9mbGFuZ2UvY2RzL0lTT2hleHRocmVhZC5vbWRvYz9JU09oZXh0aHJlYWQ/SVNPaGV4dGhyZWFkEgNNMTUiXQpVaHR0cHM6Ly90bnQua3dhcmMuaW5mby9yZXBvcy9zdGMvZmNhZC9mbGFuZ2UvY2RzL2NvbXBvbmVudHMub21kb2M/Y29tcG9uZW50P2NvbXBvbmVudBIEYm9sdBqlAgoFYm9sdDMSV2h0dHBzOi8vdG50Lmt3YXJjLmluZm8vcmVwb3Mvc3RjL2ZjYWQvZmxhbmdlL2Nkcy9JU09oZXhib2x0Lm9tZG9jP0lTT2hleGJvbHQ/SVNPaGV4Ym9sdCJkCl1odHRwczovL3RudC5rd2FyYy5pbmZvL3JlcG9zL3N0Yy9mY2FkL2ZsYW5nZS9jZHMvSVNPaGV4dGhyZWFkLm9tZG9jP0lTT2hleHRocmVhZD9JU09oZXh0aHJlYWQSA00xNSJdClVodHRwczovL3RudC5rd2FyYy5pbmZvL3JlcG9zL3N0Yy9mY2FkL2ZsYW5nZS9jZHMvY29tcG9uZW50cy5vbWRvYz9jb21wb25lbnQ/Y29tcG9uZW50EgRib2x0GqUCCgVib2x0NBJXaHR0cHM6Ly90bnQua3dhcmMuaW5mby9yZXBvcy9zdGMvZmNhZC9mbGFuZ2UvY2RzL0lTT2hleGJvbHQub21kb2M/SVNPaGV4Ym9sdD9JU09oZXhib2x0ImQKXWh0dHBzOi8vdG50Lmt3YXJjLmluZm8vcmVwb3Mvc3RjL2ZjYWQvZmxhbmdlL2Nkcy9JU09oZXh0aHJlYWQub21kb2M/SVNPaGV4dGhyZWFkP0lTT2hleHRocmVhZBIDTTE1Il0KVWh0dHBzOi8vdG50Lmt3YXJjLmluZm8vcmVwb3Mvc3RjL2ZjYWQvZmxhbmdlL2Nkcy9jb21wb25lbnRzLm9tZG9jP2NvbXBvbmVudD9jb21wb25lbnQSBGJvbHQ=";
 		alexData = CADSemanticData.parseFrom(Base64.decodeBase64(CADBase64));
@@ -84,14 +89,28 @@ public class CADInteractionTest extends JbpmJUnitTestCase {
 		SallyInteraction interaction = i.getInstance(SallyInteraction.class);
 
 		CADFactory docFactory = i.getInstance(CADFactory.class);
-		CADDocument doc = docFactory.create("test1", alexData);
+		CADDocument doc = docFactory.create("test1", alexData, new INetworkSender() {
+			
+			@Override
+			public void sendMessage(String channel, AbstractMessage msg,
+					IMessageCallback callback) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void sendMessage(String channel, AbstractMessage msg) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		interaction.registerServices(doc);
 
 		interaction.registerServices(new Object() {
 			@SallyService
 			public void run(MMTUri input, SallyInteractionResultAcceptor acceptor,
 					SallyContext context) {
-				acceptor.acceptResult(new SallyMenuItem("frame1", "service1") {
+				acceptor.acceptResult(new SallyMenuItem("frame1", "service1", "") {
 
 					@Override
 					public void run() {

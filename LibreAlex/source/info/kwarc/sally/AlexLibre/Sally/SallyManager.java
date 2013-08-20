@@ -1,6 +1,7 @@
 package info.kwarc.sally.AlexLibre.Sally;
 
 import info.kwarc.sally.AlexLibre.LibreAlex.ContextMenuHandler;
+import info.kwarc.sally.AlexLibre.Sally.handlers.DoSelect;
 import info.kwarc.sally.AlexLibre.Sally.handlers.GetDataRange;
 
 import java.util.HashMap;
@@ -36,14 +37,14 @@ public class SallyManager {
 
 	boolean started;
 	private ContextMenuHandler contextMenuHandler;
-	
+
 	XComponentContext m_xContext;
 	SallyCommunication comm;
 
 	public XComponentContext getContext() {
 		return m_xContext;
 	}
-	
+
 	Logger log;
 
 	HashMap<XSpreadsheetDocument, SpreadsheetDoc> docMap;
@@ -55,11 +56,21 @@ public class SallyManager {
 		contextMenuHandler = new ContextMenuHandler();
 		comm = new SallyCommunication("http://localhost", 8181);
 		comm.addHandler(new GetDataRange());
+		comm.addHandler(new DoSelect());
 		comm.start();
 	}
 
 	public boolean getStarted() {
 		return started;
+	}
+
+	public SpreadsheetDoc getSpreadsheetDoc(String fileName) {
+		for (XSpreadsheetDocument doc : docMap.keySet()) {
+			if (SallyUtils.getDocumentName(doc).equals(fileName)) {
+				return docMap.get(doc);
+			}
+		}
+		return null;
 	}
 
 	public void refreshDocList() throws Exception {
@@ -80,22 +91,27 @@ public class SallyManager {
 				log.info("Ignoring "+SallyUtils.getDocumentName(xSpreadsheetDocument));
 				continue;
 			}
+			
+			com.sun.star.frame.XModel xModel = (com.sun.star.frame.XModel) UnoRuntime
+					.queryInterface(com.sun.star.frame.XModel.class,
+							xSpreadsheetDocument);
+
+			
+			addContextMenu(xModel.getCurrentController());
+
 			log.info("Starting to look after "+SallyUtils.getDocumentName(xSpreadsheetDocument));
 			docMap.put(xSpreadsheetDocument, new SpreadsheetDoc(xSpreadsheetDocument, comm));
 		}
 	}
 
-	private void addContextMenu(XFrame m_xFrame) {
-		XController xController = m_xFrame.getController();
-		if (xController != null) {
-			XContextMenuInterception xContextMenuInterception = (com.sun.star.ui.XContextMenuInterception) UnoRuntime
-					.queryInterface(
-							com.sun.star.ui.XContextMenuInterception.class,
-							xController);
-			xContextMenuInterception.registerContextMenuInterceptor(contextMenuHandler);
-		}
+	private void addContextMenu(XController xController) {
+		XContextMenuInterception xContextMenuInterception = (com.sun.star.ui.XContextMenuInterception) UnoRuntime
+				.queryInterface(
+						com.sun.star.ui.XContextMenuInterception.class,
+						xController);
+		xContextMenuInterception.registerContextMenuInterceptor(contextMenuHandler);
 	}
-	
+
 	public void removeContextMenu(XFrame m_xFrame) {
 		XController xController = m_xFrame.getController();
 		if (xController != null) {
@@ -113,11 +129,10 @@ public class SallyManager {
 		if (started)
 			return;
 		started = true;
-		
+
 		try {
 			XDesktop xDesktop = SallyUtils.getDesktop(m_xContext);
-			addContextMenu(xDesktop.getCurrentFrame());
-			
+
 			refreshDocList();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -139,17 +154,17 @@ public class SallyManager {
 			log.error("Exception "+e.getMessage());
 		}
 	}
-	
+
 	public void showFrames(XComponentContext m_xContext) {
 		log.info("frames context = "+m_xContext);
 		try {
 			XDesktop xDesktop = SallyUtils.getDesktop(m_xContext);
 			log.info("got desktop");
-			
+
 			XSpreadsheetDocument xSpreadsheetDocument = (XSpreadsheetDocument) UnoRuntime
 					.queryInterface(XSpreadsheetDocument.class,
 							xDesktop.getCurrentComponent());
-			
+
 			log.info("sending frame request ");
 			comm.sendMessage("/service/alex/sallyFrame", SallyFrame.newBuilder().setFileName(SallyUtils.getDocumentName(xSpreadsheetDocument)).build());
 		} catch (Exception e) {

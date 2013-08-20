@@ -5,13 +5,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.codec.binary.Base64;
-import org.cometd.bayeux.Message;
 
 import com.google.protobuf.AbstractMessage;
 import com.google.protobuf.GeneratedMessage;
 
 public class Util {
-	public static AbstractMessage restoreMessage(Message message) {
+	public static AbstractMessage restoreMessage(Map<String, Object> message) {
 		String type = (String)message.get("type");
 		String s = (String)message.get("s");
 		if (type == null || s == null)

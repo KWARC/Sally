@@ -16,7 +16,8 @@ public class Standalone {
 
 	public static void main(String[] args) {
 		try {
-			String oooExeFolder = "/opt/libreoffice3.6/program";
+			SallyManager.getInstance();
+			String oooExeFolder = "D:\\opt\\libre4\\program";
 			XComponentContext xContext = BootstrapSocketConnector.bootstrap(oooExeFolder);
 			// get the remote office service manager
 			com.sun.star.lang.XMultiComponentFactory xMCF =
@@ -33,7 +34,8 @@ public class Standalone {
 					UnoRuntime.queryInterface(
 							com.sun.star.frame.XComponentLoader.class, oDesktop);
 
-			String sUrl = "/home/costea/kwarc/sissi/doc/papers/IUI_2013/PipeEndPricing_alin_v2.xlsm";
+//			String sUrl = "/home/costea/kwarc/sissi/doc/papers/Interact_2013/spsht/PipeEndPricing_v4.xlsm";
+			String sUrl = "D:\\kwarc\\spsht\\PipeEndPricing_v4.xlsm";
 			if ( sUrl.indexOf("private:") != 0) {
 				java.io.File sourceFile = new java.io.File(sUrl);
 				StringBuffer sbTmp = new StringBuffer("file:///");

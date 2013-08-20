@@ -5,8 +5,12 @@ import info.kwarc.sally.core.ScreenCoordinatesProvider;
 import info.kwarc.sally.core.comm.Coordinates;
 import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.interfaces.Theo;
+import info.kwarc.sally.theofx.ui.TheoWindow;
+import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
 
+import java.awt.Color;
 import java.awt.Dialog.ModalityType;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -37,19 +41,21 @@ public class TheoService implements Theo {
 	Random r = new Random();
 	ScreenCoordinatesProvider coordProvider;
 	CookieProvider cookieProvider;
+	ISallyKnowledgeBase kb;
 	
 	@Inject
-	public TheoService(ScreenCoordinatesProvider coordProvider, CookieProvider cookieProvider) {
+	public TheoService(ScreenCoordinatesProvider coordProvider, CookieProvider cookieProvider, ISallyKnowledgeBase kb) {
 		this.coordProvider = coordProvider;
 		this.cookieProvider = cookieProvider;
+		this.kb = kb;
 		openedWindows = new HashMap<Integer, TheoWindow>();
 	}
 	
-	public int openWindow(String title, String URL, int sizeX, int sizeY) {
+	public int openWindow(Long processInstanceID, String title, String URL, int sizeX, int sizeY) {
 		Integer resID = r.nextInt();
 		Coordinates coords = coordProvider.getRecommendedPosition();
 		Cookie cookies = Cookie.newBuilder().setCookie(cookieProvider.getCookies()).setUrl(cookieProvider.getUrl()).build();
-		openedWindows.put(resID, TheoWindow.addWindow(sizeY, sizeX, coords.getX(), coords.getY(), title, URL, cookies, true));
+		openedWindows.put(resID, TheoWindow.addWindow(processInstanceID, sizeY, sizeX, coords.getX(), coords.getY(), title, URL, cookies, true));
 		return resID;
 	}
 
@@ -76,33 +82,42 @@ public class TheoService implements Theo {
 	}
 
 	public SallyMenuItem letUserChoose(final List<SallyMenuItem> items) {
-		final JFrame frame = new JFrame("FrameDemo");
+		final JFrame frame = new JFrame("Sally Services");
 		final JDialog dialog = new JDialog(frame, ModalityType.APPLICATION_MODAL);
-		final JPanel t = new JPanel();
+		dialog.setTitle("Sally Frames");
+		//dialog.setLayout(new BoxLayout(dialog.getContentPane(), BoxLayout.Y_AXIS));
+		final JPanel panel = new JPanel();
 		chosenItem = null;
 		
-		t.setLayout(new BoxLayout(t, BoxLayout.PAGE_AXIS));
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
 		ActionListener frameListener = new ActionListener() {
+			/* (non-Javadoc)
+			 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+			 */
 			public void actionPerformed(ActionEvent e) {
 				String chosen = e.getActionCommand();
-				t.removeAll();
+				panel.removeAll();
+				dialog.setTitle("Sally Services");
 				for (SallyMenuItem item : items) {
 					if (item.getFrame().equals(chosen)) {
 						final SallyMenuItem rr = item;
 						JButton b = new JButton(item.getService());
 						b.setHorizontalTextPosition(AbstractButton.CENTER);
+						//b.setPreferredSize(new Dimension(100, 50));
 						b.setActionCommand(item.getService());
+						b.setToolTipText(item.getExplanation());
 						b.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {	
 								chosenItem = rr;
 								dialog.setVisible(false);
 							}
 						});
-						t.add(b);
+						
+						panel.add(b);
 					}
 				}
-				t.updateUI();
+				panel.updateUI();
 				dialog.pack();
 				frame.pack();
 			}
@@ -110,7 +125,11 @@ public class TheoService implements Theo {
 		
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		Set<String> frames = new HashSet<String>();
-		t.add(new JLabel("Please select the frame"));
+		JLabel ll = new JLabel("Please select the frame:");
+		ll.setForeground(Color.BLUE);
+
+		panel.add(ll);
+		//panel.add(new JLabel("                       "));
 
 		for (SallyMenuItem item : items) {
 			if (frames.contains(item.getFrame()))
@@ -118,17 +137,22 @@ public class TheoService implements Theo {
 			frames.add(item.getFrame());
 			JButton b = new JButton(item.getFrame());
 			b.setHorizontalTextPosition(AbstractButton.CENTER);
+			b.setPreferredSize(new Dimension(180, 25));
 			b.setActionCommand(item.getFrame());
 			b.addActionListener(frameListener);
-			t.add(b);
+			System.out.println(b.getSize().toString());
+			panel.add(b);
 		}
 
-		Coordinates coords = coordProvider.getRecommendedPosition();
 		
+		Coordinates coords = coordProvider.getRecommendedPosition();
 		dialog.setLocation(coords.getX(), coords.getY());
-		dialog.setContentPane(t);
+		dialog.setPreferredSize(new Dimension(200, 170));
+		dialog.setContentPane(panel);
 		dialog.pack();
 		dialog.setVisible(true);
+		dialog.setAlwaysOnTop(true);
+		
 		frame.removeAll();
 		frame.dispose();
 				

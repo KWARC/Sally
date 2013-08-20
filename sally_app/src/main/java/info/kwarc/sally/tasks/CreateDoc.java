@@ -9,6 +9,7 @@ import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 import info.kwarc.sissi.model.document.cad.interfaces.CADFactory;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.codec.binary.Base64;
@@ -72,15 +73,18 @@ public class CreateDoc implements WorkItemHandler {
 			byte[] res = Base64.decodeBase64(alexData.getData());
 			String processId = null;
 			Object processInput = null;
+			Map<String, Object> params = new HashMap<String, Object>();
 
 			if (alexInfo.getDocumentType() == DocType.Spreadsheet) {
 				SpreadsheetModel rr = SpreadsheetModel.parseFrom(res);
 				processInput = spreadsheetFactory.create(alexData.getFileName(), rr, adapter.create(connectionID));
+				params.put("ASMInput", processInput);
 				processId = "Sally.spreadsheet";
 			}
 			if (alexInfo.getDocumentType() == DocType.CAD) {
 				CADSemanticData rr = CADSemanticData.parseFrom(res);
-				processInput = cadFactory.create(alexData.getFileName(), rr);
+				processInput = cadFactory.create(alexData.getFileName(), rr, adapter.create(connectionID));
+				params.put("CSMInput", processInput);
 				processId = "Sally.cad";
 			}
 
@@ -89,9 +93,9 @@ public class CreateDoc implements WorkItemHandler {
 			}
 
 			interaction.registerServices(processInput);
+			// AbstractSpreadsheetInput
 
-			ProcessInstance instance = kb.startProcess(workItem.getProcessInstanceId(), processId);
-			instance.signalEvent("Message-onConstruct", processInput);
+			ProcessInstance instance = kb.startProcess(workItem.getProcessInstanceId(), processId, params);
 			
 			docMap.addMap(workItem.getProcessInstanceId(), alexData.getFileName(), instance.getId());
 		} catch (Exception e) {

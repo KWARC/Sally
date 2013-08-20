@@ -30,7 +30,9 @@ public class CSM {
     public static final Property partOfSheet = property( "partOfSheet" );
     public static final Property partOfWorkbook = property( "partOfWorkbook" );
     
-    public static final Property hasBottomRightCell = property( "hasBottomRightCell" );
-    public static final Property hasTopLeftCell = property( "hasTopLeftCell" );
+    public static final Property hasStartRow = property( "hasStartRow" );
+    public static final Property hasEndRow = property( "hasEndRow" );
+    public static final Property hasStartCol = property( "hasStartCol" );
+    public static final Property hasEndCol= property( "hasEndCol" );
 
 }

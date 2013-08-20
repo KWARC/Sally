@@ -1,9 +1,9 @@
 #UNO project configuration file
-#Mon Aug 12 21:09:19 CEST 2013
+#Thu Aug 15 10:49:33 CEST 2013
 project.srcdir=/source
 regclassname=info.kwarc.sally.AlexLibre.RegistrationHandler
 javaversion=java5
-project.sdk=360m1
+project.sdk=4.1.0.4
 project.ooo=URE
 project.implementation=AlexLibre
 project.build=build
