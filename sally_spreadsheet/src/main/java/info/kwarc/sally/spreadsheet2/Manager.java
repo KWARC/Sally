@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 class Manager {
 	
-	FormalSpreadsheet spreadsheet;
+	//FormalSpreadsheet spreadsheet;
 	Map<Integer, Block> blocks;
 	Map<Integer, Relation> relations;
 	int maxBlockID, maxRelationID;
@@ -26,8 +26,8 @@ class Manager {
 	 * A Manager manages the abstract structure and ontology linking for one spreadsheet.
 	 * @param spreadsheet 
 	 */
-	public Manager(FormalSpreadsheet spreadsheet) {
-		this.spreadsheet = spreadsheet;
+	public Manager() {
+		//this.spreadsheet = spreadsheet;
 		this.blocks = new HashMap<Integer, Block>();
 		this.relations = new HashMap<Integer, Relation>();
 		this.maxBlockID = 0;
@@ -50,7 +50,7 @@ class Manager {
 			maxBlockID++;
 			Block b = new BlockAtomic(maxBlockID, position);
 			blocks.put(maxBlockID, b);
-			addPositionToBlockLink(position, b);
+			addPositionToBlockLink(position, b, null);
 			return b;
 		}
 	}
@@ -59,7 +59,7 @@ class Manager {
 		maxBlockID++;
 		Block b = new BlockComposed(maxBlockID, subBlocks);
 		blocks.put(maxBlockID, b);
-	    addPositionsToBlockLink(b.getCells(), b);
+	    addPositionsToBlockLink(b.getCells(), b, subBlocks);
 		return b;
 	}
 	
@@ -94,19 +94,24 @@ class Manager {
 		return blocks;
 	}
 	
-	private void addPositionToBlockLink(CellSpaceInformation position, Block block) {
+	private void addPositionToBlockLink(CellSpaceInformation position, Block addBlock, List<Block> removeBlocks) {
 		if (positionToBlocks.containsKey(position)) {
-			positionToBlocks.get(position).add(block);
+			List<Block> blocksForPos = positionToBlocks.get(position);
+			for (Block b : removeBlocks)
+				if (blocksForPos.contains(b))
+					blocksForPos.remove(b);
+			if (!blocksForPos.contains(addBlock))
+				blocksForPos.add(addBlock);
 		} else {
 			List<Block> blockList = new ArrayList<Block>();
-			blockList.add(block);
+			blockList.add(addBlock);
 			positionToBlocks.put(position, blockList);
 		}
 	}
 	
-	private void addPositionsToBlockLink(List<CellSpaceInformation> positions, Block block) {
+	private void addPositionsToBlockLink(List<CellSpaceInformation> positions, Block addBlock, List<Block> removeBlocks) {
 		for (CellSpaceInformation position : positions)
-			addPositionToBlockLink(position, block);
+			addPositionToBlockLink(position, addBlock, removeBlocks);
 	}
 	
 	// ++++ Relation operations ++++

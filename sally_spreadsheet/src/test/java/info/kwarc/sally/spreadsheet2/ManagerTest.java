@@ -19,21 +19,21 @@ public class ManagerTest {
 
 	@Before
 	public void setUp() throws Exception {
-		manager = new Manager(WinogradData.getFormalWinograd());
+		manager = new Manager();
 		List<CellSpaceInformation> positionYear = Util.expandRange(
 				new CellSpaceInformation("Table1",1,1), new CellSpaceInformation("Table1",1,4));
 		year = manager.createComposedBlock(positionYear);
-		logger.info("YearID: " + year.getId());
+		//logger.info("YearID: " + year.getId());
 		
 		List<CellSpaceInformation> positionCosts = Util.expandRange(
 				new CellSpaceInformation("Table1",2,0), new CellSpaceInformation("Table1",4,0));
 		cost = manager.createComposedBlock(positionCosts);
-		logger.info("CostID: " + cost.getId());
+		//logger.info("CostID: " + cost.getId());
 		
 		List<CellSpaceInformation> positionData = Util.expandRange(
 				new CellSpaceInformation("Table1",2,1), new CellSpaceInformation("Table1",4,4));
 		data = manager.createComposedBlock(positionData);
-		logger.info("dataID: " + data.getId());
+		//logger.info("dataID: " + data.getId());
 		
 		List<Block> blocks = new ArrayList<Block>();
 		blocks.add(year);
@@ -41,16 +41,16 @@ public class ManagerTest {
 		blocks.add(data);
 
  		relationID = manager.createFunctionalRelation(blocks, "");
- 		logger.info("RelationID: " + relationID);
+ 		//logger.info("RelationID: " + relationID.getId());
 	}
 
 	@Test
 	public void test() {
 		List<Block> p1 = manager.getBlocksForPosition(new CellSpaceInformation("Table1",1,2));
 				
-		assertEquals(2, p1.size());   // One atomic and one componded
-		assertEquals(year, p1.get(1));
-		assertEquals(4, p1.get(1).getCells().size());
+		assertEquals(1, p1.size()); 
+		assertEquals(year, p1.get(0));
+		assertEquals(4, p1.get(0).getCells().size());
 		
 		List<Relation> p2 = manager.getRelationForPosition(new CellSpaceInformation("Table1", 2, 3));
 		assertEquals(new Integer(1), new Integer(p2.size()));
