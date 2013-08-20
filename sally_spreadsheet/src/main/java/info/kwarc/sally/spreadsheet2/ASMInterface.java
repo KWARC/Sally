@@ -13,12 +13,12 @@ public class ASMInterface {
 	
 	// ++ Parsing of messages that are related to blocks ++
 	
-	public void createBlockRange(sally.CreateBlockRange msg) {
+	public void createBlockRange(sally.CreateBlockForRange msg) {
 		manager.createComposedBlock( Util.expandRange( MessageConverter.cellPositionToCellSpaceInformaiton( msg.getRange().getStartPos()),
 				MessageConverter.cellPositionToCellSpaceInformaiton(msg.getRange().getEndPos())) );		
 	}
 	
-	public void createBlock(sally.CreateBlock msg) {
+	public void createBlock(sally.CreateBlockForPositions msg) {
 		manager.createComposedBlock(MessageConverter.cellPositionsToCellSpaceInformationList(msg.getCells()));
 	}
 	
@@ -35,17 +35,17 @@ public class ASMInterface {
 	}
 	
 	public sally.CellPositions2 getAllPositionsOfBlock(sally.GetAllPositionsOfBlock msg) {
-		return MessageConverter.cellSpaceInformationListToCellPositions(manager.getBlockByID(msg.getId().getId()).getCells());
+		return MessageConverter.cellSpaceInformationListToCellPositions(manager.getBlockByID(msg.getId()).getCells());
 	}
 	
-	public sally.IDList getSubBlocks(sally.GetSubBlock msg) {
-		return MessageConverter.integerListToIDList(Util.convertBlocksToIDs(manager.getBlockByID(msg.getId().getId()).getSubBlocks()));
+	public sally.IDList getSubBlocks(sally.GetSubBlocks msg) {
+		return MessageConverter.integerListToIDList(Util.convertBlocksToIDs(manager.getBlockByID(msg.getId()).getSubBlocks()));
 	}
 	
 	// ++ Parsing of messages that are related to relations ++
 	
 	public void createFunctionalRelation(sally.CreateFunctionalRelation msg) {
-		manager.createFunctionalRelation(Util.convertIDsToBlocks(MessageConverter.idListToIntegerList(msg.getBlockIds()), manager), "");   // TODO: Function ?
+		manager.createFunctionalRelation(Util.convertIDsToBlocks(msg.getBlockIdsList(), manager), "");   // TODO: Function ?
 	}
 	
 	public sally.IDList getRelationsForPosition(sally.GetRelationsForPosition msg) {
@@ -57,7 +57,7 @@ public class ASMInterface {
 		if (!msg.hasRelationId()) {
 			tupleList = manager.getCellRelationsForPosition(MessageConverter.cellPositionToCellSpaceInformaiton(msg.getPosition()));
 		} else {
-			tupleList = manager.getCellRelationsForPosition(MessageConverter.cellPositionToCellSpaceInformaiton(msg.getPosition()), manager.getRelationByID(msg.getRelationId().getId()));
+			tupleList = manager.getCellRelationsForPosition(MessageConverter.cellPositionToCellSpaceInformaiton(msg.getPosition()), manager.getRelationByID(msg.getRelationId()));
 		}
 		sally.CellPositionsList2.Builder tupleListMsg = sally.CellPositionsList2.newBuilder();
 		for (CellTuple tuple : tupleList)
@@ -76,23 +76,23 @@ public class ASMInterface {
 	
 	public void createOntologyRelationLink(sally.CreateOntologyRelationLink msg) {
 		manager.getRelationByID(msg.getId()).setOntologyLink(new OntologyRelationLink(msg.getUri(), msg.getMathMLTemplate(),
-				Util.convertBlocksToOntologyLinks(Util.convertIDsToBlocks(MessageConverter.idListToIntegerList(msg.getBlockIds()), manager))));
+				Util.convertBlocksToOntologyLinks(Util.convertIDsToBlocks(msg.getBlockIdsList(), manager))));
 	}
 	
 	public sally.StringMessage getUriForBlock(sally.GetUriForBlock msg) {
-		return sally.StringMessage.newBuilder().setData(manager.getBlockByID(msg.getBlockID().getId()).getOntologyLink().getUri()).build();
+		return sally.StringMessage.newBuilder().setData(manager.getBlockByID(msg.getBlockID()).getOntologyLink().getUri()).build();
 	}
 	
 	public sally.StringMessage getValueInterpretation(sally.GetValueInterpretation msg) {
-		return sally.StringMessage.newBuilder().setData(manager.getBlockByID(msg.getBlockID().getId()).getOntologyLink().getValueInterpretation(msg.getValue()) ).build();
+		return sally.StringMessage.newBuilder().setData(manager.getBlockByID(msg.getBlockID()).getOntologyLink().getValueInterpretation(msg.getValue()) ).build();
 	}
 	
 	public sally.StringMessage getUriForRelation(sally.GetUriForRelation msg) {
-		return sally.StringMessage.newBuilder().setData(manager.getRelationByID(msg.getRelationID().getId()).getOntologyLink().getUri() ).build();
+		return sally.StringMessage.newBuilder().setData(manager.getRelationByID(msg.getRelationID()).getOntologyLink().getUri() ).build();
 	}
 	
 	public sally.StringMessage getIntendedFunctionForValues(sally.GetIntendedFunctionForValues msg) {
-		return sally.StringMessage.newBuilder().setData(manager.getRelationByID(msg.getRelationID().getId()).getOntologyLink().getRelationInterpretation(msg.getValuesList())).build();
+		return sally.StringMessage.newBuilder().setData(manager.getRelationByID(msg.getRelationID()).getOntologyLink().getRelationInterpretation(msg.getValuesList())).build();
 	}
 	
 

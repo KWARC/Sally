@@ -5,72 +5,78 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import sally.CreateBlockRange;
-import sally.GetBlocksInRange;
-import sally.IDList;
+/**
+ * Testing the ASMInterface by modeling a simplification of the Winograd spreadsheet. 
+ * @author cliguda
+ * Note: The value-interpretation uses some pseudo-MathML template for testing, but every MathML can be used. 
+ */
 
 public class ASMInterfaceTest {
 	ASMInterface asm;
-	sally.IDMessage yearID, costsID, dataID, relationID;
+	Integer yearID, costsID, dataID, relationID;
 
 	@Before
 	public void setUp() throws Exception {
 		asm = new ASMInterface();
 		
-		asm.createBlockRange(CreateBlockRange.newBuilder().setRange(MessageConverter.RangeInformationToCellRangePosition(new RangeInformation("Table1",0,1,0,4))).build());
-		yearID = asm.getBlocksInRange(GetBlocksInRange.newBuilder().setRange(MessageConverter.RangeInformationToCellRangePosition(new RangeInformation("Table1",0,1,0,4))).build()).getIdListList().get(0);
+		asm.createBlockRange(sally.CreateBlockForRange.newBuilder().setRange(MessageConverter.RangeInformationToCellRangePosition(new RangeInformation("Table1",0,1,0,4))).build());
+		yearID = asm.getBlocksInRange(sally.GetBlocksInRange.newBuilder().setRange(MessageConverter.RangeInformationToCellRangePosition(new RangeInformation("Table1",0,1,0,4))).build()).getIdsList().get(0);
+		// Value interpretation: #1 -> <ci>Year #1 AD</ci>, e.g. 1984 -> <ci>Year 1984 AD</ci>
 		sally.ValueInterpretation viYear = sally.ValueInterpretation.newBuilder()
 			.setPatternString("#1")
 			.setSubExpressions(sally.IntegerStringMapping.newBuilder().addPair(
 					sally.IntegerStringPair.newBuilder().setId(1).setValue("\\d+").build()).build())
-			.setInterpretationTemplate("<ci>Year #1 AD</ci>").build();
-		asm.createOntologyBlockLink(sally.CreateOntologyBlockLink.newBuilder().setBlockId(yearID.getId()).setUri("Years").addValueInterpretations(viYear).build());
+			.setInterpretationTemplate("<ci>Year <rvar num=\"1\"/> AD</ci>").build();
+		asm.createOntologyBlockLink(sally.CreateOntologyBlockLink.newBuilder().setBlockId(yearID).setUri("Years").addValueInterpretations(viYear).build());
 		
-		
-		asm.createBlockRange(CreateBlockRange.newBuilder().setRange(MessageConverter.RangeInformationToCellRangePosition(new RangeInformation("Table1",1,0,4,0))).build());
-		costsID = asm.getBlocksInRange(GetBlocksInRange.newBuilder().setRange(MessageConverter.RangeInformationToCellRangePosition(new RangeInformation("Table1",1,0,4,0))).build()).getIdListList().get(0);
+		asm.createBlockRange(sally.CreateBlockForRange.newBuilder().setRange(MessageConverter.RangeInformationToCellRangePosition(new RangeInformation("Table1",1,0,4,0))).build());
+		costsID = asm.getBlocksInRange(sally.GetBlocksInRange.newBuilder().setRange(MessageConverter.RangeInformationToCellRangePosition(new RangeInformation("Table1",1,0,4,0))).build()).getIdsList().get(0);
+		// Value interpretation: #1 -> <ci>Costtype: #1</ci>, e.g. Sallaries -> <ci>Costtype: Sallaries</ci>
 		sally.ValueInterpretation viCosts = sally.ValueInterpretation.newBuilder()
 				.setPatternString("#1")
 				.setSubExpressions(sally.IntegerStringMapping.newBuilder().addPair(
 						sally.IntegerStringPair.newBuilder().setId(1).setValue( "\\p{Alpha}+").build()).build())
-				.setInterpretationTemplate("<ci>Costtype: #1</ci>").build();
-		asm.createOntologyBlockLink(sally.CreateOntologyBlockLink.newBuilder().setBlockId(costsID.getId()).setUri("Costs").addValueInterpretations(viCosts).build());
+				.setInterpretationTemplate("<ci>Costtype: <rvar num=\"1\"/></ci>").build();
+		asm.createOntologyBlockLink(sally.CreateOntologyBlockLink.newBuilder().setBlockId(costsID).setUri("Costs").addValueInterpretations(viCosts).build());
 		
-		asm.createBlockRange(CreateBlockRange.newBuilder().setRange(MessageConverter.RangeInformationToCellRangePosition(new RangeInformation("Table1",1,1,4,4))).build());
-		dataID = asm.getBlocksInRange(GetBlocksInRange.newBuilder().setRange(MessageConverter.RangeInformationToCellRangePosition(new RangeInformation("Table1",1,1,4,4))).build()).getIdListList().get(0);
+		asm.createBlockRange(sally.CreateBlockForRange.newBuilder().setRange(MessageConverter.RangeInformationToCellRangePosition(new RangeInformation("Table1",1,1,4,4))).build());
+		dataID = asm.getBlocksInRange(sally.GetBlocksInRange.newBuilder().setRange(MessageConverter.RangeInformationToCellRangePosition(new RangeInformation("Table1",1,1,4,4))).build()).getIdsList().get(0);
+		// Value interpretation: #1 -> <apply><csymbol>times</csymbol><ci>1000000</ci><ci>#1</ci></apply>, e.g. 53 -> <apply><csymbol>times</csymbol><ci>1000000</ci><ci>53</ci></apply>
 		sally.ValueInterpretation viData = sally.ValueInterpretation.newBuilder()
 				.setPatternString("#1")
 				.setSubExpressions(sally.IntegerStringMapping.newBuilder().addPair(
 						sally.IntegerStringPair.newBuilder().setId(1).setValue( "\\d+").build()).build())
-				.setInterpretationTemplate("<apply><csymbol>times</csymbol><ci>1000000</ci><ci>#1</ci></apply>").build();
-		asm.createOntologyBlockLink(sally.CreateOntologyBlockLink.newBuilder().setBlockId(dataID.getId()).setUri("ExpensesPerYearData").addValueInterpretations(viData).build());
+				.setInterpretationTemplate("<apply><csymbol>times</csymbol><ci>1000000</ci><ci><rvar num=\"1\"/></ci></apply>").build();
+		asm.createOntologyBlockLink(sally.CreateOntologyBlockLink.newBuilder().setBlockId(dataID).setUri("ExpensesPerYearData").addValueInterpretations(viData).build());
 		
-		asm.createFunctionalRelation(sally.CreateFunctionalRelation.newBuilder().setBlockIds(sally.IDList.newBuilder().addIdList(yearID).addIdList(costsID).addIdList(dataID).build()).build());
-		relationID = asm.getRelationsForPosition(sally.GetRelationsForPosition.newBuilder().setPosition(MessageConverter.cellSpaceInformationToCellPosition(new CellSpaceInformation("Table1",1,1,4,4))).build()).getIdListList().get(0);
-		asm.createOntologyRelationLink(sally.CreateOntologyRelationLink.newBuilder().setId(relationID.getId()).setUri("ExpensesPerYear")
+		asm.createFunctionalRelation(sally.CreateFunctionalRelation.newBuilder().addBlockIds(yearID).addBlockIds(costsID).addBlockIds(dataID).build());
+		relationID = asm.getRelationsForPosition(sally.GetRelationsForPosition.newBuilder().setPosition(MessageConverter.cellSpaceInformationToCellPosition(new CellSpaceInformation("Table1",1,1,4,4))).build()).getIdsList().get(0);
+		// Function interpretation example: The cell that represents the salaries for 1984 can be interpreted as: 
+		// <apply><cymbol cd=\"LocalDomain\">Expenses per Year</csymbol><ci>Year 1984 AD</ci><ci>Costtype: Salaries</ci></apply>
+		asm.createOntologyRelationLink(sally.CreateOntologyRelationLink.newBuilder().setId(relationID).setUri("ExpensesPerYear")
 				.setMathMLTemplate("<apply><cymbol cd=\"LocalDomain\">Expenses per Year</csymbol><rvar num=\"1\"/><rvar num=\"2\"/></apply>")
-				.setBlockIds(sally.IDList.newBuilder().addIdList(yearID).addIdList(costsID).build()).build());
+				.addBlockIds(yearID).addBlockIds(costsID).build());
 	}
 
 	@Test
 	public void testGetBlocksForPosition() {
-		IDList result = asm.getBlocksForPosition(sally.GetBlocksForPosition.newBuilder().setPosition(MessageConverter.cellSpaceInformationToCellPosition(new CellSpaceInformation("Table1",0,2))).build());
-		assertEquals(1,result.getIdListCount());
-		assertEquals(yearID, result.getIdList(0));
+		sally.IDList result = asm.getBlocksForPosition(sally.GetBlocksForPosition.newBuilder().setPosition(MessageConverter.cellSpaceInformationToCellPosition(new CellSpaceInformation("Table1",0,2))).build());
+		assertEquals(1,result.getIdsCount());
+		assertTrue(yearID == result.getIds(0));
 		result = asm.getBlocksForPosition(sally.GetBlocksForPosition.newBuilder().setPosition(MessageConverter.cellSpaceInformationToCellPosition(new CellSpaceInformation("Table1",2,0))).build());
-		assertEquals(1,result.getIdListCount());
-		assertEquals(costsID, result.getIdList(0));
+		assertEquals(1,result.getIdsCount());
+		assertTrue(costsID == result.getIds(0));
 		result = asm.getBlocksForPosition(sally.GetBlocksForPosition.newBuilder().setPosition(MessageConverter.cellSpaceInformationToCellPosition(new CellSpaceInformation("Table1",2,2))).build());
-		assertEquals(1,result.getIdListCount());
-		assertEquals(dataID, result.getIdList(0));
+		assertEquals(1,result.getIdsCount());
+		assertTrue(dataID == result.getIds(0));
 	}
 
 	@Test
 	public void testGetBlocksInRange() {
-		IDList result = asm.getBlocksInRange(sally.GetBlocksInRange.newBuilder().setRange(MessageConverter.RangeInformationToCellRangePosition(new RangeInformation("Table1",2,0,3,4))).build());
-		assertEquals(2, result.getIdListCount());
-		assertTrue(result.getIdListList().contains(costsID));
-		assertTrue(result.getIdListList().contains(dataID));
+		sally.IDList result = asm.getBlocksInRange(sally.GetBlocksInRange.newBuilder().setRange(MessageConverter.RangeInformationToCellRangePosition(new RangeInformation("Table1",2,0,3,4))).build());
+		assertEquals(2, result.getIdsCount());
+		assertTrue(result.getIdsList().contains(costsID));
+		assertTrue(result.getIdsList().contains(dataID));
 	}
 
 	@Test
@@ -82,9 +88,9 @@ public class ASMInterfaceTest {
 
 	@Test
 	public void testGetRelationsForPosition() {
-		IDList relation = asm.getRelationsForPosition(sally.GetRelationsForPosition.newBuilder().setPosition(MessageConverter.cellSpaceInformationToCellPosition(new CellSpaceInformation("Table1",0,3))).build());
-		assertEquals(1, relation.getIdListCount());
-		assertEquals(1, relation.getIdList(0).getId());
+		sally.IDList relation = asm.getRelationsForPosition(sally.GetRelationsForPosition.newBuilder().setPosition(MessageConverter.cellSpaceInformationToCellPosition(new CellSpaceInformation("Table1",0,3))).build());
+		assertEquals(1, relation.getIdsCount());
+		assertEquals(1, relation.getIds(0));
 	}
 
 	@Test

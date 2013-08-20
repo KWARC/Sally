@@ -26,12 +26,6 @@ class MessageConverter {
 				msg.getEndPos().getRow(), msg.getEndPos().getCol());
 	}
 	
-	public static List<Integer> idListToIntegerList(sally.IDList msg) {
-		List<Integer> intList = new ArrayList<Integer>();
-		for (sally.IDMessage idMsg : msg.getIdListList())
-			intList.add(idMsg.getId());
-		return intList;
-	}
 	
 	public static ValueInterpretation valueInterpretationMsgToObj(sally.ValueInterpretation msg) {
 		Map<Integer, String> subExpressions = new HashMap<Integer, String>();
@@ -48,9 +42,8 @@ class MessageConverter {
 	
 	public static sally.IDList integerListToIDList(List<Integer> integerList) {
 		sally.IDList.Builder idListBuilder = sally.IDList.newBuilder();
-		for (Integer i : integerList) {
-			idListBuilder.addIdList(integerToIDMessage(i));
-		}
+		idListBuilder.addAllIds(integerList);
+		
 		return idListBuilder.build();
 	}
 	

@@ -17,7 +17,7 @@ public class ValueInterpretationTest {
 		Map<Integer, String> subExpressions = new HashMap<Integer,String>();
 		subExpressions.put(new Integer(1), "\\d+");
 		subExpressions.put(new Integer(2), "\\p{Alpha}");
-		vi = new ValueInterpretation("M#1-#2", subExpressions, "@(I@[#1,#2])");
+		vi = new ValueInterpretation("M#1-#2", subExpressions, "@(I@[<rvar num=\"1\"/>,<rvar num=\"2\"/>])");
 	}
 
 	@Test
