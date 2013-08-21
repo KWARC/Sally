@@ -2,7 +2,7 @@ package info.kwarc.sally.spreadsheet2;
 
 import java.util.List;
 
-public class CellSpaceInformation {
+class CellSpaceInformation {
 	private String worksheet; 
 	private int row, column, width, height;
 	

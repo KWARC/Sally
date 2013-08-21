@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Util {
+class Util {
 
 	public static CellSpaceInformation convertCellPosition(String position)  {
 		Pattern p = Pattern.compile("([A-Z]+)([0-9]+)");
@@ -131,5 +131,28 @@ public class Util {
 			ids.add(b.getId());
 		return ids;
 	}
+	
+	public static List<Block> convertIDsToBlocks(List<Integer> ids, Manager m) {
+		List<Block> blocks = new ArrayList<Block>();
+		for (Integer id : ids)
+			blocks.add(m.getBlockByID(id));
+		return blocks;
+	}
+	
+	public static List<OntologyBlockLink> convertBlocksToOntologyLinks(List<Block> blocks) {
+		List<OntologyBlockLink> links = new ArrayList<OntologyBlockLink>();
+		for (Block b : blocks)
+			links.add(b.getOntologyLink());
+		return links;
+	}
+	
+	public static List<Integer> convertRelationsToIDs(List<Relation> relations) {
+		List<Integer> ids = new ArrayList<Integer>();
+		for (Relation r : relations)
+			ids.add(r.getId());
+		return ids;
+	}
+	
+
 	
 }

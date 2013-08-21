@@ -1,8 +1,6 @@
 package info.kwarc.sally.spreadsheet2;
 
-import java.util.List;
-
-public class FormalSsElement {
+class FormalSsElement {
 	CellSpaceInformation position;
 	String value;
 	ContentValueType valueType;
