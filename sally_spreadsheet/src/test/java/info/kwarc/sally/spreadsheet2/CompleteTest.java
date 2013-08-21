@@ -6,7 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ ManagerTest.class, OntologyRelationLinkTest.class,
-		ValueInterpretationTest.class, ASMInterfaceTest.class })
+		ValueInterpretationTest.class, ASMInterfaceTest.class, VerificationDataExtractorTest.class })
 public class CompleteTest {
 
 }

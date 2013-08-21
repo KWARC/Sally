@@ -94,6 +94,15 @@ class Manager {
 		return blocks;
 	}
 	
+	public List<Block> getAllTopLevelBlocks() {
+		List<Block> blocks = new ArrayList<Block>();
+		for (List<Block> blockList: positionToBlocks.values())
+			for (Block b : blockList)
+				if (!blocks.contains(b))
+					blocks.add(b);
+		return blocks;
+	}
+	
 	private void addPositionToBlockLink(CellSpaceInformation position, Block addBlock, List<Block> removeBlocks) {
 		if (positionToBlocks.containsKey(position)) {
 			List<Block> blocksForPos = positionToBlocks.get(position);

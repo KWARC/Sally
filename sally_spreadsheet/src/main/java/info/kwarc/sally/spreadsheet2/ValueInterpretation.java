@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 class ValueInterpretation {
 	
 	Pattern valuePattern;
-	String interpretationTemplate;
+	final String interpretationTemplate;
 	
 	
 	/**
@@ -32,11 +32,13 @@ class ValueInterpretation {
 	
 	public String getValueInterpretation(String value) {	
 		Matcher matcher = valuePattern.matcher(value);
+		
 		if (matcher.matches()) {
+			String interpretation = interpretationTemplate;
 			for (int i = 1; i <= matcher.groupCount(); i++) {
-				interpretationTemplate = interpretationTemplate.replaceAll("<rvar num=\"" + i + "\"/>", matcher.group(i));
+				interpretation = interpretationTemplate.replaceAll("<rvar num=\"" + i + "\"/>", matcher.group(i));
 			}
-			return interpretationTemplate;
+			return interpretation;
 		} else
 			return "";
 	}
