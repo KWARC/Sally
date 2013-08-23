@@ -29,6 +29,9 @@ public class BPMNUtils {
 			processInstance.signalEvent("Message-onForward", new MessageForward(eventType, eventData));
 		} else
 		{
+			for (NodeInstance ni : getNodeInstances(processInstance)) {
+				System.out.println(ni.getNodeName());
+			}
 			LoggerFactory.getLogger(BPMNUtils.class).warn("Event "+eventType+" is not handled and no forwarding exists. And hence will be ignored.");
 		}
 	}

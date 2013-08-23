@@ -14,4 +14,5 @@ public interface ISallyKnowledgeBase {
 	void signal_global_event(String signal_ref, Object data);
 	
 	boolean propagateParentMessage(Long currentProcessInstanceID, String message_id, Object input);
+	boolean propagateChildMessage(Long currentProcessInstanceID, String message_id, Object input);
 }

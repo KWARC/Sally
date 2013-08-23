@@ -2,6 +2,7 @@ package info.kwarc.sissi.bpm.tasks;
 
 import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.interfaces.SallyTask;
+import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
 
 import org.drools.process.instance.WorkItemHandler;
 import org.drools.runtime.process.WorkItem;

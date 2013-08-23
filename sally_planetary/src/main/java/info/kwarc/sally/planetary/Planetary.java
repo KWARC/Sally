@@ -22,7 +22,6 @@ import org.apache.xmlrpc.client.XmlRpcSunHttpTransport;
 import org.apache.xmlrpc.client.XmlRpcSunHttpTransportFactory;
 import org.apache.xmlrpc.client.XmlRpcTransport;
 import org.apache.xmlrpc.client.XmlRpcTransportFactory;
-import org.drools.runtime.process.ProcessInstance;
 import org.slf4j.Logger;
 
 import sally.Cookie;
@@ -84,8 +83,8 @@ public class Planetary {
 				Long parentProcessInstanceID = context.getContextVar("processInstanceId", Long.class);
 
 				HashMap<String, Object>  input = new  HashMap<String, Object>();
-				ProcessInstance processInstance = kb.startProcess(parentProcessInstanceID, "Sally.deflookup", input);
-				processInstance .signalEvent("Message-input", getDefinitionLookupURL(mmtURI.getUri()));
+				input.put("wndURLInput", getDefinitionLookupURL(mmtURI.getUri()));
+				kb.startProcess(parentProcessInstanceID, "Sally.deflookup", input);
 			}
 		});
 

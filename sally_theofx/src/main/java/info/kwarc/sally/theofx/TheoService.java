@@ -28,7 +28,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import sally.Cookie;
-import sally.TheoChangeWindow;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -42,7 +41,7 @@ public class TheoService implements Theo {
 	ScreenCoordinatesProvider coordProvider;
 	CookieProvider cookieProvider;
 	ISallyKnowledgeBase kb;
-	
+
 	@Inject
 	public TheoService(ScreenCoordinatesProvider coordProvider, CookieProvider cookieProvider, ISallyKnowledgeBase kb) {
 		this.coordProvider = coordProvider;
@@ -50,7 +49,7 @@ public class TheoService implements Theo {
 		this.kb = kb;
 		openedWindows = new HashMap<Integer, TheoWindow>();
 	}
-	
+
 	public int openWindow(Long processInstanceID, String title, String URL, int sizeX, int sizeY) {
 		Integer resID = r.nextInt();
 		Coordinates coords = coordProvider.getRecommendedPosition();
@@ -59,21 +58,19 @@ public class TheoService implements Theo {
 		return resID;
 	}
 
-	public void changeWindow(TheoChangeWindow window) {
-		if (!openedWindows.containsKey(window.getWindowid())) {
-			return;
-		}
-		TheoWindow w = openedWindows.get(window.getWindowid());
-		
-		if (window.hasCookie()) {
-			w.setCookie(window.getCookie().getUrl(), window.getCookie().getCookie());
-		}
-		
-		if (window.hasUrl()) {
-			w.changeURL(window.getUrl());
-		}
+	@Override
+	public void updateWindow(int windowID, String title, String URL,
+			Integer sizeX, Integer sizeY) {
+		TheoWindow w = openedWindows.get(windowID);
+		if (URL != null)
+			w.changeURL(URL);
+		Coordinates coords = coordProvider.getRecommendedPosition();
+		if (sizeX != null && sizeY != null)
+			w.resizeAndMove(coords.getX(), coords.getY(), sizeX, sizeY);
+
+		w.setCookie(cookieProvider.getUrl(), cookieProvider.getCookies());
 	}
-	
+
 	public void closeWindow(int windowID) {
 		TheoWindow wnd = openedWindows.get(windowID);
 		if (wnd != null) {
@@ -88,9 +85,9 @@ public class TheoService implements Theo {
 		//dialog.setLayout(new BoxLayout(dialog.getContentPane(), BoxLayout.Y_AXIS));
 		final JPanel panel = new JPanel();
 		chosenItem = null;
-		
+
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		
+
 		ActionListener frameListener = new ActionListener() {
 			/* (non-Javadoc)
 			 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
@@ -113,7 +110,7 @@ public class TheoService implements Theo {
 								dialog.setVisible(false);
 							}
 						});
-						
+
 						panel.add(b);
 					}
 				}
@@ -122,7 +119,7 @@ public class TheoService implements Theo {
 				frame.pack();
 			}
 		};
-		
+
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		Set<String> frames = new HashSet<String>();
 		JLabel ll = new JLabel("Please select the frame:");
@@ -144,7 +141,7 @@ public class TheoService implements Theo {
 			panel.add(b);
 		}
 
-		
+
 		Coordinates coords = coordProvider.getRecommendedPosition();
 		dialog.setLocation(coords.getX(), coords.getY());
 		dialog.setPreferredSize(new Dimension(200, 170));
@@ -152,10 +149,10 @@ public class TheoService implements Theo {
 		dialog.pack();
 		dialog.setVisible(true);
 		dialog.setAlwaysOnTop(true);
-		
+
 		frame.removeAll();
 		frame.dispose();
-				
+
 		return chosenItem;
 	}
 }

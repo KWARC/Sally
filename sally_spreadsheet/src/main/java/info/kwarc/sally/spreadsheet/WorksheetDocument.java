@@ -124,6 +124,16 @@ public class WorksheetDocument {
 		return asm.getOntologyForPosition(click);
 	}
 
+	/**
+	 * Returns the MMT uri corresponding to a clicked position
+	 * @param click
+	 * @return
+	 */
+	public String getSemantics(RangeSelection click) {
+		int sheetid = asm.getWorksheetIDByName(click.getSheet());
+		return asm.getOntologyForPosition(CellPosition.newBuilder().setSheet(sheetid).setCol(click.getStartCol()).setRow(click.getStartRow()).build());
+	}
+	
 	public List<Integer> getFBForRange(RangeSelection range) {
 		return asm.getFunctionalBlockIDs(range);
 	}

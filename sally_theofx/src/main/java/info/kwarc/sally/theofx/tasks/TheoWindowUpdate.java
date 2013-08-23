@@ -1,6 +1,5 @@
 package info.kwarc.sally.theofx.tasks;
 
-import info.kwarc.sally.core.ScreenCoordinatesProvider;
 import info.kwarc.sally.core.interfaces.SallyTask;
 import info.kwarc.sally.core.interfaces.Theo;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
@@ -13,37 +12,34 @@ import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
 
-@SallyTask(action="theoWindowCreate")
-public class TheoWindowCreate implements WorkItemHandler {
-	ScreenCoordinatesProvider screenCoords;
-	Theo theo;
+@SallyTask(action="theoWindowUpdate")
+public class TheoWindowUpdate implements WorkItemHandler{
+
 	Logger log;
+	Theo theo;
 	
 	@Inject
-	public TheoWindowCreate(ScreenCoordinatesProvider screenCoords, Theo theo) {
-		this.screenCoords = screenCoords;
+	public TheoWindowUpdate(Theo theo) {
+		log = LoggerFactory.getLogger(getClass());
 		this.theo = theo;
-		log = LoggerFactory.getLogger(this.getClass());
 	}
-	
+
 	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
 		String url = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), String.class);
+		Integer window = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), Integer.class);
+
 		try {
-			if (url == null) 
-				throw new Exception("No URL given");
-			int theoOutput = theo.openWindow(workItem.getProcessInstanceId(), "", url, 400, 300);
-			workItem.getResults().put("wndIDOutput", theoOutput);
+			theo.updateWindow(window, null, url, null, null);
 		} catch (Exception e) {
-			log.error(e.getMessage());
-			e.printStackTrace();
+			
 		} finally {
 			manager.completeWorkItem(workItem.getId(), workItem.getResults());
 		}
 	}
 
 	@Override
-	public void abortWorkItem(WorkItem arg0, WorkItemManager arg1) {
+	public void abortWorkItem(WorkItem workItem, WorkItemManager manager) {
 		// TODO Auto-generated method stub
 		
 	}

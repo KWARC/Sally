@@ -26,6 +26,16 @@ public class TheoFirstChoice extends AbstractModule {
 			System.out.println("opening a window with title "+title+" at URL"+URL);
 			return 0;
 		}
+
+		@Override
+		public void updateWindow(int windowID, String title, String URL,
+				Integer sizeX, Integer sizeY) {
+		}
+
+		@Override
+		public void closeWindow(int windowID) {
+			System.out.println("closing window windowID");
+		}
 	}
 	
 	
