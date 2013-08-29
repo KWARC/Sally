@@ -37,7 +37,7 @@ $(function() {
 <tbody>
 <#list solutions as solution>
 <tr  class="result-row" id="${solution.get("fbi")}">
-<td>${solution.get("vendorval")}</td> <td>${solution.get("threadval")}</td><td>${solution.get("headval")}</td><td>${solution.get("colorval")}</td><td>${solution.get("costval")}</td>
+<td>${solution.get("vendorval")!'-'}</td> <td>${solution.get("threadval")!'-'}</td><td>${solution.get("headval")!'-'}</td><td>${solution.get("colorval")!'-'}</td><td>${solution.get("costval")!'-'}</td>
 </tr>
 </#list>
 </tbody>
