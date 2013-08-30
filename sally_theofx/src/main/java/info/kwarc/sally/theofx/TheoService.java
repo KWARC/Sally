@@ -149,10 +149,11 @@ public class TheoService implements Theo {
 		dialog.setLocation(coords.getX(), coords.getY());
 		dialog.setPreferredSize(new Dimension(200, 170));
 		dialog.setContentPane(panel);
+
 		dialog.pack();
+		
 		dialog.setVisible(true);
 		dialog.setAlwaysOnTop(true);
-		
 		frame.removeAll();
 		frame.dispose();
 				
