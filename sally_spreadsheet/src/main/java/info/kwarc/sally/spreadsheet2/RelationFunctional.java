@@ -7,20 +7,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 class RelationFunctional extends Relation {
-	String function;
 	List<CellTuple> cellRelations;
 	
 	final Logger logger = LoggerFactory.getLogger(RelationFunctional.class);
 		
-	public RelationFunctional(int id, List<Block> blocks, String function, List<CellTuple> cellRelations) {
+	public RelationFunctional(int id, List<Block> blocks, List<CellTuple> cellRelations) {
 		super(id, blocks);
 		if (isConsistent(blocks, cellRelations)) {
-			this.function = function;
-			this.cellRelations = cellRelations;
+			this.cellRelations = new ArrayList<CellTuple>(cellRelations);
 		} else 
 			throw new java.lang.IllegalArgumentException("Cell realations is not consistent to blocks.");
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -28,12 +25,9 @@ class RelationFunctional extends Relation {
 		int result = super.hashCode();
 		result = prime * result
 				+ ((cellRelations == null) ? 0 : cellRelations.hashCode());
-		result = prime * result
-				+ ((function == null) ? 0 : function.hashCode());
 		return result;
 	}
-
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -48,20 +42,7 @@ class RelationFunctional extends Relation {
 				return false;
 		} else if (!cellRelations.equals(other.cellRelations))
 			return false;
-		if (function == null) {
-			if (other.function != null)
-				return false;
-		} else if (!function.equals(other.function))
-			return false;
 		return true;
-	}
-
-	public String getFunction() {
-		return function;
-	}
-
-	public void setFunction(String function) {
-		this.function = function;
 	}
 
 	public List<CellTuple> getCellRelations() {

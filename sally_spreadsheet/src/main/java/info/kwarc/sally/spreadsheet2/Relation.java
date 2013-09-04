@@ -1,5 +1,6 @@
 package info.kwarc.sally.spreadsheet2;
 
+import java.util.ArrayList;
 import java.util.List;
 
 abstract class Relation {
@@ -10,7 +11,7 @@ abstract class Relation {
 	
 	public Relation(int id, List<Block> blocks) {
 		this.id = id;
-		this.blocks = blocks;
+		this.blocks = new ArrayList<Block>(blocks);
 		this.ontologyLink = null;
 	}
 	
@@ -54,7 +55,7 @@ abstract class Relation {
 	}
 	
 	public List<Block> getBlocks() {
-		return this.blocks;
+		return new ArrayList<Block>(this.blocks);
 	}
 	
 	public OntologyRelationLink getOntologyLink() {

@@ -125,14 +125,18 @@ class Manager {
 	
 	// ++++ Relation operations ++++
 	
-	public Relation createFunctionalRelation(List<Block> blocks, String function) {
+	public Relation createFunctionalRelation(List<Block> blocks) {
 		maxRelationID++;
 		List<CellTuple> cellRelations = createFunctionalCellRelations(blocks);
-		Relation r = new RelationFunctional(maxRelationID, blocks, function, cellRelations);
+		Relation r = new RelationFunctional(maxRelationID, blocks, cellRelations);
 		this.relations.put(maxRelationID, r);
 		for (Block block : blocks )
 			addPositionsToRelationLink(block.getCells(), r);
 		return r;
+	}
+	
+	public List<Relation> getAllRelations() {
+		return new ArrayList<Relation>(relations.values());
 	}
 	
 	public Relation getRelationByID(int id) {
@@ -212,6 +216,37 @@ class Manager {
 		assocPositions.add(position);
 		
 		return new CellTuple(assocPositions);
+	}
+	
+	// ---------- Methods for the semantic interpretation ----------
+	
+	public Map<CellSpaceInformation, String> getCompleteSemanticMapping(FormalSpreadsheet spreadsheet) {
+		Map<CellSpaceInformation, String> mapping = new HashMap<CellSpaceInformation, String>();
+		
+		// Value Interpretations
+		for (Block block : getAllTopLevelBlocks()) {
+			for (CellSpaceInformation pos : block.getCells() ) {
+				if (mapping.containsKey(pos))
+					throw new java.lang.IllegalStateException("Multiple semantic interpretations for " + pos.toString() + "possible.");
+				
+				mapping.put(pos, block.getOntologyLink().getValueInterpretation(spreadsheet.get(pos).getValue()) );	
+			}
+		}
+		
+		// Interpretations for functional blocks
+		for (Relation rel : this.relations.values()) {
+			if (rel instanceof RelationFunctional) {
+				RelationFunctional fb = (RelationFunctional) rel;
+				for (CellTuple cellTuple : fb.getCellRelations()) {
+					List<String> values = new ArrayList<String>();
+					for (int i = 0; i < cellTuple.getTuple().size()-1; i++)
+						values.add(spreadsheet.get(cellTuple.getTuple().get(i)).getValue());
+					String interpretation = rel.getOntologyLink().getRelationInterpretation(values);
+					mapping.put(cellTuple.getTuple().get(cellTuple.getTuple().size()-1), interpretation);
+				}
+			}
+		}
+		return mapping;
 	}
 
 }

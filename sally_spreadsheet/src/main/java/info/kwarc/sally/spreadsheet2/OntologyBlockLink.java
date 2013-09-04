@@ -8,10 +8,10 @@ class OntologyBlockLink {
 	String uri;
 	List<ValueInterpretation> valueInterpretations;
 	
-	public OntologyBlockLink(String uri, List<ValueInterpretation> valueInterpretations) {
+	public OntologyBlockLink(String uri,  List<ValueInterpretation> valueInterpretations) {
 		super();
 		this.uri = uri;
-		this.valueInterpretations = valueInterpretations;
+		this.valueInterpretations = new ArrayList<ValueInterpretation>(valueInterpretations);
 	}
 	
 	public OntologyBlockLink(String uri, ValueInterpretation valueInterpretation) {
@@ -20,11 +20,11 @@ class OntologyBlockLink {
 		this.valueInterpretations = new ArrayList<ValueInterpretation>();
 		this.valueInterpretations.add(valueInterpretation);
 	}
-	
+
 	public String getUri() {
 		return uri;
 	}
-	
+
 	public String getValueInterpretation(String value) {
 		String valueInterpretation = "";
 		

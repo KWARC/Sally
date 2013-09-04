@@ -2,21 +2,22 @@ package info.kwarc.sally.spreadsheet2;
 
 class FormalSsElement {
 	CellSpaceInformation position;
-	String value;
+	String value, formula;
 	ContentValueType valueType;
-	//TODO: formulae is missing
 	
-	public FormalSsElement(CellSpaceInformation position, String value, ContentValueType valueType) {
+	public FormalSsElement(CellSpaceInformation position, String value, String formula, ContentValueType valueType) {
 		super();
 		this.position = position;
 		this.value = value;
+		this.formula = formula;
 		this.valueType = valueType;
 	}
-	
+		
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((formula == null) ? 0 : formula.hashCode());
 		result = prime * result
 				+ ((position == null) ? 0 : position.hashCode());
 		result = prime * result + ((value == null) ? 0 : value.hashCode());
@@ -34,6 +35,11 @@ class FormalSsElement {
 		if (getClass() != obj.getClass())
 			return false;
 		FormalSsElement other = (FormalSsElement) obj;
+		if (formula == null) {
+			if (other.formula != null)
+				return false;
+		} else if (!formula.equals(other.formula))
+			return false;
 		if (position == null) {
 			if (other.position != null)
 				return false;
@@ -48,7 +54,7 @@ class FormalSsElement {
 			return false;
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Postion: " + position.toString() + " Value: " + value.toString() + " Type: " + valueType.toString();
@@ -68,6 +74,14 @@ class FormalSsElement {
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+	
+	public String getFormula() {
+		return formula;
+	}
+
+	public void setFormula(String formula) {
+		this.formula = formula;
 	}
 
 	public ContentValueType getValueType() {

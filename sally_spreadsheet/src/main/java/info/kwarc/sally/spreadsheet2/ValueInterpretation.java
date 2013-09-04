@@ -36,7 +36,7 @@ class ValueInterpretation {
 		if (matcher.matches()) {
 			String interpretation = interpretationTemplate;
 			for (int i = 1; i <= matcher.groupCount(); i++) {
-				interpretation = interpretationTemplate.replaceAll("<rvar num=\"" + i + "\"/>", matcher.group(i));
+				interpretation = interpretation.replaceAll("<rvar num=\"" + i + "\"/>", matcher.group(i));
 			}
 			return interpretation;
 		} else

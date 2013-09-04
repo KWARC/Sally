@@ -45,7 +45,7 @@ public class ASMInterface {
 	// ++ Parsing of messages that are related to relations ++
 	
 	public void createFunctionalRelation(sally.CreateFunctionalRelation msg) {
-		manager.createFunctionalRelation(Util.convertIDsToBlocks(msg.getBlockIdsList(), manager), "");   // TODO: Function ?
+		manager.createFunctionalRelation(Util.convertIDsToBlocks(msg.getBlockIdsList(), manager));
 	}
 	
 	public sally.IDList getRelationsForPosition(sally.GetRelationsForPosition msg) {

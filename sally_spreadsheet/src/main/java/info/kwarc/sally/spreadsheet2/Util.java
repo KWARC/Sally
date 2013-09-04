@@ -2,11 +2,15 @@ package info.kwarc.sally.spreadsheet2;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Util {
+	
+	static Pattern omdocUriPattern = Pattern.compile("omdoc://(.+)#(.+)");
 
 	public static CellSpaceInformation convertCellPosition(String position)  {
 		Pattern p = Pattern.compile("([A-Z]+)([0-9]+)");
@@ -153,6 +157,58 @@ class Util {
 		return ids;
 	}
 	
-
+	public static String antiunifyMathMLFormulae(List<String> formulae, List<List<String>> domainValues) {
+		if (formulae.size() != domainValues.size())
+			return "";
+		
+		String antiunification = "";
+		boolean conflict = false;
+		for (int i = 0; (i < formulae.size()) && !conflict; i++) {
+			String formula = formulae.get(i);
+			Map<String, String> replacements = new HashMap<String, String>();
+			for (int j = 0; j < domainValues.get(i).size(); j++) 
+				replacements.put(domainValues.get(i).get(j), "<ci>?X" + j + "</ci>");
+			
+			for (String semObj : replacements.keySet())
+				formula = formula.replace(semObj, replacements.get(semObj));
+			
+			if (antiunification.isEmpty())
+				antiunification = formula;
+			else if (!antiunification.equals(formula))
+				conflict = true;
+		}
+		if (!conflict)
+			return antiunification;
+		else
+			return "";
+	}
+	
+	public static String tagAsMathObject(String s) {
+		return "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + s + "</math>\n";
+	}
+	
+	public static String untagMathObject(String s) {
+		return s.replace("<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\r\n", "")
+				.replace("<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n", "")
+				.replace("</math>\r\n","")
+				.replace("</math>\n","")
+				.replace("</math>","");
+	}
+	
+	public static String getCDFromURI(String uri) {
+		Matcher matcher = omdocUriPattern.matcher(uri);
+		if (matcher.matches())
+			return matcher.group(1);
+		else
+			return "";
+	}
+	
+	public static String getSymbolFromURI(String uri) {
+		Matcher matcher = omdocUriPattern.matcher(uri);
+		if (matcher.matches())
+			return matcher.group(2);
+		else
+			return "";
+	}
 	
 }

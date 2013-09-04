@@ -9,7 +9,7 @@ class CellTuple {
 
 	public CellTuple(List<CellSpaceInformation> tuple) {
 		super();
-		this.tuple = tuple;
+		this.tuple = new ArrayList<CellSpaceInformation>(tuple);
 	}
 	
 	public List<CellSpaceInformation> getTuple() {

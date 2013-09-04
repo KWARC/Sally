@@ -21,13 +21,13 @@ public class OntologyRelationLinkTest {
 		Map<Integer, String> subExpressions = new HashMap<Integer,String>();
 		subExpressions.put(new Integer(1), "\\d+");
 		ValueInterpretation vi = new ValueInterpretation("#1", subExpressions, "<ci>Year <rvar num=\"1\"/> AD</ci>");
-		blockLinks.add(new OntologyBlockLink("Years", vi));
+		blockLinks.add(new OntologyBlockLink("omdoc://winograd#Years", vi));
 		
 		Map<Integer, String> subExpressions2 = new HashMap<Integer,String>();
 		subExpressions2.put(new Integer(1), "\\p{Alpha}+");
 		ValueInterpretation vi2 = new ValueInterpretation("#1", subExpressions2, "<ci>Costtype: <rvar num=\"1\"/></ci>");
-		blockLinks.add(new OntologyBlockLink("Costs", vi2));
-		relationLink = new OntologyRelationLink("ExpensesPerYear",
+		blockLinks.add(new OntologyBlockLink("omdoc://winograd#Costs", vi2));
+		relationLink = new OntologyRelationLink("omdoc://winograd#ExpensesPerYear",
 				"<apply><cymbol cd=\"LocalDomain\">Expenses per Year</csymbol><rvar num=\"1\"/><rvar num=\"2\"/></apply>", blockLinks);
 	}
 
@@ -38,5 +38,7 @@ public class OntologyRelationLinkTest {
 		parameters.add("Salaries");
 		assertEquals("<apply><cymbol cd=\"LocalDomain\">Expenses per Year</csymbol><ci>Year 1984 AD</ci><ci>Costtype: Salaries</ci></apply>", relationLink.getRelationInterpretation(parameters));
 	}
+	
+	
 
 }

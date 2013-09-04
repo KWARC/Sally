@@ -3,6 +3,7 @@ package info.kwarc.sally.spreadsheet2;
 import static org.junit.Assert.*;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +12,8 @@ import org.slf4j.LoggerFactory;
 
 public class ManagerTest {
 	Manager manager;
-	Block year, cost, data;
+	FormalSpreadsheet spreadsheet;
+	Block year;
 	
 	final Logger logger = LoggerFactory.getLogger(ManagerTest.class);
 
@@ -19,9 +21,9 @@ public class ManagerTest {
 	public void setUp() throws Exception {
 		WinogradData winData = new WinogradData();
 		manager = winData.getManager();
+		spreadsheet = winData.getSpreadsheet();
 		year = winData.getYear();
-		cost = winData.getCost();
-		data = winData.getData();
+
 	}
 
 	@Test
@@ -40,6 +42,11 @@ public class ManagerTest {
 		assertTrue(relation.get(0).contains((new CellSpaceInformation("Table1", 2, 0))));
 		assertTrue(relation.get(0).contains((new CellSpaceInformation("Table1", 0, 3))));
 		assertFalse(relation.get(0).contains((new CellSpaceInformation("Table1", 2, 2))));
+		
+		Map<CellSpaceInformation, String> interpretation = manager.getCompleteSemanticMapping(spreadsheet);
+		assertEquals("<ci>Year 1985 AD</ci>", interpretation.get(new CellSpaceInformation("Table1", 0,2)));
+		assertEquals("<ci>Costtype: total</ci>", interpretation.get(new CellSpaceInformation("Table1", 4,0)));
+		assertEquals("<apply><cymbol cd=\"LocalDomain\">Expenses per Year</csymbol><ci>Year 1985 AD</ci><ci>Costtype: total</ci></apply>", interpretation.get(new CellSpaceInformation("Table1", 4,2)));
 	}
 
 }
