@@ -1,6 +1,6 @@
 package info.kwarc.sally.spreadsheet2;
 
-class FormalSsElement {
+public class FormalSsElement {
 	CellSpaceInformation position;
 	String value, formula;
 	ContentValueType valueType;

@@ -31,8 +31,8 @@ public class VerificationDataExtractor {
 		return dataTypes;
 	}
 	
-	public static List<String> extractCPSimilarFBs(Manager manager, FormalSpreadsheet spreadsheet) {
-		List<String> mathMLRepresentations = new ArrayList<String>();
+	public static Map<Relation, String> extractCPSimilarFBs(Manager manager, FormalSpreadsheet spreadsheet, BuilderML builderML) {
+		Map<Relation, String> mathMLRepresentations = new HashMap<Relation, String>();
 		List<Relation> relations = manager.getAllRelations();
 		for (Relation r : relations) {
 			if (r instanceof RelationFunctional) {
@@ -70,18 +70,18 @@ public class VerificationDataExtractor {
 						}
 						domainValues.add(dv);
 					}
-					String antiunification = Util.antiunifyMathMLFormulae(formulae, domainValues);
+					String antiunification = Util.antiunifyMathMLFormulae(formulae, domainValues, builderML);
 					if (!antiunification.isEmpty()) {
-						String equatation = "<apply>\n<csymbol cd=\"spsht-arith\">equal</csymbol>\n<apply>\n<csymbol cd=\"" + 
-								Util.getCDFromURI(fbRelation.getOntologyLink().getUri()) + "\">" + Util.getSymbolFromURI(fbRelation.getOntologyLink().getUri()) +
-								"</csymbol>\n";
+						String equatation = builderML.getOperatorApplication("spsht-arith","equal") + "\n" 
+								+ builderML.getOperatorApplication(Util.getCDFromURI(fbRelation.getOntologyLink().getUri()),
+										                           Util.getSymbolFromURI(fbRelation.getOntologyLink().getUri())) + "\n";
 						int variableCounter = 0;
 						for (List<String> dv : domainValues)
 							variableCounter = java.lang.Math.max(variableCounter, dv.size());
 						for (int i = 0; i < variableCounter; i++)
-							equatation = equatation + "<ci>?X" + i + "</ci>\n";
-						equatation = equatation + "</apply>\n" + Util.untagMathObject(antiunification);
-						mathMLRepresentations.add(equatation);
+							equatation = equatation + builderML.getIdentifier("?X" + i) + "\n";
+						equatation = equatation + builderML.getApplicationEnd() + "\n" + Util.untagMathObject(antiunification, builderML);
+						mathMLRepresentations.put(r, equatation);
 					}
 				}
 			}
@@ -89,6 +89,40 @@ public class VerificationDataExtractor {
 		return mathMLRepresentations;
 	}
 	
-	
+	public static Map<CellSpaceInformation, String> extractMLFormulaRepresentations(Relation rel, Manager manager, FormalSpreadsheet spreadsheet, BuilderML builderML) {
+		Map<CellSpaceInformation, String> mlFormulaeRep = new HashMap<CellSpaceInformation, String>();
+		if (rel instanceof RelationFunctional) {
+			RelationFunctional fbRelation = (RelationFunctional) rel;
+			Block fb = fbRelation.getBlocks().get(fbRelation.getBlocks().size()-1);
+			
+			psf.SemanticMapping mapping = new psf.SemanticMapping();
+			Map<CellSpaceInformation, String> interpretation = manager.getCompleteSemanticMapping(spreadsheet);
+			for (CellSpaceInformation pos : interpretation.keySet()) 
+				mapping.add(pos.getWorksheet(), pos.getRow(), pos.getColumn(), interpretation.get(pos));
+			
+			for (CellSpaceInformation pos : fb.getCells()) {
+				String cellFormula = spreadsheet.get(pos).getFormula();
+				String mlFormulaRep = parser.parseFormula(new psf.ParserParameter(cellFormula, pos.getWorksheet(), false, true, false, true, mapping.getMapping())).getMathML();
+				
+				String equatation = builderML.getOperatorApplication("spsht-arith","equal") + "\n" 
+						+ builderML.getOperatorApplication(Util.getCDFromURI(fbRelation.getOntologyLink().getUri()),
+								                           Util.getSymbolFromURI(fbRelation.getOntologyLink().getUri())) + "\n";
+				
+				List<CellTuple> cellRelations = fbRelation.getCellRelationFor(pos);
+				if (cellRelations.size() != 1)
+					throw new java.lang.IllegalStateException("Number of cell relations for " + pos.toString() + " is not 1.");
+				
+				CellTuple cellTuple = cellRelations.get(0);
+				List<Block> domain = fbRelation.getBlocks();
+				domain.remove(domain.size()-1);
+				for (int j = 0; j < domain.size(); j++) 
+					equatation = equatation + domain.get(j).getOntologyLink().getValueInterpretation(spreadsheet.get(cellTuple.getTuple().get(j)).getValue()) + "\n";
+			
+				equatation = equatation + builderML.getApplicationEnd() + "\n" + Util.untagMathObject(mlFormulaRep, builderML);
+				mlFormulaeRep.put(pos, equatation);
+			}
+		}
+		return mlFormulaeRep;
+	}
 
 }

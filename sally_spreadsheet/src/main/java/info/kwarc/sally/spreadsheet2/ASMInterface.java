@@ -6,20 +6,24 @@ import java.util.List;
 public class ASMInterface {
 	
 	Manager manager;
+	MessageConverter messageConverter;
+	BuilderML builderML;
 	
-	public ASMInterface() {
+	public ASMInterface(BuilderML builderML) {
 		manager = new Manager();
+		messageConverter = new MessageConverter(builderML);
+		this.builderML = builderML;
 	}
 	
 	// ++ Parsing of messages that are related to blocks ++
 	
 	public void createBlockRange(sally.CreateBlockForRange msg) {
-		manager.createComposedBlock( Util.expandRange( MessageConverter.cellPositionToCellSpaceInformaiton( msg.getRange().getStartPos()),
-				MessageConverter.cellPositionToCellSpaceInformaiton(msg.getRange().getEndPos())) );		
+		manager.createComposedBlock( Util.expandRange( messageConverter.cellPositionToCellSpaceInformaiton( msg.getRange().getStartPos()),
+				messageConverter.cellPositionToCellSpaceInformaiton(msg.getRange().getEndPos())) );		
 	}
 	
 	public void createBlock(sally.CreateBlockForPositions msg) {
-		manager.createComposedBlock(MessageConverter.cellPositionsToCellSpaceInformationList(msg.getCells()));
+		manager.createComposedBlock(messageConverter.cellPositionsToCellSpaceInformationList(msg.getCells()));
 	}
 	
 	public void createComposedBlock(sally.CreateComposedBlock msg) {
@@ -27,19 +31,19 @@ public class ASMInterface {
 	}
 	
 	public sally.IDList getBlocksForPosition(sally.GetBlocksForPosition msg) {
-		return MessageConverter.integerListToIDList(Util.convertBlocksToIDs( manager.getBlocksForPosition(MessageConverter.cellPositionToCellSpaceInformaiton(msg.getPosition())) ));
+		return messageConverter.integerListToIDList(Util.convertBlocksToIDs( manager.getBlocksForPosition(messageConverter.cellPositionToCellSpaceInformaiton(msg.getPosition())) ));
 	}
 	
 	public sally.IDList getBlocksInRange(sally.GetBlocksInRange msg) {
-		return MessageConverter.integerListToIDList(Util.convertBlocksToIDs( manager.getBlocksInRange(MessageConverter.cellRangePositionToRangeInformation(msg.getRange()))));
+		return messageConverter.integerListToIDList(Util.convertBlocksToIDs( manager.getBlocksInRange(messageConverter.cellRangePositionToRangeInformation(msg.getRange()))));
 	}
 	
 	public sally.CellPositions2 getAllPositionsOfBlock(sally.GetAllPositionsOfBlock msg) {
-		return MessageConverter.cellSpaceInformationListToCellPositions(manager.getBlockByID(msg.getId()).getCells());
+		return messageConverter.cellSpaceInformationListToCellPositions(manager.getBlockByID(msg.getId()).getCells());
 	}
 	
 	public sally.IDList getSubBlocks(sally.GetSubBlocks msg) {
-		return MessageConverter.integerListToIDList(Util.convertBlocksToIDs(manager.getBlockByID(msg.getId()).getSubBlocks()));
+		return messageConverter.integerListToIDList(Util.convertBlocksToIDs(manager.getBlockByID(msg.getId()).getSubBlocks()));
 	}
 	
 	// ++ Parsing of messages that are related to relations ++
@@ -49,19 +53,19 @@ public class ASMInterface {
 	}
 	
 	public sally.IDList getRelationsForPosition(sally.GetRelationsForPosition msg) {
-		return MessageConverter.integerListToIDList(Util.convertRelationsToIDs( manager.getRelationForPosition(MessageConverter.cellPositionToCellSpaceInformaiton(msg.getPosition()) )));
+		return messageConverter.integerListToIDList(Util.convertRelationsToIDs( manager.getRelationForPosition(messageConverter.cellPositionToCellSpaceInformaiton(msg.getPosition()) )));
 	}
 	
 	public sally.CellPositionsList2 getCellRelationsForPosition(sally.GetCellRelationsForPosition msg) {
 		List<CellTuple> tupleList;
 		if (!msg.hasRelationId()) {
-			tupleList = manager.getCellRelationsForPosition(MessageConverter.cellPositionToCellSpaceInformaiton(msg.getPosition()));
+			tupleList = manager.getCellRelationsForPosition(messageConverter.cellPositionToCellSpaceInformaiton(msg.getPosition()));
 		} else {
-			tupleList = manager.getCellRelationsForPosition(MessageConverter.cellPositionToCellSpaceInformaiton(msg.getPosition()), manager.getRelationByID(msg.getRelationId()));
+			tupleList = manager.getCellRelationsForPosition(messageConverter.cellPositionToCellSpaceInformaiton(msg.getPosition()), manager.getRelationByID(msg.getRelationId()));
 		}
 		sally.CellPositionsList2.Builder tupleListMsg = sally.CellPositionsList2.newBuilder();
 		for (CellTuple tuple : tupleList)
-			tupleListMsg.addCellPositionsList(MessageConverter.cellSpaceInformationListToCellPositions(tuple.getTuple()));
+			tupleListMsg.addCellPositionsList(messageConverter.cellSpaceInformationListToCellPositions(tuple.getTuple()));
 		return tupleListMsg.build();
 	}
 	
@@ -70,13 +74,13 @@ public class ASMInterface {
 	public void createOntologyBlockLink(sally.CreateOntologyBlockLink msg) {
 		List<ValueInterpretation> valueInterpretations = new ArrayList<ValueInterpretation>();
 		for (sally.ValueInterpretation vi : msg.getValueInterpretationsList())
-			valueInterpretations.add(MessageConverter.valueInterpretationMsgToObj(vi));
+			valueInterpretations.add(messageConverter.valueInterpretationMsgToObj(vi));
 		manager.getBlockByID(msg.getBlockId()).setOntologyLink(new OntologyBlockLink(msg.getUri(), valueInterpretations));
 	}
 	
 	public void createOntologyRelationLink(sally.CreateOntologyRelationLink msg) {
 		manager.getRelationByID(msg.getId()).setOntologyLink(new OntologyRelationLink(msg.getUri(), msg.getMathMLTemplate(),
-				Util.convertBlocksToOntologyLinks(Util.convertIDsToBlocks(msg.getBlockIdsList(), manager))));
+				Util.convertBlocksToOntologyLinks(Util.convertIDsToBlocks(msg.getBlockIdsList(), manager)),builderML));
 	}
 	
 	public sally.StringMessage getUriForBlock(sally.GetUriForBlock msg) {

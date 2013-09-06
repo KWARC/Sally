@@ -4,10 +4,11 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class ValueInterpretation {
+public class ValueInterpretation {
 	
 	Pattern valuePattern;
 	final String interpretationTemplate;
+	final BuilderML builderML;
 	
 	
 	/**
@@ -16,7 +17,7 @@ class ValueInterpretation {
 	 * @param subExpressions Each identifier #id in patternStr can be described by a regular expression, e.g. \d for a digit or \p{Alpha}+ for a non empty text.
 	 * @param interpretationTemplate A MathML template that can refer the identifiers from patternstr by rvar, e.g. <apply><csymbol>times</csymbol><ci><rvar num="1"/></ci><ci>1000000</ci></apply>
 	 */
-	public ValueInterpretation(String patternStr, Map<Integer, String> subExpressions, String interpretationTemplate) {
+	public ValueInterpretation(String patternStr, Map<Integer, String> subExpressions, String interpretationTemplate, BuilderML builderML) {
 		// Generating pattern for value parsing
 		for (Integer id : subExpressions.keySet()) {
 			String escapedSubExpr =  subExpressions.get(id).replace("\\", "\\\\");
@@ -24,6 +25,7 @@ class ValueInterpretation {
 		}
 		this.valuePattern = Pattern.compile(patternStr);
 		this.interpretationTemplate = interpretationTemplate;
+		this.builderML = builderML;
 	}
 	
 	public Boolean isInterpretable(String value) {
@@ -36,7 +38,7 @@ class ValueInterpretation {
 		if (matcher.matches()) {
 			String interpretation = interpretationTemplate;
 			for (int i = 1; i <= matcher.groupCount(); i++) {
-				interpretation = interpretation.replaceAll("<rvar num=\"" + i + "\"/>", matcher.group(i));
+				interpretation = interpretation.replaceAll(builderML.getVIVaribale(i), matcher.group(i));
 			}
 			return interpretation;
 		} else

@@ -13,6 +13,7 @@ public class UtilTest {
 	Manager manager;
 	FormalSpreadsheet spreadsheet;
 	psf.ParserInterface parser;
+	BuilderML mlBuilder;
 
 	
 	@Before
@@ -21,6 +22,7 @@ public class UtilTest {
 		manager = winData.getManager();
 		spreadsheet = winData.getSpreadsheet();
 		parser = new psf.ParserInterface();
+		mlBuilder = new BuilderMathML();
 	}
 
 	@Test
@@ -76,7 +78,7 @@ public class UtilTest {
 		dv4.add(manager.getBlocksForPosition(positionTotal).get(0).getOntologyLink().getValueInterpretation(spreadsheet.get(positionTotal).getValue()) );
 		domainValues.add(dv4);
 		
-		String antiunificationResult = Util.antiunifyMathMLFormulae(formulae, domainValues);
+		String antiunificationResult = Util.antiunifyMathMLFormulae(formulae, domainValues, mlBuilder);
 		//System.out.println("Antiunification: \n " + antiunificationResult);
 
 		assertEquals(520, antiunificationResult.length());	
@@ -90,12 +92,12 @@ public class UtilTest {
 	
 	@Test
 	public void testTagAsMathObject() {
-		assertEquals("<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n  <apply>test</apply>\n</math>\n", Util.tagAsMathObject("  <apply>test</apply>\n"));
+		assertEquals("<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n  <apply>test</apply>\n</math>\n", Util.tagAsMathMLObject("  <apply>test</apply>\n",mlBuilder));
 	}
 	
 	@Test
 	public void testUntagMathObject() {
-		assertEquals("  <apply>test</apply>\n", Util.untagMathObject(Util.tagAsMathObject("  <apply>test</apply>\n")));
+		assertEquals("  <apply>test</apply>\n", Util.untagMathObject(Util.tagAsMathMLObject("  <apply>test</apply>\n",mlBuilder),mlBuilder));
 	}
 	
 	@Test

@@ -3,7 +3,7 @@ package info.kwarc.sally.spreadsheet2;
 import java.util.ArrayList;
 import java.util.List;
 
-class BlockAtomic extends Block {
+public class BlockAtomic extends Block {
 	
 	CellSpaceInformation position;
 	

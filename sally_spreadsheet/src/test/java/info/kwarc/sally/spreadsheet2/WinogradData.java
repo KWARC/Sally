@@ -12,8 +12,11 @@ public class WinogradData {
 	FormalSpreadsheet spreadsheet;
 	Block year, cost, dataInput, dataCalc;
 	Relation relationInput, relationCalc;
+	BuilderML builderML;
 	
 	public WinogradData() {
+		builderML = new BuilderMathML();
+		
 		// Setting up formal Spreadsheet
 		spreadsheet = new FormalSpreadsheet();
 		
@@ -82,31 +85,31 @@ public class WinogradData {
  		// Setting up the ontology linking
  		Map<Integer, String> subExpressions = new HashMap<Integer,String>();
 		subExpressions.put(new Integer(1), "\\d+");
-		ValueInterpretation vi = new ValueInterpretation("#1", subExpressions, "<ci>Year <rvar num=\"1\"/> AD</ci>");
+		ValueInterpretation vi = new ValueInterpretation("#1", subExpressions, "<ci>Year <rvar num=\"1\"/> AD</ci>", builderML);
 		year.setOntologyLink(new OntologyBlockLink("omdoc://winograd#Years", vi));
 		
 		Map<Integer, String> subExpressions2 = new HashMap<Integer,String>();
 		subExpressions2.put(new Integer(1), "\\p{Alpha}+");
-		ValueInterpretation vi2 = new ValueInterpretation("#1", subExpressions2, "<ci>Costtype: <rvar num=\"1\"/></ci>");
+		ValueInterpretation vi2 = new ValueInterpretation("#1", subExpressions2, "<ci>Costtype: <rvar num=\"1\"/></ci>", builderML);
 		cost.setOntologyLink(new OntologyBlockLink("omdoc://winograd#Costs", vi2));
 		
 		Map<Integer, String> subExpressions3 = new HashMap<Integer,String>();
 		subExpressions3.put(new Integer(1), "\\d+\\.\\d+");
-		ValueInterpretation vi3 = new ValueInterpretation("#1", subExpressions3, "<apply><csymbol>times</csymbol><ci>1000000</ci><ci><rvar num=\"1\"/></ci></apply>");
+		ValueInterpretation vi3 = new ValueInterpretation("#1", subExpressions3, "<apply><csymbol>times</csymbol><ci>1000000</ci><ci><rvar num=\"1\"/></ci></apply>", builderML);
 		dataInput.setOntologyLink(new OntologyBlockLink("omdoc://winograd#CostsPerYear", vi3));
 		
 		blocksInput.remove(blocksInput.size()-1);
 		relationInput.setOntologyLink( new OntologyRelationLink("omdoc://winograd#ExpensesPerYear",
-				"<apply><cymbol cd=\"LocalDomain\">Expenses per Year</csymbol><rvar num=\"1\"/><rvar num=\"2\"/></apply>", Util.convertBlocksToOntologyLinks(blocksInput)));
+				"<apply><cymbol cd=\"LocalDomain\">Expenses per Year</csymbol><rvar num=\"1\"/><rvar num=\"2\"/></apply>", Util.convertBlocksToOntologyLinks(blocksInput),builderML));
 		
 		Map<Integer, String> subExpressions4 = new HashMap<Integer,String>();
 		subExpressions4.put(new Integer(1), "\\d+\\.\\d+");
-		ValueInterpretation vi4 = new ValueInterpretation("#1", subExpressions4, "<apply><csymbol>times</csymbol><ci>1000000</ci><ci><rvar num=\"1\"/></ci></apply>");
+		ValueInterpretation vi4 = new ValueInterpretation("#1", subExpressions4, "<apply><csymbol>times</csymbol><ci>1000000</ci><ci><rvar num=\"1\"/></ci></apply>", builderML);
 		dataCalc.setOntologyLink(new OntologyBlockLink("omdoc://winograd#CostsPerYear", vi4));
 		
 		blocksCalc.remove(blocksCalc.size()-1);
 		relationCalc.setOntologyLink( new OntologyRelationLink("omdoc://winograd#ExpensesPerYear",
-				"<apply><cymbol cd=\"LocalDomain\">Expenses per Year</csymbol><rvar num=\"1\"/><rvar num=\"2\"/></apply>", Util.convertBlocksToOntologyLinks(blocksCalc)));
+				"<apply><cymbol cd=\"LocalDomain\">Expenses per Year</csymbol><rvar num=\"1\"/><rvar num=\"2\"/></apply>", Util.convertBlocksToOntologyLinks(blocksCalc),builderML));
 	}
 
 	public Manager getManager() {

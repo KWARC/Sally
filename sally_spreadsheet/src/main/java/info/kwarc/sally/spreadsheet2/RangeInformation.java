@@ -1,6 +1,6 @@
 package info.kwarc.sally.spreadsheet2;
 
-class RangeInformation {
+public class RangeInformation {
 	String worksheet;
 	int startRow, endRow, startCol, endCol;
 	

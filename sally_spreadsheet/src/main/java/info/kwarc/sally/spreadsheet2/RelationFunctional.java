@@ -6,7 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class RelationFunctional extends Relation {
+public class RelationFunctional extends Relation {
 	List<CellTuple> cellRelations;
 	
 	final Logger logger = LoggerFactory.getLogger(RelationFunctional.class);

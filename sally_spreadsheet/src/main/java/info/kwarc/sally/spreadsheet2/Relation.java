@@ -3,7 +3,7 @@ package info.kwarc.sally.spreadsheet2;
 import java.util.ArrayList;
 import java.util.List;
 
-abstract class Relation {
+public abstract class Relation {
 	
 	int id;
 	List<Block> blocks;

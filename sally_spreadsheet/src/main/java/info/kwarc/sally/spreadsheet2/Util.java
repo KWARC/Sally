@@ -8,13 +8,13 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class Util {
+public class Util {
 	
 	static Pattern omdocUriPattern = Pattern.compile("omdoc://(.+)#(.+)");
-
+	static Pattern cellAddressPattern = Pattern.compile("([A-Z]+)([0-9]+)");
+	
 	public static CellSpaceInformation convertCellPosition(String position)  {
-		Pattern p = Pattern.compile("([A-Z]+)([0-9]+)");
-		Matcher m = p.matcher(position);
+		Matcher m = cellAddressPattern.matcher(position);
 
 		if (m.find()) {
 			return new CellSpaceInformation(Integer.parseInt(m.group(2))-1, convertRangeCharacter(m.group(1)));
@@ -157,7 +157,7 @@ class Util {
 		return ids;
 	}
 	
-	public static String antiunifyMathMLFormulae(List<String> formulae, List<List<String>> domainValues) {
+	public static String antiunifyMathMLFormulae(List<String> formulae, List<List<String>> domainValues, BuilderML ml) {
 		if (formulae.size() != domainValues.size())
 			return "";
 		
@@ -167,7 +167,7 @@ class Util {
 			String formula = formulae.get(i);
 			Map<String, String> replacements = new HashMap<String, String>();
 			for (int j = 0; j < domainValues.get(i).size(); j++) 
-				replacements.put(domainValues.get(i).get(j), "<ci>?X" + j + "</ci>");
+				replacements.put(domainValues.get(i).get(j), ml.getIdentifier("?X" + j));
 			
 			for (String semObj : replacements.keySet())
 				formula = formula.replace(semObj, replacements.get(semObj));
@@ -183,16 +183,16 @@ class Util {
 			return "";
 	}
 	
-	public static String tagAsMathObject(String s) {
-		return "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + s + "</math>\n";
+	public static String tagAsMathMLObject(String s, BuilderML ml) {
+		return ml.getMathTagBegin() + "\n" + s + ml.getMathTagEnd() + "\n";
 	}
 	
-	public static String untagMathObject(String s) {
-		return s.replace("<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\r\n", "")
-				.replace("<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n", "")
-				.replace("</math>\r\n","")
-				.replace("</math>\n","")
-				.replace("</math>","");
+	public static String untagMathObject(String s, BuilderML ml) {
+		return s.replace(ml.getMathTagBegin() + "\r\n", "")
+				.replace(ml.getMathTagBegin() + "\n", "")
+				.replace(ml.getMathTagEnd() + "\r\n","")
+				.replace(ml.getMathTagEnd() + "\n","")
+				.replace(ml.getMathTagEnd(), "");
 	}
 	
 	public static String getCDFromURI(String uri) {

@@ -2,7 +2,7 @@ package info.kwarc.sally.spreadsheet2;
 
 import java.util.List;
 
-abstract class Block {
+abstract public class Block {
 	
 	int id;
 	OntologyBlockLink ontologyLink;

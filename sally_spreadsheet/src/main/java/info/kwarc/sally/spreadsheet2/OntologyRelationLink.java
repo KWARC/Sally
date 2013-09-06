@@ -3,16 +3,18 @@ package info.kwarc.sally.spreadsheet2;
 import java.util.ArrayList;
 import java.util.List;
 
-class OntologyRelationLink {
+public class OntologyRelationLink {
 	String uri;
-	final String mathMLTemplate;
+	final String mlTemplate;
 	List<OntologyBlockLink> blockLinks;
+	BuilderML builderML;
 	
-	public OntologyRelationLink(String uri, String mathMLTemplate, List<OntologyBlockLink> blockLinks) {
+	public OntologyRelationLink(String uri, String mlTemplate, List<OntologyBlockLink> blockLinks, BuilderML builderML) {
 		super();
 		this.uri = uri;
-		this.mathMLTemplate = mathMLTemplate;
+		this.mlTemplate = mlTemplate;
 		this.blockLinks = new ArrayList<OntologyBlockLink>(blockLinks);
+		this.builderML = builderML;
 	}
 
 	public String getUri() {
@@ -24,12 +26,12 @@ class OntologyRelationLink {
 		if (blockLinks.size() != values.size())
 			throw new java.lang.IllegalArgumentException("Relation size is different than the number of arguments.");
 		
-		String mathMLInterpretation = mathMLTemplate;
+		String mlInterpretation = mlTemplate;
 		for (int i = 0; i < values.size(); i++) {
-			mathMLInterpretation = mathMLInterpretation.replace("<rvar num=\"" + (i+1) + "\"/>", blockLinks.get(i).getValueInterpretation(values.get(i)));
+			mlInterpretation = mlInterpretation.replace(builderML.getVIVaribale(i+1), blockLinks.get(i).getValueInterpretation(values.get(i)));
 		}
 		
-		return mathMLInterpretation;
+		return mlInterpretation;
 	}
 	
 }
