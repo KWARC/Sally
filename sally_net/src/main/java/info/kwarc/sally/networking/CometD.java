@@ -3,7 +3,6 @@ package info.kwarc.sally.networking;
 import info.kwarc.sally.networking.interfaces.IConnectionManager;
 import info.kwarc.sally.networking.interfaces.IMessageCallback;
 import info.kwarc.sally.networking.interfaces.INetworkSender;
-import info.kwarc.sally.networking.interfaces.INetworkSenderAdapter;
 
 import java.util.EnumSet;
 import java.util.HashSet;
@@ -33,23 +32,50 @@ import com.github.jucovschi.ProtoCometD.CommunicationContext;
 import com.github.jucovschi.ProtoCometD.ProtoService;
 import com.github.jucovschi.ProtoCometD.ProtoUtils;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 import com.google.inject.servlet.GuiceFilter;
 import com.google.protobuf.AbstractMessage;
 
 @Singleton
-public class CometD implements Provider<INetworkSenderAdapter> {
+public class CometD {
 	int port;
 	Server server;
 	CometdServlet cometdServlet;
 	IConnectionManager connManager;
 	LocalSession localSession;
 	
-	INetworkSenderAdapter adapter = new INetworkSenderAdapter() {		
-		@Override
-		public INetworkSender create(final String clientID) {
+	Logger log;
+
+	@Inject
+	public CometD(@Named("SallyPort") int port, IConnectionManager connManager) {
+		this.port = port;
+		log = LoggerFactory.getLogger(CometD.class);
+		this.connManager = connManager;
+	}
+
+	BayeuxServerImpl getBayeux() {
+		return cometdServlet.getBayeux();
+	}
+
+	class CometDProtoService extends ProtoService {
+		IConnectionManager connManager;
+		HashSet<String> clients;
+
+		public CometDProtoService(BayeuxServer bayeux, String name, IConnectionManager connManager) {
+			super(bayeux, name);
+			this.connManager = connManager;
+
+			clients = new HashSet<String>();
+
+			addService("/service/**", CommunicationCallback.newBuilder().allowMessages(AbstractMessage.class).build("forward", this));
+
+			addService(Channel.META_CONNECT, "onConnect");
+			addService(Channel.META_DISCONNECT, "onDisconnect");
+
+		}
+		
+		public INetworkSender getNetworkSender(final String clientID) {
 			return new INetworkSender() {
 				
 				@Override
@@ -64,52 +90,22 @@ public class CometD implements Provider<INetworkSenderAdapter> {
 				}
 			};
 		}
-	};
-	
-	Logger log;
-	
-	@Inject
-	public CometD(@Named("SallyPort") int port, IConnectionManager connManager) {
-		this.port = port;
-		log = LoggerFactory.getLogger(CometD.class);
-		this.connManager = connManager;
-	}
-	
-	BayeuxServerImpl getBayeux() {
-		return cometdServlet.getBayeux();
-	}
-
-	class CometDProtoService extends ProtoService {
-		IConnectionManager connManager;
-		HashSet<String> clients;
-		
-		public CometDProtoService(BayeuxServer bayeux, String name, IConnectionManager connManager) {
-			super(bayeux, name);
-			this.connManager = connManager;
-			
-			clients = new HashSet<String>();
-			
-			addService("/service/**", CommunicationCallback.newBuilder().allowMessages(AbstractMessage.class).build("forward", this));
-			
-			addService(Channel.META_CONNECT, "onConnect");
-			addService(Channel.META_DISCONNECT, "onDisconnect");
-
-		}
 
 		public AbstractMessage forward(ServerSession remote, final AbstractMessage msg, CommunicationContext context) {
 			if (!clients.contains(remote.getId())) {
 				log.debug("client "+remote.getId()+" connected");
-				connManager.newClient(remote.getId());
+				String clientID = remote.getId();
+				connManager.newClient(clientID, getNetworkSender(clientID));
 				clients.add(remote.getId());
 			}
 			log.debug(String.format("--> [%s]: %s", context.getChannel(), msg.getClass().getName()));
 			connManager.newMessage(remote.getId(), msg);
 			return null;
 		}
-		
+
 		public void onConnect(ServerSession cometd, Map<String, Object> data) {
 		}
-		
+
 		public void onDisconnect(ServerSession remote, Map<String, Object> data) {
 			log.debug(remote.getId()+" disconnected");
 			this.connManager.disconnect(remote.getId());
@@ -143,11 +139,11 @@ public class CometD implements Provider<INetworkSenderAdapter> {
 		server.setHandler(handlers);
 
 		cometdServlet = new CometdServlet();
-		
+
 		context.addServlet(new ServletHolder(cometdServlet),"/cometd/*");
 		context.addFilter(GuiceFilter.class, "/sally/*", EnumSet.allOf(DispatcherType.class));
 		context.addServlet(new ServletHolder(new DefaultServlet()), "/*");
-		
+
 		new Thread(new CometDThread()).start();
 		while (cometdServlet.getBayeux() == null) {
 			try {
@@ -157,7 +153,7 @@ public class CometD implements Provider<INetworkSenderAdapter> {
 				e.printStackTrace();
 			}
 		}
-		
+
 		new CometDProtoService(getBayeux(), "", connManager);
 		localSession = getBayeux().newLocalSession("Sally");
 		localSession.handshake();
@@ -175,7 +171,7 @@ public class CometD implements Provider<INetworkSenderAdapter> {
 		}
 	}
 
-	private void _sendMessage(String clientID, String channel, AbstractMessage msg) {
+	public void _sendMessage(String clientID, String channel, AbstractMessage msg) {
 		Map<String, Object> data = ProtoUtils.prepareProto(msg);		
 		ServerSession sess = getBayeux().getSession(clientID);
 		if (sess == null) {
@@ -184,25 +180,19 @@ public class CometD implements Provider<INetworkSenderAdapter> {
 		}
 		sess.deliver(localSession, channel, data, "6");
 	}
-	
-	private void _sendMessage(String clientID, String channel, AbstractMessage msg, IMessageCallback callback) {
+
+	public void _sendMessage(String clientID, String channel, AbstractMessage msg, IMessageCallback callback) {
 		Map<String, Object> data = ProtoUtils.prepareProto(msg);		
 		ServerSession sess = getBayeux().getSession(clientID);
 		if (sess == null) {
 			log.error(("Session "+clientID+" does not exist"));
 			return;
 		}
-		
+
 		try {
 			sess.deliver(sess, channel, data, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-	}
-
-	@Override
-	public INetworkSenderAdapter get() {
-		return adapter;
 	}
 }

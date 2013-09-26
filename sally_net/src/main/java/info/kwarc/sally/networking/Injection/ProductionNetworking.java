@@ -1,9 +1,7 @@
 package info.kwarc.sally.networking.Injection;
 
-import info.kwarc.sally.networking.CometD;
 import info.kwarc.sally.networking.TemplateEngine;
 import info.kwarc.sally.networking.interfaces.IConnectionPlayerFactory;
-import info.kwarc.sally.networking.interfaces.INetworkSenderAdapter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +18,7 @@ public class ProductionNetworking extends ServletModule {
 	protected void configureServlets() {
         bind(GuiceFilter.class).asEagerSingleton();
 
-        bind(INetworkSenderAdapter.class).toProvider(CometD.class);
+        //bind(INetworkSenderAdapter.class).toProvider(CometD.class);
         
 		install(new FactoryModuleBuilder()
 		.build(IConnectionPlayerFactory.class));	

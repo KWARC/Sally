@@ -3,7 +3,7 @@ package info.kwarc.sally.tasks;
 import info.kwarc.sally.ProcessDocMappings;
 import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.core.interfaces.SallyTask;
-import info.kwarc.sally.networking.interfaces.INetworkSenderAdapter;
+import info.kwarc.sally.networking.interfaces.INetworkSender;
 import info.kwarc.sally.spreadsheet.interfaces.WorksheetFactory;
 import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
@@ -37,17 +37,15 @@ public class CreateDoc implements WorkItemHandler {
 	ISallyKnowledgeBase kb;
 	ProcessDocMappings docMap;
 	Logger log;
-	INetworkSenderAdapter adapter;
 
 	@Inject
-	public CreateDoc(CADFactory cadFactory, WorksheetFactory spreadsheetFactory, SallyInteraction interaction, ISallyKnowledgeBase kb, ProcessDocMappings docMap, INetworkSenderAdapter adapter) {
+	public CreateDoc(CADFactory cadFactory, WorksheetFactory spreadsheetFactory, SallyInteraction interaction, ISallyKnowledgeBase kb, ProcessDocMappings docMap) {
 		this.cadFactory = cadFactory;
 		this.spreadsheetFactory = spreadsheetFactory;
 		this.interaction = interaction;
 		this.kb = kb;
 		this.docMap = docMap;
 		this.log = LoggerFactory.getLogger(this.getClass());
-		this.adapter = adapter;
 	}
 
 	@Override
@@ -60,10 +58,10 @@ public class CreateDoc implements WorkItemHandler {
 		AlexData alexData = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), AlexData.class);
 		
 		Map<String, Object> variable = HandlerUtils.getProcessVariables(kb.getProcessInstance(workItem.getProcessInstanceId()));
-		String connectionID = HandlerUtils.safeGet(variable, "ConnectionIDInput", String.class);		
+		INetworkSender networkSender = HandlerUtils.safeGet(variable, "NetworkSender", INetworkSender.class);		
 		try{
-			if (connectionID == null)
-				throw new Exception("No conneciton ID available.");
+			if (networkSender == null)
+				throw new Exception("No network sender available.");
 				
 			if (alexInfo == null)
 				throw new Exception("No WhoAmI object passed to document creation. Aborting document creation.");
@@ -77,13 +75,13 @@ public class CreateDoc implements WorkItemHandler {
 
 			if (alexInfo.getDocumentType() == DocType.Spreadsheet) {
 				SpreadsheetModel rr = SpreadsheetModel.parseFrom(res);
-				processInput = spreadsheetFactory.create(alexData.getFileName(), rr, adapter.create(connectionID));
+				processInput = spreadsheetFactory.create(alexData.getFileName(), rr, networkSender);
 				params.put("ASMInput", processInput);
 				processId = "Sally.spreadsheet";
 			}
 			if (alexInfo.getDocumentType() == DocType.CAD) {
 				CADSemanticData rr = CADSemanticData.parseFrom(res);
-				processInput = cadFactory.create(alexData.getFileName(), rr, adapter.create(connectionID));
+				processInput = cadFactory.create(alexData.getFileName(), rr, networkSender);
 				params.put("CSMInput", processInput);
 				processId = "Sally.cad";
 			}
@@ -103,7 +101,5 @@ public class CreateDoc implements WorkItemHandler {
 		} finally {
 			manager.completeWorkItem(workItem.getId(), null);
 		}
-
-
 	}
 }

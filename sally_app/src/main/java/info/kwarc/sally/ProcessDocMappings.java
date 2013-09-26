@@ -19,7 +19,6 @@ public class ProcessDocMappings {
 			ref = new HashMap<String, Long>();
 			docMap.put(parentProcessID, ref);
 		}
-		
 		ref.put(fileName, docProcessID);
 	}
 	

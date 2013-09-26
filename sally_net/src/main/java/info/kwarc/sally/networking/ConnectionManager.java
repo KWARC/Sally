@@ -22,15 +22,17 @@ public class ConnectionManager implements IConnectionManager {
 	Logger log;
 
 	HashMap<String, ProcessInstance> sessions;
+	HashMap<String, INetworkSender> senders;
 	HashMap<Long, String> processToSession;
 	ISallyKnowledgeBase knowledgeBase;
 	
 	@Inject
-	public ConnectionManager(ISallyKnowledgeBase knowledgeBase) throws Exception {
+	public ConnectionManager(ISallyKnowledgeBase knowledgeBase) {
 		this.knowledgeBase = knowledgeBase;
 		sessions = new HashMap<String, ProcessInstance>();
 		log = LoggerFactory.getLogger(this.getClass());
 		processToSession = new HashMap<Long, String>();
+		senders = new HashMap<String, INetworkSender>();
 	}
 	
 	@Provides
@@ -46,14 +48,15 @@ public class ConnectionManager implements IConnectionManager {
 	 * @see info.kwarc.sally.networking.IConnectionManager#newClient(java.lang.String)
 	 */
 	@Override
-	public void newClient(String clientID) {
+	public void newClient(String clientID, INetworkSender sender) {
 		if (sessions.containsKey(clientID))
 			return;
 		HashMap<String, Object> params = new HashMap<String, Object>();
-		params.put("ConnectionIDInput", clientID);
+		params.put("NetworkSender", sender);
 		ProcessInstance instance = knowledgeBase.startProcess(null, "Sally.connect", params);
 		processToSession.put(instance.getId(), clientID);
 		sessions.put(clientID, instance);
+		senders.put(clientID, sender);
 	}
 	
 	/* (non-Javadoc)
@@ -68,7 +71,7 @@ public class ConnectionManager implements IConnectionManager {
 		}
 		BPMNUtils.sendMessageOrForward(sess, type, data);
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see info.kwarc.sally.networking.IConnectionManager#newMessage(java.lang.String, com.google.protobuf.AbstractMessage)
 	 */
@@ -85,4 +88,14 @@ public class ConnectionManager implements IConnectionManager {
 		
 	}
 
+	@Override
+	public void onSendMessage(String clientID, String channel,
+			AbstractMessage msg) {
+		INetworkSender sender = senders.get(clientID);
+		if (sender == null) {
+			log.debug("Unable to send message to unexisting client " + clientID);
+			return;
+		}
+		sender.sendMessage(channel, msg);
+	}
 }

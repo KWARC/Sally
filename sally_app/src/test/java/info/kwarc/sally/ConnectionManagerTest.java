@@ -3,6 +3,7 @@ package info.kwarc.sally;
 import info.kwarc.sally.injection.Configuration;
 import info.kwarc.sally.networking.ConnectionManager;
 import info.kwarc.sally.networking.interfaces.IConnectionManager;
+import info.kwarc.sally.networking.interfaces.MockNetworkSender;
 import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
 import info.kwarc.sissi.bpm.injection.TestableKnowledeBase;
 import info.kwarc.sissi.bpm.tasks.TestCounterHandler;
@@ -42,7 +43,7 @@ public class ConnectionManagerTest extends JbpmJUnitTestCase {
 		kb.registerWorkItemHandler("InitTheo", cntInit);
 		kb.registerWorkItemHandler("CreateDoc", cntCreateDoc);
 		
-		c.newClient("user");
+		c.newClient("user", new MockNetworkSender());
 		c.newMessage("user", "Message-WhoAmI", "Spreadsheet");
 		c.newMessage("user", "Message-AlexData", "a.xls");
 		c.newMessage("user", "Message-AlexData", "b.xls");
@@ -66,8 +67,8 @@ public class ConnectionManagerTest extends JbpmJUnitTestCase {
 		kb.registerWorkItemHandler("InitTheo", cntInit);
 		kb.registerWorkItemHandler("CreateDoc", cntCreateDoc);
 		
-		c.newClient("user1");
-		c.newClient("user2");
+		c.newClient("user1", new MockNetworkSender());
+		c.newClient("user2", new MockNetworkSender());
 		c.newMessage("user1", "Message-WhoAmI", "Spreadsheet");
 		c.newMessage("user2", "Message-WhoAmI", "Spreadsheet");
 		c.newMessage("user1", "Message-AlexData", "a.xls");
@@ -91,7 +92,7 @@ public class ConnectionManagerTest extends JbpmJUnitTestCase {
 	public void testForwarding() {
 		IConnectionManager c = i.getInstance(ConnectionManager.class);
 		ISallyKnowledgeBase kb = i.getInstance(ISallyKnowledgeBase.class);
-		c.newClient("user1");
+		c.newClient("user1", new MockNetworkSender());
 
 		TestCounterHandler cntInit = new TestCounterHandler();
 		TestCounterHandler cntCreateDoc = new TestCounterHandler();
