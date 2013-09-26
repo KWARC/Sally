@@ -648,3 +648,226 @@ message TextAutocomplete {
 	required int32 offset = 2;
 	optional string fileContents = 3;
 }
+
+
+// ----------------------------------------------
+// ---------- New Spreadsheet Messages ----------
+// ----------------------------------------------
+
+// ++++ Basic communication Messages ++++
+
+message CellPosition2 {
+	required string sheet = 1;
+	required int32 row = 2;
+	required int32 col = 3;
+}
+
+message CellPositions2 {
+	repeated CellPosition2 cellPositions = 1;
+}
+
+message CellPositionsList2 {
+	repeated CellPositions2 cellPositionsList = 1;
+}
+
+message CellRangePosition2 {
+	required CellPosition2 startPos = 1;
+	required CellPosition2 endPos = 2;
+}
+
+message StringMessage {				// Mostly used for URI lookup and value interpretation
+	required string data = 1;
+}
+
+message IDMessage {					// Used for id-only replays. Not used within other messages to store a id.
+	required int32 id = 1;
+}
+
+message IDList {					// Used for id-only replays. Not used within other messages to store ids.
+	repeated int32 ids = 1;
+}
+
+message IntegerStringPair {
+	required int32 id = 1;
+	required string value = 2;
+}
+
+message IntegerStringMapping {
+	repeated IntegerStringPair pair = 1;
+}
+
+// ++++ Messages to represent a spreadsheet with optional layout information
+
+message BorderLine2 {
+	required int64 borderColor = 1;
+	required int32 formatStyle = 2;
+		// Excel <=> 0
+ 		// OpenOffice <=> 1
+
+	optional int32 excelBorderStyle = 3;
+		// NONE <=> 0;
+		// CONTINUOUS <=> 1;
+		// DASH <=> 2;
+		// DASH_DOT <=> 3;
+		// DASH_DOT_DOT <=> 4;
+		// DOT <=> 5;
+		// DOUBLE <=> 6;
+		// SLANT_DASH_DOT <=> 7;
+
+	optional int32 excelBorderWeight = 4;
+		//HAIRLINE <=> 0;
+		//THIN <=> 1;
+		//MEDIUM <=> 2;
+		//THICK <=> 3;
+
+	optional int32 ooInnerLineWidth = 5;
+	optional int32 ooOuterLineWidth = 6;
+	optional int32 ooLineDistance = 7;
+}
+
+message CellBorder2 {
+	optional BorderLine2 top = 1;
+	optional BorderLine2 bottom = 2;
+	optional BorderLine2 left = 3;
+	optional BorderLine2 right = 4;
+}
+
+message Font2 {
+	required string fontName = 1;
+	required int32 fontColor = 2;
+	required float fontSize = 3;
+	optional bool isItalic = 4;
+	optional bool isBold = 5;
+	optional bool isUnderlined = 6;
+}
+
+message CellSize2 {
+	required int32 cellHeight = 1;
+	required int32 cellWidth = 2;
+}
+
+message LayoutInformation2 {
+	required int32 backColor = 1;
+	required CellBorder2 border = 2;
+	optional Font2 font = 3;
+	optional CellSize2 cellSize = 4;
+}
+
+message CellData2 {
+	required CellPosition2 position = 1;
+	required string formula = 2;
+	required string value = 3;
+	optional LayoutInformation2 layout = 4;
+}
+
+message SheetData2 {
+	required CellRangePosition2 range = 1;
+    repeated CellData2 cellData = 2;
+}
+
+message DocumentData2 {
+    required string filename = 1;
+    repeated SheetData2 sheets = 2;
+}
+
+message ParsingParameter2 {
+	required bool useTextAsLegend = 1;
+	required bool useColorAsStructure = 2;
+	required bool useBorderAsStructure = 3;
+	required bool useFontAsStructure = 4;
+}
+
+message ParsingMessage2 {
+	required DocumentData2 document = 1;
+	required ParsingParameter2 parameter = 2;
+}
+
+// ++++ Messages to create,access or manipulate the abstract spreadsheet model ++++
+
+// ++ Messages related to blocks ++
+
+message CreateBlockForRange {
+	required CellRangePosition2 range = 1;
+}
+
+message CreateBlockForPositions {
+	required CellPositions2 cells = 1;
+}
+
+message CreateComposedBlock {
+	repeated int32 blockIds = 1;
+}
+
+message GetBlocksForPosition {
+	required CellPosition2 position = 1;
+}
+
+message GetBlocksInRange {
+	required CellRangePosition2 range = 1;
+}
+
+message GetAllPositionsOfBlock {
+	required int32 id = 1;
+}
+
+message GetSubBlocks {
+	required int32 id = 1;
+}
+
+// ++ Messages related to blockrelations ++
+
+message CreateFunctionalRelation {		// Antiunified formula or something similar ?
+	repeated int32 blockIds = 1;
+}
+
+message GetRelationsForPosition {
+	required CellPosition2 position = 1;
+}
+
+message GetCellRelationsForPosition {
+	required CellPosition2 position = 1;
+	optional int32 relationId = 2;
+}
+
+// ++ Messages related to ontology links ++
+
+message ValueInterpretation {
+	required string patternString = 1;
+	required IntegerStringMapping subExpressions = 2;
+	required string interpretationTemplate = 3;
+}
+
+message CreateOntologyBlockLink {
+	required int32 blockId = 1;
+	required string uri = 2;
+	repeated ValueInterpretation valueInterpretations = 3;
+}
+
+message CreateOntologyRelationLink {
+	required int32 id = 1;
+	required string uri = 2;
+	required string mathMLTemplate = 3;
+	repeated int32 blockIds = 4;
+}
+
+message GetUriForBlock {
+	required int32 blockID = 1;
+}
+
+message GetValueInterpretation {
+	required int32 blockID = 1;
+	required string value = 2;
+}
+
+message GetUriForRelation {
+	required int32 relationID = 1;
+}
+
+message GetIntendedFunctionForValues {
+	required int32 relationID = 1;
+	repeated string values = 2;
+}
+
+// ++ Messages related to serialization ++
+
+// TODO

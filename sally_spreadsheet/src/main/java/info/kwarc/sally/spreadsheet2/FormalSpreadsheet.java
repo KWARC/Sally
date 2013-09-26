@@ -94,8 +94,8 @@ public class FormalSpreadsheet {
 		return new ArrayList<CellSpaceInformation>(data.keySet());
 	}
 	
-	public void setContent(CellSpaceInformation position, String value, ContentValueType valueType) {
-		data.put(position, new FormalSsElement(position, value, valueType) );
+	public void setContent(CellSpaceInformation position, String value, String formula, ContentValueType valueType) {
+		data.put(position, new FormalSsElement(position, value, formula, valueType) );
 		id++;
 		if (!worksheets.contains( position.getWorksheet()))
 			worksheets.add(position.getWorksheet());
