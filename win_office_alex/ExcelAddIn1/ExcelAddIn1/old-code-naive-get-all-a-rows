@@ -1,0 +1,29 @@
+            try
+            {
+
+            string initialAddress = Util.columnToExcelAddress("A", i);
+            string concatValue = "";
+            concatValue = Globals.ThisAddIn.Application.ActiveWorkbook.Sheets["sally"].Range("A1").Value;
+            string dataPart;
+            string nextAddress = "";
+            //string initialValue = xlWs.Range(initialAddress).Value;
+            //this does not work:
+            //Worksheet shit = Globals.ThisAddIn.Application.ActiveWorkbook.Sheets["sally"];
+            
+                do
+                {
+                    dataPart = "";
+                    i += 1;
+                    nextAddress = Util.columnToExcelAddress("A", i);
+                    dataPart = Globals.ThisAddIn.Application.ActiveWorkbook.Sheets["sally"].Range(nextAddress).Value;
+                    concatValue = concatValue + dataPart;
+                }
+                while (dataPart != "");
+                
+            }
+            catch {
+                Globals.ThisAddIn.Application.StatusBar = "Could not parse map data.";
+            }
+            //Sheets xlSheet = xlWb.Sheets["sally"];
+            //Range xlRange = xlSheet.Range("A1").Value;
+            //Globals.ThisAddIn.Application.StatusBar = data;

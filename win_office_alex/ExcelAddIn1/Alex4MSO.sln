@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A494881E-459B-4D18-9D68-83940A65B5C8}"
+	ProjectSection(SolutionItems) = preProject
+		ExcelAddIn1.vsmdi = ExcelAddIn1.vsmdi
+		Local.testsettings = Local.testsettings
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alex2", "ExcelAddIn1\Alex2.csproj", "{D5E97CC0-35FA-455A-A54A-A3958C3C4B13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlexFeatures.Test", "AlexFeatures.Test\AlexFeatures.Test.csproj", "{B5677AB0-76C2-48B7-B856-3F86055695D0}"
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = ExcelAddIn1.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D5E97CC0-35FA-455A-A54A-A3958C3C4B13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5E97CC0-35FA-455A-A54A-A3958C3C4B13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5E97CC0-35FA-455A-A54A-A3958C3C4B13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5E97CC0-35FA-455A-A54A-A3958C3C4B13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5677AB0-76C2-48B7-B856-3F86055695D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5677AB0-76C2-48B7-B856-3F86055695D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5677AB0-76C2-48B7-B856-3F86055695D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5677AB0-76C2-48B7-B856-3F86055695D0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
