@@ -10,29 +10,26 @@ public class OntologyFunctionObject {
 	List<String> variableNames;
 	String resultType;
 	String mathMLDefinition;
-	String mathMLAxiom;
 	
 	public OntologyFunctionObject(String uri, List<String> argumentTypes,
 			List<String> variableNames, String resultType,
-			String mathMLDefinition, String mathMLAxiom) {
+			String mathMLDefinition) {
 		super();
 		this.uri = uri;
 		this.argumentTypes = argumentTypes;
 		this.variableNames = variableNames;
 		this.resultType = resultType;
 		this.mathMLDefinition = mathMLDefinition;
-		this.mathMLAxiom = mathMLAxiom;
 	}
 	
 	public OntologyFunctionObject(String uri, List<String> argumentTypes, 
-			String resultType, String mathMLAxiom) {
+			String resultType) {
 		super();
 		this.uri = uri;
 		this.argumentTypes = argumentTypes;
 		this.variableNames = new ArrayList<String>();
 		this.resultType = resultType;
 		this.mathMLDefinition = "";
-		this.mathMLAxiom = mathMLAxiom;
 	}
 
 	public String getUri() {
@@ -55,8 +52,5 @@ public class OntologyFunctionObject {
 		return mathMLDefinition;
 	}
 
-	public String getMathMLAxiom() {
-		return mathMLAxiom;
-	}
 	
 }

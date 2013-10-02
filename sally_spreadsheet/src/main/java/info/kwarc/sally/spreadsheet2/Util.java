@@ -195,6 +195,10 @@ public class Util {
 				.replace(ml.getMathTagEnd(), "");
 	}
 	
+	public static boolean isOMDocUri(String uri) {
+		return omdocUriPattern.matcher(uri).matches();
+	}
+	
 	public static String getCDFromURI(String uri) {
 		Matcher matcher = omdocUriPattern.matcher(uri);
 		if (matcher.matches())

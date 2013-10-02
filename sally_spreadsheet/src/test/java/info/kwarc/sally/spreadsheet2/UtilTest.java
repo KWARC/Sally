@@ -34,8 +34,6 @@ public class UtilTest {
 			mapping.add(pos.getWorksheet(), pos.getRow(), pos.getColumn(), interpretation.get(pos));
 		
 	
-	
-
 		List<String> formulae = new ArrayList<String>();
 		psf.ParserParameter p = new psf.ParserParameter("B2+B3", "Table1", false, true, false, true, mapping.getMapping());
 		formulae.add(parser.parseFormula(p).getMathML());
@@ -81,7 +79,7 @@ public class UtilTest {
 		String antiunificationResult = Util.antiunifyMathMLFormulae(formulae, domainValues, mlBuilder);
 		//System.out.println("Antiunification: \n " + antiunificationResult);
 
-		assertEquals(520, antiunificationResult.length());	
+		assertEquals(358, antiunificationResult.length());	
 	}
 	
 	@Test

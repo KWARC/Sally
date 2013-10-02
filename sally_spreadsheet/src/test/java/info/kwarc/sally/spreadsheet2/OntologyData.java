@@ -10,47 +10,47 @@ public class OntologyData {
 	public OntologyData() {
 		// omdoc://spsht-arith#plus
 		List<String> arguments = new ArrayList<String>();
-		arguments.add("Real");
-		arguments.add("Real");
+		arguments.add("omdoc://MathML#Real");
+		arguments.add("omdoc://MathML#Real");
 		
 		List<String> vars = new ArrayList<String>();
 		vars.add("x1");
 		vars.add("x2");
 		
 		String mathML = "<apply><plus/><ci>x1</ci><ci>x2</ci></apply>";
-		plus = new OntologyFunctionObject("omdoc://spsht-arith#plus", arguments, vars, "Real", mathML, "");
+		plus = new OntologyFunctionObject("omdoc://spsht-arith#plus", arguments, vars, "omdoc://MathML#Real", mathML);
 	
 		// omdoc://spsht-arith#minus
 		arguments = new ArrayList<String>();
-		arguments.add("Real");
-		arguments.add("Real");
+		arguments.add("omdoc://MathML#Real");
+		arguments.add("omdoc://MathML#Real");
 				
 		vars = new ArrayList<String>();
 		vars.add("x1");
 		vars.add("x2");
 				
 		mathML = "<apply><minus/><ci>x1</ci><ci>x2</ci></apply>";
-		minus = new OntologyFunctionObject("omdoc://spsht-arith#minus", arguments, vars, "Real", mathML, "");
+		minus = new OntologyFunctionObject("omdoc://spsht-arith#minus", arguments, vars, "omdoc://MathML#Real", mathML);
 		
 		// omdoc://spsht-arith#equal
 		arguments = new ArrayList<String>();
-		arguments.add("Real");
-		arguments.add("Real");
+		arguments.add("omdoc://MathML#Real");
+		arguments.add("omdoc://MathML#Real");
 				
 		vars = new ArrayList<String>();
 		vars.add("x1");
 		vars.add("x2");
 				
 		mathML = "<apply><eq/><ci>x1</ci><ci>x2</ci></apply>";
-		equal = new OntologyFunctionObject("omdoc://spsht-arith#equal", arguments, vars, "Bool", mathML, "");
+		equal = new OntologyFunctionObject("omdoc://spsht-arith#equal", arguments, vars, "omdoc://MathML#Bool", mathML);
 		
 		// omdoc://spsht-arith#sum5
 		arguments = new ArrayList<String>();
-		arguments.add("Real");
-		arguments.add("Real");
-		arguments.add("Real");
-		arguments.add("Real");
-		arguments.add("Real");
+		arguments.add("omdoc://MathML#Real");
+		arguments.add("omdoc://MathML#Real");
+		arguments.add("omdoc://MathML#Real");
+		arguments.add("omdoc://MathML#Real");
+		arguments.add("omdoc://MathML#Real");
 						
 		vars = new ArrayList<String>();
 		vars.add("x1");
@@ -60,20 +60,20 @@ public class OntologyData {
 		vars.add("x5");
 						
 		mathML = "<apply><plus/><ci>x1</ci><ci>x2</ci><ci>x3</ci><ci>x4</ci><ci>x5</ci></apply>";
-		sum5 = new OntologyFunctionObject("omdoc://spsht-arith#sum5", arguments, vars, "Real", mathML, "");
+		sum5 = new OntologyFunctionObject("omdoc://spsht-arith#sum5", arguments, vars, "omdoc://MathML#Real", mathML);
 		
 		// omdoc://winograd#revenue
 		arguments = new ArrayList<String>();
 		arguments.add("omdoc://winograd#Years");
 								
-		rev = new OntologyFunctionObject("omdoc://winograd#revenue", arguments, "Real", "");
+		rev = new OntologyFunctionObject("omdoc://winograd#revenue", arguments, "omdoc://MathML#Real");
 		
 		// omdoc://winograd#expenses
 		arguments = new ArrayList<String>();
 		arguments.add("omdoc://winograd#Years");
 		arguments.add("omdoc://winograd#Costs");
 									
-		expenses = new OntologyFunctionObject("omdoc://winograd#ExpensesPerYear", arguments, "Real", "");
+		expenses = new OntologyFunctionObject("omdoc://winograd#ExpensesPerYear", arguments, "omdoc://MathML#Real");
 		
 		// omdoc://winograd#domain
 		arguments = new ArrayList<String>();
@@ -84,7 +84,7 @@ public class OntologyData {
 		
 								
 		mathML = "<apply><csymbol cd=\"spsht-arith\">minus</csymbol><apply><csymbol cd=\"winograd\">ProfitPerYear</csymbol><ci>x1</ci></apply><apply><csymbol cd=\"winograd\">ExpensesPerYear</csymbol><ci>x1</ci><ci>Costtype: Total</ci></apply> </apply>";
-		profit = new OntologyFunctionObject("omdoc://spsht-arith#profit", arguments, vars, "Real", mathML, "");
+		profit = new OntologyFunctionObject("omdoc://spsht-arith#profit", arguments, vars, "Real", mathML);
 	}
 
 	public OntologyFunctionObject getPlus() {

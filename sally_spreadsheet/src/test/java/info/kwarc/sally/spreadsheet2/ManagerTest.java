@@ -46,7 +46,8 @@ public class ManagerTest {
 		Map<CellSpaceInformation, String> interpretation = manager.getCompleteSemanticMapping(spreadsheet);
 		assertEquals("<ci>Year 1985 AD</ci>", interpretation.get(new CellSpaceInformation("Table1", 0,2)));
 		assertEquals("<ci>Costtype: total</ci>", interpretation.get(new CellSpaceInformation("Table1", 4,0)));
-		assertEquals("<apply><cymbol cd=\"LocalDomain\">Expenses per Year</csymbol><ci>Year 1985 AD</ci><ci>Costtype: total</ci></apply>", interpretation.get(new CellSpaceInformation("Table1", 4,2)));
+		assertEquals("<apply><csymbol cd=\"LocalDomain\">Expenses per Year</csymbol><ci>Year 1985 AD</ci><ci>Costtype: Materials</ci></apply>", interpretation.get(new CellSpaceInformation("Table1", 2,2)));
+		assertEquals("<apply><csymbol cd=\"LocalDomain\">Expenses per Year</csymbol><ci>Year 1985 AD</ci><ci>Costtype: total</ci></apply>", interpretation.get(new CellSpaceInformation("Table1", 4,2)));
 	}
 
 }

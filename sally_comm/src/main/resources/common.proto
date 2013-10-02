@@ -194,6 +194,7 @@ message CADSemanticData {
 }
 
 // --------------------------------------- SPREADSHEET MESSAGES-------------------------------------------------------
+// Deprecated: See below for the new messages
 
 message CellPosition {
 // Just to be used by other messages, not directly. Use CellSpaceInformation instead.
@@ -390,9 +391,10 @@ message AbstractSpreadsheetMsg {
 	repeated sally.LegendMsg legends = 2;
 	repeated sally.FunctionalBlockMsg functionalBlocks = 3;
 }
+
 // ++++ For serialization we define a message Mapping which contains all relevant information for the mapping between an ASM and a concrete Spreadsheet. ++++
 
-message CellSpaceInformationMsg {
+message CellSpaceInformationMsgOld {
 	required int32 worksheet = 1;
 	required int32 row = 2;
 	required int32 column = 3;
@@ -427,10 +429,13 @@ message MappingMsg {
 	repeated sally.FunctionalBlockMappingMsg fbMappings = 2;
 }
 
-message ModelDataMsg {
+
+message ModelDataMsgOld {
 	required sally.AbstractSpreadsheetMsg asm = 1;
 	required sally.MappingMsg mapping = 2;
 }
+
+
 // ++++ The parsing process of a spreadsheet is ambiguous. Therefore we need some message to represent those information. ++++
 
 message AreaInformationMsg {
@@ -459,8 +464,10 @@ message ParsingResultMsg {
 	repeated AreaInformationMsg areas = 1;
 	repeated AmbiguousInformationMsg ambig = 2;
 	repeated AffiliationInformationMsg affiliation = 3;
-} // ++ Some Messages for semantic information ++++
+}
 
+
+// ++ Some Messages for semantic information ++++
 /*
  * I made the marked fields optional.
  * This can be bad as the user might not check for the existence and get a runtime error.
@@ -490,7 +497,7 @@ message SpreadsheetModel {
 	repeated WorksheetIDPair sheetMapping = 3;
 }
 
-message WorksheetIDPair {
+message WorksheetIDPair {		// DEPRECATED !!
 	required string worksheet = 1;
 	required int32 id = 2;
 }
@@ -655,6 +662,7 @@ message TextAutocomplete {
 // ----------------------------------------------
 
 // ++++ Basic communication Messages ++++
+// @Deprecated
 
 message CellPosition2 {
 	required string sheet = 1;
@@ -782,92 +790,70 @@ message ParsingMessage2 {
 	required ParsingParameter2 parameter = 2;
 }
 
-// ++++ Messages to create,access or manipulate the abstract spreadsheet model ++++
-
-// ++ Messages related to blocks ++
-
-message CreateBlockForRange {
-	required CellRangePosition2 range = 1;
-}
-
-message CreateBlockForPositions {
-	required CellPositions2 cells = 1;
-}
-
-message CreateComposedBlock {
-	repeated int32 blockIds = 1;
-}
-
-message GetBlocksForPosition {
-	required CellPosition2 position = 1;
-}
-
-message GetBlocksInRange {
-	required CellRangePosition2 range = 1;
-}
-
-message GetAllPositionsOfBlock {
-	required int32 id = 1;
-}
-
-message GetSubBlocks {
-	required int32 id = 1;
-}
-
-// ++ Messages related to blockrelations ++
-
-message CreateFunctionalRelation {		// Antiunified formula or something similar ?
-	repeated int32 blockIds = 1;
-}
-
-message GetRelationsForPosition {
-	required CellPosition2 position = 1;
-}
-
-message GetCellRelationsForPosition {
-	required CellPosition2 position = 1;
-	optional int32 relationId = 2;
-}
-
-// ++ Messages related to ontology links ++
-
-message ValueInterpretation {
-	required string patternString = 1;
-	required IntegerStringMapping subExpressions = 2;
-	required string interpretationTemplate = 3;
-}
-
-message CreateOntologyBlockLink {
-	required int32 blockId = 1;
-	required string uri = 2;
-	repeated ValueInterpretation valueInterpretations = 3;
-}
-
-message CreateOntologyRelationLink {
-	required int32 id = 1;
-	required string uri = 2;
-	required string mathMLTemplate = 3;
-	repeated int32 blockIds = 4;
-}
-
-message GetUriForBlock {
-	required int32 blockID = 1;
-}
-
-message GetValueInterpretation {
-	required int32 blockID = 1;
-	required string value = 2;
-}
-
-message GetUriForRelation {
-	required int32 relationID = 1;
-}
-
-message GetIntendedFunctionForValues {
-	required int32 relationID = 1;
-	repeated string values = 2;
-}
-
 // ++ Messages related to serialization ++
+// This are the only relevant messages
 
-// TODO
+message BuilderMsg {
+	enum Type {
+		MathML = 1;
+		OpenMath = 2;
+	}
+
+	required Type type = 1;
+}
+
+message ValueInterpretationMsg {
+	required string pattern = 1;
+	required string interpretationTemplate = 2;
+	required BuilderMsg builderML = 3;
+
+}
+
+message CellSpaceInformationMsg {
+	required string worksheet = 1;
+	required int32 row = 2;
+	required int32 column = 3;
+	optional int32 height = 4;
+	optional int32 width = 5;
+}
+
+message BlockMsg {
+	enum Type {
+		Atomic = 1;
+		Composed = 2;
+	}
+
+	required Type type = 1;
+	required int32 id = 2;
+	required string worksheet = 3;
+	repeated ValueInterpretationMsg valueInterpretations = 4;
+
+	optional CellSpaceInformationMsg position = 5;	// For atomic blocks
+	repeated int32 subBlockIds = 6;					// For composed blocks
+}
+
+message CellTupleMsg {
+	repeated CellSpaceInformationMsg tuple = 1;
+}
+
+message CellDependencyDescriptionMsg {
+	required int32 minX = 1;
+	required int32 maxX = 2;
+	required int32 minY = 3;
+	required int32 maxY = 4;
+	required string cellRelation = 5;
+}
+
+message RelationMsg {
+	required int32 id = 1;
+	required string relationType = 2;
+	required string uri = 3;
+	repeated int32 blockIDs = 4;
+	repeated CellTupleMsg cellRelations = 5;
+	repeated CellDependencyDescriptionMsg cellDependencyDescriptions = 6;
+}
+
+message ModelDataMsg {
+	repeated BlockMsg blocks = 1;
+	repeated RelationMsg relations = 2;
+}

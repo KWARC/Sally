@@ -3,6 +3,8 @@ package info.kwarc.sally.spreadsheet2;
 import java.util.ArrayList;
 import java.util.List;
 
+// DEPRECATED 
+/*
 public class ASMInterface {
 	
 	Manager manager;
@@ -101,3 +103,4 @@ public class ASMInterface {
 	
 
 }
+*/

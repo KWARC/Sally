@@ -41,15 +41,10 @@ public class VerificationDataExtractorTest {
 				"</apply>\n" +
 				"  <apply>\n" +
 				"    <csymbol cd=\"spsht-arith\">plus</csymbol>\n" +
-				"    <apply>\n" +
-				"      <csymbol cd=\"spshform\">semanticObject</csymbol>\n" +
-				"      <apply><cymbol cd=\"LocalDomain\">Expenses per Year</csymbol><ci>?X0</ci><ci>Costtype: Revenues</ci></apply>\n" +
-				"    </apply>\n" +
-				"    <apply>\n" +
-				"      <csymbol cd=\"spshform\">semanticObject</csymbol>\n" +
-				"      <apply><cymbol cd=\"LocalDomain\">Expenses per Year</csymbol><ci>?X0</ci><ci>Costtype: Materials</ci></apply>\n" +
-				"    </apply>\n" +
-				"  </apply>\n",cpSimilarRepresentations.get(0).replaceAll("\r", "")
+				"      <apply><csymbol cd=\"LocalDomain\">Expenses per Year</csymbol><ci>?X0</ci><ci>Costtype: Revenues</ci></apply>\n" +
+				"      <apply><csymbol cd=\"LocalDomain\">Expenses per Year</csymbol><ci>?X0</ci><ci>Costtype: Materials</ci></apply>\n" +
+				"  </apply>\n" +
+				"</apply>\n",cpSimilarRepresentations.get(0).replaceAll("\r", "")
 				);
 	}
 	
@@ -57,7 +52,7 @@ public class VerificationDataExtractorTest {
 	public void extractMLFormulaRepresentationsTest() {
 		List <String> mlFormulae = new ArrayList<String>(VerificationDataExtractor.extractMLFormulaRepresentations(winData.getRelationCalc(), winData.getManager(), winData.getSpreadsheet(), builderML).values());
 		assertEquals(4, mlFormulae.size());
-		//System.out.println("Formula for 1986:\n" + mlFormulae.get(2));
+		System.out.println("Formula for 1986:\n" + Util.tagAsMathMLObject(mlFormulae.get(2), new BuilderMathML()) );
 
 	}
 

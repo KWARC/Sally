@@ -6,11 +6,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Testing the ASMInterface by modeling a simplification of the Winograd spreadsheet. 
+ * Testing the ASMInterface by modeling a simplification of the Winograd spreadsheet. (DEPRECATED)
  * @author cliguda
  * Note: The value-interpretation uses some pseudo-MathML template for testing, but every MathML can be used. 
  */
 
+/*
 public class ASMInterfaceTest {
 	ASMInterface asm;
 	MessageConverter messageConverter;
@@ -130,4 +131,4 @@ public class ASMInterfaceTest {
 		assertEquals("<apply><cymbol cd=\"LocalDomain\">Expenses per Year</csymbol><ci>Year 1984 AD</ci><ci>Costtype: Salaries</ci></apply>", asm.getIntendedFunctionForValues(sally.GetIntendedFunctionForValues.newBuilder().setRelationID(relationID).addValues("1984").addValues("Salaries").build()).getData());
 	}
 
-}
+}*/

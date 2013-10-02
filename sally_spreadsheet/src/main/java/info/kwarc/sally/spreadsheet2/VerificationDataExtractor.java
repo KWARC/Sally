@@ -8,23 +8,30 @@ import java.util.Map;
 public class VerificationDataExtractor {
 	
 	static psf.ParserInterface parser = new psf.ParserInterface();
+	static String[] mathMLDataTypes = {"omdoc://MathML#Real", "omdoc://MathML#Int", "omdoc://MathML#Bool" };
 	
 	public static Map<String, List<String>> extractDataTypes(List<Block> blocks, FormalSpreadsheet spreadsheet) {
 		Map<String, List<String>> dataTypes = new HashMap<String,List<String>>();
 		
 		for (Block b : blocks) {
 			List<String> values;
-			if (dataTypes.containsKey(b.getOntologyLink().getUri()))
-				values = dataTypes.get(b.getOntologyLink().getUri());
-			else {
-				values = new ArrayList<String>();
-				dataTypes.put(b.getOntologyLink().getUri(), values);
-			}
-			for (CellSpaceInformation pos : b.getCells()) {
-				if ((spreadsheet.get(pos) != null) && 
-						!spreadsheet.get(pos).getValue().isEmpty() &&
-						!values.contains(b.getOntologyLink().getValueInterpretation( spreadsheet.get(pos).getValue()) ) )
-					values.add(b.getOntologyLink().getValueInterpretation( spreadsheet.get(pos).getValue()) );
+			boolean isMathMLDT = false;
+			for (String dt : mathMLDataTypes)
+				if (dt.equals( b.getOntologyLink().getUri()) )
+					isMathMLDT = true;
+			if (!isMathMLDT) {
+				if (dataTypes.containsKey(b.getOntologyLink().getUri()))
+					values = dataTypes.get(b.getOntologyLink().getUri());
+				else {
+					values = new ArrayList<String>();
+					dataTypes.put(b.getOntologyLink().getUri(), values);
+				}
+				for (CellSpaceInformation pos : b.getCells()) {
+					if ((spreadsheet.get(pos) != null) && 
+							!spreadsheet.get(pos).getValue().isEmpty() &&
+							!values.contains(b.getOntologyLink().getValueInterpretation( spreadsheet.get(pos).getValue()) ) )
+						values.add(b.getOntologyLink().getValueInterpretation( spreadsheet.get(pos).getValue()) );
+				}
 			}
 		}
 		
@@ -80,7 +87,7 @@ public class VerificationDataExtractor {
 							variableCounter = java.lang.Math.max(variableCounter, dv.size());
 						for (int i = 0; i < variableCounter; i++)
 							equatation = equatation + builderML.getIdentifier("?X" + i) + "\n";
-						equatation = equatation + builderML.getApplicationEnd() + "\n" + Util.untagMathObject(antiunification, builderML);
+						equatation = equatation + builderML.getApplicationEnd() + "\n" + Util.untagMathObject(antiunification, builderML) + builderML.getApplicationEnd() + "\n";
 						mathMLRepresentations.put(r, equatation);
 					}
 				}
@@ -118,7 +125,7 @@ public class VerificationDataExtractor {
 				for (int j = 0; j < domain.size(); j++) 
 					equatation = equatation + domain.get(j).getOntologyLink().getValueInterpretation(spreadsheet.get(cellTuple.getTuple().get(j)).getValue()) + "\n";
 			
-				equatation = equatation + builderML.getApplicationEnd() + "\n" + Util.untagMathObject(mlFormulaRep, builderML);
+				equatation = equatation + builderML.getApplicationEnd() + "\n" + Util.untagMathObject(mlFormulaRep, builderML) + builderML.getApplicationEnd() + "\n";
 				mlFormulaeRep.put(pos, equatation);
 			}
 		}

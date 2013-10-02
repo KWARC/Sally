@@ -31,12 +31,17 @@ public class MessageConverter {
 				msg.getEndPos().getRow(), msg.getEndPos().getCol());
 	}
 	
-	
-	public ValueInterpretation valueInterpretationMsgToObj(sally.ValueInterpretation msg) {
-		Map<Integer, String> subExpressions = new HashMap<Integer, String>();
+	/**
+	 * DEPRECATED !!!
+	 * @param msg
+	 * @return
+	 */
+	public ValueInterpretation valueInterpretationMsgToObj(sally.ValueInterpretationMsg msg) {
+		/*Map<Integer, String> subExpressions = new HashMap<Integer, String>();
 		for (sally.IntegerStringPair pair : msg.getSubExpressions().getPairList())
 			subExpressions.put(pair.getId(), pair.getValue());
-		return new ValueInterpretation(msg.getPatternString(), subExpressions, msg.getInterpretationTemplate(), builderML);
+		return new ValueInterpretation(msg.getPatternString(), subExpressions, msg.getInterpretationTemplate(), builderML);*/
+		return null;
 	}
 	
 	// ++ Converting: Object -> Message ++
