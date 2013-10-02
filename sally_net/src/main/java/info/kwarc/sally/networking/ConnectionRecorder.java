@@ -1,6 +1,7 @@
 package info.kwarc.sally.networking;
 
 import info.kwarc.sally.networking.interfaces.IConnectionManager;
+import info.kwarc.sally.networking.interfaces.INetworkSender;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -33,7 +34,7 @@ public class ConnectionRecorder implements IConnectionManager {
 	}
 
 	@Override
-	public void newClient(String clientID) {
+	public void newClient(String clientID, INetworkSender sender) {
 		try {
 			fw.append("{");
 			fw.append("\t\"type\":\"newClient\",");
@@ -44,7 +45,7 @@ public class ConnectionRecorder implements IConnectionManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		realManager.newClient(clientID);
+		realManager.newClient(clientID, sender);
 	}
 
 	@Override
@@ -95,6 +96,12 @@ public class ConnectionRecorder implements IConnectionManager {
 				e.printStackTrace();
 			}
 		realManager.disconnect(clientID);		
+	}
+
+	@Override
+	public void onSendMessage(String clientID, String channel,
+			AbstractMessage msg) {
+		
 	}
 
 }

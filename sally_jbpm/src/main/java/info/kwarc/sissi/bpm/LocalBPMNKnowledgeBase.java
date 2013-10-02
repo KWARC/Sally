@@ -12,6 +12,8 @@ import org.drools.logger.KnowledgeRuntimeLogger;
 import org.drools.logger.KnowledgeRuntimeLoggerFactory;
 import org.drools.process.instance.WorkItemHandler;
 import org.drools.runtime.StatefulKnowledgeSession;
+import org.drools.runtime.process.WorkItem;
+import org.drools.runtime.process.WorkItemManager;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -25,6 +27,9 @@ public class LocalBPMNKnowledgeBase extends AbstractKnowledgeBase {
 	KnowledgeBase kbase;
 	KnowledgeRuntimeLogger klogger;
 	String file;
+	Injector injector;
+	HashMap<String, Class<? extends WorkItemHandler>> handlerClasses;
+	final Map<String, WorkItemHandler> handlerInstances; 
 	
 	Map<String, WorkItemHandler> handlers; 
 
@@ -34,11 +39,10 @@ public class LocalBPMNKnowledgeBase extends AbstractKnowledgeBase {
 			@Named("SallyPackage") String file,
 			Injector injector
 		) {
+		this.injector = injector;
 
-		handlers = new HashMap<String, WorkItemHandler>();
-		for (String taskName : handlerClasses.keySet()) {
-			handlers.put(taskName, injector.getInstance(handlerClasses.get(taskName)));
-		}
+		handlerInstances = new HashMap<String, WorkItemHandler>();
+		this.handlerClasses = handlerClasses;
 		
 		this.file = file;
 		ksession = null;
@@ -52,8 +56,26 @@ public class LocalBPMNKnowledgeBase extends AbstractKnowledgeBase {
 	public void init() throws Exception {
 		kbase = readKnowledgeBase();
 		ksession = kbase.newStatefulKnowledgeSession();
-		for (String k : handlers.keySet()) {
-			ksession.getWorkItemManager().registerWorkItemHandler(k, handlers.get(k));
+		
+		for (final String taskName : handlerClasses.keySet()) {
+			ksession.getWorkItemManager().registerWorkItemHandler(taskName, new org.drools.runtime.process.WorkItemHandler() {
+				
+				@Override
+				public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
+					if (!handlerInstances.containsKey(taskName)) {
+						handlerInstances.put(taskName, injector.getInstance(handlerClasses.get(taskName)));
+					}
+					handlerInstances.get(taskName).executeWorkItem(workItem, manager);
+				}
+				
+				@Override
+				public void abortWorkItem(WorkItem workItem, WorkItemManager manager) {
+					if (!handlerInstances.containsKey(taskName)) {
+						handlerInstances.put(taskName, injector.getInstance(handlerClasses.get(taskName)));
+					}
+					handlerInstances.get(taskName).executeWorkItem(workItem, manager);
+				}
+			});
 		}
 		klogger = KnowledgeRuntimeLoggerFactory.newThreadedFileLogger(ksession, "session", 500);
 	}

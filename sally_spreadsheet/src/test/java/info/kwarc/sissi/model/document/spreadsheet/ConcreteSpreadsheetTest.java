@@ -2,7 +2,7 @@ package info.kwarc.sissi.model.document.spreadsheet;
 
 import info.kwarc.sally.networking.CometD;
 import info.kwarc.sally.networking.interfaces.IConnectionManager;
-import info.kwarc.sally.networking.interfaces.INetworkSenderAdapter;
+import info.kwarc.sally.networking.interfaces.INetworkSender;
 import info.kwarc.sally.spreadsheet.WorksheetDocument;
 import info.kwarc.sally.spreadsheet.interfaces.WorksheetFactory;
 
@@ -27,12 +27,14 @@ public class ConcreteSpreadsheetTest  {
 	CometD cometd;
 	WorksheetFactory factory;
 	Logger log;
-	INetworkSenderAdapter sender;
 
 	IConnectionManager manager = new IConnectionManager() {
+		INetworkSender sender;
+		
 		@Override
-		public void newClient(String clientID) {
+		public void newClient(String clientID, INetworkSender sender) {
 			log.info("client "+clientID+ " connected");
+			this.sender = sender;
 		}
 
 		@Override
@@ -44,6 +46,12 @@ public class ConcreteSpreadsheetTest  {
 		}
 		
 		@Override
+		public void onSendMessage(String clientID, String channel,
+				AbstractMessage msg) {
+			
+		}
+		
+		@Override
 		public void newMessage(String clientID, AbstractMessage msg) {
 			if (msg instanceof AlexData) {
 				AlexData alexData = (AlexData)msg;
@@ -52,7 +60,7 @@ public class ConcreteSpreadsheetTest  {
 				SpreadsheetModel rr = null;
 				try {
 					rr = SpreadsheetModel.parseFrom(res);
-					WorksheetDocument doc = factory.create(alexData.getFileName(), rr, sender.create(clientID));
+					WorksheetDocument doc = factory.create(alexData.getFileName(), rr, sender);
 					test1(doc);
 				} catch (InvalidProtocolBufferException e) {
 					e.printStackTrace();
@@ -75,7 +83,6 @@ public class ConcreteSpreadsheetTest  {
 				install(new FactoryModuleBuilder().build(WorksheetFactory.class));
 
 				bind(CometD.class);
-				bind(INetworkSenderAdapter.class).toProvider(CometD.class);
 				bind(Integer.class).annotatedWith(Names.named("SallyPort")).toInstance(8181);
 				bind(IConnectionManager.class).toInstance(manager);
 			}
@@ -84,7 +91,6 @@ public class ConcreteSpreadsheetTest  {
 		cometd = i.getInstance(CometD.class);
 		factory = i.getInstance(WorksheetFactory.class);
 		cometd.start();
-		this.sender = i.getInstance(INetworkSenderAdapter.class);
 	}
 
 	public static void main(String[] args) {

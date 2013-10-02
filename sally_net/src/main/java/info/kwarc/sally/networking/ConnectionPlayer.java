@@ -1,6 +1,7 @@
 package info.kwarc.sally.networking;
 
 import info.kwarc.sally.networking.interfaces.IConnectionManager;
+import info.kwarc.sally.networking.interfaces.MockNetworkSender;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -37,7 +38,7 @@ public class ConnectionPlayer {
 				if (node.get("type").asText().equals("newClient")) {
 					String client = node.get("client").asText();
 					log.info("new client "+client);
-					connectionManager.newClient(client);
+					connectionManager.newClient(client, new MockNetworkSender());
 					continue;
 				}
 				if (node.get("type").asText().equals("newMessage")) {

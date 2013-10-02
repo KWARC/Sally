@@ -18,9 +18,7 @@
 		<module>sally_net</module>
 		<module>sally_spreadsheet</module>
 		<module>sally_cad</module>
-<!--		<module>sally_jedit</module>
-		<module>sally_projects</module>
-		<module>sally_theoxul</module> -->
+		<!-- <module>sally_jedit</module> <module>sally_projects</module> <module>sally_theoxul</module> -->
 		<module>sally_jbpm</module>
 	</modules>
 
@@ -70,12 +68,19 @@
 			<groupId>org.jbpm</groupId>
 			<artifactId>jbpm-bpmn2</artifactId>
 			<version>5.4.0.Final</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.jbpm</groupId>
+					<artifactId>jbpm-flow-builder</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
 			<groupId>org.jbpm</groupId>
 			<artifactId>jbpm-test</artifactId>
 			<version>5.4.0.Final</version>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>

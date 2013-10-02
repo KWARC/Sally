@@ -46,7 +46,7 @@ public class Configuration extends AbstractModule {
 		bind(Integer.class).annotatedWith(Names.named("SallyPort")).toInstance(8181);
 		bind(CometD.class);
 		
-		bind(String.class).annotatedWith(Names.named("PlanetaryURL")).toInstance("http://panta.kwarc.info");
+		bind(String.class).annotatedWith(Names.named("PlanetaryURL")).toInstance("http://sally.kwarc.info");
 		bind(String.class).annotatedWith(Names.named("PlanetaryEndPoint")).toInstance("sallyrpc");  
 		bind(String.class).annotatedWith(Names.named("PlanetaryUser")).toInstance("sally"); 
 		bind(String.class).annotatedWith(Names.named("PLanetaryPassword")).toInstance("123"); 

@@ -21,8 +21,7 @@ import com.google.inject.name.Names;
 import com.sun.xml.bind.v2.runtime.Name;
 
 /**
- * This module makes sure that SallyActions as well as DynamicApplicability are 
- * executed by running the real implementations
+ * This module establishes the how boxes in BPMN 
  * @author cjucovschi
  *
  */
