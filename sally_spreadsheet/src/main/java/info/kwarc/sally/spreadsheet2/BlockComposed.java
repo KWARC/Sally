@@ -9,7 +9,7 @@ public class BlockComposed extends Block {
 	
 	public BlockComposed(int id, List<Block> blocks) {
 		super(id);
-		this.blocks = blocks;
+		this.blocks = new ArrayList<Block>(blocks);
 	}
 
 	@Override

@@ -2,15 +2,19 @@ package info.kwarc.sally.spreadsheet2;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Util {
-
+	
+	static Pattern omdocUriPattern = Pattern.compile("omdoc://(.+)#(.+)");
+	static Pattern cellAddressPattern = Pattern.compile("([A-Z]+)([0-9]+)");
+	
 	public static CellSpaceInformation convertCellPosition(String position)  {
-		Pattern p = Pattern.compile("([A-Z]+)([0-9]+)");
-		Matcher m = p.matcher(position);
+		Matcher m = cellAddressPattern.matcher(position);
 
 		if (m.find()) {
 			return new CellSpaceInformation(Integer.parseInt(m.group(2))-1, convertRangeCharacter(m.group(1)));
@@ -130,6 +134,85 @@ public class Util {
 		for (Block b : blocks)
 			ids.add(b.getId());
 		return ids;
+	}
+	
+	public static List<Block> convertIDsToBlocks(List<Integer> ids, Manager m) {
+		List<Block> blocks = new ArrayList<Block>();
+		for (Integer id : ids)
+			blocks.add(m.getBlockByID(id));
+		return blocks;
+	}
+	
+	public static List<OntologyBlockLink> convertBlocksToOntologyLinks(List<Block> blocks) {
+		List<OntologyBlockLink> links = new ArrayList<OntologyBlockLink>();
+		for (Block b : blocks)
+			links.add(b.getOntologyLink());
+		return links;
+	}
+	
+	public static List<Integer> convertRelationsToIDs(List<Relation> relations) {
+		List<Integer> ids = new ArrayList<Integer>();
+		for (Relation r : relations)
+			ids.add(r.getId());
+		return ids;
+	}
+	
+	public static String antiunifyMathMLFormulae(List<String> formulae, List<List<String>> domainValues, BuilderML ml) {
+		if (formulae.size() != domainValues.size())
+			return "";
+		
+		String antiunification = "";
+		boolean conflict = false;
+		for (int i = 0; (i < formulae.size()) && !conflict; i++) {
+			String formula = formulae.get(i);
+			Map<String, String> replacements = new HashMap<String, String>();
+			for (int j = 0; j < domainValues.get(i).size(); j++) 
+				replacements.put(domainValues.get(i).get(j), ml.getIdentifier("?X" + j));
+			
+			for (String semObj : replacements.keySet())
+				formula = formula.replace(semObj, replacements.get(semObj));
+			
+			if (antiunification.isEmpty())
+				antiunification = formula;
+			else if (!antiunification.equals(formula))
+				conflict = true;
+		}
+		if (!conflict)
+			return antiunification;
+		else
+			return "";
+	}
+	
+	public static String tagAsMathMLObject(String s, BuilderML ml) {
+		return ml.getMathTagBegin() + "\n" + s + ml.getMathTagEnd() + "\n";
+	}
+	
+	public static String untagMathObject(String s, BuilderML ml) {
+		return s.replace(ml.getMathTagBegin() + "\r\n", "")
+				.replace(ml.getMathTagBegin() + "\n", "")
+				.replace(ml.getMathTagEnd() + "\r\n","")
+				.replace(ml.getMathTagEnd() + "\n","")
+				.replace(ml.getMathTagEnd(), "");
+	}
+	
+	public static boolean isOMDocUri(String uri) {
+		return omdocUriPattern.matcher(uri).matches();
+	}
+	
+	public static String getCDFromURI(String uri) {
+		Matcher matcher = omdocUriPattern.matcher(uri);
+		if (matcher.matches())
+			return matcher.group(1);
+		else
+			return "";
+	}
+	
+	public static String getSymbolFromURI(String uri) {
+		Matcher matcher = omdocUriPattern.matcher(uri);
+		if (matcher.matches())
+			return matcher.group(2);
+		else
+			return "";
 	}
 	
 }
