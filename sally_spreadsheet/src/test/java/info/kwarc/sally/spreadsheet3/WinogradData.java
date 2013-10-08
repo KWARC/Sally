@@ -94,7 +94,7 @@ public class WinogradData {
 
 		List<CellDependencyDescription> relationInputDesc = new ArrayList<CellDependencyDescription>();
 		relationInputDesc.add(new CellDependencyDescription(0,2,0,3,"0,y;x,0;x,y"));
-		relationInput = manager.createRelation(Relation.FUNCTIONALRELATION, blocksInput, relationInputDesc);
+		relationInput = manager.createRelation(Relation.RelationType.FUNCTIONALRELATION, blocksInput, relationInputDesc);
  		
  		List<Block> blocksCalc = new ArrayList<Block>();
  		blocksCalc.add(year);
@@ -103,7 +103,7 @@ public class WinogradData {
 
  		List<CellDependencyDescription> relationCalcDesc = new ArrayList<CellDependencyDescription>();
 		relationCalcDesc.add(new CellDependencyDescription(0,0,0,3,"0,y;x+3,0;x,y"));
- 		relationCalc = manager.createRelation(Relation.FUNCTIONALRELATION, blocksCalc, relationCalcDesc);
+ 		relationCalc = manager.createRelation(Relation.RelationType.FUNCTIONALRELATION, blocksCalc, relationCalcDesc);
  		
  		List<Block> blocksProfit = new ArrayList<Block>();
  		blocksProfit.add(year);
@@ -112,7 +112,7 @@ public class WinogradData {
 
  		List<CellDependencyDescription> relationProfitDesc = new ArrayList<CellDependencyDescription>();
  		relationProfitDesc.add(new CellDependencyDescription(0,0,0,3,"0,y;x,0;x,y"));
- 		relationProfit = manager.createRelation(Relation.FUNCTIONALRELATION, blocksProfit, relationProfitDesc);
+ 		relationProfit = manager.createRelation(Relation.RelationType.FUNCTIONALRELATION, blocksProfit, relationProfitDesc);
  		
  		// Setting up the ontology linking
  		BuilderML builderML = manager.getOntologyInterface().getBuilderML();

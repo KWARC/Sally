@@ -8,8 +8,12 @@ import org.slf4j.LoggerFactory;
 
 public class Relation {
 	
+	public enum RelationType {
+		FUNCTIONALRELATION, TYPERELATION
+	}
+	
 	int id;
-	String relationType;
+	RelationType relationType;
 	String uri;
 	List<Block> blocks;
 	List<CellTuple> cellRelations;
@@ -17,12 +21,8 @@ public class Relation {
 	
 	final Logger logger = LoggerFactory.getLogger(Relation.class);
 	
-	final static public String FUNCTIONALRELATION = "FUNCTIONALRELATION";
-	final static public String TYPERELATION = "TYPERELATION";
-	
-	
-	public Relation(int id, String relationType, String uri, List<Block> blocks,
-			List<CellTuple> cellRelations, List<CellDependencyDescription> cellDependencyDescriptions) {
+	public Relation(int id, RelationType relationType, List<Block> blocks,
+			List<CellTuple> cellRelations, List<CellDependencyDescription> cellDependencyDescriptions, String uri) {
 		super();
 		if (isConsistent(blocks, cellRelations)) {
 			this.id = id;
@@ -35,23 +35,9 @@ public class Relation {
 			throw new java.lang.IllegalArgumentException("Cell realations is not consistent to blocks.");
 	}
 	
-	public Relation(int id, String relationType, List<Block> blocks,
+	public Relation(int id, RelationType relationType, List<Block> blocks,
 			List<CellTuple> cellRelations, List<CellDependencyDescription> cellDependencyDescriptions) {
-		super();
-		if (isConsistent(blocks, cellRelations)) {
-			this.id = id;
-			this.relationType = relationType;
-			this.uri = "";
-			this.blocks = new ArrayList<Block>(blocks);
-			this.cellRelations = new ArrayList<CellTuple>(cellRelations);
-			this.cellDependencyDescriptions = new ArrayList<CellDependencyDescription>(cellDependencyDescriptions);
-		} else {
-			logger.error("Inconsistent cell relations:");
-			for (CellTuple ct : cellRelations) 
-				logger.error(ct.toString());
-			
-			throw new java.lang.IllegalArgumentException("Cell realations is not consistent to blocks.");
-		}
+		this(id, relationType, blocks, cellRelations, cellDependencyDescriptions, "");
 	}
 	
 	public Relation(sally.RelationMsg msg, Manager manager) {
@@ -64,7 +50,7 @@ public class Relation {
 			msgCellRelations.add(new CellTuple(cellTupleMsg));
 		if (isConsistent(msgBlocks, msgCellRelations)) {
 			this.id = msg.getId();
-			this.relationType = msg.getRelationType();
+			this.relationType = RelationType.values()[msg.getRelationType()];
 			this.uri = msg.getUri();
 			this.blocks = msgBlocks;
 			this.cellRelations = msgCellRelations;
@@ -142,7 +128,7 @@ public class Relation {
 		return this.id;
 	}
 	
-	public String getRelationType() {
+	public RelationType getRelationType() {
 		return this.relationType;
 	}
 	
@@ -191,7 +177,7 @@ public class Relation {
 	public sally.RelationMsg serialize() {
 		sally.RelationMsg.Builder msg = sally.RelationMsg.newBuilder();
 		msg.setId(this.id);
-		msg.setRelationType(this.relationType);
+		msg.setRelationType(this.relationType.ordinal());
 		msg.setUri(this.uri);
 		for (Block b : blocks)
 			msg.addBlockIDs(b.getId());

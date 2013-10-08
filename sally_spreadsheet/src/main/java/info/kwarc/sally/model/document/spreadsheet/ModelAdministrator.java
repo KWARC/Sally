@@ -73,7 +73,7 @@ public class ModelAdministrator {
 		fsm.setContent(position, value, Util.identifyValueType(value));
 	}
 	
-	public void createModel(sally.ModelDataMsg modelData) {
+	public void createModel(sally.ModelDataMsgOld modelData) {
 		initModel();
 		AbstractDataModel adm = asm.getDataModel();
 		
@@ -480,8 +480,8 @@ public class ModelAdministrator {
 		return mappings.getMappingFor(s).getAllPositions();
 	}
 	
-	public sally.ModelDataMsg getProtoBufRepresentation() {
-		sally.ModelDataMsg.Builder msgBuilder = sally.ModelDataMsg.newBuilder();
+	public sally.ModelDataMsgOld getProtoBufRepresentation() {
+		sally.ModelDataMsgOld.Builder msgBuilder = sally.ModelDataMsgOld.newBuilder();
 		
 		msgBuilder.setAsm(asm.getProtoBufRepresentation());
 		msgBuilder.setMapping(mappings.getProtoBufRepresentation());

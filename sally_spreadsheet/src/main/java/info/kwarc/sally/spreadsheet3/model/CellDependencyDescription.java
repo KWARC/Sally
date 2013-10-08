@@ -5,6 +5,15 @@ public class CellDependencyDescription {
 	int minX, maxX, minY, maxY;
 	String cellRelation;		// e.g. 0,y;x,0;x,y
 	
+	/**
+	 * Creates an object to describe the relation of cells between different blocks by describing the dependencies of the indices.
+	 * Example: The description 0,y;x,0;x,y provides the relation between 3 block, one index tuple for each block separated by ';'. The description can be
+	 * expanded to the list [(0,0),(0,0),(0,0)], [(0,0),(1,0),(1,0)], ...,[(0,0),(maxX,0),(maxX,0)], [(0,1),(0,0),(0,1)], [(0,1),(1,0),(1,1)], ...,[(0,1),(maxX,0),(maxX,1)],
+	 *                      ...,[(0,maxY),(0,0),(0,maxY)], [(0,maxY),(1,0),(1,maxY)], ...,[(0,maxY),(maxX,0),(maxX,maxY)].
+     * A relation will map such a list to concrete block indices, whereby the offset of a block will be added to a cell tuple. In example, a block with
+     * an upper left border in C5 has the offset (4,2) and a tuple (1,2) will therefore be mapped to the the block entry on position (5,4) which is E6.
+     * @see info.kwarc.sally.spreadsheet3.logic.CDDBuilder
+	 */
 	public CellDependencyDescription(int minX, int maxX, int minY, int maxY,
 			String cellRelation) {
 		super();
@@ -59,6 +68,11 @@ public class CellDependencyDescription {
 		if (minY != other.minY)
 			return false;
 		return true;
+	}
+	
+	@Override
+	public String toString() {
+		return "(" + this.minX + "/" + this.minY + " - " + this.maxX + "/" + this.maxY + "): " + this.cellRelation;
 	}
 
 	public int getMinX() {

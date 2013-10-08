@@ -261,12 +261,13 @@ public class Manager {
 	
 	/**
 	 * Create a relation between blocks.
+	 * @see info.kwarc.sally.spreadsheet3.logic.CDDBuilder
 	 * @param blocks The blocks between which the relation holds.
 	 * @param type The type of the relation.
 	 * @param cellDependencyDescriptions A list of objects that describe the relations between the cells of the blocks.
 	 * @return The created relation.
 	 */
-	public Relation createRelation(String type, List<Block> blocks, List<CellDependencyDescription> cellDependencyDescriptions) {
+	public Relation createRelation(Relation.RelationType type, List<Block> blocks, List<CellDependencyDescription> cellDependencyDescriptions) {
 		maxRelationID++;
 		List<CellTuple> cellRelations = RelationBuilder.createCellRelation(blocks, cellDependencyDescriptions);
 		
@@ -431,7 +432,6 @@ public class Manager {
 				addPositionsToRelationLink(block.getCells(), r);
 		}
 	}
-	
 	
 
 }

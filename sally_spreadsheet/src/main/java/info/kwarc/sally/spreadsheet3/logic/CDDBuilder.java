@@ -13,6 +13,11 @@ import info.kwarc.sally.spreadsheet3.model.CellDependencyDescription;
  */
 public class CDDBuilder {
 	
+	/** 
+	 * Create a CellDependencyDescription for a typical functional relation.
+	 * It assumes, that some blocks are above the last block and all others are on the left side. Each cell in the last block is associated with the cells that are 
+	 * in the same row or column.
+	 */
 	public static CellDependencyDescription createCDDFunctionalRelation(List<Block> blocks) {
 		
 		int maxX = 0;

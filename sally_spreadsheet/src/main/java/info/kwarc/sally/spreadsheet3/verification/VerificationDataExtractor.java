@@ -51,7 +51,7 @@ public class VerificationDataExtractor {
 		Map<Relation, String> mathMLRepresentations = new HashMap<Relation, String>();
 		List<Relation> relations = manager.getAllRelations();
 		for (Relation fbRelation : relations) {
-			if (fbRelation.getRelationType().equals(Relation.FUNCTIONALRELATION)) {
+			if (fbRelation.getRelationType().equals(Relation.RelationType.FUNCTIONALRELATION)) {
 		
 				Block fb = fbRelation.getBlocks().get(fbRelation.getBlocks().size()-1);
 				boolean calculatedFb = true;
@@ -109,7 +109,7 @@ public class VerificationDataExtractor {
 	
 	public static Map<CellSpaceInformation, String> extractMLFormulaRepresentations(Relation fbRelation, Manager manager, FormalSpreadsheet spreadsheet, BuilderML builderML) {
 		Map<CellSpaceInformation, String> mlFormulaeRep = new HashMap<CellSpaceInformation, String>();
-		if (fbRelation.getRelationType().equals(Relation.FUNCTIONALRELATION)) {
+		if (fbRelation.getRelationType().equals(Relation.RelationType.FUNCTIONALRELATION)) {
 			Block fb = fbRelation.getBlocks().get(fbRelation.getBlocks().size()-1);
 			
 			psf.SemanticMapping mapping = new psf.SemanticMapping();

@@ -846,7 +846,7 @@ message CellDependencyDescriptionMsg {
 
 message RelationMsg {
 	required int32 id = 1;
-	required string relationType = 2;
+	required int32 relationType = 2;
 	required string uri = 3;
 	repeated int32 blockIDs = 4;
 	repeated CellTupleMsg cellRelations = 5;
