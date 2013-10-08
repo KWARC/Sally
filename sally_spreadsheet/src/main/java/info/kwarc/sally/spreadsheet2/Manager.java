@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 public class Manager {
 	
-	FormalSpreadsheet spreadsheet;
+	//FormalSpreadsheet spreadsheet;
 	Map<Integer, Block> blocks;
 	Map<Integer, Relation> relations;
 	int maxBlockID, maxRelationID;
@@ -26,8 +26,8 @@ public class Manager {
 	 * A Manager manages the abstract structure and ontology linking for one spreadsheet.
 	 * @param spreadsheet 
 	 */
-	public Manager(FormalSpreadsheet spreadsheet) {
-		this.spreadsheet = spreadsheet;
+	public Manager() {
+		//this.spreadsheet = spreadsheet;
 		this.blocks = new HashMap<Integer, Block>();
 		this.relations = new HashMap<Integer, Relation>();
 		this.maxBlockID = 0;
@@ -40,6 +40,8 @@ public class Manager {
 
 	
 	// ---------- Methods for the Spreadsheet Annotation Model ----------
+	
+	// ++++ Block operations ++++
 
 	public Block getOrCreateAtomicBlock(CellSpaceInformation position) {
 		if (positionToAtomicBlock.containsKey(position))
@@ -48,7 +50,7 @@ public class Manager {
 			maxBlockID++;
 			Block b = new BlockAtomic(maxBlockID, position);
 			blocks.put(maxBlockID, b);
-			addPositionToBlockLink(position, b);
+			addPositionToBlockLink(position, b, null);
 			return b;
 		}
 	}
@@ -57,7 +59,7 @@ public class Manager {
 		maxBlockID++;
 		Block b = new BlockComposed(maxBlockID, subBlocks);
 		blocks.put(maxBlockID, b);
-	    addPositionsToBlockLink(b.getCells(), b);
+	    addPositionsToBlockLink(b.getCells(), b, subBlocks);
 		return b;
 	}
 	
@@ -68,26 +70,77 @@ public class Manager {
 		return createBlock(blocks);
 	}
 	
-	public Relation createFunctionalRelation(List<Block> blocks, String function) {
+	public Block getBlockByID(int id) {
+		return blocks.get(id);
+	}
+	
+	public List<Block> getBlocksForPosition(CellSpaceInformation position) {
+		return new ArrayList<Block>(positionToBlocks.get(position));
+	}
+	
+	public List<Block> getBlocksInRange(RangeInformation range) {
+		List<CellSpaceInformation> positions = Util.expandRange(
+				new CellSpaceInformation(range.getWorksheet(), range.getStartRow(), range.getStartCol()),
+				new CellSpaceInformation(range.getWorksheet(), range.getEndRow(), range.getEndCol()));
+		List<Block> blocks = new ArrayList<Block>();
+		
+		for (CellSpaceInformation pos : positions) {
+			List<Block> found = getBlocksForPosition(pos);
+			for (Block b : found)
+				if (!blocks.contains(b))
+					blocks.add(b);
+		}
+		
+		return blocks;
+	}
+	
+	public List<Block> getAllTopLevelBlocks() {
+		List<Block> blocks = new ArrayList<Block>();
+		for (List<Block> blockList: positionToBlocks.values())
+			for (Block b : blockList)
+				if (!blocks.contains(b))
+					blocks.add(b);
+		return blocks;
+	}
+	
+	private void addPositionToBlockLink(CellSpaceInformation position, Block addBlock, List<Block> removeBlocks) {
+		if (positionToBlocks.containsKey(position)) {
+			List<Block> blocksForPos = positionToBlocks.get(position);
+			for (Block b : removeBlocks)
+				if (blocksForPos.contains(b))
+					blocksForPos.remove(b);
+			if (!blocksForPos.contains(addBlock))
+				blocksForPos.add(addBlock);
+		} else {
+			List<Block> blockList = new ArrayList<Block>();
+			blockList.add(addBlock);
+			positionToBlocks.put(position, blockList);
+		}
+	}
+	
+	private void addPositionsToBlockLink(List<CellSpaceInformation> positions, Block addBlock, List<Block> removeBlocks) {
+		for (CellSpaceInformation position : positions)
+			addPositionToBlockLink(position, addBlock, removeBlocks);
+	}
+	
+	// ++++ Relation operations ++++
+	
+	public Relation createFunctionalRelation(List<Block> blocks) {
 		maxRelationID++;
 		List<CellTuple> cellRelations = createFunctionalCellRelations(blocks);
-		Relation r = new RelationFunctional(maxRelationID, blocks, function, cellRelations);
+		Relation r = new RelationFunctional(maxRelationID, blocks, cellRelations);
 		this.relations.put(maxRelationID, r);
 		for (Block block : blocks )
 			addPositionsToRelationLink(block.getCells(), r);
 		return r;
 	}
 	
-	public Block getBlockByID(int id) {
-		return blocks.get(id);
+	public List<Relation> getAllRelations() {
+		return new ArrayList<Relation>(relations.values());
 	}
 	
 	public Relation getRelationByID(int id) {
 		return relations.get(id);
-	}
-	
-	public List<Block> getBlocksForPosition(CellSpaceInformation position) {
-		return new ArrayList<Block>(positionToBlocks.get(position));
 	}
 	
 	public List<Relation> getRelationForPosition(CellSpaceInformation position) {
@@ -113,22 +166,7 @@ public class Manager {
 		}
 		return cellRelations;
 	}
-	
-	private void addPositionToBlockLink(CellSpaceInformation position, Block block) {
-		if (positionToBlocks.containsKey(position)) {
-			positionToBlocks.get(position).add(block);
-		} else {
-			List<Block> blockList = new ArrayList<Block>();
-			blockList.add(block);
-			positionToBlocks.put(position, blockList);
-		}
-	}
-	
-	private void addPositionsToBlockLink(List<CellSpaceInformation> positions, Block block) {
-		for (CellSpaceInformation position : positions)
-			addPositionToBlockLink(position, block);
-	}
-	
+
 	private void addPositionToRelationLink(CellSpaceInformation position, Relation relation) {
 		if (positionToRelations.containsKey(position)) {
 			positionToRelations.get(position).add(relation);
@@ -178,6 +216,37 @@ public class Manager {
 		assocPositions.add(position);
 		
 		return new CellTuple(assocPositions);
+	}
+	
+	// ---------- Methods for the semantic interpretation ----------
+	
+	public Map<CellSpaceInformation, String> getCompleteSemanticMapping(FormalSpreadsheet spreadsheet) {
+		Map<CellSpaceInformation, String> mapping = new HashMap<CellSpaceInformation, String>();
+		
+		// Value Interpretations
+		for (Block block : getAllTopLevelBlocks()) {
+			for (CellSpaceInformation pos : block.getCells() ) {
+				if (mapping.containsKey(pos))
+					throw new java.lang.IllegalStateException("Multiple semantic interpretations for " + pos.toString() + "possible.");
+				
+				mapping.put(pos, block.getOntologyLink().getValueInterpretation(spreadsheet.get(pos).getValue()) );	
+			}
+		}
+		
+		// Interpretations for functional blocks
+		for (Relation rel : this.relations.values()) {
+			if (rel instanceof RelationFunctional) {
+				RelationFunctional fb = (RelationFunctional) rel;
+				for (CellTuple cellTuple : fb.getCellRelations()) {
+					List<String> values = new ArrayList<String>();
+					for (int i = 0; i < cellTuple.getTuple().size()-1; i++)
+						values.add(spreadsheet.get(cellTuple.getTuple().get(i)).getValue());
+					String interpretation = rel.getOntologyLink().getRelationInterpretation(values);
+					mapping.put(cellTuple.getTuple().get(cellTuple.getTuple().size()-1), interpretation);
+				}
+			}
+		}
+		return mapping;
 	}
 
 }

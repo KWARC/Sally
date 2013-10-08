@@ -3,13 +3,13 @@ package info.kwarc.sally.spreadsheet2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CellTuple {
+class CellTuple {
 	
 	List<CellSpaceInformation> tuple;
 
 	public CellTuple(List<CellSpaceInformation> tuple) {
 		super();
-		this.tuple = tuple;
+		this.tuple = new ArrayList<CellSpaceInformation>(tuple);
 	}
 	
 	public List<CellSpaceInformation> getTuple() {
