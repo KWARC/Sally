@@ -19,7 +19,8 @@ public class WinogradData {
 	Manager manager;
 	FormalSpreadsheet spreadsheet;
 	Block year, cost, profit, dataInput, dataCalc, dataProfit; 
-	Relation relationInput, relationCalc, relationProfit;
+	Relation relationInput, relationCalc, relationProfit,
+		typeYear, typeCost, typeProfit, typeDataInput, typeDataCalc, typeDataProfit;
 	
 	public WinogradData() {
 		
@@ -65,6 +66,8 @@ public class WinogradData {
 		
 		// Setting up the manager
 		manager = new Manager(new InterfaceMockup());
+		
+		// Blocks
 		List<CellSpaceInformation> positionYear = Util.expandRange(
 				new CellSpaceInformation("Table1",0,1), new CellSpaceInformation("Table1",0,4));
 		year = manager.createComposedBlock(positionYear);
@@ -87,6 +90,7 @@ public class WinogradData {
 				new CellSpaceInformation("Table1",5,1), new CellSpaceInformation("Table1",5,4));
 		dataProfit = manager.createComposedBlock(positionDataProfit);
 		
+		// Functional relations
 		List<Block> blocksInput = new ArrayList<Block>();
 		blocksInput.add(year);
 		blocksInput.add(cost);
@@ -113,6 +117,14 @@ public class WinogradData {
  		List<CellDependencyDescription> relationProfitDesc = new ArrayList<CellDependencyDescription>();
  		relationProfitDesc.add(new CellDependencyDescription(0,0,0,3,"0,y;x,0;x,y"));
  		relationProfit = manager.createRelation(Relation.RelationType.FUNCTIONALRELATION, blocksProfit, relationProfitDesc);
+ 		
+ 		// Type relations
+ 		typeYear = manager.createUnaryRelation(Relation.RelationType.TYPERELATION, year);
+ 		typeCost = manager.createUnaryRelation(Relation.RelationType.TYPERELATION, cost);
+ 		typeProfit = manager.createUnaryRelation(Relation.RelationType.TYPERELATION, profit);
+ 		typeDataInput = manager.createUnaryRelation(Relation.RelationType.TYPERELATION, dataInput);
+ 		typeDataCalc = manager.createUnaryRelation(Relation.RelationType.TYPERELATION, dataCalc);
+ 		typeDataProfit = manager.createUnaryRelation(Relation.RelationType.TYPERELATION, dataProfit);
  		
  		// Setting up the ontology linking
  		BuilderML builderML = manager.getOntologyInterface().getBuilderML();
@@ -144,6 +156,13 @@ public class WinogradData {
 		relationInput.setUri("omdoc://winograd#ExpensesPerYear");
 		relationCalc.setUri("omdoc://winograd#ExpensesPerYear");
 		relationProfit.setUri("omdoc://winograd#profit");
+		
+		typeYear.setUri("omdoc://winograd#Year");
+		typeCost.setUri("omdoc://winograd#Costtype");
+		typeProfit.setUri("omdoc://winograd#Profit");
+		typeDataInput.setUri("omdoc://winograd#Money");
+		typeDataCalc.setUri("omdoc://winograd#Money");
+		typeDataProfit.setUri("omdoc://winograd#Money");
 	}
 
 	public Manager getManager() {
@@ -188,6 +207,30 @@ public class WinogradData {
 
 	public Relation getRelationProfit() {
 		return relationProfit;
+	}
+
+	public Relation getTypeYear() {
+		return typeYear;
+	}
+
+	public Relation getTypeCost() {
+		return typeCost;
+	}
+
+	public Relation getTypeProfit() {
+		return typeProfit;
+	}
+
+	public Relation getTypeDataInput() {
+		return typeDataInput;
+	}
+
+	public Relation getTypeDataCalc() {
+		return typeDataCalc;
+	}
+
+	public Relation getTypeDataProfit() {
+		return typeDataProfit;
 	}
 	
 }

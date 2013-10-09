@@ -81,9 +81,26 @@ public class UtilTest {
 		domainValues.add(dv4);
 		
 		String antiunificationResult = Util.antiunifyMathMLFormulae(formulae, domainValues, mlBuilder);
-		System.out.println("Antiunification: \n " + antiunificationResult);
-
-		assertEquals(418, antiunificationResult.length());	
+		//System.out.println("Antiunification: \n " + antiunificationResult);
+		//assertEquals(418, antiunificationResult.length());
+		assertEquals(
+				"<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" +
+				"  <apply>\n" +
+				"    <csymbol cd=\"spsht-arith\">plus</csymbol>\n" +
+				"      <apply>\n" +
+				"      <csymbol cd=\"winograd\">ExpensesPerYear</csymbol>\n" +
+				"      <rvar num=\"0\"/>\n" +
+				"      <ci>Costtype: Materials</ci>\n" +
+				"      </apply>\n" +
+				"      <apply>\n" +
+				"      <csymbol cd=\"winograd\">ExpensesPerYear</csymbol>\n" +
+				"      <rvar num=\"0\"/>\n" +
+				"      <ci>Costtype: Salaries</ci>\n" +
+				"      </apply>\n" +
+				"  </apply>\n" +
+				"</math>", antiunificationResult.replaceAll("\r", "")
+				);
+		
 	}
 	
 	@Test
@@ -117,8 +134,10 @@ public class UtilTest {
 		domainValues.add(dv4);
 		
 		Map<Integer, String> constantArgs = Util.getConstantArguments(domainValues);
-		for (Integer i : constantArgs.keySet())
-			System.out.println("Constant: " + i + " -> " + constantArgs.get(i));
+		assertEquals(new Integer(1), new Integer(constantArgs.size()));
+		assertEquals("<ci>Costtype: total</ci>", constantArgs.get(1));
+		//for (Integer i : constantArgs.keySet())
+			//System.out.println("Constant: " + i + " -> " + constantArgs.get(i));
 	}
 	
 	@Test

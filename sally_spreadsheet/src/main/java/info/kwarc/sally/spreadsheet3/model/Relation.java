@@ -40,6 +40,31 @@ public class Relation {
 		this(id, relationType, blocks, cellRelations, cellDependencyDescriptions, "");
 	}
 	
+	
+	/**
+	 * Create an unary relation for a single block.
+	 */
+	public Relation(int id, RelationType relationType, Block block, String uri) {
+		super();
+		this.id = id;
+		this.relationType = relationType;
+		this.uri = uri;
+		this.blocks = new ArrayList<Block>();
+		this.blocks.add(block);
+		this.cellRelations = new ArrayList<CellTuple>();
+		for (CellSpaceInformation pos : block.getCells()) {
+			List<CellSpaceInformation> tuple = new ArrayList<CellSpaceInformation>();
+			tuple.add(pos);
+			this.cellRelations.add(new CellTuple(tuple));
+		}
+		this.cellDependencyDescriptions = new ArrayList<CellDependencyDescription>();
+		this.cellDependencyDescriptions.add(new CellDependencyDescription(0, block.getMaxRow()-block.getMinRow(), 0, block.getMaxColumn() - block.getMinColumn(), "x,y"));
+	}
+	
+	public Relation(int id, RelationType relationType, Block block) {
+		this(id, relationType, block, "");
+	}
+	
 	public Relation(sally.RelationMsg msg, Manager manager) {
 		super();
 		List<Block> msgBlocks = new ArrayList<Block>();

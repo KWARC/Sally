@@ -1,5 +1,7 @@
 package info.kwarc.sally.spreadsheet3.ontology;
 
+import java.util.List;
+
 
 /**
  * As long as we do not have a working ontology framework, we access a faked ontology by providing this interface. 
@@ -20,5 +22,7 @@ public abstract class Interface {
 	}
 
 	abstract public FunctionObject getFunctionObject(String uri);
+	
+	abstract public List<FunctionObject> getAllFunctionObjects();
 
 }

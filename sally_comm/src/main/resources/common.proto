@@ -394,7 +394,7 @@ message AbstractSpreadsheetMsg {
 
 // ++++ For serialization we define a message Mapping which contains all relevant information for the mapping between an ASM and a concrete Spreadsheet. ++++
 
-message CellSpaceInformationMsgOld {
+message CellSpaceInformationMsg {
 	required int32 worksheet = 1;
 	required int32 row = 2;
 	required int32 column = 3;
@@ -430,7 +430,7 @@ message MappingMsg {
 }
 
 
-message ModelDataMsgOld {
+message ModelDataMsg {
 	required sally.AbstractSpreadsheetMsg asm = 1;
 	required sally.MappingMsg mapping = 2;
 }
@@ -809,7 +809,7 @@ message ValueInterpretationMsg {
 
 }
 
-message CellSpaceInformationMsg {
+message CellSpaceInformationMsgNew {
 	required string worksheet = 1;
 	required int32 row = 2;
 	required int32 column = 3;
@@ -828,12 +828,12 @@ message BlockMsg {
 	required string worksheet = 3;
 	repeated ValueInterpretationMsg valueInterpretations = 4;
 
-	optional CellSpaceInformationMsg position = 5;	// For atomic blocks
+	optional CellSpaceInformationMsgNew position = 5;	// For atomic blocks
 	repeated int32 subBlockIds = 6;					// For composed blocks
 }
 
 message CellTupleMsg {
-	repeated CellSpaceInformationMsg tuple = 1;
+	repeated CellSpaceInformationMsgNew tuple = 1;
 }
 
 message CellDependencyDescriptionMsg {
@@ -853,7 +853,7 @@ message RelationMsg {
 	repeated CellDependencyDescriptionMsg cellDependencyDescriptions = 6;
 }
 
-message ModelDataMsg {
+message ModelDataMsgNew {
 	repeated BlockMsg blocks = 1;
 	repeated RelationMsg relations = 2;
 }

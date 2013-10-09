@@ -113,5 +113,10 @@ public class InterfaceMockup extends Interface {
 		return ontologyFunctions.get(uri);
 	}
 	
+	@Override
+	public List<FunctionObject> getAllFunctionObjects() {
+		return new ArrayList<FunctionObject>(ontologyFunctions.values());
+	}
+	
 
 }

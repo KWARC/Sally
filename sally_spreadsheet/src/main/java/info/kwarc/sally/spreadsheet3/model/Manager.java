@@ -52,7 +52,7 @@ public class Manager {
 	 * @param ontologyInterface An interface to access the ontology.
 	 * @param modelMsg A protobuffer message that contains all data to restore an abstract spreadsheet model.
 	 */
-	public Manager(Interface ontologyInterface, sally.ModelDataMsg modelMsg) {
+	public Manager(Interface ontologyInterface, sally.ModelDataMsgNew modelMsg) {
 		this.blocks = new HashMap<Integer, Block>();
 		this.relations = new HashMap<Integer, Relation>();
 		this.maxBlockID = 0;
@@ -278,6 +278,15 @@ public class Manager {
 		return r;
 	}
 	
+	public Relation createUnaryRelation(Relation.RelationType type, Block block) {
+		maxRelationID++;
+		
+		Relation r = new Relation(maxRelationID, type, block);
+		this.relations.put(maxRelationID, r);
+		addPositionsToRelationLink(block.getCells(), r);
+		return r;
+	}
+	
 	/**
 	 * Returns all relations.
 	 * @return All relations.
@@ -302,6 +311,22 @@ public class Manager {
 	 */
 	public List<Relation> getRelationForPosition(CellSpaceInformation position) {
 		return new ArrayList<Relation>(positionToRelations.get(position));
+	}
+	
+	public List<Relation> getRelationsFor(CellSpaceInformation position, Block block, Relation.RelationType type) {
+		List<Relation> relationList1;
+		if (position != null)
+			relationList1 = positionToRelations.get(position);
+		else
+			relationList1 = getAllRelations();
+		
+		List<Relation> relationList2 = new ArrayList<Relation>();
+		for (Relation rel : relationList1) {
+			if ( ((block == null) || (rel.getBlocks().contains(block)) ) &&
+				 ((type == null) || (rel.getRelationType().equals(type)) ) )
+				 relationList2.add(rel);
+		}
+		return relationList2;
 	}
 	
 	/**
@@ -364,9 +389,11 @@ public class Manager {
 		
 		// Interpretations for functional blocks
 		for (Relation rel : this.relations.values()) {
-			for (CellTuple cellTuple : rel.getCellRelations()) {
-				String interpretation = RelationInterpreter.interprete(rel,cellTuple, spreadsheet, ontologyInterface.getBuilderML());
-				mapping.put(cellTuple.getTuple().get(cellTuple.getTuple().size()-1), interpretation);
+			if (rel.getRelationType().equals(Relation.RelationType.FUNCTIONALRELATION)) {
+				for (CellTuple cellTuple : rel.getCellRelations()) {
+					String interpretation = RelationInterpreter.interprete(rel,cellTuple, spreadsheet, ontologyInterface.getBuilderML());
+					mapping.put(cellTuple.getTuple().get(cellTuple.getTuple().size()-1), interpretation);
+				}
 			}
 		}
 	
@@ -377,8 +404,8 @@ public class Manager {
 	 * Return a protobuffer message that contains all data from the model.
 	 * @return A protobuffer message that contains all data from the model.
 	 */
-	public sally.ModelDataMsg serialize() {
-		sally.ModelDataMsg.Builder msg = sally.ModelDataMsg.newBuilder();
+	public sally.ModelDataMsgNew serialize() {
+		sally.ModelDataMsgNew.Builder msg = sally.ModelDataMsgNew.newBuilder();
 		
 		for (Block b : this.blocks.values())
 			msg.addBlocks(b.serialize());

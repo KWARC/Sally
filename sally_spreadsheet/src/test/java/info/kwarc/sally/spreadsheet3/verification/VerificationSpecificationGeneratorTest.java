@@ -4,8 +4,11 @@ import static org.junit.Assert.*;
 
 import info.kwarc.sally.spreadsheet3.FormalSpreadsheet;
 import info.kwarc.sally.spreadsheet3.WinogradData;
+import info.kwarc.sally.spreadsheet3.model.Block;
 import info.kwarc.sally.spreadsheet3.model.Manager;
+import info.kwarc.sally.spreadsheet3.model.Relation;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +30,13 @@ public class VerificationSpecificationGeneratorTest {
 	@Ignore
 	public void testGetDataTypeSpecification() {
 		// Datatypes
-		Map<String, List<String>> dataTypes = VerificationDataExtractor.extractDataTypes(manager.getAllTopLevelBlocks(), spreadsheet);
+		Map<Block, String> blocks = new HashMap<Block, String>();
+		for (Block b : manager.getAllTopLevelBlocks()) {
+			Relation blockRelation = manager.getRelationsFor(null, b, Relation.RelationType.TYPERELATION).get(0);
+			blocks.put(b, blockRelation.getUri());
+			
+		}
+		Map<String, List<String>> dataTypes = VerificationDataExtractor.extractDataTypes(blocks, spreadsheet);
 		List<String> dtSpec = VerificationSpecificationGenerator.getDataTypeSpecification(dataTypes).getSpecification();
 		System.out.println("Datatypes:");
 		for (String s : dtSpec)
@@ -42,16 +51,21 @@ public class VerificationSpecificationGeneratorTest {
 	@Ignore
 	public void testCreateFunctionDeclarations() {
 		System.out.println("Function declarations:");
-		for (String decl : VerificationSpecificationGenerator.createFunctionDeclarations((new OntologyData()).getAll()))
+		for (String decl : VerificationSpecificationGenerator.createFunctionDeclarations(manager.getOntologyInterface().getAllFunctionObjects()))
 			System.out.println(decl);
 	}
 
 	@Ignore
 	public void testCreateFunctionDefinitions() {
-		Map<String, List<String>> dataTypes = VerificationDataExtractor.extractDataTypes(manager.getAllTopLevelBlocks(), spreadsheet);
+		Map<Block, String> blocks = new HashMap<Block, String>();
+		for (Block b : manager.getAllTopLevelBlocks()) {
+			Relation blockRelation = manager.getRelationsFor(null, b, Relation.RelationType.TYPERELATION).get(0);
+			blocks.put(b, blockRelation.getUri());	
+		}
+		Map<String, List<String>> dataTypes = VerificationDataExtractor.extractDataTypes(blocks, spreadsheet);
 		DataTypeSpec dataTypesSpec = VerificationSpecificationGenerator.getDataTypeSpecification(dataTypes);
 		System.out.println("Function definitions:");
-		for (String def : VerificationSpecificationGenerator.createFunctionDefinitions( (new OntologyData()).getAll(), dataTypesSpec.getIdentifierToSymbol()))
+		for (String def : VerificationSpecificationGenerator.createFunctionDefinitions( manager.getOntologyInterface().getAllFunctionObjects(), dataTypesSpec.getIdentifierToSymbol()))
 			System.out.println(def);
 	}
 	

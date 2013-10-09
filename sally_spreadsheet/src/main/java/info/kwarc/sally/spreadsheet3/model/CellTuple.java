@@ -14,7 +14,7 @@ public class CellTuple {
 	
 	public CellTuple(sally.CellTupleMsg msg) {
 		tuple = new ArrayList<CellSpaceInformation>();
-		for (sally.CellSpaceInformationMsg cellMsg : msg.getTupleList())
+		for (sally.CellSpaceInformationMsgNew cellMsg : msg.getTupleList())
 			tuple.add(new CellSpaceInformation(cellMsg));
 	}
 	

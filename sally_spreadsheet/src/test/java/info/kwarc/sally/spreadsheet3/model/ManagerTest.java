@@ -38,10 +38,10 @@ public class ManagerTest {
 		assertEquals(4, p1.get(0).getCells().size());
 		
 		List<Relation> p2 = manager.getRelationForPosition(new CellSpaceInformation("Table1", 2, 3));
-		assertEquals(new Integer(1), new Integer(p2.size()));
+		assertEquals(new Integer(2), new Integer(p2.size()));
 		
 		List<CellTuple> relation = manager.getCellRelationsForPosition(new CellSpaceInformation("Table1", 2, 3));
-		assertEquals(new Integer(1), new Integer(relation.size()));
+		assertEquals(new Integer(2), new Integer(relation.size()));
 		assertTrue(relation.get(0).contains((new CellSpaceInformation("Table1", 2, 0))));
 		assertTrue(relation.get(0).contains((new CellSpaceInformation("Table1", 0, 3))));
 		assertFalse(relation.get(0).contains((new CellSpaceInformation("Table1", 2, 2))));
@@ -73,7 +73,7 @@ public class ManagerTest {
 		assertEquals(rel, relNew);
 				
 		// Model Test
-		sally.ModelDataMsg modelData = manager.serialize();
+		sally.ModelDataMsgNew modelData = manager.serialize();
 		Manager managerNew = new Manager(manager.getOntologyInterface(), modelData);
 
 		assertEquals(manager, managerNew);

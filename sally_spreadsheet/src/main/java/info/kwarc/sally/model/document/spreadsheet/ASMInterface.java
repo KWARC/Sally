@@ -223,6 +223,7 @@ public class ASMInterface {
 	public sally.SpreadsheetModel serialize() {
 		sally.SpreadsheetModel.Builder model = sally.SpreadsheetModel.newBuilder();
 		model.setAsm(modelAdmin.getProtoBufRepresentation());
+		
 		for (AbstractStructure struct : ontoMapping.getAllStructures()) {
 			model.addOntomapping(SpreadsheetOntologyPair.newBuilder()
 					.setAsmid(struct.getId())
@@ -241,6 +242,7 @@ public class ASMInterface {
 	
 	public void reconstruct(sally.SpreadsheetModel modelData) {
 		modelAdmin.createModel(modelData.getAsm());
+		
 		for (SpreadsheetOntologyPair pair : modelData.getOntomappingList()) {
 			addOntologyLink(pair.getAsmid(), pair.getUri());
 		}
