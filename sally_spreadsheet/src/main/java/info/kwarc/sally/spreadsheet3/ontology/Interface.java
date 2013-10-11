@@ -24,5 +24,7 @@ public abstract class Interface {
 	abstract public FunctionObject getFunctionObject(String uri);
 	
 	abstract public List<FunctionObject> getAllFunctionObjects();
+	
+	abstract public List<String> getAxioms();
 
 }

@@ -22,7 +22,7 @@ public class RelationInterpreterTest {
 		String definition = RelationInterpreter.getDefinition(winData.getRelationProfit(), 
 				winData.getRelationProfit().getCellRelationFor(pos).get(0),
 				winData.getSpreadsheet(), new InterfaceMockup());
-		//System.out.println(definition);
+		System.out.println(definition);
 		assertEquals("<apply>\n  <csymbol cd=\"spsht-arith\">minus</csymbol>\n  <apply>\n    <csymbol cd=\"winograd\">RevenuePerYear</csymbol>\n    <ci>Year 1984 AD</ci>\n  </apply>\n  <apply>\n    <csymbol cd=\"winograd\">ExpensesPerYear</csymbol>\n    <ci>Year 1984 AD</ci>\n    <ci>Costtype: Total</ci>\n  </apply>\n</apply>\n", definition);
 	}
 

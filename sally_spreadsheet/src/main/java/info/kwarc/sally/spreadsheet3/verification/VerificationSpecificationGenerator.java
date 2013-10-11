@@ -37,6 +37,9 @@ public class VerificationSpecificationGenerator {
 	final static Logger logger = LoggerFactory.getLogger(VerificationSpecificationGenerator.class);
 	final static String BADTYPE = "(- 99999999)";
 	
+	public static void createCompeteSpecification(Manager manager, FormalSpreadsheet spreadsheet) {
+		
+	}
 	
 	public static DataTypeSpec getDataTypeSpecification(Map<String, List<String>> dataTypes) {
 		/*List<String> allSymbols = new ArrayList<String>();
@@ -93,52 +96,21 @@ public class VerificationSpecificationGenerator {
 			String function = "(define-fun is-" + Util.getCDFromURI(dataTyp) + "~" + Util.getSymbolFromURI(dataTyp) +  " ((x Object)) Bool\n" + " (or ";
 			for (String symbol : dataTypes.get(dataTyp))
 				function = function + "(= x " + symbolToId.get(symbol) + ") ";
-			function = function + ")\n)\n";
+			function = function + ")\n)";
 			specification.add(function);
 		}
 		return new DataTypeSpec(specification, idToSymbol);
 		
 	}
-	
-	public static String getFunctionDefinition(FunctionObject function, Map<String, String> identifierToSymbol) {
-		String funcDef = "(define-fun " + Util.getCDFromURI(function.getUri()) + "~" + Util.getSymbolFromURI(function.getUri()) + " (";
-		Map<String, String> varType = new HashMap<String,String>();
-		for (int i = 0; i < function.getArgumentTypes().size(); i++) {
-			funcDef = funcDef + "(" + function.getBuilderML().getVIVaribale(i) + " ";
-			if (isStandardType(function.getArgumentTypes().get(i)) )
-				funcDef = funcDef + uriToIdentifier(function.getArgumentTypes().get(i)) + ")";
-			else {
-				funcDef = funcDef + "Object )";
-				varType.put(function.getBuilderML().getVIVaribale(i), uriToIdentifier(function.getArgumentTypes().get(i)));
+		
+	public static List<String> createFunctionDeclarations(List<FunctionObject> functions) {
+		List<String> declarations = new ArrayList<String>();
+		for (FunctionObject function : functions) {
+			if (function.getMLDefinition().isEmpty()) {
+				declarations.add(getFunctionDeclaration(uriToIdentifier(function.getUri()), function.getArgumentTypes(), function.getResultType()));
 			}
 		}
-		funcDef =  funcDef + ") " + uriToIdentifier(function.getResultType()) + "\n"; 
-		if (!varType.isEmpty()) {
-			funcDef = funcDef + "(ite (and\n";
-			for (String var : varType.keySet())
-				funcDef = funcDef + "(is-" + varType.get(var) + " " + var + ")\n";
-			funcDef = funcDef + ")\n";
-			funcDef = funcDef + mathML2Z3(function.getMLDefinition(), mathML2Z3XLSTFunctions, identifierToSymbol) + "\n";
-			funcDef = funcDef + BADTYPE + "\n))\n";
-		} else
-			funcDef = funcDef + mathML2Z3(function.getMLDefinition(), mathML2Z3XLSTFunctions, identifierToSymbol) + "\n)\n";
-		
-		return funcDef;
-	}
-	
-	public static String getFunctionDeclaration(String functionName, List<String> arguments, String result) {
-		String funcDef = "(declare-fun " + functionName + " (";
-		for (String varName : arguments) {
-			if (isStandardType(varName))
-				funcDef = funcDef +  uriToIdentifier(varName) + " ";
-			else
-				funcDef = funcDef +  "Object ";
-		}
-		return funcDef + ") " + uriToIdentifier(result) + ")\n";
-	}
-	
-	public static String getAxiom(String axiom) {
-		return "(assert " +  mathML2Z3(axiom, mathML2Z3XLSTAxioms, new HashMap<String, String>()) + ") )";
+		return declarations;
 	}
 	
 	public static List<String> createFunctionDefinitions(List<FunctionObject> functions, Map<String, String> identifierToSymbol) {
@@ -151,17 +123,49 @@ public class VerificationSpecificationGenerator {
 		return definitions;
 	}
 	
-	public static List<String> createFunctionDeclarations(List<FunctionObject> functions) {
-		List<String> declarations = new ArrayList<String>();
-		for (FunctionObject function : functions) {
-			if (function.getMLDefinition().isEmpty()) {
-				declarations.add(getFunctionDeclaration(uriToIdentifier(function.getUri()), function.getArgumentTypes(), function.getResultType()));
-			}
-		}
-		return declarations;
+	public static String getAxiom(String axiom) {
+		axiom = Util.replaceURIsWithIdentifiers(axiom);
+		return "(assert " +  mathML2Z3(axiom, mathML2Z3XLSTAxioms, new HashMap<String, String>()) + ") )";
 	}
 	
-	public static String mathML2Z3(String expression, String template, Map<String, String> identifierToSymbol) {
+	private static String getFunctionDeclaration(String functionName, List<String> arguments, String result) {
+		String funcDef = "(declare-fun " + functionName + " (";
+		for (String varName : arguments) {
+			if (isStandardType(varName))
+				funcDef = funcDef +  uriToIdentifier(varName) + " ";
+			else
+				funcDef = funcDef +  "Object ";
+		}
+		return funcDef + ") " + uriToIdentifier(result) + ")";
+	}
+
+	private static String getFunctionDefinition(FunctionObject function, Map<String, String> identifierToSymbol) {
+		String funcDef = "(define-fun " + Util.getCDFromURI(function.getUri()) + "~" + Util.getSymbolFromURI(function.getUri()) + " (";
+		Map<String, String> varType = new HashMap<String,String>();
+		for (int i = 0; i < function.getArgumentTypes().size(); i++) {
+			funcDef = funcDef + "(" + mathML2Z3(function.getBuilderML().getVIVaribale(i), mathML2Z3XLSTFunctions, identifierToSymbol);
+			if (isStandardType(function.getArgumentTypes().get(i)) )
+				funcDef = funcDef + uriToIdentifier(function.getArgumentTypes().get(i)) + ")";
+			else {
+				funcDef = funcDef + "Object )";
+				varType.put(function.getBuilderML().getVIVaribale(i), uriToIdentifier(function.getArgumentTypes().get(i)));
+			}
+		}
+		funcDef =  funcDef + ") " + uriToIdentifier(function.getResultType()) + "\n"; 
+		if (!varType.isEmpty()) {
+			funcDef = funcDef + "(ite (and\n";
+			for (String var : varType.keySet())
+				funcDef = funcDef + "(is-" + varType.get(var) + " " +  mathML2Z3(var, mathML2Z3XLSTFunctions, identifierToSymbol) + ")\n";
+			funcDef = funcDef + ")";
+			funcDef = funcDef + mathML2Z3(function.getMLDefinition(), mathML2Z3XLSTFunctions, identifierToSymbol);
+			funcDef = funcDef + BADTYPE + "\n))";
+		} else
+			funcDef = funcDef + mathML2Z3(function.getMLDefinition(), mathML2Z3XLSTFunctions, identifierToSymbol) + "\n)";
+		
+		return funcDef;
+	}
+	
+	private static String mathML2Z3(String expression, String template, Map<String, String> identifierToSymbol) {
 		// Map Identifier to symbols
 		for (String identifier : identifierToSymbol.keySet())
 			expression = expression.replaceAll(identifier, identifierToSymbol.get(identifier));
@@ -196,12 +200,8 @@ public class VerificationSpecificationGenerator {
 		} 
 		return resultStr;
 	}
-	
-	public static void createCompeteSpecification(Manager manager, FormalSpreadsheet spreadsheet) {
-	
-	}
-	
-	public static String uriToIdentifier(String uri) {
+		
+	private static String uriToIdentifier(String uri) {
 		if (Util.isOMDocUri(uri)) {
 			if (isStandardType(uri))
 				return Util.getSymbolFromURI(uri);
@@ -211,7 +211,7 @@ public class VerificationSpecificationGenerator {
 			return "";
 	}
 	
-	public static Boolean isStandardType(String uri) {
+	private static Boolean isStandardType(String uri) {
 		String[] mathMLDataTypes = {"omdoc://MathML#Real", "omdoc://MathML#Int", "omdoc://MathML#Bool" };
 		boolean isMathMLDT = false;
 		for (String dt : mathMLDataTypes)

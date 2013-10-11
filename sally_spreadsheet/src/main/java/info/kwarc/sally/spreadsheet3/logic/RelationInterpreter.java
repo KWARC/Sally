@@ -22,7 +22,7 @@ public class RelationInterpreter {
 			if (!mlDefinition.isEmpty()) {
 				for (int i = 0; i < cells.getSize(); i++) {
 					mlDefinition = mlDefinition.replace(
-							function.getBuilderML().getVIVaribale(i+1),
+							function.getBuilderML().getVIVaribale(i),
 							relation.getBlocks().get(i).getValueInterpretation(
 									spreadsheet.get(cells.getTuple().get(i)).getValue()));
 				}

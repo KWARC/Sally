@@ -165,5 +165,10 @@ public class UtilTest {
 	public void testGetSymbolFromURI() {
 		assertEquals("year", Util.getSymbolFromURI("omdoc://winograd#year"));
 	}
+	
+	@Test
+	public void testReplaceURIsWithIdentifiers() {
+		assertEquals("Test1 winograd~years spsht-arith~equal Text winograd~ExpensesPerYear More", Util.replaceURIsWithIdentifiers("Test1 omdoc://winograd#years omdoc://spsht-arith#equal Text omdoc://winograd#ExpensesPerYear More"));
+	}
 
 }

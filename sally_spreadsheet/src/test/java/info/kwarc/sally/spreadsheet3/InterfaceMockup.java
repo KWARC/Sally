@@ -27,7 +27,7 @@ public class InterfaceMockup extends Interface {
 		vars.add("<rvar num=\"1\"/>");
 		vars.add("<rvar num=\"2\"/>");*/
 		
-		String mathML = "<apply><plus/><rvar num=\"1\"/><rvar num=\"2\"/></apply>";
+		String mathML = "<apply><plus/><rvar num=\"0\"/><rvar num=\"1\"/></apply>";
 		ontologyFunctions.put("omdoc://spsht-arith#plus", new FunctionObject("omdoc://spsht-arith#plus", arguments, "omdoc://MathML#Real", mathML, mathMLBuilder));
 	
 		// omdoc://spsht-arith#minus
@@ -39,7 +39,7 @@ public class InterfaceMockup extends Interface {
 		vars.add("<rvar num=\"1\"/>");
 		vars.add("<rvar num=\"2\"/>");*/
 				
-		mathML = "<apply><minus/><rvar num=\"1\"/><rvar num=\"2\"/></apply>";
+		mathML = "<apply><minus/><rvar num=\"0\"/><rvar num=\"1\"/></apply>";
 		ontologyFunctions.put("omdoc://spsht-arith#minus", new FunctionObject("omdoc://spsht-arith#minus", arguments, "omdoc://MathML#Real", mathML, mathMLBuilder));
 		
 		// omdoc://spsht-arith#equal
@@ -51,7 +51,7 @@ public class InterfaceMockup extends Interface {
 		vars.add("<rvar num=\"1\"/>");
 		vars.add("<rvar num=\"2\"/>");*/
 				
-		mathML = "<apply><eq/><rvar num=\"1\"/><rvar num=\"2\"/></apply>";
+		mathML = "<apply><eq/><rvar num=\"0\"/><rvar num=\"1\"/></apply>";
 		ontologyFunctions.put("omdoc://spsht-arith#equal", new FunctionObject("omdoc://spsht-arith#equal", arguments, "omdoc://MathML#Bool", mathML, mathMLBuilder));
 		
 		// omdoc://spsht-arith#sum5
@@ -69,7 +69,7 @@ public class InterfaceMockup extends Interface {
 		vars.add("<rvar num=\"4\"/>");
 		vars.add("<rvar num=\"5\"/>");*/
 						
-		mathML = "<apply><plus/><rvar num=\"1\"/><rvar num=\"2\"/><rvar num=\"3\"/><rvar num=\"4\"/><rvar num=\"5\"/></apply>";
+		mathML = "<apply><plus/><rvar num=\"0\"/><rvar num=\"1\"/><rvar num=\"2\"/><rvar num=\"3\"/><rvar num=\"4\"/></apply>";
 		ontologyFunctions.put("omdoc://spsht-arith#sum5", new FunctionObject("omdoc://spsht-arith#sum5", arguments, "omdoc://MathML#Real", mathML, mathMLBuilder));
 		
 		// omdoc://winograd#revenue
@@ -96,11 +96,11 @@ public class InterfaceMockup extends Interface {
 				 "  <csymbol cd=\"spsht-arith\">minus</csymbol>\n" +
 				 "  <apply>\n" +
 				 "    <csymbol cd=\"winograd\">RevenuePerYear</csymbol>\n" +
-				 "    <rvar num=\"1\"/>\n" +
+				 "    <rvar num=\"0\"/>\n" +
 				 "  </apply>\n" +
 				 "  <apply>\n" +
 				 "    <csymbol cd=\"winograd\">ExpensesPerYear</csymbol>\n" +
-				 "    <rvar num=\"1\"/>\n" +
+				 "    <rvar num=\"0\"/>\n" +
 				 "    <ci>Costtype: Total</ci>\n" +
 				 "  </apply>\n" +
 				 "</apply>\n";
@@ -116,6 +116,19 @@ public class InterfaceMockup extends Interface {
 	@Override
 	public List<FunctionObject> getAllFunctionObjects() {
 		return new ArrayList<FunctionObject>(ontologyFunctions.values());
+	}
+	
+	@Override
+	public List<String> getAxioms() {
+		List<String> axioms = new ArrayList<String>();
+		axioms.add("<apply><forall/><bvar><ci>y</ci></bvar><condition><apply><in/><ci>y</ci><ci>omdoc://winograd#years</ci></apply></condition>" +
+			"<apply><csymbol cd=\"spsht-arith\">equal</csymbol><apply><csymbol cd=\"winograd\">ExpensesPerYear</csymbol><ci>Costtype: total</ci><ci>y</ci></apply> " +
+			"<apply><csymbol cd=\"spsht-arith\">sum5</csymbol>" +
+			"<apply><csymbol cd=\"winograd\">ExpensesPerYear</csymbol><ci>Costtype: Salaries</ci><ci>y</ci></apply>" +
+			"<apply><csymbol cd=\"winograd\">ExpensesPerYear</csymbol><ci>Costtype: Materials</ci><ci>y</ci></apply>" +
+			"<apply><csymbol cd=\"winograd\">ExpensesPerYear</csymbol><ci>Costtype: Revenues</ci><ci>y</ci></apply>" +
+			"</apply></apply></apply>");
+		return axioms;
 	}
 	
 

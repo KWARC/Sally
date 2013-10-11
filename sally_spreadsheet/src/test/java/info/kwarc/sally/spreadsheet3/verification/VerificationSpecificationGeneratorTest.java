@@ -27,7 +27,7 @@ public class VerificationSpecificationGeneratorTest {
 		spreadsheet = winData.getSpreadsheet();
 	}
 
-	@Ignore
+	@Test
 	public void testGetDataTypeSpecification() {
 		// Datatypes
 		Map<Block, String> blocks = new HashMap<Block, String>();
@@ -38,24 +38,21 @@ public class VerificationSpecificationGeneratorTest {
 		}
 		Map<String, List<String>> dataTypes = VerificationDataExtractor.extractDataTypes(blocks, spreadsheet);
 		List<String> dtSpec = VerificationSpecificationGenerator.getDataTypeSpecification(dataTypes).getSpecification();
-		System.out.println("Datatypes:");
-		for (String s : dtSpec)
-			System.out.println(s);
+		assertTrue(dtSpec.size() == 32);
+		assertEquals("(declare-datatypes () ((Object Sym-26 Sym-24 Sym-25 Sym-22 Sym-23 Sym-20 Sym-21 Sym-3 Sym-2 Sym-5 Sym-4 Sym-1 Sym-0 Sym-17 Sym-18 Sym-19 Sym-13 Sym-14 Sym-15 Sym-16 Sym-10 Sym-11 Sym-12 Sym-6 Sym-7 Sym-8 Sym-9 )))",
+				dtSpec.get(0));
+		assertEquals("(assert (= Sym-26 Profit ) )", dtSpec.get(1));
 	}
 
-	@Ignore
-	public void testGetFunctionDefinition() {
-		fail("Not yet implemented");
-	}
-
-	@Ignore
+	@Test
 	public void testCreateFunctionDeclarations() {
-		System.out.println("Function declarations:");
-		for (String decl : VerificationSpecificationGenerator.createFunctionDeclarations(manager.getOntologyInterface().getAllFunctionObjects()))
-			System.out.println(decl);
+		List<String> declarations = VerificationSpecificationGenerator.createFunctionDeclarations(manager.getOntologyInterface().getAllFunctionObjects());
+		assertTrue(declarations.size() == 2);
+		assertEquals("(declare-fun winograd~ExpensesPerYear (Object Object ) Real)", declarations.get(0));
+		assertEquals("(declare-fun winograd~RevenuePerYear (Object ) Real)", declarations.get(1));
 	}
 
-	@Ignore
+	@Test
 	public void testCreateFunctionDefinitions() {
 		Map<Block, String> blocks = new HashMap<Block, String>();
 		for (Block b : manager.getAllTopLevelBlocks()) {
@@ -64,20 +61,16 @@ public class VerificationSpecificationGeneratorTest {
 		}
 		Map<String, List<String>> dataTypes = VerificationDataExtractor.extractDataTypes(blocks, spreadsheet);
 		DataTypeSpec dataTypesSpec = VerificationSpecificationGenerator.getDataTypeSpecification(dataTypes);
-		System.out.println("Function definitions:");
+		/*System.out.println("Function definitions:");
 		for (String def : VerificationSpecificationGenerator.createFunctionDefinitions( manager.getOntologyInterface().getAllFunctionObjects(), dataTypesSpec.getIdentifierToSymbol()))
-			System.out.println(def);
+			System.out.println(def);*/
+		List<String> definitions = VerificationSpecificationGenerator.createFunctionDefinitions( manager.getOntologyInterface().getAllFunctionObjects(), dataTypesSpec.getIdentifierToSymbol());
+		assertEquals("(define-fun spsht-arith~minus ((x0 Real)(x1 Real)) Real\n(- x0 x1 )\n)", definitions.get(0));
 	}
 	
 	@Test
 	public void testCreateAxiom() {
-		String axiom = "<apply><forall/><bvar><ci>y</ci></bvar><condition><apply><and/><apply><in/><ci>y</ci><ci>omdoc://winograd#years</ci></apply></apply></condition>" +
-			"<apply><csymbol cd=\"spsht-arith\">equal</csymbol><apply><csymbol cd=\"winograd\">ExpensesPerYear</csymbol><ci>Costtype: total</ci><ci>y</ci></apply> " +
-			"<apply><csymbol cd=\"spsht-arith\">sum5</csymbol>" +
-			"<apply><csymbol cd=\"winograd\">ExpensesPerYear</csymbol><ci>Costtype: Salaries</ci><ci>y</ci></apply>" +
-			"<apply><csymbol cd=\"winograd\">ExpensesPerYear</csymbol><ci>Costtype: Materials</ci><ci>y</ci></apply>" +
-			"<apply><csymbol cd=\"winograd\">ExpensesPerYear</csymbol><ci>Costtype: Revenues</ci><ci>y</ci></apply>" +
-			"</apply></apply></apply>";
+		String axiom = manager.getOntologyInterface().getAxioms().get(0);
 		System.out.println("Axiom:");
 		System.out.println(VerificationSpecificationGenerator.getAxiom(axiom));
 	}
