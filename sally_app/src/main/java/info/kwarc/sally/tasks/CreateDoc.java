@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import sally.AlexData;
 import sally.CADSemanticData;
-import sally.SpreadsheetModel;
+import sally.SpreadsheetAlexData;
 import sally.WhoAmI;
 import sally.WhoAmI.DocType;
 
@@ -74,7 +74,12 @@ public class CreateDoc implements WorkItemHandler {
 			Map<String, Object> params = new HashMap<String, Object>();
 
 			if (alexInfo.getDocumentType() == DocType.Spreadsheet) {
-				SpreadsheetModel rr = SpreadsheetModel.parseFrom(res);
+				SpreadsheetAlexData rr ;
+				try {
+					rr = SpreadsheetAlexData.parseFrom(res);
+				} catch (Exception e) {
+					rr = SpreadsheetAlexData.newBuilder().build();
+				}
 				processInput = spreadsheetFactory.create(alexData.getFileName(), rr, networkSender);
 				params.put("ASMInput", processInput);
 				processId = "Sally.spreadsheet";

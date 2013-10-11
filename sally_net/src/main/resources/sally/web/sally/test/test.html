@@ -1,0 +1,23 @@
+<HTML>
+<HEAD>
+</HEAD>
+
+<BODY> 
+<script type="text/javascript">
+	setTimeout(function() {
+		app.log("before injecting ");
+		app.injectScripts();
+		app.log("did not get called yet ");
+		setTimeout(function() {
+			var msg = new sally.StartSubTask();
+			msg.workflowID = "sally.browse_ontology";
+			app.log("msg="+msg);
+			Communication.sendMessage(msg, function() {
+				app.log("here");
+			});
+		}, 100);
+	}, 150);
+</script>
+</BODY>
+
+</HTML>

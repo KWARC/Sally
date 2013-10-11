@@ -28,7 +28,7 @@
 			'description':	'Testing module, used to test config. '
 		},
 		"config": {
-			"a": ["list", [1, 2, 3], 1, ["Test SEtting", "1", "2", "3"]]
+			"a": ["list", [1, 2, 3], 1, ["Test Setting", "1", "2", "3"]]
 		}
 	});
 })(JOBAD.refs.$);

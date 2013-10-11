@@ -32,7 +32,7 @@ public class TheoWindowCreate implements WorkItemHandler {
 		try {
 			if (url == null) 
 				throw new Exception("No URL given");
-			int theoOutput = theo.openWindow(workItem.getProcessInstanceId(), "", url, 400, 300);
+			int theoOutput = theo.openWindow(workItem.getProcessInstanceId(), "", url, 700, 600);
 			workItem.getResults().put("wndIDOutput", theoOutput);
 		} catch (Exception e) {
 			log.error(e.getMessage());

@@ -69,7 +69,7 @@ public class ConnectionManager implements IConnectionManager {
 			log.debug("Client "+clientID+" does not have an active session. Ignoring.");
 			return;
 		}
-		BPMNUtils.sendMessageOrForward(sess, type, data);
+		BPMNUtils.sendMessageOrForward(0L, sess, type, data);
 	}
 	
 	/* (non-Javadoc)

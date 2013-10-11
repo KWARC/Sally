@@ -1,5 +1,5 @@
 package info.kwarc.sissi.model.document.spreadsheet;
-
+/*
 import info.kwarc.sally.model.document.spreadsheet.ASMInterface;
 
 import java.io.ByteArrayOutputStream;
@@ -584,3 +584,5 @@ public class IUIPaperData {
 		
 	}
 }
+
+*/

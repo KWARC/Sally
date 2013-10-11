@@ -40,7 +40,6 @@ public class TheoWindowUpdate implements WorkItemHandler{
 
 	@Override
 	public void abortWorkItem(WorkItem workItem, WorkItemManager manager) {
-		// TODO Auto-generated method stub
 		
 	}
 

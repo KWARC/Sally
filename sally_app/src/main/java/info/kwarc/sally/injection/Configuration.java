@@ -5,6 +5,7 @@ import info.kwarc.sally.ProcessDocMappings;
 import info.kwarc.sally.core.CookieProvider;
 import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.core.ScreenCoordinatesProvider;
+import info.kwarc.sally.core.comm.CallbackManager;
 import info.kwarc.sally.core.interfaces.IPositionProvider;
 import info.kwarc.sally.core.interfaces.Theo;
 import info.kwarc.sally.networking.CometD;
@@ -45,8 +46,9 @@ public class Configuration extends AbstractModule {
 		
 		bind(Integer.class).annotatedWith(Names.named("SallyPort")).toInstance(8181);
 		bind(CometD.class);
+		bind(CallbackManager.class);
 		
-		bind(String.class).annotatedWith(Names.named("PlanetaryURL")).toInstance("http://sally.kwarc.info");
+		bind(String.class).annotatedWith(Names.named("PlanetaryURL")).toInstance("http://localhost/planetmmt");
 		bind(String.class).annotatedWith(Names.named("PlanetaryEndPoint")).toInstance("sallyrpc");  
 		bind(String.class).annotatedWith(Names.named("PlanetaryUser")).toInstance("sally"); 
 		bind(String.class).annotatedWith(Names.named("PLanetaryPassword")).toInstance("123"); 

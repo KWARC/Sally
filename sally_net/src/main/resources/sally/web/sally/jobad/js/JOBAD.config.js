@@ -640,7 +640,8 @@ JOBAD.ifaces.push(function(JOBADRootElement, params){
 	var spec = JOBAD.modules.createProperUserSettingsObject({
 		"cmenu_type": ["list", ['standard', 'radial'], 'standard', ["Context Menu Type", "Standard", "Radial"]],
 		"sidebar_type": ["list", JOBAD.Sidebar.types, JOBAD.Sidebar.types[0], JOBAD.Sidebar.desc],
-		"restricted_user_config": ["none", []]
+		"restricted_user_config": ["none", []],
+		"auto_show_toolbar": ["bool", false, "Auto show all toolbars"]
 	}, "");
 	var cache = JOBAD.util.extend({}, (typeof config == 'undefined')?{}:config);
 

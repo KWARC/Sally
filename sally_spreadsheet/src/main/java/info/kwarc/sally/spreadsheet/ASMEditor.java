@@ -10,14 +10,11 @@ import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.ws.rs.GET;
-
 import org.drools.runtime.process.ProcessInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sally.AlexClick;
-import sally.RangeSelection;
 
 import com.google.inject.Inject;
 
@@ -33,7 +30,7 @@ public class ASMEditor {
 	}
 
 	@SallyService
-	public void ASMEditService(AlexClick cell, SallyInteractionResultAcceptor acceptor, final SallyContext context) {
+	public void ASMEditService(final AlexClick click, SallyInteractionResultAcceptor acceptor, final SallyContext context) {
 		final Long processInstanceID = context.getContextVar("processInstanceId", Long.class);
 
 		ProcessInstance pi = kb.getProcessInstance(processInstanceID);
@@ -45,37 +42,13 @@ public class ASMEditor {
 			return;
 		}
 
-		/*
-		acceptor.acceptResult(new SallyMenuItem("Knowledge Base", "Show ontology link manager") {
+		acceptor.acceptResult(new SallyMenuItem("Knowledge Base", "Show ontology link manager", "Create ontology link") {
 			@Override
 			public void run() {
-				TheoOpenWindow window = TheoOpenWindow.newBuilder()
-						.setPosition(ScreenCoordinates.newBuilder().setX(100).setY(100).build())
-						.setSizeX(400).setSizeY(500).setTitle("Create Link to Ontology")
-						.setUrl("http://localhost:8080/asmeditor?s="+processInstanceID).build();
-				Integer wndid = sally.getOneInteraction(window, Integer.class);
-				context.setContextVar("ACMEditorWindowID", wndid);
+				Map<String, Object> param = new HashMap<String, Object>();
+				param.put("SelectedRangeInput", click.getRange());
+				kb.startProcess(processInstanceID, "Sally.asm_createlink", param);
 			}
 		});
-		 */
-
-		final RangeSelection selection = cell.getRange();
-		if (doc.getFBForRange(selection).size()==0 || doc.getLabelsForRange(selection).size()==0) {
-			acceptor.acceptResult(new SallyMenuItem("Knowledge Base", "Create ontology links", "Add new links to the ontology") {
-				@Override
-				public void run() {
-					HashMap<String, Object>  input = new  HashMap<String, Object>();
-					input.put("SelectionInput", selection);
-					input.put("AbstractSpreadsheetInput", doc);
-					kb.startProcess(processInstanceID, "Sally.asm_createlink", input);
-				}
-			});
-		}
 	}
-
-	@GET
-	public String editor() {
-		return "hi";
-	}
-
 }

@@ -58,7 +58,10 @@ public class ASMEditorInterface {
 			return "session did not provide a valid cell range";
 		}
 
-		Map<String, String> templateData = new HashMap<String, String>();
+		Map<String, Object> templateData = new HashMap<String, Object>();
+		templateData.put("WorksheetName", "pipe-end.xls");
+		templateData.put("SheetNames", new String[]{"sheet1", "sheet2"});
+		
 		templateData.put("Sheet", cellPosition.getSheet());
 		templateData.put("StartRow", Integer.toString(cellPosition.getStartRow()));
 		templateData.put("StartCol", Integer.toString(cellPosition.getStartCol()));
@@ -78,7 +81,7 @@ public class ASMEditorInterface {
 		
 		Map<String, Object> vars = HandlerUtils.getProcessVariables(pi);
 		if (vars == null ){
-			return "invalid session";
+			return "session has no variables";
 		}
 
 		RangeSelection cellPosition = HandlerUtils.getFirstTypedParameter(vars, RangeSelection.class);

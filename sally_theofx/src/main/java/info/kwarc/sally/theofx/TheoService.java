@@ -5,6 +5,7 @@ import info.kwarc.sally.core.ScreenCoordinatesProvider;
 import info.kwarc.sally.core.comm.Coordinates;
 import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.interfaces.Theo;
+import info.kwarc.sally.theofx.interfaces.ITheoWindowProvider;
 import info.kwarc.sally.theofx.ui.TheoWindow;
 import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
 
@@ -16,7 +17,6 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
 import javax.swing.AbstractButton;
@@ -37,25 +37,27 @@ public class TheoService implements Theo {
 
 	SallyMenuItem chosenItem;
 	HashMap<Integer, TheoWindow> openedWindows;
-	Random r = new Random();
 	ScreenCoordinatesProvider coordProvider;
 	CookieProvider cookieProvider;
 	ISallyKnowledgeBase kb;
+	ITheoWindowProvider theoWindowProvider;
 
 	@Inject
-	public TheoService(ScreenCoordinatesProvider coordProvider, CookieProvider cookieProvider, ISallyKnowledgeBase kb) {
+	public TheoService(ScreenCoordinatesProvider coordProvider, CookieProvider cookieProvider, ISallyKnowledgeBase kb, ITheoWindowProvider theoWindowProvider) {
 		this.coordProvider = coordProvider;
 		this.cookieProvider = cookieProvider;
 		this.kb = kb;
+		this.theoWindowProvider = theoWindowProvider;
 		openedWindows = new HashMap<Integer, TheoWindow>();
 	}
 
 	public int openWindow(Long processInstanceID, String title, String URL, int sizeX, int sizeY) {
-		Integer resID = r.nextInt();
 		Coordinates coords = coordProvider.getRecommendedPosition();
 		Cookie cookies = Cookie.newBuilder().setCookie(cookieProvider.getCookies()).setUrl(cookieProvider.getUrl()).build();
-		openedWindows.put(resID, TheoWindow.addWindow(processInstanceID, sizeY, sizeX, coords.getX(), coords.getY(), title, URL, cookies, true));
-		return resID;
+		TheoWindow wnd = theoWindowProvider.create(processInstanceID, sizeY, sizeX, coords.getX(), coords.getY(), title, URL, cookies, true);
+		wnd.showWindow();
+		openedWindows.put(wnd.getWndID(), wnd);
+		return wnd.getWndID();
 	}
 
 	@Override

@@ -516,6 +516,14 @@ and the name of each option. <br />
 There is also the special option type 'none', which represents a hidden setting which can not be changed by the user. It has a default but no validator and no meta. </li>
 </ul></li>
 </ul></li>
+<li><p><strong>Function</strong> <code>template.Toolbar(JOBADInstance, Toolbar)</code> Called whenever a new toolbar is supposed to be shown. </p>
+
+<ul>
+<li><strong>Instance[ <a href="JOBAD/JOBAD.modules/loadedModule.html">JOBAD.modules.loadedModule</a> ]</strong> <code>this</code> The current module instance. </li>
+<li><strong>Instance[ <a href="JOBAD/JOBADInstance/index.html">JOBAD</a> ]</strong> <code>JOBADInstance</code> The instance of JOBAD the module is on. </li>
+<li><strong>jQuery</strong> <code>Toolbar</code> A jQuery element representing the toolbar. </li>
+<li><strong>returns</strong> <code>true</code> if there is a toolbar, otherwise false. </li>
+</ul></li>
 <li><p><strong>Function</strong> <code>template.configUpdate(key, JOBADInstance)</code> Called every time a user configuration is updated.  </p>
 
 <ul>
@@ -530,28 +538,40 @@ There is also the special option type 'none', which represents a hidden setting 
 <ul>
 <li><code>info</code></li>
 <li><code>globalStore</code></li>
-<li>``</li>
 </ul></li>
-<li><strong>Function</strong> <code>next()</code> Only given if <code>info.async</code> is true. Callback this function should call once ready. </li>
+<li><strong>Function</strong> <code>next()</code> Only given if <code>info.async</code> is true. You should call this function once ready. </li>
 </ul></li>
-<li><p><strong>Function</strong> <code>template.init(JOBADInstance, param1, param2, param3 /*, ... */)</code> Called to intialise a new instance of this module. </p>
+<li><p><strong>Function</strong> <code>template.init(JOBADInstance, param1, param2, param3 /*, ... */)</code> Called to intialise a new instance of this module. May be ommitted. </p>
 
 <ul>
 <li><strong>Instance[ <a href="JOBAD/JOBAD.modules/loadedModule.html">JOBAD.modules.loadedModule</a> ]</strong> <code>this</code> The current module instance. </li>
 <li><strong>Instance[ <a href="JOBAD/JOBADInstance/index.html">JOBAD</a> ]</strong> <code>JOBADInstance</code> The instance of JOBAD the module is initiated on. </li>
 <li><strong>Mixed</strong> <code>*param</code> Initial parameters passed to <a href="JOBAD/JOBADInstance/modules.html"><code>JOBADInstance.modules.load</code></a>. </li>
 </ul></li>
-<li><p><strong>Function</strong> <code>template.activate(JOBADInstance)</code> Called whenever the module is activated. </p>
+<li><p><strong>Function</strong> <code>template.activate(JOBADInstance)</code> Called whenever the module is activated. May be ommitted. </p>
 
 <ul>
 <li><strong>Instance[ <a href="JOBAD/JOBAD.modules/loadedModule.html">JOBAD.modules.loadedModule</a> ]</strong> <code>this</code> The current module instance. </li>
 <li><strong>Instance[ <a href="JOBAD/JOBADInstance/index.html">JOBAD</a> ]</strong> <code>JOBADInstance</code> The instance of JOBAD the module is initiated on. </li>
 </ul></li>
-<li><p><strong>Function</strong> <code>template.deactivate(JOBADInstance)</code> Called whenever the module is deactivated. </p>
+<li><p><strong>Function</strong> <code>template.deactivate(JOBADInstance)</code> Called whenever the module is deactivated. May be ommitted. </p>
 
 <ul>
 <li><strong>Instance[ <a href="JOBAD/JOBAD.modules/loadedModule.html">JOBAD.modules.loadedModule</a> ]</strong> <code>this</code> The current module instance. </li>
 <li><strong>Instance[ <a href="JOBAD/JOBADInstance/index.html">JOBAD</a> ]</strong> <code>JOBADInstance</code> The instance of JOBAD the module is initiated on. </li>
+</ul></li>
+<li><p><strong>Function</strong> <code>template.focus(JOBADInstance, previous)</code> Called whenever the JOBADInstance is focused. May be ommitted. </p>
+
+<ul>
+<li><strong>Instance[ <a href="JOBAD/JOBAD.modules/loadedModule.html">JOBAD.modules.loadedModule</a> ]</strong> <code>this</code> The current module instance. </li>
+<li><strong>Instance[ <a href="JOBAD/JOBADInstance/index.html">JOBAD</a> ]</strong> <code>JOBADInstance</code> The instance of JOBAD that is being focused.  </li>
+<li><strong>Instance[ <a href="JOBAD/JOBADInstance/index.html">JOBAD</a> ]</strong> <code>previous</code> The previously focused JOBADInstance or undefined. </li>
+</ul></li>
+<li><p><strong>Function</strong> <code>template.unfocus(JOBADInstance)</code> Called whenever the JOBADInstance is unfocused. May be ommitted. </p>
+
+<ul>
+<li><strong>Instance[ <a href="JOBAD/JOBAD.modules/loadedModule.html">JOBAD.modules.loadedModule</a> ]</strong> <code>this</code> The current module instance. </li>
+<li><strong>Instance[ <a href="JOBAD/JOBADInstance/index.html">JOBAD</a> ]</strong> <code>JOBADInstance</code> The instance of JOBAD that is loosing focus.  </li>
 </ul></li>
 <li><p><strong>Function</strong> <code>template.SideBarUpdate(target, JOBADInstance)</code> Called every time the sidebar is updated. May be ommitted. </p>
 
@@ -599,13 +619,15 @@ There is also the special option type 'none', which represents a hidden setting 
 <li><strong>Instance[ <a href="JOBAD/JOBADInstance/index.html">JOBAD</a> ]</strong> <code>JOBADInstance</code> The instance of JOBAD the module is initiated on. </li>
 <li><strong>returns</strong> a text, a jQuery element or a boolean indicating either the text or if something was done. </li>
 </ul></li>
-<li><strong>Function</strong> <code>template.onEvent(event, element, JOBADInstance)</code> Called when an onEvent handler is requested. May be ommitted. 
+<li><p><strong>Function</strong> <code>template.onEvent(event, element, JOBADInstance)</code> Called when an onEvent handler is requested. May be ommitted. </p>
+
 <ul>
 <li><strong>Instance[ <a href="JOBAD/JOBAD.modules/loadedModule.html">JOBAD.modules.loadedModule</a> ]</strong> <code>this</code> The current module instance. </li>
 <li><strong>string</strong> <code>event</code> The event that was triggered. </li>
 <li><strong>jQuery</strong> <code>element</code> The element the event was triggered on. </li>
 <li><strong>Instance[ <a href="JOBAD/JOBADInstance/index.html">JOBAD</a> ]</strong> <code>JOBADInstance</code> The instance of JOBAD the module is initiated on. </li>
 </ul></li>
+<li><p><strong>Function</strong> <code>template.Toolbar(JOBADInstance, Toolbar)</code> Specify a toolbar for the module. May be ommitted. </p></li>
 </ul>
 
 <h2>See also</h2>

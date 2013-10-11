@@ -13,8 +13,15 @@ import org.jbpm.workflow.instance.node.CompositeNodeInstance;
 import org.jbpm.workflow.instance.node.EventNodeInstance;
 import org.slf4j.LoggerFactory;
 
+import com.google.protobuf.AbstractMessage;
+
 public class BPMNUtils {
-	public static void sendMessageOrForward(ProcessInstance processInstance, String eventType, Object eventData) {
+	
+	public static void sendMessageOrForward(Long from, ProcessInstance processInstance, AbstractMessage msg) {
+		sendMessageOrForward(from, processInstance, "Message-"+msg.getClass().getSimpleName(), msg);
+	}
+	
+	public static void sendMessageOrForward(Long from, ProcessInstance processInstance, String eventType, Object eventData) {
 		Boolean forwardExists = false;
 		for (String events : BPMNUtils.getCallableEvents(processInstance)) {
 			if (events.equals(eventType)) {
@@ -26,12 +33,15 @@ public class BPMNUtils {
 			}
 		}
 		if (forwardExists) {
-			processInstance.signalEvent("Message-onForward", new MessageForward(eventType, eventData));
+			processInstance.signalEvent("Message-onForward", new MessageForward(from, eventType, eventData));
 		} else
 		{
 			for (NodeInstance ni : getNodeInstances(processInstance)) {
 				System.out.println(ni.getNodeName());
 			}
+			for (String events : BPMNUtils.getCallableEvents(processInstance)) {
+				System.out.println(events);
+			}			
 			LoggerFactory.getLogger(BPMNUtils.class).warn("Event "+eventType+" is not handled and no forwarding exists. And hence will be ignored.");
 		}
 	}

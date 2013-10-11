@@ -10,6 +10,7 @@ import org.jbpm.ruleflow.instance.RuleFlowProcessInstance;
 
 import com.google.protobuf.AbstractMessage;
 import com.google.protobuf.Descriptors.FieldDescriptor;
+import com.google.protobuf.Message.Builder;
 
 public class HandlerUtils {
 
@@ -57,7 +58,29 @@ public class HandlerUtils {
 		}
 		return null;
 	}
-	
+
+	public static String getCallbackTokenFromMessage(AbstractMessage msg) {
+		for (FieldDescriptor fld :  msg.getAllFields().keySet()) {
+			if (fld.getName().equals("callbackToken")) {
+				return msg.getField(fld).toString();
+			}
+		}
+		return null;
+	}
+
+	public static AbstractMessage setCallbackTokenToMessage(AbstractMessage msg, Long callbackToken) {
+		Builder b = msg.newBuilderForType();
+		for (FieldDescriptor fld :  msg.getDescriptorForType().getFields()) {
+			if (fld.getName().equals("callbackToken")) {
+				b.setField(fld, callbackToken);
+			} else
+				if (msg.hasField(fld)) {
+					b.setField(fld, msg.getField(fld));
+				}
+		}
+		return (AbstractMessage) b.build();
+	}
+
 	public static <T> T getFirstTypedParameter(Map<String, Object> params, Class<T> cls) {
 		for (String param : params.keySet()) {
 			if (param.endsWith("Input") && cls.isAssignableFrom(params.get(param).getClass())) {

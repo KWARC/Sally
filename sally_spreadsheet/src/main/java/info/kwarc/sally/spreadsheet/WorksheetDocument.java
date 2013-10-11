@@ -9,27 +9,23 @@ import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.comm.SallyModelRequest;
 import info.kwarc.sally.core.interfaces.IPositionProvider;
 import info.kwarc.sally.core.interfaces.Theo;
-import info.kwarc.sally.model.document.spreadsheet.ASMInterface;
 import info.kwarc.sally.networking.interfaces.IMessageCallback;
 import info.kwarc.sally.networking.interfaces.INetworkSender;
+import info.kwarc.sally.spreadsheet3.export.ModelRDFExport;
+import info.kwarc.sally.spreadsheet3.model.CellSpaceInformation;
+import info.kwarc.sally.spreadsheet3.model.Manager;
+import info.kwarc.sally.spreadsheet3.model.Relation;
+import info.kwarc.sally.spreadsheet3.ontology.IOntologyProvider;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import sally.AlexClick;
 import sally.AlexRangeRequest;
-import sally.CellData;
-import sally.CellPosition;
-import sally.DataParameter;
-import sally.LegendCreateData;
 import sally.MMTUri;
-import sally.RangeData;
-import sally.RangeData.Builder;
 import sally.RangeSelection;
 import sally.ScreenCoordinates;
-import sally.SpreadsheetModel;
+import sally.SpreadsheetAlexData;
 import sally.SwitchToApp;
 
 import com.google.inject.Inject;
@@ -38,36 +34,38 @@ import com.google.inject.assistedinject.Assisted;
 public class WorksheetDocument {
 
 	INetworkSender sender;
-	
-	ASMInterface asm;
+
+	Manager asm;
+
 	String filePath;
 	Theo theo;
 	IPositionProvider provider;
+
+	IOntologyProvider ontoProvider;
 
 	public String getFilePath() {
 		return filePath;
 	}
 
 	@Inject
-	public WorksheetDocument(@Assisted String filePath, @Assisted SpreadsheetModel data, @Assisted INetworkSender sender, IPositionProvider provider) {
-		asm = new ASMInterface(filePath);
+	public WorksheetDocument(@Assisted String filePath, @Assisted SpreadsheetAlexData data, @Assisted INetworkSender sender, IPositionProvider provider) {
+		asm = new Manager(ontoProvider, data.getAsm());
 		this.filePath = filePath;
 		this.sender = sender;
 		this.provider = provider;
-		setSemanticData(data);
 	}
-	
+
 	public void switchToApp() {
 		SwitchToApp request = SwitchToApp.newBuilder().setFileName(filePath).build();
 		sender.sendMessage("/do/switch", request, new IMessageCallback() {
-			
+
 			@Override
 			public void onMessage() {
-				
+
 			}
 		});
 	}
-	
+
 	public void selectRange(String sheet, int startRow, int endRow, int startCol, int endCol) {
 		RangeSelection sel = RangeSelection.newBuilder().setSheet(sheet).setStartRow(startRow).setEndRow(endRow).setStartCol(startCol).setEndCol(endCol).build();
 		AlexRangeRequest request = AlexRangeRequest.newBuilder().setFileName(filePath).addSelection(sel).build();
@@ -78,50 +76,30 @@ public class WorksheetDocument {
 		sender.sendMessage("/do/select", request, new IMessageCallback() {
 			@Override
 			public void onMessage() {
-				
+
 			}
 		});
 	}	
-	
-	
+
+
 	public void getData(String sheet, int startRow, int endRow, int startCol, int endCol) {
 		RangeSelection sel = RangeSelection.newBuilder().setSheet(sheet).setStartRow(startRow).setEndRow(endRow).setStartCol(startCol).setEndCol(endCol).build();
 		AlexRangeRequest request = AlexRangeRequest.newBuilder().setFileName(filePath).addSelection(sel).build();
 		sender.sendMessage("/get/data", request, new IMessageCallback() {
-			
+
 			@Override
 			public void onMessage() {
-				
+
 			}
 		});
 	}
 
-	public void setSemanticData(SpreadsheetModel msg) {
-		asm.reconstruct(msg);		
-	}
-
-	public void setSemanticData(String fileName) {
-		try {
-			FileInputStream file = new FileInputStream(fileName);
-			setSemanticData(SpreadsheetModel.parseFrom(file));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public int getSheetId(String sheetName) {
-		return asm.getWorksheetIDByName(sheetName);
-	}
-
-	/**
-	 * Returns the MMT uri corresponding to a clicked position
-	 * @param click
-	 * @return
-	 */
-	public String getSemantics(CellPosition click) {
-		return asm.getOntologyForPosition(click);
+	public String getSemantics(String sheet, int row, int col) {
+		CellSpaceInformation pos = new CellSpaceInformation(sheet, row, col);
+		List<Relation> relations = asm.getRelationForPosition(pos);
+		if (relations.size() == 0)
+			return null;
+		return relations.get(0).getUri();
 	}
 
 	/**
@@ -130,16 +108,7 @@ public class WorksheetDocument {
 	 * @return
 	 */
 	public String getSemantics(RangeSelection click) {
-		int sheetid = asm.getWorksheetIDByName(click.getSheet());
-		return asm.getOntologyForPosition(CellPosition.newBuilder().setSheet(sheetid).setCol(click.getStartCol()).setRow(click.getStartRow()).build());
-	}
-	
-	public List<Integer> getFBForRange(RangeSelection range) {
-		return asm.getFunctionalBlockIDs(range);
-	}
-
-	public List<Integer> getLabelsForRange(RangeSelection range) {
-		return asm.getLabelBlockIDs(range);
+		return getSemantics(click.getSheet(), click.getStartRow(), click.getStartCol());
 	}
 
 	/**
@@ -147,20 +116,10 @@ public class WorksheetDocument {
 	 * @param mmtURI
 	 * @return
 	 */
-	public CellPosition getPositionFromMMTURI(String mmtURI) {
-		List<Integer> structs = asm.getListOntologyStructures(mmtURI);
-		if (structs.size() == 0)
-			return null;
-		int structId = structs.get(0);
-		RangeSelection sel = asm.getBlockPosition(structId);
-		return CellPosition.newBuilder().setSheet(Integer.parseInt(sel.getSheet())).setCol(sel.getStartCol()).setRow(sel.getStartRow()).build();
+	public CellSpaceInformation getPositionFromMMTURI(String mmtURI) {
+		// TODO: NOT IMPLEMENTED
+		return null;
 	}
-
-	@SallyService(channel="/get/semantics")
-	public void getModel(SallyModelRequest click, SallyInteractionResultAcceptor acceptor, SallyContext context) {
-		acceptor.acceptResult(asm.getRDFModel());
-	}
-
 
 	@SallyService
 	public void alexClickInteraction(AlexClick click, SallyInteractionResultAcceptor acceptor, SallyContext context) {
@@ -172,42 +131,24 @@ public class WorksheetDocument {
 		ScreenCoordinates coords = click.getPosition();
 		provider.setRecommendedCoordinates(new Coordinates(coords.getX(), coords.getY()));
 
-		int sheet = getSheetId(click.getSheet());
 		RangeSelection sel = click.getRange();
-
-		CellPosition pos = CellPosition.newBuilder().setSheet(sheet).setRow(sel.getStartRow()).setCol(sel.getStartCol()).build();
-
-		List<SallyMenuItem> items;
-
-		MMTUri mmtURI = interaction.getOneInteraction(pos, MMTUri.class);
-		items = interaction.getPossibleInteractions(sel, SallyMenuItem.class);
+		MMTUri mmtURI = interaction.getOneInteraction(getSemantics(sel), MMTUri.class);
+		
+		List<SallyMenuItem> items = new ArrayList<SallyMenuItem>();
 		items.addAll(interaction.getPossibleInteractions(mmtURI, SallyMenuItem.class));
 		for (SallyMenuItem r : items) {
 			acceptor.acceptResult(r);
 		}
 	}
 
-	public void createLabelBlock(RangeSelection range, String ontology) {
-		Builder rangeData = RangeData.newBuilder();
-		int sheetID = asm.getWorksheetIDByName(range.getSheet());
-		for (int row=range.getStartRow(); row<=range.getEndRow(); ++row) {
-			for (int col=range.getStartCol(); row<=range.getEndCol(); ++col) {
-				CellData data = CellData.newBuilder().setPosition(sally.CellSpaceInformation.newBuilder().setWidth(1).setHeight(1).setPosition( sally.CellPosition.newBuilder().setSheet(sheetID).setCol(row).setRow(col).build()).build()).setValue("").build();
-				rangeData.addCells(data);
-			}
-		}
-		asm.createLegend(LegendCreateData.newBuilder().setFileName(filePath).setParameter(DataParameter.SameContentSameElement).setItems(rangeData.build()).build());
+	@SallyService(channel="/get/semantics")
+	public void getModel(SallyModelRequest click, SallyInteractionResultAcceptor acceptor, SallyContext context) {
+		acceptor.acceptResult(ModelRDFExport.getRDF(asm, filePath));
 	}
+
 
 	@SallyService
 	public void getPositionFromMMTURI(MMTUri uri, SallyInteractionResultAcceptor acceptor, SallyContext context) {
 		acceptor.acceptResult(getPositionFromMMTURI(uri.getUri()));
-	}
-
-	@SallyService
-	public void getSemantics(CellPosition click, SallyInteractionResultAcceptor acceptor, SallyContext context) {
-		String uri = getSemantics(click);
-		if (uri != null)
-			acceptor.acceptResult(MMTUri.newBuilder().setUri(uri).build());
 	}
 }

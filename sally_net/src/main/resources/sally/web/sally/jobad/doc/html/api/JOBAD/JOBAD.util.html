@@ -521,9 +521,11 @@
 <li><strong>Array</strong> <code>names</code> Texts to use as names for tab titles</li>
 <li><strong>Array</strong> <code>tabs</code> Elements to use as tabs</li>
 <li><strong>Object</strong> <code>config</code> Configuration. Optional. 
-    * <strong>String</strong> <code>config.type</code> Type of tabs to use. CSS Class. 
-    * <strong>Function</strong> <code>config.select(tabName, tab)</code> Select Hook. To be called on selection of a tab. 
-    * <strong>Function</strong> <code>config.unselect(tabName, tab)</code> Deselect Hook. To be called on the deselection of a tab. </li>
+<ul>
+<li><strong>String</strong> <code>config.type</code> Type of tabs to use. CSS Class. </li>
+<li><strong>Function</strong> <code>config.select(tabName, tab)</code> Select Hook. To be called on selection of a tab. </li>
+<li><strong>Function</strong> <code>config.unselect(tabName, tab)</code> Deselect Hook. To be called on the deselection of a tab. </li>
+</ul></li>
 <li><strong>returns</strong> jQuery object</li>
 </ul></li>
 <li><strong>Function</strong> <code>JOBAD.util.closest(element, check)</code> - Similar to jQuery's closest. Travels up the DOM tree and finds the first element which matches check. This includes element itself
@@ -644,12 +646,40 @@
 <li><strong>jQuery</strong> <code>query</code> A jQuery element to use as query. </li>
 <li><strong>String</strong> <code>id</code> Id of handler to remove. </li>
 </ul></li>
-<li><strong>Function</strong> <code>JOBAD.util.trigger(query, event, params)</code> - Triggers an event on a query. 
+<li><p><strong>Function</strong> <code>JOBAD.util.trigger(query, event, params)</code> - Triggers an event on a query. </p>
+
 <ul>
 <li><strong>jQuery</strong> <code>query</code> A jQuery element to use as query. </li>
 <li><strong>String</strong> <code>event</code> Event to trigger. </li>
 <li><strong>Array</strong> <code>params</code> Optional. Array of parameters to pass to event handlers.</li>
 <li><strong>returns</strong> <code>Array of results</code></li>
+</ul></li>
+<li><p><strong>Function</strong> <code>JOBAD.util.EventHandler()</code> - Creates a new Event Handler which has the functions ".on", ".once", ".off", ".trigger" as above (without the first parameter)</p></li>
+<li><p><strong>Function</strong> <code>JOBAD.util.limit(x, a, b)</code> - Limit x to be between a and b. </p>
+
+<ul>
+<li><strong>Number</strong> <code>x</code></li>
+<li><strong>Number</strong> <code>a</code></li>
+<li><strong>Number</strong> <code>b</code></li>
+</ul></li>
+<li><p><strong>Function</strong> <code>JOBAD.util.permuteArray(arr, a, b)</code> - Return a premuted copy of the array arr. </p>
+
+<ul>
+<li><strong>Array</strong> <code>arr</code> Array to permute</li>
+<li><strong>Number</strong> <code>a</code> Index of the first element to exchange. </li>
+<li><strong>Number</strong> <code>b</code> Index of the second element to exchange. </li>
+</ul></li>
+<li><p><strong>Function</strong> <code>JOBAD.util.toKeyString(evt)</code> - Turns the keydown or keypress event evt into a string for a key. </p>
+
+<ul>
+<li><strong>Event</strong> <code>evt</code> The keydown or keypress event to translate. </li>
+<li><strong>returns</strong> <code>string</code> of the form '[ctrl+][alt+][shift+]$key_name'. Note that only a special key shows up as 'ctrl+'. </li>
+</ul></li>
+<li><p><strong>Function</strong> <code>JOBAD.util.onKey(callback)</code> - Registers a listener for a keypress event. </p>
+
+<ul>
+<li><strong>Function</strong> <code>callback(key, orgEvent)</code> The callback</li>
+<li><strong>returns</strong> a string. Use <code>$(document).off(returned_value)</code> to deregister the listener. </li>
 </ul></li>
 </ul>
 

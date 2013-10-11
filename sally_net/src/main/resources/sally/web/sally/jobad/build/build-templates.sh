@@ -9,6 +9,7 @@ template_dir="$BASE_PATH/../examples/templates"
 template_build_dir="$BASE_PATH/../examples/build"
 doc_md_source="$BASE_PATH/../doc/dynamic/"
 doc_md_dest="$BASE_PATH/../doc/md/"
+css_libs_path="$BASE_PATH/../css/libs/"
 
 
 rm -r -f $template_build_dir
@@ -33,8 +34,15 @@ jobad_csslibs_full=""
 
 while read filename
 do
-	jobad_csslibs="$jobad_csslibs<link rel='stylesheet' type='text/css' href='$jobad_base\/css\/libs\/$filename'>\n"
-	jobad_csslibs_full="$jobad_csslibs_full	<link rel=\"stylesheet\" type=\"text/css\" href=\"css\/libs\/$filename\">\n"
+	if [ ${filename: -4} == ".css" ] ; then
+		jobad_csslibs="$jobad_csslibs<link rel='stylesheet' type='text/css' href='$jobad_base\/css\/libs\/$filename'>\n"
+		jobad_csslibs_full="$jobad_csslibs_full	<link rel=\"stylesheet\" type=\"text/css\" href=\"css\/libs\/$filename\">\n"
+	else
+		# Compile the less CSS
+		lessc "$css_libs_path$filename" "$css_libs_path$filename.css"
+		jobad_csslibs="$jobad_csslibs<link rel='stylesheet' type='text/css' href='$jobad_base\/css\/libs\/$filename.css'>\n"
+		jobad_csslibs_full="$jobad_csslibs_full	<link rel=\"stylesheet\" type=\"text/css\" href=\"css\/libs\/$filename.css\">\n"
+	fi;
 done < "$BASE_PATH/config/css-libs.txt"
 jobad_csslibs="${jobad_csslibs%??}"
 jobad_csslibs_full="${jobad_csslibs_full%??}"

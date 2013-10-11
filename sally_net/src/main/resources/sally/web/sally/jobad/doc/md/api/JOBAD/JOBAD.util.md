@@ -28,9 +28,9 @@ In addition to these functions, JOBAD.util also contains all underscore (version
 	* **Array** `names` Texts to use as names for tab titles
 	* **Array** `tabs` Elements to use as tabs
 	* **Object** `config` Configuration. Optional. 
-			* **String** `config.type` Type of tabs to use. CSS Class. 
-			* **Function** `config.select(tabName, tab)` Select Hook. To be called on selection of a tab. 
-			* **Function** `config.unselect(tabName, tab)` Deselect Hook. To be called on the deselection of a tab. 
+		* **String** `config.type` Type of tabs to use. CSS Class. 
+		* **Function** `config.select(tabName, tab)` Select Hook. To be called on selection of a tab. 
+		* **Function** `config.unselect(tabName, tab)` Deselect Hook. To be called on the deselection of a tab. 
 	* **returns** jQuery object
 * **Function** `JOBAD.util.closest(element, check)` - Similar to jQuery's closest. Travels up the DOM tree and finds the first element which matches check. This includes element itself
 	* **jQuery** `element` Element to start with
@@ -110,3 +110,24 @@ In addition to these functions, JOBAD.util also contains all underscore (version
 	* **String** `event` Event to trigger. 
 	* **Array** `params` Optional. Array of parameters to pass to event handlers.
 	* **returns** `Array of results`
+
+* **Function** `JOBAD.util.EventHandler()` - Creates a new Event Handler which has the functions ".on", ".once", ".off", ".trigger" as above (without the first parameter)
+
+
+* **Function** `JOBAD.util.limit(x, a, b)` - Limit x to be between a and b. 
+	* **Number** `x`
+	* **Number** `a`
+	* **Number** `b`
+
+* **Function** `JOBAD.util.permuteArray(arr, a, b)` - Return a premuted copy of the array arr. 
+	* **Array** `arr` Array to permute
+	* **Number** `a` Index of the first element to exchange. 
+	* **Number** `b` Index of the second element to exchange. 
+
+* **Function** `JOBAD.util.toKeyString(evt)` - Turns the keydown or keypress event evt into a string for a key. 
+	* **Event** `evt` The keydown or keypress event to translate. 
+	* **returns** `string` of the form '[ctrl+][alt+][shift+]$key_name'. Note that only a special key shows up as 'ctrl+'. 
+
+* **Function** `JOBAD.util.onKey(callback)` - Registers a listener for a keypress event. 
+	* **Function** `callback(key, orgEvent)` The callback
+	* **returns** a string. Use `$(document).off(returned_value)` to deregister the listener. 

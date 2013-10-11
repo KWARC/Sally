@@ -25,6 +25,40 @@ JOBAD.ifaces.push(function(me, args){
 	//modules namespace
 	this.modules = {};
 
+	//Event namespace
+	this.Event = JOBAD.util.EventHandler(); 
+
+	/*
+		Triggers a handable event. 
+		@param	evt	Name of event to trigger. 
+		@param	param	Parameter for event. 
+	*/
+	this.Event.handle = function(evt, param){
+		me.Event.trigger("event.handlable", [evt, param]); 
+	}
+
+	/*
+		Binds a custom Event handler in a module. 
+		@param	evt	Name of event to biond to. 
+		@param	module JOABd.modules.loadedModule Instance to enable binding on.
+		@param handleName Name of handle function to use. Should be a parameter of the module.  
+	*/
+	this.Event.bind = function(evt, module, handleName){
+		if(module instanceof JOBAD.modules.loadedModule){
+			me.Event.on(evt, function(){
+				if(module.isActive()){
+					var args = [me];
+					for(var i=0;i<arguments.length;i++){
+						args.push(arguments[i]); 
+					}
+					module[handleName].apply(module, args);
+				}
+			})
+		} else {
+			JOBAD.console.error("Can't bind Event Handler for '"+evt+"': module is not a loadedModuleInstance. ")
+		}
+	}
+
 	var InstanceModules = {}; //Modules loaded
 	var disabledModules = []; //Modules disabled
 
@@ -82,17 +116,18 @@ JOBAD.ifaces.push(function(me, args){
 
 	/*
 		Loads a module
+		@param	module	Module to load. 
 		@param	options	Options to pass to the module
-		@param	callback	Callback to execute
 	*/
 	var doLoad = function(module, options){
-		var auto_activate = loadQuenueAutoActivate.indexOf(module) != -1; //TODO: Add option somewhere
+		var auto_activate = loadQuenueAutoActivate.indexOf(module) != -1;
 		try{
 			InstanceModules[module] = new JOBAD.modules.loadedModule(module, options, me, function(suc, msg){
 				if(!suc){
 					markLoadAsFailed(module, msg);
 				} else {
 					disabledModules.push(module); //we are disabled by default
+					me.Event.trigger("module.load", [module, options]); 
 
 					if(auto_activate){
 						me.modules.activate(module);
@@ -109,6 +144,7 @@ JOBAD.ifaces.push(function(me, args){
 
 	var markLoadAsFailed = function(module, message){
 		loadFail.push(module);
+		me.Event.trigger("module.fail", [module, message]); 
 		try{
 			delete InstanceModules[module];
 		} catch(e){}
@@ -289,8 +325,10 @@ JOBAD.ifaces.push(function(me, args){
 			return;
 		}
 		disabledModules.push(module);
-		this.element.trigger('JOBAD.Event', ['deactivate', module]);
+
 		InstanceModules[module].onDeactivate(me);
+		me.Event.trigger("module.deactivate", [InstanceModules[module]]); 
+		me.Event.handle("deactivate", module); 
 	}
 
 	/*
@@ -317,13 +355,14 @@ JOBAD.ifaces.push(function(me, args){
 			
 
 			InstanceModules[module].onActivate(me);
-			me.element.trigger('JOBAD.Event', ['activate', module]);
+			me.Event.trigger("module.activate", [InstanceModules[module]]); 
+			me.Event.handle("activate", module); 
 		}
 
 		if(me.Setup.isEnabled()){
 			todo();
 		} else {
-			me.Setup.deferUntilEnabled(todo);
+			me.Event.once("instance.enable", todo); 
 		}
 
 		return true; 
@@ -424,18 +463,19 @@ JOBAD.ifaces.push(function(me, args){
 		});
 		
 		//reactivate all once setup is called again
-		me.Setup.deferUntilEnabled(function(){
+		me.Event.once("instance.enable", function(){
 			for(var i=0;i<cache.length;i++){
 				var name = cache[i];
 				if(!me.modules.isActive(name)){
 					me.modules.activate(name);
 				}
 			}
-			me.Setup.deferUntilDisabled(onDisable); //reregister me
+			me.Event.once("instance.disable", onDisable); //reregister me
 		});
 	};
 	
-	this.Event = onDisable; 
+
+	this.Event.once("instance.disable", onDisable); 
 	
 	this.modules = JOBAD.util.bindEverything(this.modules, this);
 });
@@ -961,6 +1001,11 @@ JOBAD.modules.loadedModule = function(name, args, JOBADInstance, next){
 	
 	this.deactivate = function(){
 		return JOBADInstance.modules.deactivate(this.info().identifier);
+	}
+
+	// .setHandler, scoped alias for .Event.bind
+	this.setHandler = function(evt, handleName){
+		this.getJOBAD().Event.bind(evt, me, handleName); 
 	}
 
 	var do_next = function(){

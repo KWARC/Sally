@@ -5,7 +5,7 @@ import info.kwarc.sally.spreadsheet3.FormalSpreadsheet;
 import info.kwarc.sally.spreadsheet3.Util;
 import info.kwarc.sally.spreadsheet3.logic.RelationBuilder;
 import info.kwarc.sally.spreadsheet3.logic.RelationInterpreter;
-import info.kwarc.sally.spreadsheet3.ontology.Interface;
+import info.kwarc.sally.spreadsheet3.ontology.IOntologyProvider;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +26,7 @@ public class Manager {
 	Map<CellSpaceInformation, List<Block>> positionToTopLevelBlocks;
 	Map<CellSpaceInformation, List<Relation>> positionToRelations;
 	
-	Interface ontologyInterface;
+	IOntologyProvider ontologyInterface;
 	
 	final Logger logger = LoggerFactory.getLogger(Manager.class);
 	
@@ -34,7 +34,7 @@ public class Manager {
 	 * Create a new manager for the abstract spreadsheet model.
 	 * @param ontologyInterface An interface to access the ontology.
 	 */
-	public Manager(Interface ontologyInterface) {
+	public Manager(IOntologyProvider ontologyInterface) {
 		this.blocks = new HashMap<Integer, Block>();
 		this.relations = new HashMap<Integer, Relation>();
 		this.maxBlockID = 0;
@@ -52,7 +52,7 @@ public class Manager {
 	 * @param ontologyInterface An interface to access the ontology.
 	 * @param modelMsg A protobuffer message that contains all data to restore an abstract spreadsheet model.
 	 */
-	public Manager(Interface ontologyInterface, sally.ModelDataMsg modelMsg) {
+	public Manager(IOntologyProvider ontologyInterface, sally.ModelDataMsg modelMsg) {
 		this.blocks = new HashMap<Integer, Block>();
 		this.relations = new HashMap<Integer, Relation>();
 		this.maxBlockID = 0;
@@ -301,7 +301,11 @@ public class Manager {
 	 * @return All relations that are related to the given position.
 	 */
 	public List<Relation> getRelationForPosition(CellSpaceInformation position) {
-		return new ArrayList<Relation>(positionToRelations.get(position));
+		List<Relation> relations = positionToRelations.get(position);
+		if (relations == null)
+			return new ArrayList<Relation>();
+		else
+			return relations;
 	}
 	
 	/**
@@ -339,7 +343,7 @@ public class Manager {
 	 * Return the ontology interface for this manager.
 	 * @return The Ontology Interface
 	 */
-	public Interface getOntologyInterface() {
+	public IOntologyProvider getOntologyInterface() {
 		return this.ontologyInterface;
 	}
 	

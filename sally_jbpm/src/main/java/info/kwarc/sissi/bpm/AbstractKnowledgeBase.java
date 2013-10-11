@@ -1,5 +1,6 @@
 package info.kwarc.sissi.bpm;
 
+import info.kwarc.sally.core.MessageForward;
 import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
 
 import java.util.HashMap;
@@ -32,6 +33,10 @@ public abstract class AbstractKnowledgeBase implements ISallyKnowledgeBase{
 		for (String evt : BPMNUtils.getCallableEvents(pi)) {
 			if (evt.equals(message_id)) {
 				pi.signalEvent(message_id, input);
+				return true;
+			}
+			if (evt.equals("Message-onForward")) {
+				pi.signalEvent("Message-onForward", new MessageForward(processID, message_id, input));
 				return true;
 			}
 		}

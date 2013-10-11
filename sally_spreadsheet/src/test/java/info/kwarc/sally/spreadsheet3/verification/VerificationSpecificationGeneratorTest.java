@@ -23,7 +23,7 @@ public class VerificationSpecificationGeneratorTest {
 		manager = winData.getManager();
 		spreadsheet = winData.getSpreadsheet();
 	}
-
+/*
 	@Ignore
 	public void testGetDataTypeSpecification() {
 		// Datatypes
@@ -33,7 +33,6 @@ public class VerificationSpecificationGeneratorTest {
 		for (String s : dtSpec)
 			System.out.println(s);
 	}
-
 	@Ignore
 	public void testGetFunctionDefinition() {
 		fail("Not yet implemented");
@@ -54,6 +53,7 @@ public class VerificationSpecificationGeneratorTest {
 		for (String def : VerificationSpecificationGenerator.createFunctionDefinitions( (new OntologyData()).getAll(), dataTypesSpec.getIdentifierToSymbol()))
 			System.out.println(def);
 	}
+*/
 	
 	@Test
 	public void testCreateAxiom() {

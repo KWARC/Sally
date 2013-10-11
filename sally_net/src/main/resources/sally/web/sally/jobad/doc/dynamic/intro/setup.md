@@ -9,19 +9,21 @@ To get the code use
 To include JOBAD in your website, you will have to include several files in your HTML document. 
 JOBAD itself depends on: 
 
-* [jQuery](http://jquery.com) - tested with version 2.0.2
-* [jQuery UI](http://jqueryui.com/) - tested with version 1.10.3
-* [Bootstrap](http://twitter.github.io/bootstrap/) - tested with version v2.3.2
-* [jQuery UI Bootstrap](http://addyosmani.github.io/jquery-ui-bootstrap/)
-	
+* [jQuery](http://jquery.com) - works with version >= 1.8
+* [Bootstrap](http://getbootstrap.com/2.3.2/) - tested with version v2.3.2, **not** compatible with version 3.x
 
-All dependencies are bundled with JOBAD. 
+For Bootstrap you can also use a scoped version (all the CSS is restricted to a certain class) , in which case you should configure this is with: 
+```
+	JOBAD.config.BootstrapScope = "bootstrap"; //set this to the bootstrap class name
+````
+
+All dependencies are bundled with JOBAD, but can also be included from different sources. 
 
 The javascript side of the JOBAD code exists in three different versions: 
 
 * an unbuilt version, which consists of several files. 
 * a development version version which consists of one file with comments and readable version: (`JOBAD.js`)
-* a release version which consists of one file with compressed code. It is created by running the development version through the [Google Closure Compiler](https://developers.google.com/closure/compiler/). 
+* a release version which consists of one file with compressed code. 
 
 The CSS code version of the code exists in three different versions: 
 

@@ -7,6 +7,10 @@ import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.interfaces.Theo;
 import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
@@ -34,28 +38,60 @@ import com.google.inject.name.Named;
 @Singleton
 public class Planetary {
 	String sessionCookie;
+	String sessionID;
+
 	ISallyKnowledgeBase kb;
-	
+
 	@Inject
 	public Planetary(@Named("PlanetaryURL")String planetaryRoot, 
-					 @Named("PlanetaryEndPoint") String endPoint, 
-					 @Named("PlanetaryUser") String user, 
-					 @Named("PLanetaryPassword") String password,
-					 Theo theo,
-					 ISallyKnowledgeBase kb) {
+			@Named("PlanetaryEndPoint") String endPoint, 
+			@Named("PlanetaryUser") String user, 
+			@Named("PLanetaryPassword") String password,
+			Theo theo,
+			ISallyKnowledgeBase kb) {
 		endpointURL = planetaryRoot+"/"+endPoint;
 		this.kb = kb;
 		this.root = planetaryRoot;
 		this.user = user;
 		this.password = password;
 		this.theo = theo;
+		init();
 	}
 
+	private void init() {
+		xmlRpcClient = new XmlRpcClient();
+		XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
+		try {
+			config.setServerURL(new URL(endpointURL));
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return;
+		}
+		xmlRpcClient.setConfig(config);
+		XmlRpcTransportFactory factory = new XmlRpcSunHttpTransportFactory(xmlRpcClient) {
+			public XmlRpcTransport getTransport() {
+				return new XmlRpcSunHttpTransport(xmlRpcClient) {
+					@Override
+					protected void initHttpHeaders(XmlRpcRequest request) throws XmlRpcClientException {
+						super.initHttpHeaders(request);
+						if (sessionCookie != null)
+							setRequestHeader("Cookie", sessionCookie);
+						if (sessionID != null)
+							setRequestHeader("X-CSRF-Token", sessionID);
+					}
+				};
+			}
+		};
+		xmlRpcClient.setTransportFactory(factory);
+	}
+	
 	static final String METHOD_SYSTEM_CONNECT = "system.connect";
 	static final String METHOD_USER_LOGOUT = "user.logout";
 	static final String METHOD_USER_LOGIN = "user.login";
-	static final String METHOD_SALLY_ENABLE = "sally.jobad_service";
-	
+	static final String METHOD_USER_TOKEN = "user.token";
+	static final String METHOD_SALLY_ENABLE = "sally.enable_jobad";
+
 	private Logger log;
 	private String endpointURL;
 	private XmlRpcClient xmlRpcClient;
@@ -63,19 +99,23 @@ public class Planetary {
 	String password;
 	String root;
 	Theo theo;
-	
+
 	public String getDefinitionLookupURL(String mmtURI) {
-		String [] splits = mmtURI.split("\\?");
-		return root+"/sally/showdef/"+splits[1]+"/"+splits[2];
+		//String [] splits = mmtURI.split("\\?");
+		return root+"/mmt/archives?q="+mmtURI;
 	}
-	
+
+	public String getPlanetaryRoot() {
+		return root;
+	}
+
 	@SallyService
 	public void getServiceURI(ListOntologyConcepts request, SallyInteractionResultAcceptor acceptor, final SallyContext context) {
 		String cookie = getSessionCookie();
 		context.setContextVar("Cookie", Cookie.newBuilder().setCookie(cookie).setUrl(root).build());
 		acceptor.acceptResult(root);
 	}
-	
+
 	@SallyService
 	public void planetaryServices(final MMTUri mmtURI, SallyInteractionResultAcceptor acceptor, final SallyContext context) {
 		acceptor.acceptResult(new SallyMenuItem("Knowledge Base", "Definition Lookup", "Look up definition associated to the selected object") {
@@ -112,20 +152,6 @@ public class Planetary {
 		//The user.login call return two attributes in which we use to construct value for a "Cookie" header.
 		//With then set xmlRpcClient with new XmlRpcTransportFactory that set  'Cookie' header using the composed cookie value
 		sessionCookie = response.get("session_name") + "=" + response.get("sessid");
-
-		XmlRpcTransportFactory factory = new XmlRpcSunHttpTransportFactory(xmlRpcClient) {
-			public XmlRpcTransport getTransport() {
-				return new XmlRpcSunHttpTransport(xmlRpcClient) {
-					@Override
-					protected void initHttpHeaders(XmlRpcRequest request) throws XmlRpcClientException {
-						super.initHttpHeaders(request);
-						setRequestHeader("Cookie", sessionCookie);
-					}
-				};
-			}
-		};
-		xmlRpcClient.setTransportFactory(factory);
-
 		return sessionCookie;
 	}
 
@@ -148,30 +174,31 @@ public class Planetary {
 			params.add("enable");
 			params.add(service);
 			xmlRpcClient.execute(METHOD_SALLY_ENABLE, params);
-		} catch (Exception E) {
-
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+	}
+
+	private String getSession() {
+		try {
+			Vector<Object> params = new Vector<Object>();
+			Map<String, String> response = (Map<String, String>) xmlRpcClient.execute(METHOD_USER_TOKEN, params);
+			sessionID = response.get("token");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return sessionID;
 	}
 
 	public String getSessionCookie() {
 		if (sessionCookie != null) {
 			return sessionCookie;
 		}
-
-		XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
-		try {
-			config.setServerURL(new URL(endpointURL));
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-		xmlRpcClient = new XmlRpcClient();
-		xmlRpcClient.setConfig(config);
-
+	
 		try {
 			connect();
 			String cookie = login(user, password);
+			getSession();
 			return cookie;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -750,9 +750,65 @@ JOBAD.util.once = function(query, event, handler){
 	@param	query A jQuery element to use as as query. 
 	@param	id	Id of handler to remove. 
 */
-JOBAD.util.off = function(event, id){
+JOBAD.util.off = function(query, id){
 	var query = JOBAD.refs.$(query);
 	query.off(id); 
+}
+
+/*
+	Turns a keyup event into a string. 
+*/
+JOBAD.util.toKeyString = function(e){
+	var res = ((e.ctrlKey || e.keyCode == 17 )? 'ctrl+' : '') +
+        ((e.altKey || e.keyCode == 18 ) ? 'alt+' : '') +
+        ((e.shiftKey || e.keyCode == 16 ) ? 'shift+' : ''); 
+
+      var specialKeys = {
+			8: "backspace", 9: "tab", 10: "return", 13: "return", 19: "pause",
+			20: "capslock", 27: "esc", 32: "space", 33: "pageup", 34: "pagedown", 35: "end", 36: "home",
+			37: "left", 38: "up", 39: "right", 40: "down", 45: "insert", 46: "del", 
+			96: "0", 97: "1", 98: "2", 99: "3", 100: "4", 101: "5", 102: "6", 103: "7",
+			104: "8", 105: "9", 106: "*", 107: "+", 109: "-", 110: ".", 111 : "/", 
+			112: "f1", 113: "f2", 114: "f3", 115: "f4", 116: "f5", 117: "f6", 118: "f7", 119: "f8", 
+			120: "f9", 121: "f10", 122: "f11", 123: "f12", 144: "numlock", 145: "scroll", 186: ";", 191: "/",
+			220: "\\", 222: "'", 224: "meta"
+		}
+
+    if(!e.charCode && specialKeys[e.keyCode]){
+    	res += specialKeys[e.keyCode]; 
+    } else {
+    	if(res == "" && event.type == "keypress"){
+    		return false; 
+    	} else {
+    		res +=String.fromCharCode(e.charCode || e.keyCode).toLowerCase();
+    	}
+    }
+
+    if(res[res.length-1] == "+"){
+    	return res.substring(0, res.length - 1); 
+    } else {
+    	return res; 
+    }
+};
+
+JOBAD.util.onKey = function(cb){
+	var uuid = JOBAD.util.UID(); 
+	JOBAD.refs.$(document).on("keydown."+uuid+" keypress."+uuid, function(evt){
+		var key = JOBAD.util.toKeyString(evt); 
+		if(!key){
+			return; 
+		}
+		var res = cb.call(undefined, key, evt);
+
+		if(res === false){
+			//stop propagnation etc
+			evt.preventDefault();
+			evt.stopPropagation(); 
+			return false; 
+		}
+	}); 
+
+	return "keydown."+uuid+" keypress."+uuid; 
 }
 
 /*
@@ -770,8 +826,6 @@ JOBAD.util.trigger = function(query, event, params){
 	var params = JOBAD.util.forceArray(params).slice(0);
 	params.unshift(event); 
 
-	
-
 	var id = JOBAD.util.UID(); 
 
 	query.on(event+"."+id, function(ev){
@@ -786,11 +840,83 @@ JOBAD.util.trigger = function(query, event, params){
 
 }
 
-JOBAD.util.getCurrentOrigin = function(){
-	var scripts = document.getElementsByTagName('script');
-	var thisScript = scripts[scripts.length-1];
-	return thisScript.src; 
+/*
+	Creates a new Event Handler
+*/
+JOBAD.util.EventHandler = function(){
+	var handler = {}; 
+	var EventHandler = JOBAD.refs.$("<div>"); 
+
+	handler.on = function(event, handler){
+		return JOBAD.util.on(EventHandler, event, handler);
+	};
+
+	handler.once = function(event, handler){
+		return JOBAD.util.once(EventHandler, event, handler);
+	};
+
+	handler.off = function(handler){
+		return JOBAD.util.off(EventHandler, handler);
+	};
+
+	handler.trigger = function(event, params){
+		return JOBAD.util.trigger(EventHandler, event, params);
+	}
+
+	return handler;
 }
+
+/*
+	Gets the current script origin. 
+*/
+JOBAD.util.getCurrentOrigin = function(){
+
+	var scripts = JOBAD.refs.$('script'); 
+	var src = scripts[scripts.length-1].src;
+
+	//if we have an empty src or jQuery is ready, return the location.href
+	return (src == "" || jQuery.isReady || !src)?location.href:src; 
+}
+
+/*
+	Permute to members of an array. 
+	@param arr	Array to permute. 
+	@param a	Index of first element. 
+	@param b	Index of second element. 
+*/
+JOBAD.util.permuteArray = function(arr, a, b){
+
+	var arr = JOBAD.refs.$.makeArray(arr); 
+	
+	if(!JOBAD.util.isArray(arr)){
+		return arr; 
+	}
+
+	var a = JOBAD.util.limit(a, 0, arr.length); 
+	var b = JOBAD.util.limit(b, 0, arr.length); 
+
+	var arr = arr.slice(0); 
+
+	var old = arr[a];
+	arr[a] = arr[b]; 
+	arr[b] = old; 
+
+	return arr; 
+}
+
+/*
+	Limit the number x to be between a and b. 
+
+*/
+JOBAD.util.limit = function(x, a, b){
+	if(a >= b){
+		return (x<b)?b:((x>a)?a:x); 
+	} else {
+		// b > a
+		return JOBAD.util.limit(x, b, a); 
+	}
+}
+
 
 
 //Merge underscore and JOBAD.util namespace

@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sally.AlexData;
-import sally.SpreadsheetModel;
+import sally.SpreadsheetAlexData;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
@@ -57,9 +57,9 @@ public class ConcreteSpreadsheetTest  {
 				AlexData alexData = (AlexData)msg;
 				byte[] res = Base64.decodeBase64(alexData.getData());
 
-				SpreadsheetModel rr = null;
+				SpreadsheetAlexData rr = null;
 				try {
-					rr = SpreadsheetModel.parseFrom(res);
+					rr = SpreadsheetAlexData.parseFrom(res);
 					WorksheetDocument doc = factory.create(alexData.getFileName(), rr, sender);
 					test1(doc);
 				} catch (InvalidProtocolBufferException e) {
