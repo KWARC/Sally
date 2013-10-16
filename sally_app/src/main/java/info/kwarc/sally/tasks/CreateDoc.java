@@ -1,11 +1,13 @@
 package info.kwarc.sally.tasks;
 
-import info.kwarc.sally.ProcessDocMappings;
+import info.kwarc.sally.core.DocumentInformation;
+import info.kwarc.sally.core.DocumentManager;
 import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.core.interfaces.SallyTask;
-import info.kwarc.sally.networking.interfaces.INetworkSender;
+import info.kwarc.sally.core.net.INetworkSender;
+import info.kwarc.sally.core.theo.Theo;
+import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.spreadsheet.interfaces.WorksheetFactory;
-import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 import info.kwarc.sissi.model.document.cad.interfaces.CADFactory;
 
@@ -34,17 +36,17 @@ public class CreateDoc implements WorkItemHandler {
 	CADFactory cadFactory;
 	WorksheetFactory spreadsheetFactory;
 	SallyInteraction interaction;
-	ISallyKnowledgeBase kb;
-	ProcessDocMappings docMap;
+	ISallyWorkflowManager kb;
+	DocumentManager docManager;
 	Logger log;
 
 	@Inject
-	public CreateDoc(CADFactory cadFactory, WorksheetFactory spreadsheetFactory, SallyInteraction interaction, ISallyKnowledgeBase kb, ProcessDocMappings docMap) {
+	public CreateDoc(CADFactory cadFactory, WorksheetFactory spreadsheetFactory, SallyInteraction interaction, ISallyWorkflowManager kb, DocumentManager docMap) {
 		this.cadFactory = cadFactory;
 		this.spreadsheetFactory = spreadsheetFactory;
 		this.interaction = interaction;
 		this.kb = kb;
-		this.docMap = docMap;
+		this.docManager = docMap;
 		this.log = LoggerFactory.getLogger(this.getClass());
 	}
 
@@ -56,6 +58,7 @@ public class CreateDoc implements WorkItemHandler {
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
 		WhoAmI alexInfo = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), WhoAmI.class);
 		AlexData alexData = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), AlexData.class);
+		Theo theo = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), Theo.class);;
 		
 		Map<String, Object> variable = HandlerUtils.getProcessVariables(kb.getProcessInstance(workItem.getProcessInstanceId()));
 		INetworkSender networkSender = HandlerUtils.safeGet(variable, "NetworkSender", INetworkSender.class);		
@@ -67,6 +70,8 @@ public class CreateDoc implements WorkItemHandler {
 				throw new Exception("No WhoAmI object passed to document creation. Aborting document creation.");
 			if (alexData == null)
 				throw new Exception("No AlexData object passed to document creation. Aborting document creation.");
+			if (theo== null)
+				throw new Exception("No Theo object passed to document creation. Aborting document creation.");
 
 			byte[] res = Base64.decodeBase64(alexData.getData());
 			String processId = null;
@@ -96,11 +101,12 @@ public class CreateDoc implements WorkItemHandler {
 			}
 
 			interaction.registerServices(processInput);
-			// AbstractSpreadsheetInput
 
 			ProcessInstance instance = kb.startProcess(workItem.getProcessInstanceId(), processId, params);
-			
-			docMap.addMap(workItem.getProcessInstanceId(), alexData.getFileName(), instance.getId());
+			DocumentInformation docInfo = new DocumentInformation(alexData.getFileName(), instance.getId());
+			docInfo.setTheo(theo);
+			docInfo.setDocumentModel(processInput);
+			docManager.addDocument(docInfo);
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		} finally {

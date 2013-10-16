@@ -1,9 +1,8 @@
 package info.kwarc.sally.tasks;
 
-import info.kwarc.sally.ProcessDocMappings;
 import info.kwarc.sally.core.MessageForward;
 import info.kwarc.sally.core.interfaces.SallyTask;
-import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
+import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 
 import org.drools.process.instance.WorkItemHandler;
@@ -17,13 +16,11 @@ import com.google.inject.Inject;
 @SallyTask(action="forwardToParent")
 public class ForwardToParent implements WorkItemHandler {
 
-	ProcessDocMappings docMap;
 	Logger log;
-	ISallyKnowledgeBase kb;
+	ISallyWorkflowManager kb;
 
 	@Inject
-	public ForwardToParent(ProcessDocMappings docMap, ISallyKnowledgeBase kb) {
-		this.docMap = docMap;
+	public ForwardToParent(ISallyWorkflowManager kb) {
 		log = LoggerFactory.getLogger(this.getClass());
 		this.kb = kb;
 	}

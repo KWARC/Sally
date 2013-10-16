@@ -4,13 +4,9 @@ import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyService;
 import info.kwarc.sally.core.comm.SallyMenuItem;
-import info.kwarc.sally.core.interfaces.Theo;
-import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
+import info.kwarc.sally.core.theo.Theo;
+import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
@@ -40,7 +36,7 @@ public class Planetary {
 	String sessionCookie;
 	String sessionID;
 
-	ISallyKnowledgeBase kb;
+	ISallyWorkflowManager kb;
 
 	@Inject
 	public Planetary(@Named("PlanetaryURL")String planetaryRoot, 
@@ -48,13 +44,12 @@ public class Planetary {
 			@Named("PlanetaryUser") String user, 
 			@Named("PLanetaryPassword") String password,
 			Theo theo,
-			ISallyKnowledgeBase kb) {
+			ISallyWorkflowManager kb) {
 		endpointURL = planetaryRoot+"/"+endPoint;
 		this.kb = kb;
 		this.root = planetaryRoot;
 		this.user = user;
 		this.password = password;
-		this.theo = theo;
 		init();
 	}
 
@@ -98,7 +93,6 @@ public class Planetary {
 	String user; 
 	String password;
 	String root;
-	Theo theo;
 
 	public String getDefinitionLookupURL(String mmtURI) {
 		//String [] splits = mmtURI.split("\\?");

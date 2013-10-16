@@ -59,6 +59,7 @@
         "blocks": {
           1: {
             name: "bolt",
+            range: "vendor!C4:D123",
             meaning: "http://bots.com/bolt.omdoc"
           }
         }

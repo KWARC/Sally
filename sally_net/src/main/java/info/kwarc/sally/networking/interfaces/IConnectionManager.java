@@ -1,5 +1,7 @@
 package info.kwarc.sally.networking.interfaces;
 
+import info.kwarc.sally.core.net.INetworkSender;
+
 import com.google.protobuf.AbstractMessage;
 
 /**

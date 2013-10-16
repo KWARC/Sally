@@ -1,10 +1,11 @@
 package info.kwarc.sally.tasks;
 
-import info.kwarc.sally.ProcessDocMappings;
+import info.kwarc.sally.core.DocumentInformation;
+import info.kwarc.sally.core.DocumentManager;
 import info.kwarc.sally.core.MessageForward;
 import info.kwarc.sally.core.interfaces.SallyTask;
+import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sissi.bpm.BPMNUtils;
-import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 
 import org.drools.process.instance.WorkItemHandler;
@@ -19,12 +20,12 @@ import com.google.protobuf.AbstractMessage;
 @SallyTask(action="forwardToDoc")
 public class ForwardToDoc implements WorkItemHandler {
 
-	ProcessDocMappings docMap;
+	DocumentManager docMap;
 	Logger log;
-	ISallyKnowledgeBase kb;
+	ISallyWorkflowManager kb;
 
 	@Inject
-	public ForwardToDoc(ProcessDocMappings docMap, ISallyKnowledgeBase kb) {
+	public ForwardToDoc(DocumentManager docMap, ISallyWorkflowManager kb) {
 		this.docMap = docMap;
 		log = LoggerFactory.getLogger(this.getClass());
 		this.kb = kb;
@@ -49,7 +50,11 @@ public class ForwardToDoc implements WorkItemHandler {
 				throw new Exception("No file name could be extracted from the forwarding message. Skipping.");
 			}
 			
-			Long pforward = docMap.getMap(workItem.getProcessInstanceId(), fileName);
+			DocumentInformation docInfo = docMap.getDocumentInformation(fileName);
+			if (docInfo == null)
+				throw new Exception("No document corresponds to file name "+fileName);
+			
+			Long pforward = docInfo.getDocumentWorkflowID();
 			if (pforward == null)
 				throw new Exception("No process ID corresponds to file name "+fileName);
 

@@ -1,8 +1,8 @@
 package info.kwarc.sally.tasks;
 
 import info.kwarc.sally.core.interfaces.SallyTask;
-import info.kwarc.sally.spreadsheet.WorksheetDocument;
-import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
+import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
+import info.kwarc.sally.spreadsheet.SpreadsheetDocument;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 import info.kwarc.sissi.model.document.cad.CADDocument;
 
@@ -20,10 +20,10 @@ import com.google.inject.Inject;
 public class SwitchApp implements WorkItemHandler {
 
 	Logger log;
-	ISallyKnowledgeBase kb;
+	ISallyWorkflowManager kb;
 	
 	@Inject
-	public SwitchApp(ISallyKnowledgeBase kb) {
+	public SwitchApp(ISallyWorkflowManager kb) {
 		log = LoggerFactory.getLogger(getClass());
 		this.kb = kb;
 	}
@@ -34,7 +34,7 @@ public class SwitchApp implements WorkItemHandler {
 		Long pid = workItem.getProcessInstanceId();
 		Map<String, Object> vars = HandlerUtils.getProcessVariables(kb.getProcessInstance(pid));
 		
-		WorksheetDocument wd = HandlerUtils.getFirstTypedParameter(vars, WorksheetDocument.class);
+		SpreadsheetDocument wd = HandlerUtils.getFirstTypedParameter(vars, SpreadsheetDocument.class);
 		CADDocument cd = HandlerUtils.getFirstTypedParameter(vars, CADDocument.class);
 
 		try {

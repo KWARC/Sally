@@ -1,9 +1,9 @@
 package info.kwarc.sally.spreadsheet;
 
 import freemarker.template.TemplateException;
+import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.networking.CometDSendRequest;
 import info.kwarc.sally.networking.TemplateEngine;
-import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 
 import java.io.IOException;
@@ -31,11 +31,11 @@ public class ASMEditorInterface {
 	String name;
 	String ontology;
 	Logger log;
-	ISallyKnowledgeBase kb;
+	ISallyWorkflowManager kb;
 	TemplateEngine templ;
 
 	@Inject
-	public ASMEditorInterface(ISallyKnowledgeBase kb, TemplateEngine templ) {
+	public ASMEditorInterface(ISallyWorkflowManager kb, TemplateEngine templ) {
 		log = LoggerFactory.getLogger(ASMEditorInterface.class);
 		this.kb = kb;
 		this.templ = templ;
@@ -89,7 +89,7 @@ public class ASMEditorInterface {
 			return "session did not provide a valid cell range";
 		}
 		
-		WorksheetDocument doc = HandlerUtils.getFirstTypedParameter(vars, WorksheetDocument.class);
+		SpreadsheetDocument doc = HandlerUtils.getFirstTypedParameter(vars, SpreadsheetDocument.class);
 		if (doc == null) {
 			return "not document found";
 		}

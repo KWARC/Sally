@@ -4,7 +4,7 @@ import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyService;
 import info.kwarc.sally.core.comm.SallyMenuItem;
-import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
+import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 
 import java.util.HashMap;
@@ -21,10 +21,10 @@ import com.google.inject.Inject;
 public class ASMEditor {
 
 	Logger log;
-	ISallyKnowledgeBase kb;
+	ISallyWorkflowManager kb;
 
 	@Inject
-	public ASMEditor(ISallyKnowledgeBase kb) {
+	public ASMEditor(ISallyWorkflowManager kb) {
 		log = LoggerFactory.getLogger(getClass());
 		this.kb = kb;
 	}
@@ -36,7 +36,7 @@ public class ASMEditor {
 		ProcessInstance pi = kb.getProcessInstance(processInstanceID);
 		Map<String, Object> vars = HandlerUtils.getProcessVariables(pi);
 
-		final WorksheetDocument doc = HandlerUtils.getFirstTypedParameter(vars, WorksheetDocument.class);
+		final SpreadsheetDocument doc = HandlerUtils.getFirstTypedParameter(vars, SpreadsheetDocument.class);
 		if (doc == null) {
 			log.warn("No variables attached to process "+processInstanceID);
 			return;

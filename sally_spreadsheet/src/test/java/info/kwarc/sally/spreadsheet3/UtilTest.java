@@ -1,9 +1,9 @@
 package info.kwarc.sally.spreadsheet3;
 
 import static org.junit.Assert.*;
-
 import info.kwarc.sally.spreadsheet3.model.CellSpaceInformation;
 import info.kwarc.sally.spreadsheet3.model.Manager;
+import info.kwarc.sally.spreadsheet3.model.RangeInformation;
 import info.kwarc.sally.spreadsheet3.ontology.BuilderML;
 import info.kwarc.sally.spreadsheet3.ontology.BuilderMathML;
 
@@ -30,6 +30,16 @@ public class UtilTest {
 		mlBuilder = new BuilderMathML();
 	}
 
+	@Test
+	public void testRangeParser() {
+		RangeInformation ri = Util.convertRangeAddress("Sheet1!C4:F10");
+		assertEquals(ri.getWorksheet(), "Sheet1");
+		assertEquals(2, ri.getStartRow());
+		assertEquals(3, ri.getStartCol());
+		assertEquals(5, ri.getEndRow());
+		assertEquals(9, ri.getEndCol());
+	}
+	
 	@Test
 	public void testAntiunifyMathMLFormulae() {
 		// formula parsing

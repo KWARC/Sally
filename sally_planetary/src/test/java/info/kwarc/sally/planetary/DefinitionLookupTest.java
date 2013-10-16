@@ -5,7 +5,7 @@ import java.util.HashMap;
 import org.junit.Assert;
 
 import info.kwarc.sally.core.injectors.TheoFirstChoice;
-import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
+import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sissi.bpm.injection.TestableKnowledeBase;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 import info.kwarc.sissi.bpm.tasks.TestCounterHandler;
@@ -40,7 +40,7 @@ public class DefinitionLookupTest extends JbpmJUnitTestCase {
 	
 	@Test
 	public void testWorkflow() {
-		ISallyKnowledgeBase kb = i.getInstance(ISallyKnowledgeBase.class);
+		ISallyWorkflowManager kb = i.getInstance(ISallyWorkflowManager.class);
 		HashMap<String, TestCounterHandler> counters = HandlerUtils.registerCounterHandlers(kb, "theoWindowCreate", "theoWindowUpdate");
 
 
@@ -57,7 +57,7 @@ public class DefinitionLookupTest extends JbpmJUnitTestCase {
 	
 	@Test
 	public void testInputs() {
-		ISallyKnowledgeBase kb = i.getInstance(ISallyKnowledgeBase.class);
+		ISallyWorkflowManager kb = i.getInstance(ISallyWorkflowManager.class);
 		kb.registerWorkItemHandler("theoWindowCreate", new TestInputTypeHandler(String.class));
 		kb.registerWorkItemHandler("theoWindowUpdate", new TestInputTypeHandler(CADAlexClick.class));
 

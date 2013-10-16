@@ -1,9 +1,9 @@
 package info.kwarc.sally.spreadsheet.interfaces;
 
-import info.kwarc.sally.networking.interfaces.INetworkSender;
-import info.kwarc.sally.spreadsheet.WorksheetDocument;
+import info.kwarc.sally.core.net.INetworkSender;
+import info.kwarc.sally.spreadsheet.SpreadsheetDocument;
 import sally.SpreadsheetAlexData;
 
 public interface WorksheetFactory {
-	public WorksheetDocument create(String filePath, SpreadsheetAlexData data, INetworkSender sender);
+	public SpreadsheetDocument create(String filePath, SpreadsheetAlexData data, INetworkSender sender);
 }

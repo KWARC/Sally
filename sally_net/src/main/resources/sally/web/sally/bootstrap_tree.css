@@ -79,20 +79,3 @@
 	color: #000
 }
 
-.bootstrap .icon-xls {
-	background-image: url("xls_icon.png");
-	background-position: 0 0;
-	margin-right: 5px;
-}
-
-.bootstrap .icon-sheet {
-	background-image: url("sheet_icon.jpg");
-	background-position: 0 0;
-	margin-right: 5px;
-}
-
-table {
-    table-layout: fixed;
-    word-wrap: break-word;
-    overflow: hidden;
-}

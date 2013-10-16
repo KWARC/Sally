@@ -1,4 +1,5 @@
 Sally
 =====
 
-Semantic Ally
+The Sally Framework 
+sally_core - contains 

@@ -97,8 +97,9 @@
 									<tasks>
 										<exec executable="pbj">
 											<arg value="src/main/resources/common.proto" />
-											<arg value="target/sallycomm.js" />
+											<arg value="target/common.js" />
 										</exec>
+										<copy file="target/common.js" tofile="../sally_net/src/main/resources/sally/web/sally/comm/common.js"></copy>
 									</tasks>
 								</configuration>
 								<goals>

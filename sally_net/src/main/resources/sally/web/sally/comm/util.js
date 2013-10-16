@@ -1,36 +1,22 @@
-function serialize(message, msgid) {
+function serialize(message) {
 	var stream = new PROTO.Base64Stream;
 	message.SerializeToStream(stream);
-	if (typeof (msgid) == 'undefined')
-		return {
+	return {
 			"type" : message.message_type_,
 			"s" : stream.getString()
-		};
-	else
-		return {
-			"type" : message.message_type_,
-			"s" : stream.getString(),
-			"msgid" : msgid
-		};
-
+	};
 }
 
-function unserialize(type, message, msgrid) {
-	classString = type;
+function unserialize(message) {
+	var msg = JSON.parse(message);
+	
+	var classString = msg.type;
 	if (classString.match(/^[a-zA-Z\.]+$/)) {
-		restMessage = message;
+		var restMessage = msg.s;
 		var stream = new PROTO.Base64Stream(restMessage);
 		message = eval("new " + classString);
 		message.ParseFromStream(stream);
-		if (typeof (msgrid) == 'undefined')
-			return {
-				"message" : message
-			};
-		else
-			return {
-				"message" : message,
-				"msgrid" : msgrid
-			};
+		return message;
 	} else
 		return null;
 }

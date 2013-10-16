@@ -6,8 +6,8 @@ import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyService;
 import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.comm.SallyModelRequest;
-import info.kwarc.sally.networking.interfaces.IMessageCallback;
-import info.kwarc.sally.networking.interfaces.INetworkSender;
+import info.kwarc.sally.core.net.IMessageCallback;
+import info.kwarc.sally.core.net.INetworkSender;
 
 import java.util.List;
 

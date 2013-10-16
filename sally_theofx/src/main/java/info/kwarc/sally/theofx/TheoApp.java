@@ -2,17 +2,15 @@ package info.kwarc.sally.theofx;
 
 import info.kwarc.sally.core.comm.CallbackManager;
 import info.kwarc.sally.core.interfaces.IAbstractMessageRunner;
+import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.theofx.ui.TheoWindow;
 import info.kwarc.sissi.bpm.BPMNUtils;
-import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 import javafx.scene.web.WebEngine;
 import netscape.javascript.JSObject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import sally.StartSubTask;
 
 import com.github.jucovschi.ProtoCometD.ProtoUtils;
 import com.google.inject.Inject;
@@ -27,15 +25,15 @@ public class TheoApp {
 
 	private Logger log;
 	private Long processInstanceID;
-	private ISallyKnowledgeBase kb;
-	private WebEngine contentEngine;
+	private ISallyWorkflowManager kb;
+	private WebEngine webEngine;
 	private CallbackManager callbackManager;
 
 	@Inject
-	public TheoApp(@Assisted Long processInstanceID, @Assisted WebEngine contentEngine, ISallyKnowledgeBase kb, CallbackManager callbackManager) {
+	public TheoApp(@Assisted Long processInstanceID, @Assisted WebEngine contentEngine, ISallyWorkflowManager kb, CallbackManager callbackManager) {
 		this.log = LoggerFactory.getLogger(TheoWindow.class); 
 		this.processInstanceID = processInstanceID;
-		this.contentEngine = contentEngine;
+		this.webEngine = contentEngine;
 		this.callbackManager = callbackManager;
 		this.kb = kb;
 	}
@@ -58,7 +56,7 @@ public class TheoApp {
 		
 		for (String script : scriptsToInject) {
 			String sc = "var newScript = document.createElement('script'); newScript.type = 'text/javascript'; newScript.src = '"+prefix+script+"';document.getElementsByTagName('head')[0].appendChild(newScript); ";
-			contentEngine.executeScript(sc);			
+			webEngine.executeScript(sc);			
 		}
 
 		log.info("Injected scripts");
@@ -69,17 +67,32 @@ public class TheoApp {
 		sendMessage(msg, null);
 	}
 	
-	public void sendMessage(String msg, JSObject callback) {
-		AbstractMessage absMsg = ProtoUtils.deserialize(msg);
+	private class CallbackRunner implements IAbstractMessageRunner {
+		Long callback;
+		
+		public CallbackRunner(Long callback) {
+			this.callback = callback;
+		}
 
+		@Override
+		public void run(AbstractMessage m) {
+			JSObject wnd = (JSObject) webEngine.executeScript("window");
+			JSObject comm = (JSObject) wnd.getMember("Communication");
+			comm.call("runCallback", callback, ProtoUtils.serialize(m));
+		}
+	}
+	
+	public void sendMessage(String msg, String callback) {
+		AbstractMessage absMsg;
+		try {
+			absMsg = ProtoUtils.deserialize(msg);
+		} catch (Throwable e) {
+			log.error(e.getMessage());
+			return;
+		}
 		if (callback != null) {
-			Long callbackID = callbackManager.registerCallback(new IAbstractMessageRunner() {
-				@Override
-				public void run(AbstractMessage m) {
-					
-				}
-			});
-
+			Long callbackID = callbackManager.registerCallback(new CallbackRunner(new Long(callback)));
+			
 			absMsg = HandlerUtils.setCallbackTokenToMessage(absMsg, callbackID);
 		}
 
@@ -96,10 +109,10 @@ public class TheoApp {
 		//TODO get the new ProtoUtils, remove = "";// from below line
 		String jsReadyResult = ProtoUtils.serialize(result).toString();
 
-		contentEngine.executeScript("var element = document.createElement(\"TheoResultElement\");"+
+		webEngine.executeScript("var element = document.createElement(\"TheoResultElement\");"+
 				"document.documentElement.appendChild(element);"); 
 
-		contentEngine.executeScript(
+		webEngine.executeScript(
 				"var event = new CustomEvent(\"TheoResult\", { " +
 						"detail : "+ jsReadyResult.toString() +"," +
 						"bubbles : true," +
@@ -107,7 +120,7 @@ public class TheoApp {
 						"});"
 				);
 		log.debug("Second exec");
-		contentEngine.executeScript("element.dispatchEvent(event);");
+		webEngine.executeScript("element.dispatchEvent(event);");
 		log.debug("Last exec");
 
 	}

@@ -158,13 +158,6 @@ sally.SallyFrame = PROTO.Message("sally.SallyFrame",{
 		type: function(){return PROTO.string;},
 		id: 1
 	}});
-sally.Init = PROTO.Message("sally.Init",{
-	options: {
-		options: {},
-		multiplicity: PROTO.optional,
-		type: function(){return PROTO.string;},
-		id: 1
-	}});
 sally.ScreenCoordinates = PROTO.Message("sally.ScreenCoordinates",{
 	x: {
 		options: {},
@@ -266,6 +259,12 @@ sally.StartSubTask = PROTO.Message("sally.StartSubTask",{
 		multiplicity: PROTO.required,
 		type: function(){return PROTO.string;},
 		id: 1
+	},
+	callbackToken: {
+		options: {},
+		multiplicity: PROTO.optional,
+		type: function(){return PROTO.int64;},
+		id: 2
 	}});
 sally.CADAlexClick = PROTO.Message("sally.CADAlexClick",{
 	cadNodeId: {
@@ -337,73 +336,11 @@ sally.CADSemanticData = PROTO.Message("sally.CADSemanticData",{
 		type: function(){return sally.CADNode;},
 		id: 2
 	}});
-sally.SemanticActionData = PROTO.Message("sally.SemanticActionData",{
-	cd: {
-		options: {},
-		multiplicity: PROTO.optional,
-		type: function(){return PROTO.string;},
-		id: 1
-	},
-	name: {
-		options: {},
-		multiplicity: PROTO.optional,
-		type: function(){return PROTO.string;},
-		id: 2
-	},
-	fileName: {
-		options: {},
-		multiplicity: PROTO.optional,
-		type: function(){return PROTO.string;},
-		id: 3
-	},
-	senderId: {
-		options: {},
-		multiplicity: PROTO.optional,
-		type: function(){return PROTO.string;},
-		id: 4
-	},
-	sheetName: {
-		options: {},
-		multiplicity: PROTO.optional,
-		type: function(){return PROTO.string;},
-		id: 5
-	},
-	row: {
-		options: {},
-		multiplicity: PROTO.optional,
-		type: function(){return PROTO.uint32;},
-		id: 6
-	},
-	col: {
-		options: {},
-		multiplicity: PROTO.optional,
-		type: function(){return PROTO.uint32;},
-		id: 7
-	},
-	coordinates: {
-		options: {},
-		multiplicity: PROTO.optional,
-		type: function(){return sally.ScreenCoordinates;},
-		id: 8
-	}});
 sally.SpreadsheetAlexData = PROTO.Message("sally.SpreadsheetAlexData",{
 	asm: {
 		options: {},
 		multiplicity: PROTO.optional,
 		type: function(){return sally.ModelDataMsg;},
-		id: 2
-	}});
-sally.SpreadsheetOntologyPair = PROTO.Message("sally.SpreadsheetOntologyPair",{
-	asmid: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.int32;},
-		id: 1
-	},
-	uri: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
 		id: 2
 	}});
 sally.MMTUri = PROTO.Message("sally.MMTUri",{
@@ -413,686 +350,74 @@ sally.MMTUri = PROTO.Message("sally.MMTUri",{
 		type: function(){return PROTO.string;},
 		id: 1
 	}});
-sally.OntologyData = PROTO.Message("sally.OntologyData",{
-	concepts: {
-		options: {},
-		multiplicity: PROTO.repeated,
-		type: function(){return sally.OntologyConcept;},
-		id: 1
-	},
-	relations: {
-		options: {},
-		multiplicity: PROTO.repeated,
-		type: function(){return sally.OntologyRelation;},
-		id: 2
-	}});
-sally.OntologyConcept = PROTO.Message("sally.OntologyConcept",{
-	uri: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 1
-	},
-	params: {
-		options: {},
-		multiplicity: PROTO.repeated,
-		type: function(){return PROTO.string;},
-		id: 2
-	}});
-sally.OntologyRelation = PROTO.Message("sally.OntologyRelation",{
-	uri: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 1
-	},
-	srcConcept: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 2
-	},
-	destConcept: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 3
-	}});
-sally.StringMap = PROTO.Message("sally.StringMap",{
-	key: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 1
-	},
-	value: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 2
-	}});
-sally.KnowledgeObject = PROTO.Message("sally.KnowledgeObject",{
-	uri: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 1
-	},
-	values: {
-		options: {},
-		multiplicity: PROTO.repeated,
-		type: function(){return sally.StringMap;},
-		id: 2
-	}});
-sally.KnowledgeBase = PROTO.Message("sally.KnowledgeBase",{
-	objects: {
-		options: {},
-		multiplicity: PROTO.repeated,
-		type: function(){return sally.KnowledgeObject;},
-		id: 1
-	},
-	fileName: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 2
-	}});
-sally.OntologyItem = PROTO.Message("sally.OntologyItem",{
-	theory: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 1
-	},
-	symbol: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 2
-	}});
-sally.ResourceContext = PROTO.Message("sally.ResourceContext",{
-	actionId: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 1
-	}});
-sally.ContextKnowledge = PROTO.Message("sally.ContextKnowledge",{
-	context: {
-		options: {},
-		multiplicity: PROTO.repeated,
-		type: function(){return sally.OntologyItem;},
-		id: 1
-	}});
-sally.FormulaRequest = PROTO.Message("sally.FormulaRequest",{
-	actionId: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 1
-	}});
-sally.FormulaInfo = PROTO.Message("sally.FormulaInfo",{
-	json: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 1
-	}});
-sally.TheoNavigateTo = PROTO.Message("sally.TheoNavigateTo",{
-	term: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return sally.OntologyItem;},
-		id: 1
-	},
-	actionId: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 2
-	}});
-sally.Frame = PROTO.Message("sally.Frame",{
-	uid: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 1
-	},
-	actionId: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 2
-	}});
-sally.ServiceCall = PROTO.Message("sally.ServiceCall",{
-	uid: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 1
-	}});
-sally.FormulaCell = PROTO.Message("sally.FormulaCell",{
-	row: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.int32;},
-		id: 3
-	},
-	col: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.int32;},
-		id: 4
-	},
-	formula: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 1
-	},
-	value: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 2
-	}});
-sally.FormulaSheetData = PROTO.Message("sally.FormulaSheetData",{
-	sheetname: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 1
-	},
-	startRow: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.int32;},
-		id: 3
-	},
-	startCol: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.int32;},
-		id: 4
-	},
-	endRow: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.int32;},
-		id: 5
-	},
-	endCol: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.int32;},
-		id: 6
-	},
-	cellinf: {
-		options: {},
-		multiplicity: PROTO.repeated,
-		type: function(){return sally.FormulaCell;},
-		id: 2
-	}});
-sally.FormulaMap = PROTO.Message("sally.FormulaMap",{
-	filename: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 1
-	},
-	sheets: {
-		options: {},
-		multiplicity: PROTO.repeated,
-		type: function(){return sally.FormulaSheetData;},
-		id: 2
-	}});
-sally.RequestASM = PROTO.Message("sally.RequestASM",{
-	filename: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 1
-	}});
-sally.SaveASM = PROTO.Message("sally.SaveASM",{
-	semanticData: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 1
-	}});
-sally.FileRef = PROTO.Message("sally.FileRef",{
-	resourceURI: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 1
-	},
-	mime: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 2
-	}});
-sally.FileContents = PROTO.Message("sally.FileContents",{
-	file: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return sally.FileRef;},
-		id: 1
-	},
-	contents: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 2
-	}});
-sally.TextPosition = PROTO.Message("sally.TextPosition",{
-	line: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.int32;},
-		id: 1
-	},
-	col: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.int32;},
-		id: 2
-	}});
-sally.XMLPosition = PROTO.Message("sally.XMLPosition",{
-	xpath: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 1
-	}});
-sally.XMLNotification = PROTO.Message("sally.XMLNotification",{
-	pos: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return sally.XMLPosition;},
-		id: 1
-	},
-	msg: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 2
-	},
-	uri: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 3
-	}});
-sally.TextNotification = PROTO.Message("sally.TextNotification",{
-	pos: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return sally.TextPosition;},
-		id: 1
-	},
-	msg: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 2
-	},
-	uri: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 3
-	}});
-sally.TextFileNotifications = PROTO.Message("sally.TextFileNotifications",{
-	file: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return sally.FileRef;},
-		id: 1
-	},
-	notifications: {
-		options: {},
-		multiplicity: PROTO.repeated,
-		type: function(){return sally.TextNotification;},
-		id: 2
-	}});
-sally.TextAutocomplete = PROTO.Message("sally.TextAutocomplete",{
-	file: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return sally.FileRef;},
-		id: 1
-	},
-	offset: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.int32;},
-		id: 2
-	},
-	fileContents: {
+sally.BlockInfo = PROTO.Message("sally.BlockInfo",{
+	name: {
 		options: {},
 		multiplicity: PROTO.optional,
 		type: function(){return PROTO.string;},
-		id: 3
-	}});
-sally.CellPosition2 = PROTO.Message("sally.CellPosition2",{
-	sheet: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
 		id: 1
 	},
-	row: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.int32;},
-		id: 2
-	},
-	col: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.int32;},
-		id: 3
-	}});
-sally.CellPositions2 = PROTO.Message("sally.CellPositions2",{
-	cellPositions: {
-		options: {},
-		multiplicity: PROTO.repeated,
-		type: function(){return sally.CellPosition2;},
-		id: 1
-	}});
-sally.CellPositionsList2 = PROTO.Message("sally.CellPositionsList2",{
-	cellPositionsList: {
-		options: {},
-		multiplicity: PROTO.repeated,
-		type: function(){return sally.CellPositions2;},
-		id: 1
-	}});
-sally.CellRangePosition2 = PROTO.Message("sally.CellRangePosition2",{
-	startPos: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return sally.CellPosition2;},
-		id: 1
-	},
-	endPos: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return sally.CellPosition2;},
-		id: 2
-	}});
-sally.StringMessage = PROTO.Message("sally.StringMessage",{
-	data: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 1
-	}});
-sally.IDMessage = PROTO.Message("sally.IDMessage",{
-	id: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.int32;},
-		id: 1
-	}});
-sally.IDList = PROTO.Message("sally.IDList",{
-	ids: {
-		options: {},
-		multiplicity: PROTO.repeated,
-		type: function(){return PROTO.int32;},
-		id: 1
-	}});
-sally.IntegerStringPair = PROTO.Message("sally.IntegerStringPair",{
-	id: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.int32;},
-		id: 1
-	},
-	value: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 2
-	}});
-sally.IntegerStringMapping = PROTO.Message("sally.IntegerStringMapping",{
-	pair: {
-		options: {},
-		multiplicity: PROTO.repeated,
-		type: function(){return sally.IntegerStringPair;},
-		id: 1
-	}});
-sally.BorderLine2 = PROTO.Message("sally.BorderLine2",{
-	borderColor: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.int64;},
-		id: 1
-	},
-	formatStyle: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.int32;},
-		id: 2
-	},
-	excelBorderStyle: {
-		options: {},
-		multiplicity: PROTO.optional,
-		type: function(){return PROTO.int32;},
-		id: 3
-	},
-	excelBorderWeight: {
-		options: {},
-		multiplicity: PROTO.optional,
-		type: function(){return PROTO.int32;},
-		id: 4
-	},
-	ooInnerLineWidth: {
-		options: {},
-		multiplicity: PROTO.optional,
-		type: function(){return PROTO.int32;},
-		id: 5
-	},
-	ooOuterLineWidth: {
-		options: {},
-		multiplicity: PROTO.optional,
-		type: function(){return PROTO.int32;},
-		id: 6
-	},
-	ooLineDistance: {
-		options: {},
-		multiplicity: PROTO.optional,
-		type: function(){return PROTO.int32;},
-		id: 7
-	}});
-sally.CellBorder2 = PROTO.Message("sally.CellBorder2",{
-	top: {
-		options: {},
-		multiplicity: PROTO.optional,
-		type: function(){return sally.BorderLine2;},
-		id: 1
-	},
-	bottom: {
-		options: {},
-		multiplicity: PROTO.optional,
-		type: function(){return sally.BorderLine2;},
-		id: 2
-	},
-	left: {
-		options: {},
-		multiplicity: PROTO.optional,
-		type: function(){return sally.BorderLine2;},
-		id: 3
-	},
-	right: {
-		options: {},
-		multiplicity: PROTO.optional,
-		type: function(){return sally.BorderLine2;},
-		id: 4
-	}});
-sally.Font2 = PROTO.Message("sally.Font2",{
-	fontName: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 1
-	},
-	fontColor: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.int32;},
-		id: 2
-	},
-	fontSize: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.Float;},
-		id: 3
-	},
-	isItalic: {
-		options: {},
-		multiplicity: PROTO.optional,
-		type: function(){return PROTO.bool;},
-		id: 4
-	},
-	isBold: {
-		options: {},
-		multiplicity: PROTO.optional,
-		type: function(){return PROTO.bool;},
-		id: 5
-	},
-	isUnderlined: {
-		options: {},
-		multiplicity: PROTO.optional,
-		type: function(){return PROTO.bool;},
-		id: 6
-	}});
-sally.CellSize2 = PROTO.Message("sally.CellSize2",{
-	cellHeight: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.int32;},
-		id: 1
-	},
-	cellWidth: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.int32;},
-		id: 2
-	}});
-sally.LayoutInformation2 = PROTO.Message("sally.LayoutInformation2",{
-	backColor: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.int32;},
-		id: 1
-	},
-	border: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return sally.CellBorder2;},
-		id: 2
-	},
-	font: {
-		options: {},
-		multiplicity: PROTO.optional,
-		type: function(){return sally.Font2;},
-		id: 3
-	},
-	cellSize: {
-		options: {},
-		multiplicity: PROTO.optional,
-		type: function(){return sally.CellSize2;},
-		id: 4
-	}});
-sally.CellData2 = PROTO.Message("sally.CellData2",{
-	position: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return sally.CellPosition2;},
-		id: 1
-	},
-	formula: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 2
-	},
-	value: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 3
-	},
-	layout: {
-		options: {},
-		multiplicity: PROTO.optional,
-		type: function(){return sally.LayoutInformation2;},
-		id: 4
-	}});
-sally.SheetData2 = PROTO.Message("sally.SheetData2",{
 	range: {
 		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return sally.CellRangePosition2;},
-		id: 1
-	},
-	cellData: {
-		options: {},
-		multiplicity: PROTO.repeated,
-		type: function(){return sally.CellData2;},
+		multiplicity: PROTO.optional,
+		type: function(){return PROTO.string;},
 		id: 2
-	}});
-sally.DocumentData2 = PROTO.Message("sally.DocumentData2",{
-	filename: {
+	},
+	meaning: {
 		options: {},
-		multiplicity: PROTO.required,
+		multiplicity: PROTO.optional,
+		type: function(){return PROTO.string;},
+		id: 3
+	},
+	order: {
+		options: {},
+		multiplicity: PROTO.optional,
+		type: function(){return PROTO.int32;},
+		id: 4
+	},
+	id: {
+		options: {},
+		multiplicity: PROTO.optional,
+		type: function(){return PROTO.int32;},
+		id: 5
+	}});
+sally.GetBlocks = PROTO.Message("sally.GetBlocks",{
+	fileName: {
+		options: {},
+		multiplicity: PROTO.optional,
 		type: function(){return PROTO.string;},
 		id: 1
 	},
-	sheets: {
+	sheet: {
+		options: {},
+		multiplicity: PROTO.optional,
+		type: function(){return PROTO.string;},
+		id: 2
+	},
+	callbackToken: {
+		options: {},
+		multiplicity: PROTO.optional,
+		type: function(){return PROTO.int64;},
+		id: 3
+	}});
+sally.BlockList = PROTO.Message("sally.BlockList",{
+	blocks: {
 		options: {},
 		multiplicity: PROTO.repeated,
-		type: function(){return sally.SheetData2;},
-		id: 2
+		type: function(){return sally.BlockInfo;},
+		id: 1
 	}});
-sally.ParsingParameter2 = PROTO.Message("sally.ParsingParameter2",{
-	useTextAsLegend: {
+sally.CreateBlock = PROTO.Message("sally.CreateBlock",{
+	blockInfo: {
 		options: {},
 		multiplicity: PROTO.required,
-		type: function(){return PROTO.bool;},
+		type: function(){return sally.BlockInfo;},
 		id: 1
 	},
-	useColorAsStructure: {
+	callbackToken: {
 		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.bool;},
-		id: 2
-	},
-	useBorderAsStructure: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.bool;},
-		id: 3
-	},
-	useFontAsStructure: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.bool;},
-		id: 4
-	}});
-sally.ParsingMessage2 = PROTO.Message("sally.ParsingMessage2",{
-	document: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return sally.DocumentData2;},
-		id: 1
-	},
-	parameter: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return sally.ParsingParameter2;},
+		multiplicity: PROTO.optional,
+		type: function(){return PROTO.int64;},
 		id: 2
 	}});
 sally.BuilderMsg = PROTO.Message("sally.BuilderMsg",{

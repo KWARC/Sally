@@ -6,9 +6,9 @@ import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyService;
 import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.injectors.TheoFirstChoice;
-import info.kwarc.sally.networking.interfaces.IMessageCallback;
-import info.kwarc.sally.networking.interfaces.INetworkSender;
-import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
+import info.kwarc.sally.core.net.IMessageCallback;
+import info.kwarc.sally.core.net.INetworkSender;
+import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sissi.bpm.injection.TestableKnowledeBase;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 import info.kwarc.sissi.bpm.tasks.LetUserChoose;
@@ -61,7 +61,7 @@ public class CADInteractionTest extends JbpmJUnitTestCase {
 
 	@Test
 	public void testWorkflow() {
-		ISallyKnowledgeBase kb = i.getInstance(ISallyKnowledgeBase.class);
+		ISallyWorkflowManager kb = i.getInstance(ISallyWorkflowManager.class);
 		HashMap<String, TestCounterHandler> counters = HandlerUtils.registerCounterHandlers(kb, "DynamicApplicability", "LetUserChoose", "RunChoice", "CADSelectionForwarder");
 		
 		ProcessInstance inst = kb.startProcess(null, "Sally.cad");
@@ -79,7 +79,7 @@ public class CADInteractionTest extends JbpmJUnitTestCase {
 	
 	@Test
 	public void testDAConnections() {
-		ISallyKnowledgeBase kb = i.getInstance(ISallyKnowledgeBase.class);
+		ISallyWorkflowManager kb = i.getInstance(ISallyWorkflowManager.class);
 
 		kb.registerWorkItemHandler("DynamicApplicability", new TestInputTypeHandler(String.class, SallyMenuItem.class));
 		kb.registerWorkItemHandler("LetUserChoose", i.getInstance(LetUserChoose.class));

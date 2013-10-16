@@ -1,7 +1,7 @@
 package info.kwarc.sally.core.injectors;
 
 import info.kwarc.sally.core.comm.SallyMenuItem;
-import info.kwarc.sally.core.interfaces.Theo;
+import info.kwarc.sally.core.theo.Theo;
 
 import java.util.List;
 

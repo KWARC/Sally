@@ -194,6 +194,7 @@ public class TheoWindow implements Runnable {
 								win.setMember("app", appProvider.create(processInstanceID, engine));
 								loggr.info("New TheoApp added.");
 							}
+							org.w3c.dom.html.HTMLElement q;
 						}
 					});
 

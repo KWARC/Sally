@@ -1,10 +1,10 @@
 package info.kwarc.sally.spreadsheet.tasks;
 
-import info.kwarc.sally.core.comm.Coordinates;
 import info.kwarc.sally.core.interfaces.IPositionProvider;
 import info.kwarc.sally.core.interfaces.SallyTask;
-import info.kwarc.sally.spreadsheet.WorksheetDocument;
-import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
+import info.kwarc.sally.core.theo.Coordinates;
+import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
+import info.kwarc.sally.spreadsheet.SpreadsheetDocument;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 
 import java.util.Map;
@@ -24,11 +24,11 @@ import com.google.inject.Inject;
 public class SpreadsheetClickForwarder implements WorkItemHandler {
 
 	Logger log;
-	ISallyKnowledgeBase kb;
+	ISallyWorkflowManager kb;
 	IPositionProvider positionProvider;
 	
 	@Inject
-	public SpreadsheetClickForwarder(ISallyKnowledgeBase kb, IPositionProvider positionProvider) {
+	public SpreadsheetClickForwarder(ISallyWorkflowManager kb, IPositionProvider positionProvider) {
 		log = LoggerFactory.getLogger(getClass());
 		this.positionProvider = positionProvider;
 		this.kb = kb;
@@ -39,7 +39,7 @@ public class SpreadsheetClickForwarder implements WorkItemHandler {
 		AlexClick msg = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), AlexClick.class);
 		Map<String, Object> variables = HandlerUtils.getProcessVariables(kb.getProcessInstance(workItem.getProcessInstanceId()));
 		
-		WorksheetDocument doc = HandlerUtils.getFirstTypedParameter(variables, WorksheetDocument.class);
+		SpreadsheetDocument doc = HandlerUtils.getFirstTypedParameter(variables, SpreadsheetDocument.class);
 		try {
 			if (msg == null)
 				throw new Exception("No click to forward");

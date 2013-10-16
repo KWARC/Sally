@@ -1,9 +1,9 @@
 package info.kwarc.sissi.model.document.spreadsheet;
 
+import info.kwarc.sally.core.net.INetworkSender;
 import info.kwarc.sally.networking.CometD;
 import info.kwarc.sally.networking.interfaces.IConnectionManager;
-import info.kwarc.sally.networking.interfaces.INetworkSender;
-import info.kwarc.sally.spreadsheet.WorksheetDocument;
+import info.kwarc.sally.spreadsheet.SpreadsheetDocument;
 import info.kwarc.sally.spreadsheet.interfaces.WorksheetFactory;
 
 import org.apache.commons.codec.binary.Base64;
@@ -41,7 +41,7 @@ public class ConcreteSpreadsheetTest  {
 		public void newMessage(String clientID, String type, Object data) {
 		}
 
-		public void  test1(WorksheetDocument doc) {
+		public void  test1(SpreadsheetDocument doc) {
 			doc.getData("Vendor A", 7, 7, 1, 5);
 		}
 		
@@ -60,7 +60,7 @@ public class ConcreteSpreadsheetTest  {
 				SpreadsheetAlexData rr = null;
 				try {
 					rr = SpreadsheetAlexData.parseFrom(res);
-					WorksheetDocument doc = factory.create(alexData.getFileName(), rr, sender);
+					SpreadsheetDocument doc = factory.create(alexData.getFileName(), rr, sender);
 					test1(doc);
 				} catch (InvalidProtocolBufferException e) {
 					e.printStackTrace();

@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 public class Relation {
 	
 	public enum RelationType {
-		FUNCTIONALRELATION, TYPERELATION
+		FUNCTIONALRELATION, TYPERELATION, LABELRELATION
 	}
 	
 	int id;

@@ -1,6 +1,6 @@
 package info.kwarc.sissi.bpm.tasks;
 
-import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
+import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,7 +40,7 @@ public class HandlerUtils {
 		return null;
 	}
 	
-	public static HashMap<String, TestCounterHandler> registerCounterHandlers(ISallyKnowledgeBase kb, String ...handlers) {
+	public static HashMap<String, TestCounterHandler> registerCounterHandlers(ISallyWorkflowManager kb, String ...handlers) {
 		HashMap<String, TestCounterHandler> result = new HashMap<String, TestCounterHandler>();
 		for (String handler : handlers) {
 			TestCounterHandler counterHandler = new TestCounterHandler();

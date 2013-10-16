@@ -164,7 +164,7 @@ message AlexClick {
  */
 message StartSubTask {
 	required string workflowID = 1;
-	optional int64 callbackToken = 2 [default = -1];
+	optional int64 callbackToken = 2;
 }
 
 // --------------------------------------------CAD MESSAGES-----------------------------------------------------------
@@ -205,6 +205,36 @@ message MMTUri {
 // ----------------------------------------------
 // ---------- New Spreadsheet Messages ----------
 // ----------------------------------------------
+
+message BlockInfo {
+	optional string name = 1;
+	optional string range = 2;
+	optional string meaning = 3;
+	optional int32 order = 4;
+	optional int32 id = 5;
+}
+
+// Message that is used for getting a list of blocks
+message GetBlocks {
+	// name of the spreadsheet file
+	// if absent, the file associated with current workflow is taken
+	optional string fileName = 1;
+
+	// get only blocks belonging to a certain sheet
+	optional string sheet = 2;
+
+	// callback token - will be set automatically
+	optional int64 callbackToken = 3;
+}
+
+message BlockList {
+	repeated BlockInfo blocks = 1;
+}
+
+message CreateBlock {
+	required BlockInfo blockInfo = 1;
+	optional int64 callbackToken = 2;
+}
 
 message BuilderMsg {
 	enum Type {

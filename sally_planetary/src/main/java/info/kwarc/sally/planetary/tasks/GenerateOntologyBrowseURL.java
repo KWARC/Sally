@@ -1,7 +1,7 @@
 package info.kwarc.sally.planetary.tasks;
 
-import info.kwarc.sally.core.CookieProvider;
 import info.kwarc.sally.core.interfaces.SallyTask;
+import info.kwarc.sally.core.theo.CookieProvider;
 import info.kwarc.sally.planetary.Planetary;
 
 import org.drools.process.instance.WorkItemHandler;

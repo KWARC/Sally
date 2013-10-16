@@ -1,13 +1,13 @@
 package info.kwarc.sally.theofx;
 
-import info.kwarc.sally.core.CookieProvider;
-import info.kwarc.sally.core.ScreenCoordinatesProvider;
-import info.kwarc.sally.core.comm.Coordinates;
 import info.kwarc.sally.core.comm.SallyMenuItem;
-import info.kwarc.sally.core.interfaces.Theo;
+import info.kwarc.sally.core.theo.CookieProvider;
+import info.kwarc.sally.core.theo.Coordinates;
+import info.kwarc.sally.core.theo.ScreenCoordinatesProvider;
+import info.kwarc.sally.core.theo.Theo;
+import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.theofx.interfaces.ITheoWindowProvider;
 import info.kwarc.sally.theofx.ui.TheoWindow;
-import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
 
 import java.awt.Color;
 import java.awt.Dialog.ModalityType;
@@ -39,11 +39,11 @@ public class TheoService implements Theo {
 	HashMap<Integer, TheoWindow> openedWindows;
 	ScreenCoordinatesProvider coordProvider;
 	CookieProvider cookieProvider;
-	ISallyKnowledgeBase kb;
+	ISallyWorkflowManager kb;
 	ITheoWindowProvider theoWindowProvider;
 
 	@Inject
-	public TheoService(ScreenCoordinatesProvider coordProvider, CookieProvider cookieProvider, ISallyKnowledgeBase kb, ITheoWindowProvider theoWindowProvider) {
+	public TheoService(ScreenCoordinatesProvider coordProvider, CookieProvider cookieProvider, ISallyWorkflowManager kb, ITheoWindowProvider theoWindowProvider) {
 		this.coordProvider = coordProvider;
 		this.cookieProvider = cookieProvider;
 		this.kb = kb;

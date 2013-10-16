@@ -1,9 +1,10 @@
 package info.kwarc.sissi.bpm;
 
 import info.kwarc.sally.core.MessageForward;
-import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
+import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
@@ -11,7 +12,7 @@ import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.process.ProcessInstance;
 import org.drools.runtime.process.WorkItemHandler;
 
-public abstract class AbstractKnowledgeBase implements ISallyKnowledgeBase{
+public abstract class AbstractKnowledgeBase implements ISallyWorkflowManager{
 
 	HashMap<Long, Long> childParentRelation;
 	HashMap<Long, Stack<Long>> parentChildRelation;
@@ -27,16 +28,26 @@ public abstract class AbstractKnowledgeBase implements ISallyKnowledgeBase{
 		childParentRelation = new HashMap<Long, Long>();
 		parentChildRelation = new HashMap<Long, Stack<Long>>();
 	}
+	
+	@Override
+	public Long getWorkflowParent(Long processInstanceID) {
+		return childParentRelation.get(processInstanceID);
+	}
+	
+	@Override
+	public List<Long> getWorkflowChildren(Long processInstanceID) {
+		return parentChildRelation.get(processInstanceID);
+	}
 
-	private boolean trySendMessage(Long processID, String message_id, Object input) {
-		ProcessInstance pi = getProcessInstance(processID);
+	private boolean trySendMessage(Long fromProcessID, Long targetProcessID, String message_id, Object input) {
+		ProcessInstance pi = getProcessInstance(targetProcessID);
 		for (String evt : BPMNUtils.getCallableEvents(pi)) {
 			if (evt.equals(message_id)) {
 				pi.signalEvent(message_id, input);
 				return true;
 			}
 			if (evt.equals("Message-onForward")) {
-				pi.signalEvent("Message-onForward", new MessageForward(processID, message_id, input));
+				pi.signalEvent("Message-onForward", new MessageForward(fromProcessID, message_id, input));
 				return true;
 			}
 		}
@@ -55,7 +66,7 @@ public abstract class AbstractKnowledgeBase implements ISallyKnowledgeBase{
 
 		while (!children.empty()) {
 			Long top = children.pop();
-			if (trySendMessage(top, message_id, input)) {
+			if (trySendMessage(currentProcessInstanceID, top, message_id, input)) {
 				children.addAll(removed);
 				children.add(top); // making sure that the last object remains on top
 				return true;
@@ -67,12 +78,16 @@ public abstract class AbstractKnowledgeBase implements ISallyKnowledgeBase{
 	}
 
 	@Override
-	public boolean propagateParentMessage(Long currentProcessInstanceID, String message_id, Object input) {
-		while (currentProcessInstanceID != null) {
-			if (trySendMessage(currentProcessInstanceID, message_id, input)) {
+	public boolean propagateParentMessage(Long processInstanceID, String message_id, Object input) {
+		if (processInstanceID == null)
+			return false;
+		// Make sure it doesn't send messages to itself ...
+		Long parentInstanceID = childParentRelation.get(processInstanceID);
+		while (parentInstanceID != null) {
+			if (trySendMessage(processInstanceID, parentInstanceID, message_id, input)) {
 				return true;
 			}
-			currentProcessInstanceID = childParentRelation.get(currentProcessInstanceID);
+			parentInstanceID = childParentRelation.get(parentInstanceID);
 		}
 		return false;
 	}

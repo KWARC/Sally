@@ -1,13 +1,14 @@
 package info.kwarc.sally;
 
+import info.kwarc.sally.core.DocumentManager;
 import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyService;
 import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.comm.SallyModelRequest;
-import info.kwarc.sally.core.interfaces.Theo;
-import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
+import info.kwarc.sally.core.theo.Theo;
+import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,16 +39,16 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 public class InstanceService {
 
 	String instanceSparql;
-
+	DocumentManager docManager;
+	
 	Model common;
-	Theo theo;
 	SallyInteraction sally;
 	Logger log;
-	ISallyKnowledgeBase kb;
+	ISallyWorkflowManager kb;
 
 	@Inject
-	public InstanceService(Theo theo, SallyInteraction sally, ISallyKnowledgeBase kb) {
-		this.theo = theo;
+	public InstanceService(DocumentManager docManager, SallyInteraction sally, ISallyWorkflowManager kb) {
+		this.docManager = docManager;
 		instanceSparql = loadSparql("/instance.sparql");
 		
 		common = null;
@@ -92,6 +93,8 @@ public class InstanceService {
 					kb.signal_global_event("switch_app", file);
 					String URL = "http://localhost:8181/sally/instance?node="+uri.getUri()+"&file="+file;
 					log.info("opening "+URL);
+					
+					Theo theo = docManager.getDocumentInformation(file).getTheo();
 					//TODO Changed this temporarily to match with the processInstanceId argument
 					theo.openWindow(parentProcessInstanceID, "Pricing results", URL, 300, 600);
 				}
