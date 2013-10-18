@@ -120,9 +120,11 @@ public abstract class AbstractKnowledgeBase implements ISallyWorkflowManager{
 	@Override
 	public ProcessInstance startProcess(Long parentProcessInstanceID,
 			String processID, Map<String, Object> obj) {
-		ProcessInstance pi =getSession().startProcess(processID, obj);
+		ProcessInstance pi = getSession().createProcessInstance(processID, obj);
 
 		addRelation(parentProcessInstanceID, pi.getId());
+		
+		getSession().startProcessInstance(pi.getId());
 		return pi;
 	}
 

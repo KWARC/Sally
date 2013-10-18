@@ -24,6 +24,7 @@ public class TheoFXWindowCreate implements TheoWindowCreate {
 	@Inject
 	public TheoFXWindowCreate(ScreenCoordinatesProvider screenCoords, DocumentManager docManager) {
 		this.screenCoords = screenCoords;
+		this.docManager = docManager;
 		log = LoggerFactory.getLogger(this.getClass());
 	}
 	

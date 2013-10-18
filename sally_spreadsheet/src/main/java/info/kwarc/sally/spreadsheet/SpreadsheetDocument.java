@@ -142,7 +142,7 @@ public class SpreadsheetDocument {
 		provider.setRecommendedCoordinates(new Coordinates(coords.getX(), coords.getY()));
 
 		RangeSelection sel = click.getRange();
-		MMTUri mmtURI = interaction.getOneInteraction(getSemantics(sel), MMTUri.class);
+		MMTUri mmtURI = MMTUri.newBuilder().setUri(getSemantics(sel)).build();
 		
 		List<SallyMenuItem> items = new ArrayList<SallyMenuItem>();
 		items.addAll(interaction.getPossibleInteractions(mmtURI, SallyMenuItem.class));

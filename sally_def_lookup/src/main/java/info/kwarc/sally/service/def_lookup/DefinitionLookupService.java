@@ -18,6 +18,8 @@ public class DefinitionLookupService {
 
 	@Inject
 	public DefinitionLookupService(Planetary planetary, ISallyWorkflowManager kb) {
+		this.kb = kb;
+		this.planetary = planetary;
 	}
 
 	public String getDefinitionLookupURL(String mmtURI) {
