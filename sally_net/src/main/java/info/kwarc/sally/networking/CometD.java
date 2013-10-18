@@ -21,8 +21,10 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.DefaultServlet;
+import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.eclipse.jetty.util.resource.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -141,6 +143,16 @@ public class CometD {
 		cometdServlet = new CometdServlet();
 
 		context.addServlet(new ServletHolder(cometdServlet),"/cometd/*");
+
+		CrossOriginFilter cof = new CrossOriginFilter();
+		FilterHolder fh = new FilterHolder(cof);
+		fh.setInitParameter("allowedOrigins", "*");
+		fh.setInitParameter("allowedMethods", "GET,POST,DELETE,PUT,HEADt");
+		fh.setInitParameter("allowedHeaders", "origin, content-type, accept");
+		fh.setInitParameter("cross-origin", "/*");
+
+		context.addFilter(fh, "/*", 1);
+		
 		context.addFilter(GuiceFilter.class, "/sally/*", EnumSet.allOf(DispatcherType.class));
 		context.addServlet(new ServletHolder(new DefaultServlet()), "/*");
 

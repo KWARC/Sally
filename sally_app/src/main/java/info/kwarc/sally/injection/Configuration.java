@@ -15,6 +15,7 @@ import info.kwarc.sally.planetary.injection.PlanetaryModule;
 import info.kwarc.sally.spreadsheet.injection.SpreadsheetModule;
 import info.kwarc.sally.theofx.TheoService;
 import info.kwarc.sally.theofx.injection.TheoFX;
+import info.kwarc.sally.theoweb.injection.WebTheoModule;
 import info.kwarc.sissi.bpm.SubtaskCallbackMap;
 import info.kwarc.sissi.model.document.cad.injection.CADModule;
 
@@ -29,6 +30,7 @@ public class Configuration extends AbstractModule {
 		install(new CADModule());
 		install(new PlanetaryModule());
 		install(new TheoFX());
+		install(new WebTheoModule());
 		
 		bind(CookieProvider.class);
 		bind(IPositionProvider.class).to(ScreenCoordinatesProvider.class);
@@ -38,9 +40,7 @@ public class Configuration extends AbstractModule {
 		bind(DocumentManager.class);
 		
 		bind(String.class).annotatedWith(Names.named("SallyPackage")).toInstance("Sally.pkg");
-		
-		bind(Theo.class).to(TheoService.class);
-		
+				
 		bind(Integer.class).annotatedWith(Names.named("SallyPort")).toInstance(8181);
 		bind(CometD.class);
 		bind(CallbackManager.class);

@@ -43,7 +43,7 @@
 						<configuration>
 							<artifactSet>
 								<excludes>
- 									<exclude>sun.java:jfxrt</exclude>  
+									<exclude>sun.java:jfxrt</exclude>
 								</excludes>
 							</artifactSet>
 						</configuration>
@@ -74,6 +74,12 @@
 		<dependency>
 			<groupId>info.kwarc.sally</groupId>
 			<artifactId>sally_theofx</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>info.kwarc.sally</groupId>
+			<artifactId>sally_theoweb</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 

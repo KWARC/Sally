@@ -4,7 +4,6 @@ import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyService;
 import info.kwarc.sally.core.comm.SallyMenuItem;
-import info.kwarc.sally.core.theo.Theo;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 
 import java.net.MalformedURLException;
@@ -43,7 +42,6 @@ public class Planetary {
 			@Named("PlanetaryEndPoint") String endPoint, 
 			@Named("PlanetaryUser") String user, 
 			@Named("PLanetaryPassword") String password,
-			Theo theo,
 			ISallyWorkflowManager kb) {
 		endpointURL = planetaryRoot+"/"+endPoint;
 		this.kb = kb;
@@ -86,6 +84,7 @@ public class Planetary {
 	static final String METHOD_USER_LOGIN = "user.login";
 	static final String METHOD_USER_TOKEN = "user.token";
 	static final String METHOD_SALLY_ENABLE = "sally.enable_jobad";
+	static final String METHOD_MMT_DEPENDENCIES = "sally.get_dependencies";
 
 	private Logger log;
 	private String endpointURL;
@@ -94,6 +93,19 @@ public class Planetary {
 	String password;
 	String root;
 
+	public String getMMTTheoryDepencies(String mmtURI) {
+		Vector<Object> params = new Vector<Object>();
+		params.add(mmtURI);
+		try {
+			Object obj = xmlRpcClient.execute(METHOD_MMT_DEPENDENCIES, params);
+			System.out.println(obj.getClass());
+		} catch (XmlRpcException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public String getDefinitionLookupURL(String mmtURI) {
 		//String [] splits = mmtURI.split("\\?");
 		return root+"/mmt/archives?q="+mmtURI;

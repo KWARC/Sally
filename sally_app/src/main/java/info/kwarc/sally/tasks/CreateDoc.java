@@ -95,6 +95,9 @@ public class CreateDoc implements WorkItemHandler {
 				params.put("CSMInput", processInput);
 				processId = "Sally.cad";
 			}
+			if (alexInfo.getDocumentType() == DocType.Sketch) {
+				
+			}
 
 			if (processId == null || processInput == null) {
 				throw new Exception("Could not handle document type "+alexInfo.getDocumentType());

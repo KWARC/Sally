@@ -119,7 +119,8 @@ sally.WhoAmI = PROTO.Message("sally.WhoAmI",{
 	DocType: PROTO.Enum("sally.WhoAmI.DocType",{
 		Spreadsheet :0,
 		Text :1,
-		CAD :2	}),
+		CAD :2,
+		Sketch :3	}),
 	clientType: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -606,5 +607,44 @@ sally.ModelDataMsg = PROTO.Message("sally.ModelDataMsg",{
 		options: {},
 		multiplicity: PROTO.repeated,
 		type: function(){return sally.RelationMsg;},
+		id: 2
+	}});
+sally.SketchAtomic = PROTO.Message("sally.SketchAtomic",{
+	id: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return PROTO.int32;},
+		id: 1
+	},
+	mmturi: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return sally.MMTUri;},
+		id: 2
+	}});
+sally.SketchRelation = PROTO.Message("sally.SketchRelation",{
+	parts: {
+		options: {},
+		multiplicity: PROTO.repeated,
+		type: function(){return PROTO.int32;},
+		id: 1
+	},
+	relation: {
+		options: {},
+		multiplicity: PROTO.repeated,
+		type: function(){return sally.MMTUri;},
+		id: 2
+	}});
+sally.SketchASM = PROTO.Message("sally.SketchASM",{
+	parts: {
+		options: {},
+		multiplicity: PROTO.repeated,
+		type: function(){return sally.SketchAtomic;},
+		id: 1
+	},
+	relations: {
+		options: {},
+		multiplicity: PROTO.repeated,
+		type: function(){return sally.SketchRelation;},
 		id: 2
 	}});

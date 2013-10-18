@@ -1,5 +1,7 @@
 package info.kwarc.sally.theofx.tasks;
 
+import info.kwarc.sally.core.DocumentInformation;
+import info.kwarc.sally.core.DocumentManager;
 import info.kwarc.sally.core.interfaces.SallyTask;
 import info.kwarc.sally.core.theo.ScreenCoordinatesProvider;
 import info.kwarc.sally.core.theo.Theo;
@@ -16,13 +18,12 @@ import com.google.inject.Inject;
 @SallyTask(action="theoWindowCreate")
 public class TheoFXWindowCreate implements TheoWindowCreate {
 	ScreenCoordinatesProvider screenCoords;
-	Theo theo;
 	Logger log;
+	DocumentManager docManager;
 	
 	@Inject
-	public TheoFXWindowCreate(ScreenCoordinatesProvider screenCoords, Theo theo) {
+	public TheoFXWindowCreate(ScreenCoordinatesProvider screenCoords, DocumentManager docManager) {
 		this.screenCoords = screenCoords;
-		this.theo = theo;
 		log = LoggerFactory.getLogger(this.getClass());
 	}
 	
@@ -32,6 +33,10 @@ public class TheoFXWindowCreate implements TheoWindowCreate {
 		try {
 			if (url == null) 
 				throw new Exception("No URL given");
+			DocumentInformation docInfo = docManager.getDocumentInformation(workItem);
+			if (docInfo == null)
+				throw new Exception("No document associated with this workflow");
+			Theo theo = docInfo.getTheo();
 			int theoOutput = theo.openWindow(workItem.getProcessInstanceId(), "", url, 700, 600);
 			workItem.getResults().put("wndIDOutput", theoOutput);
 		} catch (Exception e) {

@@ -88,6 +88,7 @@ message TheoCloseWindow {
 		Spreadsheet = 0;
 		Text = 1;
 		CAD = 2;
+		Sketch = 3;
 	}
 
 	required ClientType clientType = 1;
@@ -299,4 +300,23 @@ message RelationMsg {
 message ModelDataMsg {
 	repeated BlockMsg blocks = 1;
 	repeated RelationMsg relations = 2;
+}
+
+/**
+ * Sketch Alex
+ */
+
+message SketchAtomic {
+	required int32 id = 1;
+	required MMTUri mmturi = 2;
+}
+
+message SketchRelation {
+	repeated int32 parts = 1;
+	repeated MMTUri relation = 2;
+}
+
+message SketchASM {
+	repeated SketchAtomic parts = 1;
+	repeated SketchRelation relations = 2;
 }
