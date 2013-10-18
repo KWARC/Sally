@@ -10,7 +10,7 @@ import info.kwarc.sally.networking.interfaces.MockNetworkSender;
 import info.kwarc.sally.planetary.Planetary;
 import info.kwarc.sally.service.def_lookup.DefinitionLookupService;
 import info.kwarc.sally.spreadsheet.ASMEditor;
-import info.kwarc.sissi.bpm.injection.ProductionRemoteKnowledgeBase;
+import info.kwarc.sissi.bpm.injection.ProductionLocalKnowledgeBase;
 import info.kwarc.sissi.bpm.injection.ProductionSallyActions;
 import sally.AlexClick;
 import sally.AlexData;
@@ -30,8 +30,8 @@ public class ProcessMain {
 	public static final void main(String[] args) throws Exception {
 		Injector i = Guice.createInjector(
 				new Configuration(),
-				new ProductionRemoteKnowledgeBase(), 
-				//new ProductionLocalKnowledgeBase(), 
+				//new ProductionRemoteKnowledgeBase(), 
+				new ProductionLocalKnowledgeBase(), 
 				new ProductionSallyActions(),
 				new ProductionNetworking()
 		);
