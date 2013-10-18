@@ -1,7 +1,7 @@
-package info.kwarc.sally.planetary.tasks;
+package info.kwarc.sally.service.def_lookup.tasks;
 
 import info.kwarc.sally.core.interfaces.SallyTask;
-import info.kwarc.sally.planetary.Planetary;
+import info.kwarc.sally.service.def_lookup.DefinitionLookupService;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 
 import org.drools.process.instance.WorkItemHandler;
@@ -12,14 +12,13 @@ import com.google.inject.Inject;
 
 @SallyTask(action="UpdateDefinitionURL")
 public class UpdateDefinitionURL implements WorkItemHandler {
-	Planetary planetary;
+	DefinitionLookupService planetary;
 	
 	@Inject
-	public UpdateDefinitionURL(Planetary planetary) {
+	public UpdateDefinitionURL(DefinitionLookupService planetary) {
 		this.planetary = planetary;
 	}
 	
-	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
 		String mmtURI = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), String.class);
 		try {
@@ -35,7 +34,6 @@ public class UpdateDefinitionURL implements WorkItemHandler {
 		
 	}
 
-	@Override
 	public void abortWorkItem(WorkItem workItem, WorkItemManager manager) {
 		
 	}

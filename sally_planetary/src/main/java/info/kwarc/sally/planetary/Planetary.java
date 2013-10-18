@@ -8,7 +8,6 @@ import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
@@ -106,11 +105,6 @@ public class Planetary {
 		return null;
 	}
 	
-	public String getDefinitionLookupURL(String mmtURI) {
-		//String [] splits = mmtURI.split("\\?");
-		return root+"/mmt/archives?q="+mmtURI;
-	}
-
 	public String getPlanetaryRoot() {
 		return root;
 	}
@@ -124,15 +118,6 @@ public class Planetary {
 
 	@SallyService
 	public void planetaryServices(final MMTUri mmtURI, SallyInteractionResultAcceptor acceptor, final SallyContext context) {
-		acceptor.acceptResult(new SallyMenuItem("Knowledge Base", "Definition Lookup", "Look up definition associated to the selected object") {
-			public void run() {
-				Long parentProcessInstanceID = context.getContextVar("processInstanceId", Long.class);
-
-				HashMap<String, Object>  input = new  HashMap<String, Object>();
-				input.put("wndURLInput", getDefinitionLookupURL(mmtURI.getUri()));
-				kb.startProcess(parentProcessInstanceID, "Sally.deflookup", input);
-			}
-		});
 
 		acceptor.acceptResult(new SallyMenuItem("Knowledge Base", "Semantic Navigation", "Navigate dependencies associated to the selected object") {
 			public void run() {			
