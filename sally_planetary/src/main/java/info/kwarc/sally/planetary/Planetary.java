@@ -3,7 +3,6 @@ package info.kwarc.sally.planetary;
 import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyService;
-import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 
 import java.net.MalformedURLException;
@@ -23,7 +22,6 @@ import org.apache.xmlrpc.client.XmlRpcTransportFactory;
 import org.slf4j.Logger;
 
 import sally.Cookie;
-import sally.MMTUri;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -114,15 +112,6 @@ public class Planetary {
 		String cookie = getSessionCookie();
 		context.setContextVar("Cookie", Cookie.newBuilder().setCookie(cookie).setUrl(root).build());
 		acceptor.acceptResult(root);
-	}
-
-	@SallyService
-	public void planetaryServices(final MMTUri mmtURI, SallyInteractionResultAcceptor acceptor, final SallyContext context) {
-
-		acceptor.acceptResult(new SallyMenuItem("Knowledge Base", "Semantic Navigation", "Navigate dependencies associated to the selected object") {
-			public void run() {			
-			}
-		});
 	}
 
 	public void connect() throws Exception {

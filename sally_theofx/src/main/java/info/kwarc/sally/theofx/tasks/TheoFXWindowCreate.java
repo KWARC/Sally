@@ -38,7 +38,7 @@ public class TheoFXWindowCreate implements TheoWindowCreate {
 			if (docInfo == null)
 				throw new Exception("No document associated with this workflow");
 			Theo theo = docInfo.getTheo();
-			int theoOutput = theo.openWindow(workItem.getProcessInstanceId(), "", url, 700, 600);
+			int theoOutput = theo.openWindow(docInfo.getNetworkSender(), workItem.getProcessInstanceId(), "", url, 700, 600);
 			workItem.getResults().put("wndIDOutput", theoOutput);
 		} catch (Exception e) {
 			log.error(e.getMessage());

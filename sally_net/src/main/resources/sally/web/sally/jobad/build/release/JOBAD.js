@@ -1,7 +1,7 @@
 /*
 	JOBAD v3
 	Development version
-	built: Fri, 27 Sep 2013 11:20:08 +0200
+	built: Mon, 21 Oct 2013 14:22:38 +0200
 
 	
 	Copyright (C) 2013 KWARC Group <kwarc.info>
@@ -2534,14 +2534,16 @@ JOBAD.util.isMarkedVisible = function(element){
 	@param	element	Element to check. 
 */
 JOBAD.util.isHidden = function(element){
-	var element = JOBAD.refs.$(element);
-	if(JOBAD.util.isMarkedVisible(element)){
-		return false;
-	} else if(JOBAD.util.isMarkedHidden(element)){
-		return true;
-	} else {
-		return element.is(":hidden");
-	}
+    var element = JOBAD.refs.$(element);
+    if(JOBAD.util.isMarkedVisible(element)){
+        return false;
+    } else if(JOBAD.util.isMarkedHidden(element)){
+        return true;
+    } else if(element.is("map") || element.is("area")){//in response to issue #14 
+        return false; 
+    } else {
+        return element.is(":hidden");
+    }
 };
 
 /* Other utility functions */

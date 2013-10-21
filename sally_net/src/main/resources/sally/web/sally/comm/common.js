@@ -159,6 +159,70 @@ sally.SallyFrame = PROTO.Message("sally.SallyFrame",{
 		type: function(){return PROTO.string;},
 		id: 1
 	}});
+sally.SallyFrameChoice = PROTO.Message("sally.SallyFrameChoice",{
+	fileName: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return PROTO.string;},
+		id: 1
+	},
+	choiceId: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return PROTO.int32;},
+		id: 2
+	},
+	callbackToken: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return PROTO.int64;},
+		id: 3
+	}});
+sally.SallyFrameService = PROTO.Message("sally.SallyFrameService",{
+	id: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return PROTO.int32;},
+		id: 1
+	},
+	name: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return PROTO.string;},
+		id: 2
+	},
+	description: {
+		options: {},
+		multiplicity: PROTO.optional,
+		type: function(){return PROTO.string;},
+		id: 3
+	}});
+sally.SallyFrameResponse = PROTO.Message("sally.SallyFrameResponse",{
+	frameName: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return PROTO.string;},
+		id: 1
+	},
+	frameServices: {
+		options: {},
+		multiplicity: PROTO.repeated,
+		type: function(){return sally.SallyFrameService;},
+		id: 2
+	}});
+sally.SallyFrameList = PROTO.Message("sally.SallyFrameList",{
+	frames: {
+		options: {},
+		multiplicity: PROTO.repeated,
+		type: function(){return sally.SallyFrameResponse;},
+		id: 1
+	},
+	callbackToken: {
+		options: {},
+		multiplicity: PROTO.optional,
+		type: function(){return PROTO.int64;},
+		id: 2
+	}});
 sally.ScreenCoordinates = PROTO.Message("sally.ScreenCoordinates",{
 	x: {
 		options: {},
@@ -381,6 +445,32 @@ sally.BlockInfo = PROTO.Message("sally.BlockInfo",{
 		multiplicity: PROTO.optional,
 		type: function(){return PROTO.int32;},
 		id: 5
+	}});
+sally.SpreadsheetDocMeta = PROTO.Message("sally.SpreadsheetDocMeta",{
+	fileName: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return PROTO.string;},
+		id: 1
+	},
+	sheets: {
+		options: {},
+		multiplicity: PROTO.repeated,
+		type: function(){return PROTO.string;},
+		id: 2
+	}});
+sally.GetMeta = PROTO.Message("sally.GetMeta",{
+	fileName: {
+		options: {},
+		multiplicity: PROTO.optional,
+		type: function(){return PROTO.string;},
+		id: 1
+	},
+	callbackToken: {
+		options: {},
+		multiplicity: PROTO.optional,
+		type: function(){return PROTO.int64;},
+		id: 2
 	}});
 sally.GetBlocks = PROTO.Message("sally.GetBlocks",{
 	fileName: {
@@ -608,6 +698,25 @@ sally.ModelDataMsg = PROTO.Message("sally.ModelDataMsg",{
 		multiplicity: PROTO.repeated,
 		type: function(){return sally.RelationMsg;},
 		id: 2
+	}});
+sally.SketchSelect = PROTO.Message("sally.SketchSelect",{
+	id: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return PROTO.int32;},
+		id: 1
+	},
+	fileName: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return PROTO.string;},
+		id: 2
+	},
+	position: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return sally.ScreenCoordinates;},
+		id: 3
 	}});
 sally.SketchAtomic = PROTO.Message("sally.SketchAtomic",{
 	id: {

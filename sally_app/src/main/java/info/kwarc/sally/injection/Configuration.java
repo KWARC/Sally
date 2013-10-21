@@ -7,13 +7,12 @@ import info.kwarc.sally.core.comm.CallbackManager;
 import info.kwarc.sally.core.interfaces.IPositionProvider;
 import info.kwarc.sally.core.theo.CookieProvider;
 import info.kwarc.sally.core.theo.ScreenCoordinatesProvider;
-import info.kwarc.sally.core.theo.Theo;
 import info.kwarc.sally.networking.CometD;
 import info.kwarc.sally.networking.ConnectionManager;
 import info.kwarc.sally.networking.interfaces.IConnectionManager;
 import info.kwarc.sally.planetary.injection.PlanetaryModule;
+import info.kwarc.sally.sketch.injection.SketchDocModule;
 import info.kwarc.sally.spreadsheet.injection.SpreadsheetModule;
-import info.kwarc.sally.theofx.TheoService;
 import info.kwarc.sally.theofx.injection.TheoFX;
 import info.kwarc.sally.theoweb.injection.WebTheoModule;
 import info.kwarc.sissi.bpm.SubtaskCallbackMap;
@@ -31,6 +30,7 @@ public class Configuration extends AbstractModule {
 		install(new PlanetaryModule());
 		install(new TheoFX());
 		install(new WebTheoModule());
+		install(new SketchDocModule());
 		
 		bind(CookieProvider.class);
 		bind(IPositionProvider.class).to(ScreenCoordinatesProvider.class);

@@ -1,5 +1,6 @@
 package info.kwarc.sally;
 
+import info.kwarc.sally.core.DocumentInformation;
 import info.kwarc.sally.core.DocumentManager;
 import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteraction;
@@ -93,10 +94,10 @@ public class InstanceService {
 					kb.signal_global_event("switch_app", file);
 					String URL = "http://localhost:8181/sally/instance?node="+uri.getUri()+"&file="+file;
 					log.info("opening "+URL);
-					
-					Theo theo = docManager.getDocumentInformation(file).getTheo();
+					DocumentInformation docInfo = docManager.getDocumentInformation(file);
+					Theo theo = docInfo.getTheo();
 					//TODO Changed this temporarily to match with the processInstanceId argument
-					theo.openWindow(parentProcessInstanceID, "Pricing results", URL, 300, 600);
+					theo.openWindow(docInfo.getNetworkSender(), parentProcessInstanceID, "Pricing results", URL, 300, 600);
 				}
 			});
 		}

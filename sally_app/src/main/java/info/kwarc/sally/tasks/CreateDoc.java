@@ -7,6 +7,7 @@ import info.kwarc.sally.core.interfaces.SallyTask;
 import info.kwarc.sally.core.net.INetworkSender;
 import info.kwarc.sally.core.theo.Theo;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
+import info.kwarc.sally.sketch.SketchFactory;
 import info.kwarc.sally.spreadsheet.interfaces.WorksheetFactory;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 import info.kwarc.sissi.model.document.cad.interfaces.CADFactory;
@@ -24,26 +25,31 @@ import org.slf4j.LoggerFactory;
 
 import sally.AlexData;
 import sally.CADSemanticData;
+import sally.SketchASM;
 import sally.SpreadsheetAlexData;
 import sally.WhoAmI;
 import sally.WhoAmI.DocType;
 
+import com.github.jucovschi.ProtoCometD.ProtoUtils;
 import com.google.inject.Inject;
+import com.google.protobuf.AbstractMessage;
 
 @SallyTask(action="CreateDoc")
 public class CreateDoc implements WorkItemHandler {
 
 	CADFactory cadFactory;
 	WorksheetFactory spreadsheetFactory;
+	SketchFactory sketchFactory;
 	SallyInteraction interaction;
 	ISallyWorkflowManager kb;
 	DocumentManager docManager;
 	Logger log;
 
 	@Inject
-	public CreateDoc(CADFactory cadFactory, WorksheetFactory spreadsheetFactory, SallyInteraction interaction, ISallyWorkflowManager kb, DocumentManager docMap) {
+	public CreateDoc(CADFactory cadFactory, WorksheetFactory spreadsheetFactory, SketchFactory sketchFactory, SallyInteraction interaction, ISallyWorkflowManager kb, DocumentManager docMap) {
 		this.cadFactory = cadFactory;
 		this.spreadsheetFactory = spreadsheetFactory;
+		this.sketchFactory = sketchFactory;
 		this.interaction = interaction;
 		this.kb = kb;
 		this.docManager = docMap;
@@ -96,7 +102,14 @@ public class CreateDoc implements WorkItemHandler {
 				processId = "Sally.cad";
 			}
 			if (alexInfo.getDocumentType() == DocType.Sketch) {
-				
+				//log.info(msg);
+				AbstractMessage msg = ProtoUtils.deserialize(alexData.getData());
+				if (!(msg instanceof SketchASM))
+					throw new Exception("Could not parse SketchASM");
+				SketchASM sketchASM = (SketchASM) msg;
+				processInput = sketchFactory.create(alexData.getFileName(), sketchASM, networkSender);
+				params.put("ASMInput", processInput);
+				processId = "Sally.sketch";
 			}
 
 			if (processId == null || processInput == null) {
@@ -109,6 +122,7 @@ public class CreateDoc implements WorkItemHandler {
 			DocumentInformation docInfo = new DocumentInformation(alexData.getFileName(), instance.getId());
 			docInfo.setTheo(theo);
 			docInfo.setDocumentModel(processInput);
+			docInfo.setNetworkSender(networkSender);
 			docManager.addDocument(docInfo);
 		} catch (Exception e) {
 			log.error(e.getMessage());

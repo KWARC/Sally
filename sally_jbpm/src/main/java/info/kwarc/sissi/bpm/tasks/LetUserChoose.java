@@ -1,6 +1,8 @@
 package info.kwarc.sissi.bpm.tasks;
 
+import info.kwarc.sally.core.DocumentInformation;
 import info.kwarc.sally.core.DocumentManager;
+import info.kwarc.sally.core.comm.CallbackManager;
 import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.interfaces.SallyTask;
 import info.kwarc.sally.core.theo.Theo;
@@ -19,9 +21,10 @@ import com.google.inject.Inject;
 public class LetUserChoose implements WorkItemHandler {
 	Logger log;
 	DocumentManager docManager;
+	CallbackManager callbacks;
 	
 	@Inject
-	public LetUserChoose(DocumentManager docManager) {
+	public LetUserChoose(DocumentManager docManager, CallbackManager callbacks) {
 		this.docManager = docManager;
 		log = LoggerFactory.getLogger(this.getClass());
 	}
@@ -33,9 +36,9 @@ public class LetUserChoose implements WorkItemHandler {
 			if (choices==null) {
 				throw new Exception("failed finding a parameter ending in 'Input'");
 			}
-			Theo theo = docManager.getDocumentInformation(workItem).getTheo();
-			SallyMenuItem item = theo.letUserChoose(choices);
-			workItem.getResults().put("result", item);
+			DocumentInformation documentInfo = docManager.getDocumentInformation(workItem);
+			Theo theo = documentInfo.getTheo();
+			theo.letUserChoose(documentInfo.getNetworkSender(), workItem.getProcessInstanceId(), choices);
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		} finally {

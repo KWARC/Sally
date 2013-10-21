@@ -1,5 +1,6 @@
 package info.kwarc.sally;
 
+import info.kwarc.sally.core.DocumentInformation;
 import info.kwarc.sally.core.DocumentManager;
 import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteraction;
@@ -102,9 +103,11 @@ public class PricingService {
 				@Override
 				public void run() {
 					Long parentProcessInstanceID = context.getContextVar("processInstanceId", Long.class);
-					Theo theo = docManager.getDocumentInformation(file).getTheo();
+					DocumentInformation docInfo = docManager.getDocumentInformation(file);
+					Theo theo = docInfo.getTheo();
 					kb.signal_global_event("switch_app", file);
-					theo.openWindow(parentProcessInstanceID,"Instance Selector", "http://localhost:8181/sally/pricing?node="+uri.getCadNodeId()+"&file="+file, 450, 600);
+					
+					theo.openWindow(docInfo.getNetworkSender(), parentProcessInstanceID,"Instance Selector", "http://localhost:8181/sally/pricing?node="+uri.getCadNodeId()+"&file="+file, 450, 600);
 				}
 			});
 		}

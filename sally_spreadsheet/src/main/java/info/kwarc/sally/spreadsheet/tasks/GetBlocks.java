@@ -61,9 +61,9 @@ public class GetBlocks implements WorkItemHandler  {
 			BlockList.Builder result = BlockList.newBuilder();
 
 			for (Relation r : spdoc.getASMModel().getAllRelations()) {
-				if (r.getRelationType() != RelationType.LABELRELATION) {
-					continue;
-				}
+				//if (r.getRelationType() != RelationType.LABELRELATION) {
+				//	continue;
+				//}
 				Block block = r.getBlocks().get(0);
 				String blockRange = block.getWorksheet()+"!"
 													+Util.convertIndex2RangeCharacter(block.getMinRow())

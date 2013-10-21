@@ -31,6 +31,7 @@ import sally.SwitchToApp;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
+import com.google.protobuf.AbstractMessage;
 
 public class SpreadsheetDocument {
 
@@ -60,7 +61,7 @@ public class SpreadsheetDocument {
 		sender.sendMessage("/do/switch", request, new IMessageCallback() {
 
 			@Override
-			public void onMessage() {
+			public void onMessage(AbstractMessage msg) {
 
 			}
 		});
@@ -85,7 +86,7 @@ public class SpreadsheetDocument {
 	public void selectRange(AlexRangeRequest request) {
 		sender.sendMessage("/do/select", request, new IMessageCallback() {
 			@Override
-			public void onMessage() {
+			public void onMessage(AbstractMessage msg) {
 
 			}
 		});
@@ -98,7 +99,7 @@ public class SpreadsheetDocument {
 		sender.sendMessage("/get/data", request, new IMessageCallback() {
 
 			@Override
-			public void onMessage() {
+			public void onMessage(AbstractMessage msg) {
 
 			}
 		});

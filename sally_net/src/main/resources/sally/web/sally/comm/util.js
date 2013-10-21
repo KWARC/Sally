@@ -8,7 +8,11 @@ function serialize(message) {
 }
 
 function unserialize(message) {
-	var msg = JSON.parse(message);
+	var msg;
+	if (typeof(message) == "string")
+		msg = JSON.parse(message);
+	else
+		msg = message.data;
 	
 	var classString = msg.type;
 	if (classString.match(/^[a-zA-Z\.]+$/)) {

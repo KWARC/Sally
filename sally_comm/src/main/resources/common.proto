@@ -111,6 +111,28 @@ message SallyFrame {
 	optional string fileName = 1;
 }
 
+message SallyFrameChoice {
+	required string fileName = 1;
+	required int32 choiceId = 2;
+	required int64 callbackToken = 3;
+}
+
+message SallyFrameService {
+	required int32 id = 1;
+	required string name = 2;
+	optional string description = 3;
+}
+
+message SallyFrameResponse {
+	required string frameName = 1;
+	repeated SallyFrameService frameServices = 2;
+}
+
+message SallyFrameList {
+	repeated SallyFrameResponse frames = 1;
+	optional int64 callbackToken = 2;
+}
+
 /**
  * Screen Coordinates
  */
@@ -215,6 +237,18 @@ message BlockInfo {
 	optional int32 id = 5;
 }
 
+message SpreadsheetDocMeta {
+	required string fileName = 1;
+	repeated string sheets = 2;
+}
+
+// Message to get Meta-information about the spreadsheet document
+message GetMeta {
+	optional string fileName = 1;
+	// callback token - will be set automatically
+	optional int64 callbackToken = 2;
+}
+
 // Message that is used for getting a list of blocks
 message GetBlocks {
 	// name of the spreadsheet file
@@ -305,6 +339,12 @@ message ModelDataMsg {
 /**
  * Sketch Alex
  */
+
+message SketchSelect {
+	required int32 id = 1;
+	required string fileName = 2;
+	required ScreenCoordinates position = 3;
+}
 
 message SketchAtomic {
 	required int32 id = 1;

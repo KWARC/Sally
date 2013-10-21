@@ -1,6 +1,9 @@
 package info.kwarc.sally.theofx;
 
+import info.kwarc.sally.core.comm.CallbackManager;
 import info.kwarc.sally.core.comm.SallyMenuItem;
+import info.kwarc.sally.core.interfaces.IAbstractMessageRunner;
+import info.kwarc.sally.core.net.INetworkSender;
 import info.kwarc.sally.core.theo.CookieProvider;
 import info.kwarc.sally.core.theo.Coordinates;
 import info.kwarc.sally.core.theo.ScreenCoordinatesProvider;
@@ -10,7 +13,6 @@ import info.kwarc.sally.theofx.interfaces.ITheoWindowProvider;
 import info.kwarc.sally.theofx.ui.TheoWindow;
 
 import java.awt.Color;
-import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,9 +30,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import sally.Cookie;
+import sally.SallyFrameChoice;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.google.protobuf.AbstractMessage;
 
 @Singleton
 public class TheoService implements Theo {
@@ -41,17 +45,19 @@ public class TheoService implements Theo {
 	CookieProvider cookieProvider;
 	ISallyWorkflowManager kb;
 	ITheoWindowProvider theoWindowProvider;
-
+	CallbackManager callbacks;
+	
 	@Inject
-	public TheoService(ScreenCoordinatesProvider coordProvider, CookieProvider cookieProvider, ISallyWorkflowManager kb, ITheoWindowProvider theoWindowProvider) {
+	public TheoService(ScreenCoordinatesProvider coordProvider, CookieProvider cookieProvider, ISallyWorkflowManager kb, ITheoWindowProvider theoWindowProvider, CallbackManager callbacks) {
 		this.coordProvider = coordProvider;
 		this.cookieProvider = cookieProvider;
 		this.kb = kb;
 		this.theoWindowProvider = theoWindowProvider;
 		openedWindows = new HashMap<Integer, TheoWindow>();
+		this.callbacks = callbacks;
 	}
 
-	public int openWindow(Long processInstanceID, String title, String URL, int sizeX, int sizeY) {
+	public int openWindow(INetworkSender networkSender, Long processInstanceID, String title, String URL, int sizeX, int sizeY) {
 		Coordinates coords = coordProvider.getRecommendedPosition();
 		Cookie cookies = Cookie.newBuilder().setCookie(cookieProvider.getCookies()).setUrl(cookieProvider.getUrl()).build();
 		TheoWindow wnd = theoWindowProvider.create(processInstanceID, sizeY, sizeX, coords.getX(), coords.getY(), title, URL, cookies, true);
@@ -61,7 +67,7 @@ public class TheoService implements Theo {
 	}
 
 	@Override
-	public void updateWindow(int windowID, String title, String URL,
+	public void updateWindow(INetworkSender networkSender, int windowID, String title, String URL,
 			Integer sizeX, Integer sizeY) {
 		TheoWindow w = openedWindows.get(windowID);
 		if (URL != null)
@@ -73,18 +79,30 @@ public class TheoService implements Theo {
 		w.setCookie(cookieProvider.getUrl(), cookieProvider.getCookies());
 	}
 
-	public void closeWindow(int windowID) {
+	public void closeWindow(INetworkSender networkSender, int windowID) {
 		TheoWindow wnd = openedWindows.get(windowID);
 		if (wnd != null) {
 			wnd.closeWindow();
 		}
 	}
 
-	public SallyMenuItem letUserChoose(final List<SallyMenuItem> items) {
+	public void letUserChoose(INetworkSender networkSender, final Long ProcessInstanceID, final List<SallyMenuItem> items) {
+		final Long callbackID = callbacks.registerCallback(new IAbstractMessageRunner() {
+
+			@Override
+			public void run(AbstractMessage m) {
+				SallyFrameChoice choice = (SallyFrameChoice) m;
+				for (SallyMenuItem item : items) {
+					if (item.hashCode() == choice.getChoiceId()) {
+						item.run();
+					}
+				}
+			}
+		});
+		
 		final JFrame frame = new JFrame("Sally Services");
-		final JDialog dialog = new JDialog(frame, ModalityType.APPLICATION_MODAL);
+		final JDialog dialog = new JDialog(frame);
 		dialog.setTitle("Sally Frames");
-		//dialog.setLayout(new BoxLayout(dialog.getContentPane(), BoxLayout.Y_AXIS));
 		final JPanel panel = new JPanel();
 		chosenItem = null;
 
@@ -109,7 +127,15 @@ public class TheoService implements Theo {
 						b.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {	
 								chosenItem = rr;
-								dialog.setVisible(false);
+								new Thread(new Runnable() {
+									
+									@Override
+									public void run() {
+										kb.getProcessInstance(ProcessInstanceID).signalEvent("Message-SallyFrameChoice", SallyFrameChoice.newBuilder().setChoiceId(chosenItem.hashCode()).setCallbackToken(callbackID).setFileName("").build());									
+									}
+								}).start();
+
+								dialog.dispose();
 							}
 						});
 
@@ -143,7 +169,6 @@ public class TheoService implements Theo {
 			panel.add(b);
 		}
 
-
 		Coordinates coords = coordProvider.getRecommendedPosition();
 		dialog.setLocation(coords.getX(), coords.getY());
 		dialog.setPreferredSize(new Dimension(200, 170));
@@ -151,10 +176,5 @@ public class TheoService implements Theo {
 		dialog.pack();
 		dialog.setVisible(true);
 		dialog.setAlwaysOnTop(true);
-
-		frame.removeAll();
-		frame.dispose();
-
-		return chosenItem;
 	}
 }

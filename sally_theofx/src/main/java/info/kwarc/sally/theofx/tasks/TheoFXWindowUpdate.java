@@ -1,5 +1,7 @@
 package info.kwarc.sally.theofx.tasks;
 
+import info.kwarc.sally.core.DocumentInformation;
+import info.kwarc.sally.core.DocumentManager;
 import info.kwarc.sally.core.interfaces.SallyTask;
 import info.kwarc.sally.core.theo.Theo;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
@@ -16,23 +18,28 @@ import com.google.inject.Inject;
 public class TheoFXWindowUpdate implements WorkItemHandler{
 
 	Logger log;
-	Theo theo;
+	DocumentManager docManager;
 	
 	@Inject
-	public TheoFXWindowUpdate(Theo theo) {
+	public TheoFXWindowUpdate(DocumentManager docManager) {
 		log = LoggerFactory.getLogger(getClass());
-		this.theo = theo;
+		this.docManager  =docManager;
 	}
 
 	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
 		String url = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), String.class);
 		Integer window = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), Integer.class);
-
+		DocumentInformation docInfo = docManager.getDocumentInformation(workItem);
+		
 		try {
-			theo.updateWindow(window, null, url, null, null);
+			if (docInfo == null)
+				throw new Exception("No document associated with this workflow");
+			Theo theo = docInfo.getTheo();
+
+			theo.updateWindow(docInfo.getNetworkSender(), window, null, url, null, null);
 		} catch (Exception e) {
-			
+			e.printStackTrace();
 		} finally {
 			manager.completeWorkItem(workItem.getId(), workItem.getResults());
 		}

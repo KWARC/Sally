@@ -5,7 +5,6 @@ import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyService;
 import info.kwarc.sally.core.comm.SallyMenuItem;
-import info.kwarc.sally.core.injectors.TheoFirstChoice;
 import info.kwarc.sally.core.net.IMessageCallback;
 import info.kwarc.sally.core.net.INetworkSender;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
@@ -54,8 +53,7 @@ public class CADInteractionTest extends JbpmJUnitTestCase {
 		alexData = CADSemanticData.parseFrom(Base64.decodeBase64(CADBase64));
 		i = Guice.createInjector(
 				new CADModule(),
-				new TestableKnowledeBase(createKnowledgeSession(b)),
-				new TheoFirstChoice()
+				new TestableKnowledeBase(createKnowledgeSession(b))
 				);
 	}
 
