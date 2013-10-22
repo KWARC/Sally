@@ -21,6 +21,9 @@ import info.kwarc.sally.spreadsheet3.ontology.IOntologyProvider;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import sally.AlexClick;
 import sally.AlexRangeRequest;
 import sally.MMTUri;
@@ -38,7 +41,8 @@ public class SpreadsheetDocument {
 	INetworkSender sender;
 
 	Manager asm;
-
+	Logger log;
+	
 	String filePath;
 	IPositionProvider provider;
 
@@ -54,6 +58,7 @@ public class SpreadsheetDocument {
 		this.filePath = filePath;
 		this.sender = sender;
 		this.provider = provider;
+		log = LoggerFactory.getLogger(getClass());
 	}
 
 	public void switchToApp() {
@@ -143,7 +148,10 @@ public class SpreadsheetDocument {
 		provider.setRecommendedCoordinates(new Coordinates(coords.getX(), coords.getY()));
 
 		RangeSelection sel = click.getRange();
-		MMTUri mmtURI = MMTUri.newBuilder().setUri(getSemantics(sel)).build();
+		String uri = getSemantics(sel);
+		if (uri == null)
+			return;
+		MMTUri mmtURI = MMTUri.newBuilder().setUri(uri).build();
 		
 		List<SallyMenuItem> items = new ArrayList<SallyMenuItem>();
 		items.addAll(interaction.getPossibleInteractions(mmtURI, SallyMenuItem.class));
