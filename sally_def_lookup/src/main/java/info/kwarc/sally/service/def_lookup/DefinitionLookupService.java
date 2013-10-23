@@ -1,14 +1,15 @@
 package info.kwarc.sally.service.def_lookup;
 
-import java.util.HashMap;
-
-import sally.MMTUri;
 import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyService;
 import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.planetary.Planetary;
+
+import java.util.HashMap;
+
+import sally.MMTUri;
 
 import com.google.inject.Inject;
 
@@ -22,8 +23,12 @@ public class DefinitionLookupService {
 		this.planetary = planetary;
 	}
 
-	public String getDefinitionLookupURL(String mmtURI) {
-		return planetary.getPlanetaryRoot()+"/mmt/archives?q="+mmtURI;
+	public String getDefinitionLookupURL(String uri) {
+		if (uri.contains("?")) {
+			uri = uri.substring(0, uri.indexOf('?'));
+		}
+
+		return planetary.getPlanetaryRoot()+"/mmt/archives?q="+uri;
 	}
 
 	@SallyService

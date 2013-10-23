@@ -38,7 +38,7 @@ public class LetUserChoose implements WorkItemHandler {
 			}
 			DocumentInformation documentInfo = docManager.getDocumentInformation(workItem);
 			Theo theo = documentInfo.getTheo();
-			theo.letUserChoose(documentInfo.getNetworkSender(), workItem.getProcessInstanceId(), choices);
+			theo.letUserChoose(documentInfo, choices);
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		} finally {

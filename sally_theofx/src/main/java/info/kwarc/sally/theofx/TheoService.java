@@ -1,9 +1,9 @@
 package info.kwarc.sally.theofx;
 
+import info.kwarc.sally.core.DocumentInformation;
 import info.kwarc.sally.core.comm.CallbackManager;
 import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.interfaces.IAbstractMessageRunner;
-import info.kwarc.sally.core.net.INetworkSender;
 import info.kwarc.sally.core.theo.CookieProvider;
 import info.kwarc.sally.core.theo.Coordinates;
 import info.kwarc.sally.core.theo.ScreenCoordinatesProvider;
@@ -57,17 +57,17 @@ public class TheoService implements Theo {
 		this.callbacks = callbacks;
 	}
 
-	public int openWindow(INetworkSender networkSender, Long processInstanceID, String title, String URL, int sizeX, int sizeY) {
+	public int openWindow(DocumentInformation networkSender, String title, String URL, int sizeX, int sizeY) {
 		Coordinates coords = coordProvider.getRecommendedPosition();
 		Cookie cookies = Cookie.newBuilder().setCookie(cookieProvider.getCookies()).setUrl(cookieProvider.getUrl()).build();
-		TheoWindow wnd = theoWindowProvider.create(processInstanceID, sizeY, sizeX, coords.getX(), coords.getY(), title, URL, cookies, true);
+		TheoWindow wnd = theoWindowProvider.create(networkSender.getDocumentWorkflowID(), sizeY, sizeX, coords.getX(), coords.getY(), title, URL, cookies, true);
 		wnd.showWindow();
 		openedWindows.put(wnd.getWndID(), wnd);
 		return wnd.getWndID();
 	}
 
 	@Override
-	public void updateWindow(INetworkSender networkSender, int windowID, String title, String URL,
+	public void updateWindow(DocumentInformation networkSender, int windowID, String title, String URL,
 			Integer sizeX, Integer sizeY) {
 		TheoWindow w = openedWindows.get(windowID);
 		if (URL != null)
@@ -79,14 +79,14 @@ public class TheoService implements Theo {
 		w.setCookie(cookieProvider.getUrl(), cookieProvider.getCookies());
 	}
 
-	public void closeWindow(INetworkSender networkSender, int windowID) {
+	public void closeWindow(DocumentInformation networkSender, int windowID) {
 		TheoWindow wnd = openedWindows.get(windowID);
 		if (wnd != null) {
 			wnd.closeWindow();
 		}
 	}
 
-	public void letUserChoose(INetworkSender networkSender, final Long ProcessInstanceID, final List<SallyMenuItem> items) {
+	public void letUserChoose(final DocumentInformation networkSender, final List<SallyMenuItem> items) {
 		final Long callbackID = callbacks.registerCallback(new IAbstractMessageRunner() {
 
 			@Override
@@ -131,7 +131,7 @@ public class TheoService implements Theo {
 									
 									@Override
 									public void run() {
-										kb.getProcessInstance(ProcessInstanceID).signalEvent("Message-SallyFrameChoice", SallyFrameChoice.newBuilder().setChoiceId(chosenItem.hashCode()).setCallbackToken(callbackID).setFileName("").build());									
+										kb.getProcessInstance(networkSender.getDocumentWorkflowID()).signalEvent("Message-SallyFrameChoice", SallyFrameChoice.newBuilder().setChoiceId(chosenItem.hashCode()).setCallbackToken(callbackID).setFileName("").build());									
 									}
 								}).start();
 

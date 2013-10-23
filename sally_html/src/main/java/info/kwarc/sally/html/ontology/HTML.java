@@ -1,11 +1,11 @@
-package info.kwarc.sally.model.ontology2;
+package info.kwarc.sally.html.ontology;
 
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.ResourceFactory;
 
-public class IM {
-	protected static final String uri = "http://www.kwarc.info/sally/im#";
+public class HTML {
+	protected static final String uri = "http://www.kwarc.info/sally/html#";
 
 	/** returns the URI for this schema
     @return the URI for this schema
@@ -19,5 +19,5 @@ public class IM {
 	protected static final Property property( String local )
 	{ return ResourceFactory.createProperty( uri, local ); }
 
-    public static final Property ontologyURI = property( "ontologyURI" );
+    public static final Property hasHTMLID = property( "hasHTMLID" );
 }

@@ -131,6 +131,7 @@ message SallyFrameResponse {
 message SallyFrameList {
 	repeated SallyFrameResponse frames = 1;
 	optional int64 callbackToken = 2;
+	required string fileName = 3;
 }
 
 /**
@@ -337,7 +338,7 @@ message ModelDataMsg {
 }
 
 /**
- * Sketch Alex
+ * Sketch Doc Type
  */
 
 message SketchSelect {
@@ -359,4 +360,34 @@ message SketchRelation {
 message SketchASM {
 	repeated SketchAtomic parts = 1;
 	repeated SketchRelation relations = 2;
+	optional string sketchTitle = 3;
+}
+
+message SketchSelectPart {
+	required int32 id = 1;
+	required string fileName = 2;
+}
+
+/**
+ * HTML DocType
+ */
+
+message HTMLSelect {
+	required int32 id = 1;
+	required string fileName = 2;
+	required ScreenCoordinates position = 3;
+}
+
+message HTMLAtomic {
+	required int32 id = 1;
+	required MMTUri mmturi = 2;
+}
+
+message HTMLASM {
+	repeated HTMLAtomic parts = 1;
+}
+
+message HTMLSelectPart {
+	required int32 id = 1;
+	required string fileName = 2;
 }

@@ -2,11 +2,13 @@ package info.kwarc.sally.injection;
 
 import info.kwarc.sally.PricingService;
 import info.kwarc.sally.core.DocumentManager;
+import info.kwarc.sally.core.RDFStore;
 import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.core.comm.CallbackManager;
 import info.kwarc.sally.core.interfaces.IPositionProvider;
 import info.kwarc.sally.core.theo.CookieProvider;
 import info.kwarc.sally.core.theo.ScreenCoordinatesProvider;
+import info.kwarc.sally.html.injection.HTMLDocModule;
 import info.kwarc.sally.networking.CometD;
 import info.kwarc.sally.networking.ConnectionManager;
 import info.kwarc.sally.networking.interfaces.IConnectionManager;
@@ -31,6 +33,7 @@ public class Configuration extends AbstractModule {
 		install(new TheoFX());
 		install(new WebTheoModule());
 		install(new SketchDocModule());
+		install(new HTMLDocModule());
 		
 		bind(CookieProvider.class);
 		bind(IPositionProvider.class).to(ScreenCoordinatesProvider.class);
@@ -38,6 +41,7 @@ public class Configuration extends AbstractModule {
 		bind(SallyInteraction.class);
 		bind(PricingService.class);
 		bind(DocumentManager.class);
+		bind(RDFStore.class);
 		
 		bind(String.class).annotatedWith(Names.named("SallyPackage")).toInstance("Sally.pkg");
 				

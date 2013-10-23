@@ -222,6 +222,12 @@ sally.SallyFrameList = PROTO.Message("sally.SallyFrameList",{
 		multiplicity: PROTO.optional,
 		type: function(){return PROTO.int64;},
 		id: 2
+	},
+	fileName: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return PROTO.string;},
+		id: 3
 	}});
 sally.ScreenCoordinates = PROTO.Message("sally.ScreenCoordinates",{
 	x: {
@@ -755,5 +761,76 @@ sally.SketchASM = PROTO.Message("sally.SketchASM",{
 		options: {},
 		multiplicity: PROTO.repeated,
 		type: function(){return sally.SketchRelation;},
+		id: 2
+	},
+	sketchTitle: {
+		options: {},
+		multiplicity: PROTO.optional,
+		type: function(){return PROTO.string;},
+		id: 3
+	}});
+sally.SketchSelectPart = PROTO.Message("sally.SketchSelectPart",{
+	id: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return PROTO.int32;},
+		id: 1
+	},
+	fileName: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return PROTO.string;},
+		id: 2
+	}});
+sally.HTMLSelect = PROTO.Message("sally.HTMLSelect",{
+	id: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return PROTO.int32;},
+		id: 1
+	},
+	fileName: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return PROTO.string;},
+		id: 2
+	},
+	position: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return sally.ScreenCoordinates;},
+		id: 3
+	}});
+sally.HTMLAtomic = PROTO.Message("sally.HTMLAtomic",{
+	id: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return PROTO.int32;},
+		id: 1
+	},
+	mmturi: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return sally.MMTUri;},
+		id: 2
+	}});
+sally.HTMLASM = PROTO.Message("sally.HTMLASM",{
+	parts: {
+		options: {},
+		multiplicity: PROTO.repeated,
+		type: function(){return sally.HTMLAtomic;},
+		id: 1
+	}});
+sally.HTMLSelectPart = PROTO.Message("sally.HTMLSelectPart",{
+	id: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return PROTO.int32;},
+		id: 1
+	},
+	fileName: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return PROTO.string;},
 		id: 2
 	}});

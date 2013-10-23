@@ -37,7 +37,7 @@ public class TheoFXWindowUpdate implements WorkItemHandler{
 				throw new Exception("No document associated with this workflow");
 			Theo theo = docInfo.getTheo();
 
-			theo.updateWindow(docInfo.getNetworkSender(), window, null, url, null, null);
+			theo.updateWindow(docInfo, window, null, url, null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

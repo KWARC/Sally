@@ -11,7 +11,7 @@ import info.kwarc.sally.networking.interfaces.IConnectionManager;
 import info.kwarc.sally.planetary.Planetary;
 import info.kwarc.sally.service.def_lookup.DefinitionLookupService;
 import info.kwarc.sally.spreadsheet.ASMEditor;
-import info.kwarc.sissi.bpm.injection.ProductionLocalKnowledgeBase;
+import info.kwarc.sissi.bpm.injection.ProductionRemoteKnowledgeBase;
 import info.kwarc.sissi.bpm.injection.ProductionSallyActions;
 import sally.GetMeta;
 import sally.SpreadsheetDocMeta;
@@ -28,8 +28,8 @@ public class ProcessMain {
 	public static final void main(String[] args) throws Exception {
 		Injector i = Guice.createInjector(
 				new Configuration(),
-				//new ProductionRemoteKnowledgeBase(), 
-				new ProductionLocalKnowledgeBase(), 
+				new ProductionRemoteKnowledgeBase(), 
+				//new ProductionLocalKnowledgeBase(), 
 				new ProductionSallyActions(),
 				new ProductionNetworking()
 		);
@@ -51,8 +51,6 @@ public class ProcessMain {
 		//ConnectionPlayer player = i.getInstance(IConnectionPlayerFactory.class).create(new FileReader("rec_spreadsheet.json"));
 		//player.start();
 
-		
-		
 		conn.newClient("spread", new INetworkSender() {
 			
 			@Override
