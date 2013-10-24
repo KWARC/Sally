@@ -1,10 +1,10 @@
 package info.kwarc.sally.spreadsheet3.verification;
 
 import static org.junit.Assert.*;
-
 import info.kwarc.sally.spreadsheet3.Util;
 import info.kwarc.sally.spreadsheet3.WinogradData;
 import info.kwarc.sally.spreadsheet3.model.Block;
+import info.kwarc.sally.spreadsheet3.model.CellSpaceInformation;
 import info.kwarc.sally.spreadsheet3.model.Relation;
 import info.kwarc.sally.spreadsheet3.ontology.BuilderML;
 import info.kwarc.sally.spreadsheet3.ontology.BuilderMathML;
@@ -20,11 +20,16 @@ import org.junit.Test;
 public class VerificationDataExtractorTest {
 	WinogradData winData;
 	BuilderML builderML;
+	//List<String> standardTypes;
 
 	@Before
 	public void setUp() throws Exception {
 		winData =  new WinogradData();
 		builderML = new BuilderMathML();
+		/*standardTypes = new ArrayList<String>();
+		standardTypes.add("money#monetary-quantity");
+		standardTypes.add("spsht-numbers#spshReal");
+		standardTypes.add("spsht-bool#spshBool");*/
 	}
 
 	@Test
@@ -35,10 +40,12 @@ public class VerificationDataExtractorTest {
 			
 			blocksToUris.put(b, blockRelation.getUri());	
 		}
-		Map<String, List<String>> dataTypes = VerificationDataExtractor.extractDataTypes(blocksToUris, winData.getSpreadsheet());
+		List<DataSymbolInformation> dataTypes = VerificationDataExtractor.extractDataTypes(blocksToUris, winData.getSpreadsheet());
 		
-		assertEquals("<ci>Year 1985 AD</ci>", dataTypes.get("omdoc://winograd#Year").get(1));
-		assertEquals("<apply><csymbol cd=\"spsht-arith\">times</csymbol><ci>1000000</ci><ci>0.3</ci></apply>", dataTypes.get("omdoc://winograd#Money").get(2));
+		assertTrue(dataTypes.size() == 29);
+		assertEquals("profits#profit", dataTypes.get(0).getOntologyType());
+		assertEquals("<ci>Profit</ci>", dataTypes.get(0).getContent());
+		assertEquals(new CellSpaceInformation("Table1",5,0), dataTypes.get(0).getPostition());
 	}
 	
 	@Test
@@ -52,21 +59,21 @@ public class VerificationDataExtractorTest {
 				"<apply>\n" +
 				"<csymbol cd=\"spsht-arith\">equal</csymbol>\n" +
 				"<apply>\n" +
-				"<csymbol cd=\"winograd\">ExpensesPerYear</csymbol>\n" +
+				"<csymbol cd=\"expenses\">ExpensesPerYear</csymbol>\n" +
 				"<rvar num=\"0\"/>\n" +
 				"<rvar num=\"1\"/>\n" +
 				"</apply>\n" +
 				"  <apply>\n" +
 				"    <csymbol cd=\"spsht-arith\">plus</csymbol>\n" +
 				"      <apply>\n" +
-				"      <csymbol cd=\"winograd\">ExpensesPerYear</csymbol>\n" +
+				"      <csymbol cd=\"expenses\">ExpensesPerYear</csymbol>\n" +
 				"      <rvar num=\"0\"/>\n" +
-				"      <ci>Costtype: Materials</ci>\n" +
+				"      <ci>Material Costs</ci>\n" +
 				"      </apply>\n" +
 				"      <apply>\n" +
-				"      <csymbol cd=\"winograd\">ExpensesPerYear</csymbol>\n" +
+				"      <csymbol cd=\"expenses\">ExpensesPerYear</csymbol>\n" +
 				"      <rvar num=\"0\"/>\n" +
-				"      <ci>Costtype: Salaries</ci>\n" +
+				"      <ci>Salary Costs</ci>\n" +
 				"      </apply>\n" +
 				"  </apply>\n" +
 				"</apply>\n",cpSimilarRepresentations.get(indexExpensesPerYear).replaceAll("\r", "")
@@ -75,28 +82,28 @@ public class VerificationDataExtractorTest {
 	
 	@Test
 	public void extractMLFormulaRepresentationsTest() {
-		List <String> mlFormulae = new ArrayList<String>(VerificationDataExtractor.extractMLFormulaRepresentations(winData.getRelationCalc(), winData.getManager(), winData.getSpreadsheet(), builderML).values());
+		List <String> mlFormulae = new ArrayList<String>(VerificationDataExtractor.extractMLFormulaRepresentations(winData.getRelationTotalCosts(), winData.getManager(), winData.getSpreadsheet(), builderML).values());
 		assertEquals(4, mlFormulae.size());
 		assertEquals(
 				"<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" +
 				"<apply>\n" +
 				"<csymbol cd=\"spsht-arith\">equal</csymbol>\n" +
 				"<apply>\n" +
-				"<csymbol cd=\"winograd\">ExpensesPerYear</csymbol>\n" +
+				"<csymbol cd=\"expenses\">ExpensesPerYear</csymbol>\n" +
 				"<ci>Year 1986 AD</ci>\n" +
-				"<ci>Costtype: total</ci>\n" +
+				"<ci>Total Costs</ci>\n" +
 				"</apply>\n" +
 				"  <apply>\n" +
 				"    <csymbol cd=\"spsht-arith\">plus</csymbol>\n" +
 				"      <apply>\n" +
-				"      <csymbol cd=\"winograd\">ExpensesPerYear</csymbol>\n" +
+				"      <csymbol cd=\"expenses\">ExpensesPerYear</csymbol>\n" +
 				"      <ci>Year 1986 AD</ci>\n" +
-				"      <ci>Costtype: Materials</ci>\n" +
+				"      <ci>Material Costs</ci>\n" +
 				"      </apply>\n" +
 				"      <apply>\n" +
-				"      <csymbol cd=\"winograd\">ExpensesPerYear</csymbol>\n" +
+				"      <csymbol cd=\"expenses\">ExpensesPerYear</csymbol>\n" +
 				"      <ci>Year 1986 AD</ci>\n" +
-				"      <ci>Costtype: Salaries</ci>\n" +
+				"      <ci>Salary Costs</ci>\n" +
 				"      </apply>\n" +
 				"  </apply>\n" +
 				"</apply>\n" +

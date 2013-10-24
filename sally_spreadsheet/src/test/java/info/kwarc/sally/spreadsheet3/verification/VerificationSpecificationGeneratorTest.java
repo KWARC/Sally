@@ -1,7 +1,6 @@
 package info.kwarc.sally.spreadsheet3.verification;
 
 import static org.junit.Assert.*;
-
 import info.kwarc.sally.spreadsheet3.FormalSpreadsheet;
 import info.kwarc.sally.spreadsheet3.WinogradData;
 import info.kwarc.sally.spreadsheet3.model.Block;
@@ -36,20 +35,25 @@ public class VerificationSpecificationGeneratorTest {
 			blocks.put(b, blockRelation.getUri());
 			
 		}
-		Map<String, List<String>> dataTypes = VerificationDataExtractor.extractDataTypes(blocks, spreadsheet);
-		List<String> dtSpec = VerificationSpecificationGenerator.getDataTypeSpecification(dataTypes).getSpecification();
-		assertTrue(dtSpec.size() == 32);
-		assertEquals("(declare-datatypes () ((Object Sym-26 Sym-24 Sym-25 Sym-22 Sym-23 Sym-20 Sym-21 Sym-3 Sym-2 Sym-5 Sym-4 Sym-1 Sym-0 Sym-17 Sym-18 Sym-19 Sym-13 Sym-14 Sym-15 Sym-16 Sym-10 Sym-11 Sym-12 Sym-6 Sym-7 Sym-8 Sym-9 )))",
-				dtSpec.get(0));
-		assertEquals("(assert (= Sym-26 Profit ) )", dtSpec.get(1));
+		List<DataSymbolInformation> dataSym = VerificationDataExtractor.extractDataTypes(blocks, spreadsheet);
+		List<String> dtSpec = VerificationSpecificationGenerator.getDataTypeSpecification(manager, dataSym).getSpecification();
+		
+		assertTrue(dtSpec.size() == 40);
+		/*System.out.println("Data specification. Size: " + dtSpec.size());
+		for (String s : dtSpec)
+			System.out.println(s);*/
 	}
 
 	@Test
 	public void testCreateFunctionDeclarations() {
-		List<String> declarations = VerificationSpecificationGenerator.createFunctionDeclarations(manager.getOntologyInterface().getAllFunctionObjects());
+		List<String> declarations = VerificationSpecificationGenerator.createFunctionDeclarations(manager.getOntologyInterface().getAllFunctionObjects(), manager);
 		assertTrue(declarations.size() == 2);
-		assertEquals("(declare-fun winograd~ExpensesPerYear (Object Object ) Real)", declarations.get(0));
-		assertEquals("(declare-fun winograd~RevenuePerYear (Object ) Real)", declarations.get(1));
+		assertEquals("(declare-fun revenues~RevenuesPerYear (String ) Real)", declarations.get(0));
+		assertEquals("(declare-fun expenses~ExpensesPerYear (String String ) Real)", declarations.get(1));
+		
+		/*System.out.println("Declarations");
+		for (String s : declarations)
+			System.out.println(s);*/
 	}
 
 	@Test
@@ -59,21 +63,46 @@ public class VerificationSpecificationGeneratorTest {
 			Relation blockRelation = manager.getRelationsFor(null, b, Relation.RelationType.TYPERELATION).get(0);
 			blocks.put(b, blockRelation.getUri());	
 		}
-		Map<String, List<String>> dataTypes = VerificationDataExtractor.extractDataTypes(blocks, spreadsheet);
-		DataTypeSpec dataTypesSpec = VerificationSpecificationGenerator.getDataTypeSpecification(dataTypes);
+		List<DataSymbolInformation> dataTypes = VerificationDataExtractor.extractDataTypes(blocks, spreadsheet);
+		DataTypeSpec dataTypesSpec = VerificationSpecificationGenerator.getDataTypeSpecification(manager, dataTypes);
+
+		List<String> definitions = VerificationSpecificationGenerator.createFunctionDefinitions( manager.getOntologyInterface().getAllFunctionObjects(), manager, dataTypesSpec.getViToZ3StringMap());
+		assertTrue(definitions.size() == 6);
+		assertEquals(
+				"(define-funprofits~ProfitPerYear((x0String))Real"
+				+ "("
+				+ "spsht-arith~minus"
+				+ "("
+				+ "revenues~RevenuesPerYear"
+				+ "x0"
+				+ ")"
+				+ "("
+				+ "expenses~ExpensesPerYear"
+				+ "x0"
+				+ "Total-Costs"
+				+ ")"
+				+ "))", 
+				definitions.get(0).replaceAll(" ", "").replaceAll("\r", "").replaceAll("\n", ""));
+		
 		/*System.out.println("Function definitions:");
-		for (String def : VerificationSpecificationGenerator.createFunctionDefinitions( manager.getOntologyInterface().getAllFunctionObjects(), dataTypesSpec.getIdentifierToSymbol()))
+		for (String def : definitions)
 			System.out.println(def);*/
-		List<String> definitions = VerificationSpecificationGenerator.createFunctionDefinitions( manager.getOntologyInterface().getAllFunctionObjects(), dataTypesSpec.getIdentifierToSymbol());
-		assertEquals("(define-fun spsht-arith~minus ((x0 Real)(x1 Real)) Real\n(- x0 x1 )\n)", definitions.get(0));
 	}
 	
+	/*
 	@Test
 	public void testCreateAxiom() {
-		String axiom = manager.getOntologyInterface().getAxioms().get(0);
-		System.out.println("Axiom:");
-		System.out.println(VerificationSpecificationGenerator.getAxiom(axiom));
-	}
+		Map<Block, String> blocks = new HashMap<Block, String>();
+		for (Block b : manager.getAllTopLevelBlocks()) {
+			Relation blockRelation = manager.getRelationsFor(null, b, Relation.RelationType.TYPERELATION).get(0);
+			blocks.put(b, blockRelation.getUri());	
+		}
+		Map<String, List<String>> dataTypes = VerificationDataExtractor.extractDataTypes(blocks, spreadsheet);
+		DataTypeSpec dataTypesSpec = VerificationSpecificationGenerator.getDataTypeSpecification(dataTypes);
+		
+		String axiomSpec = VerificationSpecificationGenerator.getAxiom(manager.getOntologyInterface().getAxioms().get(0), dataTypesSpec.getIdentifierToSymbol());
+		System.out.println("Axiom Specification:\n" + axiomSpec);
+	}*/
 
 	@Ignore
 	public void testCreateCompeteSpecification() {

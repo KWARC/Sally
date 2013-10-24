@@ -1,6 +1,6 @@
 package info.kwarc.sally.spreadsheet3.logic;
 
-import info.kwarc.sally.spreadsheet2.Util;
+import info.kwarc.sally.spreadsheet3.Util;
 import info.kwarc.sally.spreadsheet3.FormalSpreadsheet;
 import info.kwarc.sally.spreadsheet3.model.CellTuple;
 import info.kwarc.sally.spreadsheet3.model.Relation;

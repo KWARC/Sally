@@ -1,6 +1,7 @@
 package info.kwarc.sally.spreadsheet3.ontology;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -25,6 +26,14 @@ public abstract class Interface {
 	
 	abstract public List<FunctionObject> getAllFunctionObjects();
 	
-	abstract public List<String> getAxioms();
+	abstract public Map<String, FunctionObject> getFunctionObjectMap();
+	
+	abstract public DataTypeObject getDataTypeObject(String uri);
+	
+	abstract public List<DataTypeObject> getAllDataTypeObjects();
+	
+	abstract public Map<String, DataTypeObject> getDataTypeObjectMap();
+	
+	abstract public List<AxiomObject> getAxioms();
 
 }

@@ -32,6 +32,10 @@
   <xsl:text>- </xsl:text> 
 </xsl:template>
 
+<xsl:template match="m:times">
+  <xsl:text>* </xsl:text> 
+</xsl:template>
+
 <xsl:template match="m:eq">
   <xsl:text>= </xsl:text> 
 </xsl:template>

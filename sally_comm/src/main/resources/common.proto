@@ -817,6 +817,11 @@ message CellSpaceInformationMsgNew {
 	optional int32 width = 5;
 }
 
+message Property {
+	required int32 propertyID = 1;
+	required string value = 2;
+}
+
 message BlockMsg {
 	enum Type {
 		Atomic = 1;
@@ -827,9 +832,11 @@ message BlockMsg {
 	required int32 id = 2;
 	required string worksheet = 3;
 	repeated ValueInterpretationMsg valueInterpretations = 4;
+	repeated Property properties = 5;
 
-	optional CellSpaceInformationMsgNew position = 5;	// For atomic blocks
-	repeated int32 subBlockIds = 6;					// For composed blocks
+	optional CellSpaceInformationMsgNew position = 6;	// For atomic blocks
+	repeated int32 subBlockIds = 7;						// For composed blocks
+	
 }
 
 message CellTupleMsg {

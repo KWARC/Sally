@@ -237,6 +237,40 @@ public class Manager {
 		return new ArrayList<Block>(blocks.values());
 	}
 	
+	/**
+	 * Deletes a block.
+	 * All relations that are associated with this block are deleted as well.
+	 * @param block
+	 */
+	public void removeBlock(Block block) {
+		List<CellSpaceInformation> positions = block.getCells();
+		if (block instanceof BlockAtomic) {
+			positionToAtomicBlock.remove(positions.get(0));
+		}
+		
+		// Remove position
+		for (CellSpaceInformation pos : positions) {
+			List<Block> blocks = positionToTopLevelBlocks.get(pos);
+			blocks.remove(block);
+			if (blocks.isEmpty())
+				positionToTopLevelBlocks.remove(pos);
+		}
+		
+		blocks.remove(block.getId());
+		
+		// Remove as subblock
+		for (Block b : blocks.values())
+			if (b.contains(block))
+				b.remove(block);
+		
+		// Remove relations that contain the block
+		for (Relation rel : new ArrayList<Relation>(relations.values())) {
+			if (rel.getBlocks().contains(block))
+				removeRelation(rel);
+		}
+		
+	}
+	
 	private void addPositionToBlockLink(CellSpaceInformation position, Block addBlock, List<Block> removeBlocks) {
 		if (positionToTopLevelBlocks.containsKey(position)) {
 			List<Block> blocksForPos = positionToTopLevelBlocks.get(position);
@@ -343,6 +377,18 @@ public class Manager {
 	}
 
 
+	public void removeRelation(Relation rel) {
+		relations.remove(rel.getId());
+		for (Block b : rel.getBlocks() ){
+			for (CellSpaceInformation pos : b.getCells()) {
+				List<Relation> allRelationsForPos = positionToRelations.get(pos);
+				allRelationsForPos.remove(rel);
+				if (allRelationsForPos.isEmpty())
+					positionToRelations.remove(pos);
+			}
+		}
+	}
+	
 	private void addPositionToRelationLink(CellSpaceInformation position, Relation relation) {
 		if (positionToRelations.containsKey(position)) {
 			positionToRelations.get(position).add(relation);

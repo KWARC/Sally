@@ -88,14 +88,14 @@ public class UtilTest {
 				"  <apply>\n" +
 				"    <csymbol cd=\"spsht-arith\">plus</csymbol>\n" +
 				"      <apply>\n" +
-				"      <csymbol cd=\"winograd\">ExpensesPerYear</csymbol>\n" +
+				"      <csymbol cd=\"expenses\">ExpensesPerYear</csymbol>\n" +
 				"      <rvar num=\"0\"/>\n" +
-				"      <ci>Costtype: Materials</ci>\n" +
+				"      <ci>Material Costs</ci>\n" +
 				"      </apply>\n" +
 				"      <apply>\n" +
-				"      <csymbol cd=\"winograd\">ExpensesPerYear</csymbol>\n" +
+				"      <csymbol cd=\"expenses\">ExpensesPerYear</csymbol>\n" +
 				"      <rvar num=\"0\"/>\n" +
-				"      <ci>Costtype: Salaries</ci>\n" +
+				"      <ci>Salary Costs</ci>\n" +
 				"      </apply>\n" +
 				"  </apply>\n" +
 				"</math>", antiunificationResult.replaceAll("\r", "")
@@ -135,7 +135,7 @@ public class UtilTest {
 		
 		Map<Integer, String> constantArgs = Util.getConstantArguments(domainValues);
 		assertEquals(new Integer(1), new Integer(constantArgs.size()));
-		assertEquals("<ci>Costtype: total</ci>", constantArgs.get(1));
+		assertEquals("<ci>Total Costs</ci>", constantArgs.get(1));
 		//for (Integer i : constantArgs.keySet())
 			//System.out.println("Constant: " + i + " -> " + constantArgs.get(i));
 	}
@@ -158,17 +158,17 @@ public class UtilTest {
 	
 	@Test
 	public void testGetCDFromURI() {
-		assertEquals("winograd", Util.getCDFromURI("omdoc://winograd#year"));
+		assertEquals("expenses", Util.getCDFromURI("expenses#ExpensesPerYear"));
 	}
 	
 	@Test
 	public void testGetSymbolFromURI() {
-		assertEquals("year", Util.getSymbolFromURI("omdoc://winograd#year"));
+		assertEquals("ExpensesPerYear", Util.getSymbolFromURI("expenses#ExpensesPerYear"));
 	}
 	
 	@Test
 	public void testReplaceURIsWithIdentifiers() {
-		assertEquals("Test1 winograd~years spsht-arith~equal Text winograd~ExpensesPerYear More", Util.replaceURIsWithIdentifiers("Test1 omdoc://winograd#years omdoc://spsht-arith#equal Text omdoc://winograd#ExpensesPerYear More"));
+		assertEquals("Test1 winograd~years spsht-arith~equal Text winograd~ExpensesPerYear More", Util.replaceURIsWithIdentifiers("Test1 winograd#years spsht-arith#equal Text winograd#ExpensesPerYear More"));
 	}
 
 }

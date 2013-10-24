@@ -24,9 +24,9 @@ public class CDDBuilderTest {
 		List<Block> blocks = new ArrayList<Block>();
 		blocks.add(winograd.getCost());
 		blocks.add(winograd.getYear());
-		blocks.add(winograd.getDataInput());
+		blocks.add(winograd.getDataCosts());
 		
-		assertEquals("(0/0 - 3/3): 0,y;x,0;x,y", CDDBuilder.createCDDFunctionalRelation(blocks).toString());
+		assertEquals("(0/0 - 2/3): 0,y;x,0;x,y", CDDBuilder.createCDDFunctionalRelation(blocks).toString());
 	}
 
 }

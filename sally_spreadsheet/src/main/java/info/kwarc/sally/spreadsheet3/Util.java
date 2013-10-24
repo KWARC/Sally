@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 
 public class Util {
 	
-	static Pattern omdocUriPattern = Pattern.compile("omdoc://(.+?)#(\\p{Graph}+)");
+	static Pattern omdocUriPattern = Pattern.compile("(.+?)#(\\p{Graph}+)");
 	static Pattern cellAddressPattern = Pattern.compile("([A-Z]+)([0-9]+)");
 	
 	public static CellSpaceInformation convertCellPosition(String position)  {
