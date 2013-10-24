@@ -1,9 +1,9 @@
 package info.kwarc.sally.networking;
 
+import info.kwarc.sally.core.net.INetworkSender;
+import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.networking.interfaces.IConnectionManager;
-import info.kwarc.sally.networking.interfaces.INetworkSender;
 import info.kwarc.sissi.bpm.BPMNUtils;
-import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
 
 import java.util.HashMap;
 
@@ -24,10 +24,10 @@ public class ConnectionManager implements IConnectionManager {
 	HashMap<String, ProcessInstance> sessions;
 	HashMap<String, INetworkSender> senders;
 	HashMap<Long, String> processToSession;
-	ISallyKnowledgeBase knowledgeBase;
+	ISallyWorkflowManager knowledgeBase;
 	
 	@Inject
-	public ConnectionManager(ISallyKnowledgeBase knowledgeBase) {
+	public ConnectionManager(ISallyWorkflowManager knowledgeBase) {
 		this.knowledgeBase = knowledgeBase;
 		sessions = new HashMap<String, ProcessInstance>();
 		log = LoggerFactory.getLogger(this.getClass());
@@ -69,7 +69,7 @@ public class ConnectionManager implements IConnectionManager {
 			log.debug("Client "+clientID+" does not have an active session. Ignoring.");
 			return;
 		}
-		BPMNUtils.sendMessageOrForward(sess, type, data);
+		BPMNUtils.sendMessageOrForward(0L, sess, type, data);
 	}
 	
 	/* (non-Javadoc)

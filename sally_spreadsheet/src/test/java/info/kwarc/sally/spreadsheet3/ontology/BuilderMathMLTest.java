@@ -53,8 +53,8 @@ public class BuilderMathMLTest {
 		assertEquals("n", var.getName());
 		assertEquals("Integer", var.getType());
 		assertEquals(AxiomVariableObject.QuantorType.All, var.getQuantorType());
-		assertEquals("<apply><gt/><ci>n</ci><cn>0</cn></apply>", axiom.getVarConditions());
-		assertEquals("<apply><eq/><apply><plus/><apply><power/><ci>x</ci><ci>n</ci></apply><apply><power/><ci>y</ci><ci>n</ci></apply></apply><apply><power/><ci>z</ci><ci>n</ci></apply></apply>" 
+		assertEquals("<apply><gt/><ci> n </ci><cn> 0 </cn></apply>", axiom.getVarConditions());
+		assertEquals("<apply><eq/><apply><plus/><apply><power/><ci> x </ci><ci> n </ci></apply><apply><power/><ci> y </ci><ci> n </ci></apply></apply><apply><power/><ci> z </ci><ci> n </ci></apply></apply>" 
 				, axiom.getMLConstrain());
 	}
 

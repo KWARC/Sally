@@ -1,15 +1,16 @@
 package info.kwarc.sally;
 
+import info.kwarc.sally.core.DocumentInformation;
+import info.kwarc.sally.core.DocumentManager;
 import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyService;
 import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.comm.SallyModelRequest;
-import info.kwarc.sally.core.interfaces.Theo;
-import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
+import info.kwarc.sally.core.theo.Theo;
+import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
@@ -41,14 +42,14 @@ public class PricingService {
 	String pricingSparql;
 	String navigateSparql;
 	Model common;
-	Theo theo;
 	SallyInteraction sally;
 	Logger log;
-	ISallyKnowledgeBase kb;
-
+	ISallyWorkflowManager kb;
+	DocumentManager docManager;
+	
 	@Inject
-	public PricingService(Theo theo, SallyInteraction sally, ISallyKnowledgeBase kb) {
-		this.theo = theo;
+	public PricingService(DocumentManager docManager, SallyInteraction sally, ISallyWorkflowManager kb) {
+		this.docManager = docManager; 
 		pricingSparql = loadSparql("/pricing.sparql");
 		navigateSparql = loadSparql("/navigate.sparql");
 		
@@ -102,9 +103,11 @@ public class PricingService {
 				@Override
 				public void run() {
 					Long parentProcessInstanceID = context.getContextVar("processInstanceId", Long.class);
-
+					DocumentInformation docInfo = docManager.getDocumentInformation(file);
+					Theo theo = docInfo.getTheo();
 					kb.signal_global_event("switch_app", file);
-					theo.openWindow(parentProcessInstanceID,"Instance Selector", "http://localhost:8181/sally/pricing?node="+uri.getCadNodeId()+"&file="+file, 450, 600);
+					
+					theo.openWindow(docInfo, "Instance Selector", "http://localhost:8181/sally/pricing?node="+uri.getCadNodeId()+"&file="+file, 450, 600);
 				}
 			});
 		}

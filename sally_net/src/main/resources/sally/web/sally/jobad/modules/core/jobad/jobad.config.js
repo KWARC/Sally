@@ -26,7 +26,7 @@
 			'author':	'Tom Wiesing',
 			'description':	'This module provides a simple configuration dialog. For backwards compatibility, this module adds the .showConfigUI() function to modules. ',
 			'hasCleanNamespace': false,
-			'version': '3.1.7a'
+			'version': '3.2.0'
 		},
 		globalinit: function(){
 			//icon source: http://openiconlibrary.sourceforge.net/gallery2/?./Icons/actions/configure-5.png, license: gplv2
@@ -249,25 +249,65 @@
 								e.remove();
 							}
 					});
+
+					var $focusButton = 
+					JOBAD.refs.$('<button type="button" class="btn">')
+					.text("Focus")
+					.click(function(e){
+						if(me.Instance.isFocused()){
+							me.Instance.unfocus(); 
+							$focusButton.removeClass("active"); 
+						} else {
+							me.Instance.focus(); 
+							$focusButton.addClass("active"); 
+						}
+					});
+
+					if(me.Instance.isFocused()){
+						$focusButton.addClass("active"); 
+					}
+
+					var $autoButton = 
+					JOBAD.refs.$('<button type="button" class="btn">')
+					.text("Auto").click(function(e){
+						if(me.Instance.isAutoFocusEnabled()){
+							me.Instance.disableAutoFocus(); 
+							$autoButton.removeClass("active"); 
+						} else {
+							me.Instance.enableAutoFocus(); 
+							$autoButton.addClass("active"); 
+						}
+					});
+
+					if(me.Instance.isAutoFocusEnabled()){
+						$autoButton.addClass("active"); 
+					}
 				
 					tab.empty()
 					.append(
 						JOBAD.util.createTabs(
-							["About JOBAD", "Config", "GPL License", "jQuery", "jQuery UI", "Underscore"], 
+							["Instance", "About JOBAD", "GPL License", "jQuery", "Bootstrap", "Underscore"], 
 							[
+								JOBAD.refs.$("<div>").append(
+									JOBAD.refs.$("<span>").text("Instance ID: "+me.ID),
+									"<br />",
+									$focusButton,
+									$autoButton, 
+									"<h4>Configuration</h4>",
+									$config
+								), 
 								JOBAD.refs.$("<div>").append(
 									JOBAD.refs.$("<span>").text("JOBAD Core Version "+JOBAD.version),
 									JOBAD.refs.$("<pre>").text(JOBAD.resources.getTextResource("jobad_license"))
 								),
-								$config,
 								JOBAD.refs.$("<pre>").text(JOBAD.resources.getTextResource("gpl_v3_text")),
 								JOBAD.refs.$("<div>").append(
 									JOBAD.refs.$("<span>").text("jQuery Version "+JOBAD.refs.$.fn.jquery),
 									JOBAD.refs.$("<pre>").text(JOBAD.resources.getTextResource("jquery_license"))
 								),
 								JOBAD.refs.$("<div>").append(
-									JOBAD.refs.$("<span>").text("jQuery UI Version "+JOBAD.refs.$.ui.version),
-									JOBAD.refs.$("<pre>").text(JOBAD.resources.getTextResource("jqueryui_license"))
+									JOBAD.refs.$("<span>").text("Bootstrap Version 2.3.2"),
+									JOBAD.refs.$("<pre>").text(JOBAD.resources.getTextResource("bootstrap_license"))
 								),
 								JOBAD.refs.$("<div>").append(
 									JOBAD.refs.$("<span>").text("Underscore Version "+JOBAD.util.VERSION),
@@ -328,13 +368,49 @@
 							}
 						}
 					});
+
+					//Sidebar onOff 
+
+					var TBButton = JOBAD.util.createRadio(["Hide", "Show"], mod.Toolbar.isVisible()?1:0);
+
+					var UpButton = JOBAD.refs.$('<button type="button" class="btn">').button().text("Up").click(function(){
+						mod.Toolbar.moveUp(); 
+					});
+
+					var DownButton = JOBAD.refs.$('<button type="button" class="btn">').text("Down").click(function(){
+						mod.Toolbar.moveDown(); 
+					});
+
+					TBButton.find("input").change(function(){
+						if(TBButton.find("input").eq(1).is(":checked")){
+							mod.Toolbar.setVisible(); 
+							UpButton.show(); 
+							DownButton.show(); 
+						} else {
+							mod.Toolbar.setHidden(); 
+							UpButton.hide(); 
+							DownButton.hide(); 
+						}
+					}).change();
+
+					
+
 					
 					$info.append(
 						"by ",
 						JOBAD.refs.$("<span>").css("text-decoration", "italic").text(info.author),
 						"<br />",
 						OnOff,
-						"<br />")
+						"<br />",
+						"Toolbar: ",
+						TBButton,
+						JOBAD.refs.$("<div class='btn-group'>").append(
+							DownButton, 
+							UpButton
+						),
+						"<br />"
+					);
+
 					if(typeof info.url == "string"){
 						$info.append(
 							JOBAD.refs.$("<a>").text(info.url).attr("href", info.url).attr("target", "_blank").button(),
@@ -377,7 +453,7 @@
 					return;
 				};
 
-				var displayDiv = JOBAD.refs.$("<div>").addClass("modal hide fade large"); 
+				var displayDiv = JOBAD.refs.$("<div>").addClass("modal hide large"); 
 				var header = JOBAD.refs.$("<div>").addClass("modal-header")
 				.append(
 					'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>',
@@ -402,12 +478,16 @@
 						}
 					}).addClass("modal-body"), 
 					footer
-				).appendTo("body")
+				).appendTo($("<div>").BS().appendTo("body"))
 				.modal()
 				.on("hidden", function(){
 					EventHandler.trigger("JOBAD.modInfoClose"); 
-					displayDiv.remove(); //We don't need it anymore
-				}); 
+
+					displayDiv.parent().remove(); //We don't need it anymore
+					JOBAD.UI.BSStyle(); //Call the Bootstrap Cleanup function
+				});
+
+				JOBAD.UI.BSStyle(); 
 			}
 	});
 })(JOBAD.refs.$);

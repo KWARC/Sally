@@ -2,9 +2,9 @@ package info.kwarc.sissi.model.document.cad.tasks;
 
 import java.util.PriorityQueue;
 
-import info.kwarc.sally.core.ScreenCoordinatesProvider;
-import info.kwarc.sally.core.comm.Coordinates;
 import info.kwarc.sally.core.interfaces.SallyTask;
+import info.kwarc.sally.core.theo.Coordinates;
+import info.kwarc.sally.core.theo.ScreenCoordinatesProvider;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 
 import org.drools.process.instance.WorkItemHandler;

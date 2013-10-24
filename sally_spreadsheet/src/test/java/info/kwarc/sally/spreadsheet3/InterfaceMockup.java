@@ -5,14 +5,14 @@ import info.kwarc.sally.spreadsheet3.ontology.BuilderML;
 import info.kwarc.sally.spreadsheet3.ontology.BuilderMathML;
 import info.kwarc.sally.spreadsheet3.ontology.DataTypeObject;
 import info.kwarc.sally.spreadsheet3.ontology.FunctionObject;
-import info.kwarc.sally.spreadsheet3.ontology.Interface;
+import info.kwarc.sally.spreadsheet3.ontology.IOntologyProvider;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class InterfaceMockup extends Interface {
+public class InterfaceMockup extends IOntologyProvider {
 	Map<String, FunctionObject> ontologyFunctions;
 	Map<String, DataTypeObject> ontologyDataTypes;
 	

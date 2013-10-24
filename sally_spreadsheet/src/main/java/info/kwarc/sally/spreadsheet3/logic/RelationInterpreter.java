@@ -1,12 +1,12 @@
 package info.kwarc.sally.spreadsheet3.logic;
 
-import info.kwarc.sally.spreadsheet3.Util;
 import info.kwarc.sally.spreadsheet3.FormalSpreadsheet;
+import info.kwarc.sally.spreadsheet3.Util;
 import info.kwarc.sally.spreadsheet3.model.CellTuple;
 import info.kwarc.sally.spreadsheet3.model.Relation;
 import info.kwarc.sally.spreadsheet3.ontology.BuilderML;
 import info.kwarc.sally.spreadsheet3.ontology.FunctionObject;
-import info.kwarc.sally.spreadsheet3.ontology.Interface;
+import info.kwarc.sally.spreadsheet3.ontology.IOntologyProvider;
 
 public class RelationInterpreter {
 	
@@ -14,7 +14,7 @@ public class RelationInterpreter {
 	 * Returns the definition of the ontology function that is associated with a relation for the concrete cells.
 	 * In example: <apply><csymbol cd="spsht-arith">minus</csymbol><apply><csymbol cd="winograd">RevenuePerYear</csymbol><ci>Year 1984 AD</ci></apply><apply><csymbol cd="winograd">ExpensesPerYear</csymbol><ci>Year 1984 AD</ci><ci>Costtype: Total</ci></apply></apply> 
 	 */
-	public static String getDefinition(Relation relation, CellTuple cells, FormalSpreadsheet spreadsheet, Interface ontologyInterface) {
+	public static String getDefinition(Relation relation, CellTuple cells, FormalSpreadsheet spreadsheet, IOntologyProvider ontologyInterface) {
 		String mlDefinition = "";
 		FunctionObject function =  ontologyInterface.getFunctionObject(relation.getUri());
 		if (function != null) {

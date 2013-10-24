@@ -1,7 +1,7 @@
 package info.kwarc.sally.theofx.ui;
 
 import static javafx.concurrent.Worker.State.FAILED;
-import info.kwarc.sally.theofx.TheoApp;
+import info.kwarc.sally.theofx.interfaces.ITheoAppProvider;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+import java.util.Random;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -39,11 +39,16 @@ import org.slf4j.LoggerFactory;
 
 import sally.Cookie;
 
+import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
+
 public class TheoWindow implements Runnable {
 
-	private Long pid;
+	private static Random rand = new Random();
+	
+	private Long processInstanceID;
 	private Logger loggr;
-	private UUID uid;
+	private int wndID;
 	private int sizeY;
 	private int sizeX;
 	//private String webColor = "#666970";
@@ -57,16 +62,14 @@ public class TheoWindow implements Runnable {
 	private JPanel panel = new JPanel(new BorderLayout());
 	private boolean visible;
 	private Cookie initCookies;
+	ITheoAppProvider appProvider;
 
-	@Deprecated
-	public static TheoWindow communication; 
-
-	public static TheoWindow content;
-
-	public TheoWindow(Long pid, int sizeX, int sizeY, int posX,
-			int posY, String stageTitle, String url, Cookie cookies, boolean visible) {
+	@Inject
+	public TheoWindow(@Assisted("pid") Long pid, @Assisted("sizeX")  int sizeX, @Assisted("sizeY") int sizeY, @Assisted("posX") int posX,
+			@Assisted("posY") int posY, @Assisted("stageTitle") String stageTitle, @Assisted("url") String url, @Assisted Cookie cookies, @Assisted boolean visible, ITheoAppProvider appProvider) {
 		super();
-		this.pid = pid ;
+		this.appProvider = appProvider;
+		this.processInstanceID = pid ;
 		this.sizeY = sizeY;
 		this.sizeX = sizeX;
 		this.posX = posX;
@@ -75,26 +78,13 @@ public class TheoWindow implements Runnable {
 		this.url = url;
 		this.visible = visible;
 		this.initCookies = cookies;
-		this.uid = UUID.randomUUID();
+		this.wndID = rand.nextInt();
 		this.loggr = LoggerFactory.getLogger(TheoWindow.class);
 	}
 
-
-	public String getUid() {
-		return uid.toString();
-	}
-
-
-	public void closeWindow() {
-		frame.setVisible(false);
-		frame.dispose();
-	}
-
-	public static TheoWindow addWindow(Long pid, Integer sizeY, Integer sizeX,
-			Integer posX, Integer posY, String stageTitle, String url, Cookie cookies, boolean visible){
-
+	public void showWindow() {
 		try {
-			SwingUtilities.invokeAndWait(content=new TheoWindow(pid, sizeX, sizeY , posX, posY, stageTitle, url, cookies, visible));
+			SwingUtilities.invokeAndWait(this);
 		} catch (InvocationTargetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -102,17 +92,17 @@ public class TheoWindow implements Runnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		return content;
 	}
 
-/*	@Deprecated
-	public static TheoWindow addCommunicationWindow(SallyInteraction sallyInteraction){
-		//TheoWindow simple;
-		SwingUtilities.invokeLater(communication=new TheoWindow(sallyInteraction, 300, 300, 200, 200, "Title", "http://localhost:8080/sally/index.html", null, true));
-		return communication;
-	}*/
+	public int getWndID() {
+		return wndID;
+	}
 
+
+	public void closeWindow() {
+		frame.setVisible(false);
+		frame.dispose();
+	}
 
 	private JProgressBar progressBar = new JProgressBar();
 	//private ToggleGroup groupV = new ToggleGroup();
@@ -201,9 +191,10 @@ public class TheoWindow implements Runnable {
 								JSObject win = (JSObject) engine.executeScript("window");
 								loggr.info(win.toString()+" "+ this.getClass().toString());
 								//TODO change this int or add a new constructor
-								win.setMember("app", new TheoApp(1L));
+								win.setMember("app", appProvider.create(processInstanceID, engine));
 								loggr.info("New TheoApp added.");
 							}
+							org.w3c.dom.html.HTMLElement q;
 						}
 					});
 
@@ -241,39 +232,39 @@ public class TheoWindow implements Runnable {
 					});
 
 					jfxPanel.setScene(new Scene(view));
-					
-					
+
+
 
 				}
 			});
 		}
-		
+
 	} 
-	
+
 
 	public void loadURL(final String url) {
-			Platform.runLater(new Runnable() {
+		Platform.runLater(new Runnable() {
 
-				public void run() {
-					String tmp = toURL(url);
+			public void run() {
+				String tmp = toURL(url);
 
-					if (tmp == null) {
-						tmp = toURL("http://" + url);
-					}
-
-					engine.load(tmp);
+				if (tmp == null) {
+					tmp = toURL("http://" + url);
 				}
-			});
+
+				engine.load(tmp);
+			}
+		});
 	}
 
-	private static String toURL(String str) {
+	private String toURL(String str) {
 		try {
 			return new URL(str).toExternalForm();
 		} catch (MalformedURLException exception) {
 			return null;
 		}
 	}
-	
+
 	//@Override
 	public void run() {
 
@@ -286,7 +277,7 @@ public class TheoWindow implements Runnable {
 
 		//frame.pack();
 		//JFrame.setDefaultLookAndFeelDecorated(true);
-		
+
 		//frame.setUndecorated(true);
 		//frame.getRootPane().setWindowDecorationStyle(JRootPane.INFORMATION_DIALOG);
 		frame.setVisible(visible);
@@ -326,17 +317,9 @@ public class TheoWindow implements Runnable {
 
 
 	public Long getPID() {
-		return this.pid;
+		return this.processInstanceID;
 	}
-
-
-
-
 }
-
-
-
-
 
 /*	public static void initiateTestTheo(){
 	//TheoWindow simple;

@@ -5,7 +5,7 @@
 ```js
 /*
 	example1.js - An example module for JOBAD. 
-	A Testing module, colors <p>s in the color given as first parameter. 
+	A Testing module, colors <p>s in the color given as first parameter. Also has a surprise. 
 	
 	Copyright (C) 2013 KWARC Group <kwarc.info>
 	
@@ -43,6 +43,12 @@
 		},
 		colorize: function(target){
 			target.css("color", this.localStore.get("color")); //get the color setting and apply it. 
+		},
+		keyPress: function(k, JI){ //make it coloured on f7
+			if(k == "f7"){
+				JI.element.css("background-color", this.localStore.get("color")); 
+				return true;
+			}
 		}
 	});
 })(JOBAD.refs.$);

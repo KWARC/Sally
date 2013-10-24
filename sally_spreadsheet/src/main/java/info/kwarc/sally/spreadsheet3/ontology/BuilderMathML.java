@@ -83,7 +83,7 @@ public class BuilderMathML extends BuilderML {
 			String varStatement = matcher.group(1).replaceAll("\\p{Space}", "");
 			Matcher varMatcher = variablePattern.matcher(varStatement);
 			while (varMatcher.find()) {
-				AxiomVariableObject var = new AxiomVariableObject(AxiomVariableObject.QuantorType.All, varMatcher.group(1));
+				AxiomVariableObject var = new AxiomVariableObject(AxiomVariableObject.QuantorType.All, varMatcher.group(1).trim());
 				axiomVariables.add(var);
 				varMapping.put(var.getName(), var);
 			}
@@ -93,13 +93,13 @@ public class BuilderMathML extends BuilderML {
 			// Extracting variable types
 			Matcher inMatcher = inPattern.matcher(conditionStatement); 
 			while (inMatcher.find()) {
-				String varName = inMatcher.group(1);
+				String varName = inMatcher.group(1).trim();
 				String type = inMatcher.group(2);
 				AxiomVariableObject var = varMapping.get(varName);
 				if (var != null)
 					var.setType(type);
 				else
-					throw new java.lang.IllegalArgumentException("Domain binding for unquantified variable.");
+					throw new java.lang.IllegalArgumentException("Domain binding for unquantified variable: " + varName);
 			}
 			conditionStatement = conditionStatement.replaceAll(inPattern.pattern(), "");
 			return new AxiomObject(axiomVariables, conditionStatement, matcher.group(4));

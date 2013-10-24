@@ -1,2 +1,1 @@
-jquery-ui-bs.css
-jquery-ui-less.css
+bootstrap/css/bootstrap.less

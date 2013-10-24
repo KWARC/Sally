@@ -42,21 +42,24 @@ JOBAD.repo.buildPage = function(element, repo, callback){
 
 	var body = JOBAD.refs.$("<div class='JOBAD JOBAD_Repo JOBAD_Repo_Body'>").appendTo(JOBAD.refs.$(element).empty());
 
-	var msgBox = JOBAD.refs.$("<div>");
+	var msgBox = JOBAD.refs.$("<div class='bar'>");
 
-	msgBox.wrap("<div class='JOBAD JOBAD_Repo JOBAD_Repo_MsgBox'>").parent().appendTo(body); 
+	msgBox.wrap("<div class='progress'>").parent().wrap("<div class='JOBAD JOBAD_Repo JOBAD_Repo_MsgBox'>").parent().appendTo(body); 
 
 	var label = JOBAD.refs.$("<div class='progress-label'>").text("Loading Repository, please wait ...").appendTo(msgBox);
 	
-	msgBox.progressbar({
-		value: 0
-	})
+	msgBox.css({
+		"width": 0
+	});
 
 	var baseUrl = JOBAD.util.resolve(repo);
 	baseUrl = baseUrl.substring(0, baseUrl.length - 1); // no slash at the end
 
 	JOBAD.repo.init(baseUrl, function(suc, cache){
-		msgBox.progressbar("option", "value", 25); 
+		msgBox.css({
+			"width": "25%",
+		}); 
+
 		if(!suc){
 			label.text("Repository loading failed: "+cache);
 			return; 
@@ -112,13 +115,15 @@ JOBAD.repo.buildPage = function(element, repo, callback){
 
 		var next = function(){
 
-			msgBox.progressbar("option", "value", 25+75*((i+1)/(modules.length))); 
+			msgBox.css({
+				"width": ""+((25+75*((i+1)/(modules.length)))*100)+"%"
+			});
 
 			var name = modules[i]; 
 
 			if(i >= modules.length){
 				label.text("Finished. ");
-				msgBox.fadeOut(1000);
+				msgBox.parent().fadeOut(1000);
 				callback(body); 
 				return;
 			}

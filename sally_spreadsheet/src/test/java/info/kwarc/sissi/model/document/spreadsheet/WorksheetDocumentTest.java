@@ -1,5 +1,5 @@
 package info.kwarc.sissi.model.document.spreadsheet;
-
+/*
 import info.kwarc.sally.core.ScreenCoordinatesProvider;
 import info.kwarc.sally.core.interfaces.IPositionProvider;
 import info.kwarc.sally.networking.interfaces.IMessageCallback;
@@ -76,3 +76,4 @@ public class WorksheetDocumentTest {
 		Assert.assertEquals(pos.getCol(), 2);
 	}
 }
+*/

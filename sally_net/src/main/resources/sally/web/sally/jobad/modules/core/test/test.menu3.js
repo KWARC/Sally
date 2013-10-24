@@ -28,10 +28,17 @@
 			'description':	'Tests dynamic menu callbacks. '
 		},
 		contextMenuEntries: function(target, JOBADInstance){
+
+			var message = "Ooops, something didn't work according to plan. "; 
+
+			JOBADInstance.Event.once("contextmenu.open", function(){
+				//called once the contextmenu is opened
+				message = "this message has been generated in another function. "; 
+			});
+
 			return {
 				"Dynamic Menu Test": [
 					function(){
-						var message = $("#dynamic_menu_test").data("dynamic_message");
 						alert(message); 
 					}, {
 						"id": "dynamic_menu_test", //This is the id
@@ -43,12 +50,12 @@
 		onEvent: function(evt){
 			if(evt == "contextMenuOpen"){
 				//Context Menu is opened
-				$("#dynamic_menu_test").data("dynamic_message", "this message has been generated in another function. ");
-				console.log("Menu open"); 
+
+				//Hack the item to be yellow
+				$("#dynamic_menu_test").find("a").css("color", "yellow")
 			}
 			if(evt == "contextMenuClose"){
 				//Context Menu was closed
-				console.log("Menu close"); 
 			}
 		}
 	});

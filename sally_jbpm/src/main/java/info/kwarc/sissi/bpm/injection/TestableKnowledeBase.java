@@ -1,7 +1,7 @@
 package info.kwarc.sissi.bpm.injection;
 
+import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sissi.bpm.AbstractKnowledgeBase;
-import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
 
 import org.drools.runtime.StatefulKnowledgeSession;
 
@@ -36,7 +36,7 @@ public class TestableKnowledeBase extends AbstractModule {
 	@Override
 	protected void configure() {
 		bind(StatefulKnowledgeSession.class).toInstance(knowledgeSession);
-		bind(ISallyKnowledgeBase.class).to(JUnitKnowledge.class);
+		bind(ISallyWorkflowManager.class).to(JUnitKnowledge.class);
 	}
 
 }

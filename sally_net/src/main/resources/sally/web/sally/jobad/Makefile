@@ -1,8 +1,8 @@
-# Makefile for JOBAd
+# Makefile for JOBAD
 
 # Build everything
 all: deps js css libs templates doc
-clean: clean-deps clean-templates clean-doc clean-release
+clean: clean-templates clean-doc clean-release
 libs: js-libs css-libs
 
 # Get the dependencies
@@ -19,6 +19,7 @@ templates:
 	bash build/build-templates.sh
 clean-templates:
 	rm -rf examples/build
+	bash build/cleanup.sh
 
 # Documentation
 doc: pipdeps

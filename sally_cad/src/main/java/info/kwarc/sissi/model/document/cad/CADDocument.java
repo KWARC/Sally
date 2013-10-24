@@ -6,8 +6,8 @@ import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyService;
 import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.comm.SallyModelRequest;
-import info.kwarc.sally.networking.interfaces.IMessageCallback;
-import info.kwarc.sally.networking.interfaces.INetworkSender;
+import info.kwarc.sally.core.net.IMessageCallback;
+import info.kwarc.sally.core.net.INetworkSender;
 
 import java.util.List;
 
@@ -20,6 +20,7 @@ import sally.SwitchToApp;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
+import com.google.protobuf.AbstractMessage;
 import com.hp.hpl.jena.rdf.model.Model;
 
 public class CADDocument {
@@ -37,7 +38,7 @@ public class CADDocument {
 		sender.sendMessage("/do/switch", request, new IMessageCallback() {
 			
 			@Override
-			public void onMessage() {
+			public void onMessage(AbstractMessage msg) {
 				
 			}
 		});
@@ -46,7 +47,7 @@ public class CADDocument {
 	public void selectRange(CADNavigateTo navigateTo) {
 		sender.sendMessage("/do/select", navigateTo, new IMessageCallback() {
 			@Override
-			public void onMessage() {
+			public void onMessage(AbstractMessage msg) {
 				
 			}
 		});

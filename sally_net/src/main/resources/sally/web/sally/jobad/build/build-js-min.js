@@ -14,6 +14,7 @@ var build = new gear.Queue({registry: new gear.Registry({module: 'gear-lib'})})
 
 build.run(function (error, results) {
     if (error) {
+        console.log(error); 
     	process.exit(1); 
     } else {
     	process.exit(0); 

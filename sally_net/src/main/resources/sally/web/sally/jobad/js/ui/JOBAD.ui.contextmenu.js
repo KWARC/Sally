@@ -106,7 +106,6 @@ JOBAD.UI.ContextMenu.enable = function(element, demandFunction, config){
 			return !block; 
 		}
 
-
 		//trigger the open callback
 		onOpen(element);
 
@@ -117,7 +116,8 @@ JOBAD.UI.ContextMenu.enable = function(element, demandFunction, config){
 		}
 
 		//create the context menu element
-		var menuBuild = JOBAD.refs.$("<div>").addClass("ui-front"); //we want to be in front. 
+		var menuBuild = JOBAD.refs.$("<div>")
+		.appendTo(JOBAD.refs.$("body"));
 
 
 		//a handler for closing
@@ -138,13 +138,12 @@ JOBAD.UI.ContextMenu.enable = function(element, demandFunction, config){
 					JOBAD.util.ifType(config.callBackTarget, JOBAD.refs.$, targetElement), 
 					JOBAD.util.ifType(config.callBackOrg, JOBAD.refs.$, orgElement), 
 				onCallBack)
-				.menu()
+				.show()
+				.dropdown()
 			).on('contextmenu', function(e){
 				return (e.ctrlKey);
-			}).css({
-				"left": Math.min(mouseCoords[0], window.innerWidth-menuBuild.outerWidth(true)-JOBAD.UI.ContextMenu.config.margin), 
-				"top":  Math.min(mouseCoords[1], window.innerHeight-menuBuild.outerHeight(true)-JOBAD.UI.ContextMenu.config.margin)
-			});
+			}); 
+
 		} else if(menuType == 1 || JOBAD.util.equalsIgnoreCase(menuType, 'radial')){
 
 			//build the radial menu
@@ -168,7 +167,7 @@ JOBAD.UI.ContextMenu.enable = function(element, demandFunction, config){
 					JOBAD.refs.$(this).trigger("contextmenu.JOBAD.UI.ContextMenu"); //trigger my context menu. 
 					return false;
 				}).end()
-			)
+			);
 
 			JOBAD.UI.ContextMenu.enable(menuBuild, function(e){
 				return JOBAD.refs.$(e).closest("div").data("JOBAD.UI.ContextMenu.subMenuData");
@@ -197,14 +196,17 @@ JOBAD.UI.ContextMenu.enable = function(element, demandFunction, config){
 		//set its css and append it to the body
 
 		menuBuild
+		.BS() //enable Bootstrap on the menu
 		.css({
 			'width': JOBAD.UI.ContextMenu.config.width,
 			'position': 'fixed'
+		}).css({
+			"left": Math.min(mouseCoords[0], window.innerWidth-menuBuild.outerWidth(true)-JOBAD.UI.ContextMenu.config.margin), 
+			"top":  Math.min(mouseCoords[1], window.innerHeight-menuBuild.outerHeight(true)-JOBAD.UI.ContextMenu.config.margin)
 		})
 		.on('mousedown', function(e){
 			e.stopPropagation();//prevent closemenu from triggering
-		})
-		.appendTo(JOBAD.refs.$("body"))
+		}); 
 
 		onShow(menuBuild, result); 
 
@@ -271,7 +273,10 @@ JOBAD.UI.ContextMenu.buildContextMenuList = function(items, element, orgElement,
 	var cb = JOBAD.util.forceFunction(callback, function(){});
 
 	//create ul
-	var $ul = JOBAD.refs.$("<ul class='JOBAD JOBAD_Contextmenu'>");
+	var $ul = JOBAD.refs.$("<ul class='JOBAD JOBAD_Contextmenu'>").addClass("dropdown-menu");
+	$ul
+	.attr("role", "menu")
+	.attr("aria-labelledby", "dropdownMenu"); 
 	
 	for(var i=0;i<items.length;i++){
 		var item = items[i];
@@ -280,7 +285,7 @@ JOBAD.UI.ContextMenu.buildContextMenuList = function(items, element, orgElement,
 		var $li = JOBAD.refs.$("<li>").appendTo($ul);
 		
 		//create link
-		var $a = JOBAD.refs.$("<a href='#'>")
+		var $a = JOBAD.refs.$("<a href='#' tabindex='-1'>")
 		.appendTo($li)
 		.text(item[0])
 		.click(function(e){
@@ -312,9 +317,11 @@ JOBAD.UI.ContextMenu.buildContextMenuList = function(items, element, orgElement,
 					JOBAD.refs.$(document).trigger('JOBAD.UI.ContextMenu.unbind');
 				});	
 			} else if(item[1] === false){
-				$a.parent().addClass("ui-state-disabled"); 
+				$a.parent().addClass("disabled"); 
 			} else {
-				$li.append(JOBAD.UI.ContextMenu.buildContextMenuList(item[1], element, orgElement, cb));
+				$li.append(
+					JOBAD.UI.ContextMenu.buildContextMenuList(item[1], element, orgElement, cb)
+				).addClass("dropdown-submenu"); 
 			}
 		})()
 	}
@@ -379,9 +386,17 @@ JOBAD.UI.ContextMenu.buildPieMenuList = function(items, element, orgElement, cal
 		}).addClass("JOBAD JOBAD_Contextmenu JOBAD_ContextMenu_Radial JOBAD_ContextMenu_RadialItem")
 
 		$item.animate({
+			"deg": 360,
 			"top": Y,
 			"left": X
-		}, 400);
+		}, {
+			"duration": 400,
+			"step": function(d, prop) {
+				if(prop.prop == "deg"){
+					$container.find(".JOBAD_ContextMenu_RadialItem").css({transform: 'rotate(' + d + 'deg)'})
+				}
+			}
+		});
 
 		$item.append(
 			JOBAD.refs.$("<img src='"+JOBAD.resources.getIconResource(item[2], {"none": "warning"})+"'>")

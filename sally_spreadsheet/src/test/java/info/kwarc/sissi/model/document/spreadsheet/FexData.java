@@ -1,5 +1,5 @@
 package info.kwarc.sissi.model.document.spreadsheet;
-
+/*
 import info.kwarc.sally.model.document.spreadsheet.ASMInterface;
 
 import java.io.BufferedOutputStream;
@@ -230,4 +230,4 @@ public class FexData {
 		FexData t = new FexData();
 		t.index(t.setData());
 	}
-}
+}*/

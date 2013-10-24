@@ -4,6 +4,7 @@ package info.kwarc.sally.spreadsheet3;
 import info.kwarc.sally.spreadsheet3.model.Block;
 import info.kwarc.sally.spreadsheet3.model.CellSpaceInformation;
 import info.kwarc.sally.spreadsheet3.model.Manager;
+import info.kwarc.sally.spreadsheet3.model.RangeInformation;
 import info.kwarc.sally.spreadsheet3.model.Relation;
 import info.kwarc.sally.spreadsheet3.ontology.BuilderML;
 
@@ -18,6 +19,16 @@ public class Util {
 	
 	static Pattern omdocUriPattern = Pattern.compile("(.+?)#(\\p{Graph}+)");
 	static Pattern cellAddressPattern = Pattern.compile("([A-Z]+)([0-9]+)");
+	static Pattern rangeAddressPattern = Pattern.compile("(.+)!([A-Z]+)([0-9]+):([A-Z]+)([0-9]+)");
+	
+	public static RangeInformation convertRangeAddress(String position)  {
+		Matcher m = rangeAddressPattern.matcher(position);
+
+		if (m.find()) {
+			return new RangeInformation(m.group(1), convertRangeCharacter(m.group(2)), Integer.parseInt(m.group(3))-1, convertRangeCharacter(m.group(4)), Integer.parseInt(m.group(5))-1);
+		} else
+			return null;	
+	}
 	
 	public static CellSpaceInformation convertCellPosition(String position)  {
 		Matcher m = cellAddressPattern.matcher(position);
@@ -27,7 +38,7 @@ public class Util {
 		} else
 			return null;	
 	}
-	
+		
 	public static int convertRangeCharacter(String str) {
 		int valueA = (int) 'A';
 		int index = 0;
@@ -149,8 +160,6 @@ public class Util {
 			blocks.add(m.getBlockByID(id));
 		return blocks;
 	}
-	
-	
 	
 	public static List<Integer> convertRelationsToIDs(List<Relation> relations) {
 		List<Integer> ids = new ArrayList<Integer>();

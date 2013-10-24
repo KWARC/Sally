@@ -19,18 +19,22 @@ public class ASM {
 	protected static final Property property( String local )
 	{ return ResourceFactory.createProperty( uri, local ); }
 
-    public static final Resource FunctionalBlock = resource( "FunctionalBlock" );
-    public static final Resource FunctionalInstance = resource( "FunctionalInstance" );
-    public static final Resource LegendBlock = resource( "LegendBlock" );
-    public static final Resource LegendInstance = resource( "LegendInstance" );
+    public static final Resource Block = resource( "Block" );
+    public static final Resource Relation = resource( "Relation" );
+    public static final Resource AbstractSpreadsheetModelType = resource("");
+    
+    public static final Property hasArgs = property( "hasArgs" );
+    public static final Property hasURL = property( "hasURL" );
 
-    public static final Property containsFunctionalInstance = property( "containsFunctionalInstance" );
-    public static final Property containsLegendInstance = property( "containsLegendInstance" );
-    public static final Property partOfFunctionalBlock = property( "partOfFunctionalBlock" );
-    public static final Property partOfLegendBlock = property( "partOfLegendBlock" );
-
-    public static final Property valueOf = property( "valueOf" );
-    public static final Property linkedTo = property( "linkedTo" );
+    public static final Property hasSheet = property( "hasSheet" );
+    public static final Property hasStartRow = property( "hasStartRow" );
+    public static final Property hasStartCol = property( "hasStartCol" );
+    public static final Property hasEndRow = property( "hasEndRow" );
+    public static final Property hasEndCol = property( "hasEndCol" );
+    
+    public static final Property blockID = property( "blockid" );
+    public static final Property relType  = property( "relationType" );
     public static final Property partOfFile = property( "partOfFile" );
+    public static final Property partOfASM= property( "partOfASM" );
 
 }

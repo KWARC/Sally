@@ -1,10 +1,10 @@
 package info.kwarc.sally;
 
+import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.injection.Configuration;
 import info.kwarc.sally.networking.ConnectionManager;
 import info.kwarc.sally.networking.interfaces.IConnectionManager;
 import info.kwarc.sally.networking.interfaces.MockNetworkSender;
-import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
 import info.kwarc.sissi.bpm.injection.TestableKnowledeBase;
 import info.kwarc.sissi.bpm.tasks.TestCounterHandler;
 
@@ -35,7 +35,7 @@ public class ConnectionManagerTest extends JbpmJUnitTestCase {
 	@Test
 	public void testSimpleOneUser() {
 		ConnectionManager c = i.getInstance(ConnectionManager.class);
-		ISallyKnowledgeBase kb = i.getInstance(ISallyKnowledgeBase.class);
+		ISallyWorkflowManager kb = i.getInstance(ISallyWorkflowManager.class);
 		
 		TestCounterHandler cntInit = new TestCounterHandler();
 		TestCounterHandler cntCreateDoc = new TestCounterHandler();
@@ -59,7 +59,7 @@ public class ConnectionManagerTest extends JbpmJUnitTestCase {
 	@Test
 	public void testSimpleTwoUsers() {
 		ConnectionManager c = i.getInstance(ConnectionManager.class);
-		ISallyKnowledgeBase kb = i.getInstance(ISallyKnowledgeBase.class);
+		ISallyWorkflowManager kb = i.getInstance(ISallyWorkflowManager.class);
 		
 		TestCounterHandler cntInit = new TestCounterHandler();
 		TestCounterHandler cntCreateDoc = new TestCounterHandler();
@@ -91,7 +91,7 @@ public class ConnectionManagerTest extends JbpmJUnitTestCase {
 	@Test
 	public void testForwarding() {
 		IConnectionManager c = i.getInstance(ConnectionManager.class);
-		ISallyKnowledgeBase kb = i.getInstance(ISallyKnowledgeBase.class);
+		ISallyWorkflowManager kb = i.getInstance(ISallyWorkflowManager.class);
 		c.newClient("user1", new MockNetworkSender());
 
 		TestCounterHandler cntInit = new TestCounterHandler();

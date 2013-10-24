@@ -486,7 +486,7 @@
 <p>JOBAD should work in all modern browsers. JOBAD has been tested successfully in: </p>
 
 <ul>
-<li>Google Chrome 26</li>
+<li>Google Chrome 28</li>
 <li>Firefox 20</li>
 <li>Internet Explorer 10</li>
 </ul>
@@ -501,7 +501,69 @@
 
 <h2>Changelog</h2>
 
-<h3>Version 3.1.8 (Stable)</h3>
+<h3>Version 3.2.0 (Stable)</h3>
+
+<ul>
+<li>added auto focus for JOBADInstances</li>
+<li>added the keypress event (finally)</li>
+<li>bug Fix: EventHandler .off was not working</li>
+<li>added support for CSS scoped bootstrap
+<ul>
+<li>compatibility with jQuery UI, no CSS is broken
+<ul>
+<li>added a new jQuery UI Testing page for this</li>
+</ul></li>
+<li>this currently breaks BS fade animations</li>
+</ul></li>
+</ul>
+
+<h3>Version 3.1.9</h3>
+
+<ul>
+<li>Change in dependencies
+<ul>
+<li>removed jQuery UI dependency, we now only need Bootstrap 2.x</li>
+<li>support for jQuery 1.8+</li>
+<li>added bundled jQuery Color for color animations</li>
+</ul></li>
+<li>added JOBAD.Instances
+<ul>
+<li>added the focus and the unfocus Events</li>
+<li>only one JOBAD Instance focused at the same time</li>
+<li>no auto focusing for now</li>
+</ul></li>
+<li>added Toolbars
+<ul>
+<li>per-module</li>
+<li>UI left to module</li>
+<li>can be shifted up and down</li>
+<li>have to be enable via config UI or via code</li>
+<li>only visible on the currently focused JOBADInstance</li>
+</ul></li>
+<li>improved the Event System
+<ul>
+<li>Dynamic listening to event via <code>.Event.on(evt, handler)</code> and <code>.Event.once(evt, handler)</code></li>
+<li>added <code>.Event.bind</code> and <code>loadedModule.setHandler</code> to create custom events for modules</li>
+<li>added folding.enable and folding.disable events</li>
+</ul></li>
+<li>changes to the Sidebar
+<ul>
+<li>removed "bound to element" Sidebar Style </li>
+<li>added a "hidden" Sidebar Style, which hides the Sidebar
+<ul>
+<li>should be used for clients where the sidebar takes away space</li>
+</ul></li>
+</ul></li>
+<li>improved JOBAD.util.getOrigin()
+<ul>
+<li>better compatibility when using inline-scripts</li>
+</ul></li>
+<li>more rotation for the radial context menu</li>
+<li>updated the config module</li>
+<li>updated Makefile</li>
+</ul>
+
+<h3>Version 3.1.8</h3>
 
 <ul>
 <li>improved contextMenu

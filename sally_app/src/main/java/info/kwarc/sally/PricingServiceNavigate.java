@@ -1,7 +1,7 @@
 package info.kwarc.sally;
 
+import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.networking.TemplateEngine;
-import info.kwarc.sissi.bpm.inferfaces.ISallyKnowledgeBase;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -22,10 +22,10 @@ public class PricingServiceNavigate {
 	Logger log;
 	PricingService pricingService;
 	TemplateEngine te;
-	ISallyKnowledgeBase kb;
+	ISallyWorkflowManager kb;
 
 	@Inject
-	public PricingServiceNavigate(PricingService pricingService, TemplateEngine te, ISallyKnowledgeBase kb) {
+	public PricingServiceNavigate(PricingService pricingService, TemplateEngine te, ISallyWorkflowManager kb) {
 		this.pricingService = pricingService;
 		this.te = te;
 		log = org.slf4j.LoggerFactory.getLogger(getClass());
