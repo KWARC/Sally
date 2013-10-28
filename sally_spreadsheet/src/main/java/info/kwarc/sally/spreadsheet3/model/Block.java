@@ -3,7 +3,9 @@ package info.kwarc.sally.spreadsheet3.model;
 import info.kwarc.sally.spreadsheet3.ontology.ValueInterpretation;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 abstract public class Block {
 	
@@ -11,16 +13,20 @@ abstract public class Block {
 	String worksheet;
 	List<ValueInterpretation> valueInterpretations;
 	
+	Map<PropertyName, String> properties;
+	
 	public Block(int id, String worksheet, List<ValueInterpretation> valueInterpretations) {
 		this.id = id;
 		this.worksheet = worksheet;
 		this.valueInterpretations = new ArrayList<ValueInterpretation>(valueInterpretations);
+		this.properties = new HashMap<PropertyName, String>();
 	}
 	
 	public Block(int id, String worksheet) {
 		this.id = id;
 		this.worksheet = worksheet;
 		this.valueInterpretations = new ArrayList<ValueInterpretation>();
+		this.properties = new HashMap<PropertyName, String>();
 	}
 	
 	public int getId() {
@@ -105,10 +111,22 @@ abstract public class Block {
 
 		return valueInterpretation;
 	}
+	
+	public String getProperty(PropertyName key) {
+		return properties.get(key);
+	}
+	
+	public void setProperty(PropertyName key, String value) {
+		properties.put(key, value);
+	}
 
 	abstract public List<CellSpaceInformation> getCells();
 	
 	abstract public List<Block> getSubBlocks();
+	
+	abstract public boolean contains(Block b);
+	
+	abstract public void remove(Block b);
 	
 	abstract public int getMinRow();
 	
@@ -125,15 +143,23 @@ abstract public class Block {
 		for (sally.ValueInterpretationMsg viMsg : msg.getValueInterpretationsList())
 			vi.add(new ValueInterpretation(viMsg));
 		
+		Block b;
+		
 		if (msg.getType().equals(sally.BlockMsg.Type.Atomic)) {
-			return new BlockAtomic(msg.getId(), new CellSpaceInformation(msg.getPosition()), vi);
+			b = new BlockAtomic(msg.getId(), new CellSpaceInformation(msg.getPosition()), vi);
 		} else if (msg.getType().equals(sally.BlockMsg.Type.Composed)) {
 			List<Block> subBlocks = new ArrayList<Block>();
 			for (int blockId : msg.getSubBlockIdsList())
 				subBlocks.add(manager.getBlockByID(blockId));
-			return new BlockComposed(msg.getId(), subBlocks, vi);
+			b = new BlockComposed(msg.getId(), subBlocks, vi);
 		} else
 			throw new java.lang.IllegalArgumentException("Unknown blocktype.");
+		
+		for (sally.Property propertyMsg : msg.getPropertiesList()) {
+			b.setProperty(PropertyName.values()[propertyMsg.getPropertyID()], propertyMsg.getValue() );
+		}
+		
+		return b;
 	}
 	
 }

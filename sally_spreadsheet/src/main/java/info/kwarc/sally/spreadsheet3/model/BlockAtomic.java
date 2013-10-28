@@ -58,6 +58,15 @@ public class BlockAtomic extends Block {
 	}
 	
 	@Override
+	public boolean contains(Block b) {
+		return false;
+	}
+	
+	@Override
+	public void remove(Block b) {
+	}
+	
+	@Override
 	public int getMinRow() {
 		int min = Integer.MAX_VALUE;
 		for (CellSpaceInformation pos : this.getCells())
@@ -97,6 +106,10 @@ public class BlockAtomic extends Block {
 		blockMsg.setWorksheet(this.worksheet);
 		for (ValueInterpretation vi : this.valueInterpretations)
 			blockMsg.addValueInterpretations(vi.serialize());
+		
+		for (PropertyName p : properties.keySet())
+			blockMsg.addProperties(sally.Property.newBuilder().setPropertyID(p.ordinal()).setValue(properties.get(p)).build() );
+		
 		blockMsg.setPosition(this.position.serialize());
 		return blockMsg.build();
 	}
