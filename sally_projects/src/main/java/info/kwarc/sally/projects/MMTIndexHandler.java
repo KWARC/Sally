@@ -2,18 +2,15 @@ package info.kwarc.sally.projects;
 
 import info.kwarc.mmt.api.frontend.Controller;
 import info.kwarc.mmt.api.modules.DeclaredTheory;
-import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteraction;
+import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.vfs2.FileObject;
-
-
-import sally.TextAutocomplete;
 
 public class MMTIndexHandler implements IndexHandler, STeXParsingEvents  {
 	Controller mmtController;
@@ -70,6 +67,7 @@ public class MMTIndexHandler implements IndexHandler, STeXParsingEvents  {
 		
 	}
 
+	/*
 	@SallyService(channel="/autocomplete")
 	public void doQuery(TextAutocomplete query, SallyInteractionResultAcceptor acceptor, SallyContext context) {
 		SallyInteraction interaction = context.getCurrentInteraction();
@@ -108,5 +106,5 @@ public class MMTIndexHandler implements IndexHandler, STeXParsingEvents  {
 			acceptor.acceptResult(constants);
 		} 
 	}
-	
+	*/
 }

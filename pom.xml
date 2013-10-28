@@ -18,8 +18,8 @@
 		<module>sally_net</module>
 		<module>sally_spreadsheet</module>
 		<module>sally_cad</module>
-		<module>sally_ontology</module>
 		<module>sally_def_lookup</module>
+		<module>sally_projects</module>
 		<module>sally_html</module>
 		<module>sally_sketch</module>
 		<module>sally_theoweb</module>
