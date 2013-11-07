@@ -1,0 +1,15 @@
+# get all Knowledge Units
+
+PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX pivot:      <http://www.kwarc.info/sally/pivot#>
+
+
+SELECT ?realSo ?realFile ?realURI {
+	?so rdf:type pivot:softwareObject.
+    ?so pivot:hasURI "%s".
+    ?so pivot:partOfFile "%s".
+    ?so pivot:isRealized ?realSo.
+    ?realSo pivot:partOfFile ?realFile.
+    ?realSo pivot:hasURI ?realURI.
+}

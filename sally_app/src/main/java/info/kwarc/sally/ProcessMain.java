@@ -8,12 +8,13 @@ import info.kwarc.sally.injection.Configuration;
 import info.kwarc.sally.networking.CometD;
 import info.kwarc.sally.networking.Injection.ProductionNetworking;
 import info.kwarc.sally.networking.interfaces.IConnectionManager;
+import info.kwarc.sally.pivot.PivotingService;
 import info.kwarc.sally.planetary.Planetary;
 import info.kwarc.sally.service.def_lookup.DefinitionLookupService;
 import info.kwarc.sally.spreadsheet.ASMEditor;
-import info.kwarc.sissi.bpm.injection.ProductionRemoteKnowledgeBase;
+import info.kwarc.sissi.bpm.injection.ProductionLocalKnowledgeBase;
 import info.kwarc.sissi.bpm.injection.ProductionSallyActions;
-import sally.GetMeta;
+import sally.GetSheets;
 import sally.SpreadsheetDocMeta;
 
 import com.google.inject.Guice;
@@ -28,18 +29,19 @@ public class ProcessMain {
 	public static final void main(String[] args) throws Exception {
 		Injector i = Guice.createInjector(
 				new Configuration(),
-				new ProductionRemoteKnowledgeBase(), 
-				//new ProductionLocalKnowledgeBase(), 
+				//new ProductionRemoteKnowledgeBase(), 
+				new ProductionLocalKnowledgeBase(), 
 				new ProductionSallyActions(),
 				new ProductionNetworking()
 		);
-		
+				
 		SallyInteraction interaction = i.getInstance(SallyInteraction.class);
 		interaction.registerServices(i.getInstance(Planetary.class));
 		interaction.registerServices(i.getInstance(PricingService.class));
 		interaction.registerServices(i.getInstance(InstanceService.class));
 		interaction.registerServices(i.getInstance(ASMEditor.class));		
 		interaction.registerServices(i.getInstance(DefinitionLookupService.class));		
+		interaction.registerServices(i.getInstance(PivotingService.class));		
 		
 		ISallyWorkflowManager kb = i.getInstance(ISallyWorkflowManager.class);
 		//kb.startProcess(null, "Sally.browse_ontology");
@@ -56,8 +58,8 @@ public class ProcessMain {
 			@Override
 			public void sendMessage(String channel, AbstractMessage msg,
 					IMessageCallback callback) {
-				if (msg instanceof GetMeta) {
-					SpreadsheetDocMeta result = SpreadsheetDocMeta.newBuilder().setFileName(((GetMeta) msg).getFileName()).addSheets("Vendor A").addSheets("Vendor B").build();
+				if (msg instanceof GetSheets) {
+					SpreadsheetDocMeta result = SpreadsheetDocMeta.newBuilder().setFileName("file://pipe-end.xls").addSheets("Vendor A").addSheets("Vendor B").build();
 					callback.onMessage(result);
 				}
 			}

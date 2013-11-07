@@ -1,0 +1,89 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:pivot="http://www.kwarc.info/sally/pivot#" > 
+  <rdf:Description rdf:nodeID="A0">
+    <pivot:hasURI>htmlid#e9825dfe-db34-40f3-9441-05ecfe04ff57</pivot:hasURI>
+    <pivot:partOfFile>Montagekran_Zusammenstellung-img-1</pivot:partOfFile>
+    <pivot:partOfKnowledgeUnit rdf:nodeID="A1"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/pivot#softwareObject"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A2">
+    <pivot:hasURI>htmlid#7c03f071-23f5-4002-8931-af8d9dc949bb</pivot:hasURI>
+    <pivot:partOfFile>Montagekran_Zusammenstellung-img-1</pivot:partOfFile>
+    <pivot:partOfKnowledgeUnit rdf:nodeID="A1"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/pivot#softwareObject"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A3">
+    <pivot:isRealized rdf:nodeID="A0"/>
+    <pivot:isRealized rdf:nodeID="A2"/>
+    <pivot:isRealized rdf:nodeID="A4"/>
+    <pivot:hasURI>htmlid#e5b6c442-7246-4b72-aa51-7c664a0d7509</pivot:hasURI>
+    <pivot:partOfFile>http://localhost/krane/taskdescription.html-img-1</pivot:partOfFile>
+    <pivot:partOfKnowledgeUnit rdf:nodeID="A1"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/pivot#softwareObject"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A5">
+    <pivot:hasURI>htmlid#c6c19239-5b27-43a7-bad4-4a17e01f1346</pivot:hasURI>
+    <pivot:partOfFile>Montagekran_Zusammenstellung-img-1</pivot:partOfFile>
+    <pivot:partOfKnowledgeUnit rdf:nodeID="A1"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/pivot#softwareObject"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A6">
+    <pivot:hasURI>htmlid#32bad8bc-f562-47cc-ba1d-9b133d22a0a4</pivot:hasURI>
+    <pivot:partOfFile>Montagekran_Zusammenstellung-img-1</pivot:partOfFile>
+    <pivot:partOfKnowledgeUnit rdf:nodeID="A1"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/pivot#softwareObject"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A7">
+    <pivot:isRealized rdf:nodeID="A8"/>
+    <pivot:isRealized rdf:nodeID="A9"/>
+    <pivot:isRealized rdf:nodeID="A5"/>
+    <pivot:hasURI>htmlid#e24a4675-8b6f-402c-b866-7ca21639e58f</pivot:hasURI>
+    <pivot:partOfFile>http://localhost/krane/taskdescription.html-img-1</pivot:partOfFile>
+    <pivot:partOfKnowledgeUnit rdf:nodeID="A1"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/pivot#softwareObject"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A9">
+    <pivot:hasURI>htmlid#5de291ee-dd13-4f37-975b-8cdd1ce1a775</pivot:hasURI>
+    <pivot:partOfFile>Montagekran_Zusammenstellung-img-1</pivot:partOfFile>
+    <pivot:partOfKnowledgeUnit rdf:nodeID="A1"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/pivot#softwareObject"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A4">
+    <pivot:hasURI>htmlid#1658aa0c-4417-44f9-b90d-7e224500ee92</pivot:hasURI>
+    <pivot:partOfFile>Montagekran_Zusammenstellung-img-1</pivot:partOfFile>
+    <pivot:partOfKnowledgeUnit rdf:nodeID="A1"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/pivot#softwareObject"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A8">
+    <pivot:hasURI>htmlid#49420870-cd99-4854-a854-6d97a3c0f0c1</pivot:hasURI>
+    <pivot:partOfFile>Montagekran_Zusammenstellung-img-1</pivot:partOfFile>
+    <pivot:partOfKnowledgeUnit rdf:nodeID="A1"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/pivot#softwareObject"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A10">
+    <pivot:hasURI>htmlid#0a413d2b-b26e-40fa-a012-35b2917d4296</pivot:hasURI>
+    <pivot:partOfFile>Montagekran_Zusammenstellung-img-1</pivot:partOfFile>
+    <pivot:partOfKnowledgeUnit rdf:nodeID="A1"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/pivot#softwareObject"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A1">
+    <pivot:hasName>Crane Project</pivot:hasName>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/pivot#knowledgeUnit"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A11">
+    <pivot:hasURI>htmlid#340e89db-9d73-49d1-9032-5c7335bf2547</pivot:hasURI>
+    <pivot:partOfFile>Montagekran_Zusammenstellung-img-1</pivot:partOfFile>
+    <pivot:partOfKnowledgeUnit rdf:nodeID="A1"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/pivot#softwareObject"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A12">
+    <pivot:isRealized rdf:nodeID="A11"/>
+    <pivot:isRealized rdf:nodeID="A10"/>
+    <pivot:isRealized rdf:nodeID="A6"/>
+    <pivot:hasURI>htmlid#9a18d6d3-1efa-4374-9a2b-4bf1028f962b</pivot:hasURI>
+    <pivot:partOfFile>http://localhost/krane/taskdescription.html-img-1</pivot:partOfFile>
+    <pivot:partOfKnowledgeUnit rdf:nodeID="A1"/>
+    <rdf:type rdf:resource="http://www.kwarc.info/sally/pivot#softwareObject"/>
+  </rdf:Description>
+</rdf:RDF>

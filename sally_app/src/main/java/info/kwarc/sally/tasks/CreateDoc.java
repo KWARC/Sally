@@ -8,6 +8,7 @@ import info.kwarc.sally.core.net.INetworkSender;
 import info.kwarc.sally.core.theo.Theo;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.html.HTMLFactory;
+import info.kwarc.sally.projects.ProjectFactory;
 import info.kwarc.sally.sketch.SketchFactory;
 import info.kwarc.sally.spreadsheet.interfaces.WorksheetFactory;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
@@ -26,13 +27,14 @@ import org.slf4j.LoggerFactory;
 
 import sally.AlexData;
 import sally.CADSemanticData;
+import sally.DocType;
 import sally.HTMLASM;
+import sally.ProjectModel;
 import sally.SketchASM;
 import sally.SpreadsheetAlexData;
 import sally.WhoAmI;
-import sally.WhoAmI.DocType;
+import sally_comm.ProtoUtils;
 
-import com.github.jucovschi.ProtoCometD.ProtoUtils;
 import com.google.inject.Inject;
 import com.google.protobuf.AbstractMessage;
 
@@ -43,15 +45,17 @@ public class CreateDoc implements WorkItemHandler {
 	WorksheetFactory spreadsheetFactory;
 	SketchFactory sketchFactory;
 	HTMLFactory htmlFactory;
-
+	ProjectFactory projectFactory;
+	
 	SallyInteraction interaction;
 	ISallyWorkflowManager kb;
 	DocumentManager docManager;
 	Logger log;
 
 	@Inject
-	public CreateDoc(CADFactory cadFactory, WorksheetFactory spreadsheetFactory, SketchFactory sketchFactory, HTMLFactory htmlFactory, SallyInteraction interaction, ISallyWorkflowManager kb, DocumentManager docMap) {
+	public CreateDoc(CADFactory cadFactory, WorksheetFactory spreadsheetFactory, ProjectFactory projectFactory, SketchFactory sketchFactory, HTMLFactory htmlFactory, SallyInteraction interaction, ISallyWorkflowManager kb, DocumentManager docMap) {
 		this.cadFactory = cadFactory;
+		this.projectFactory = projectFactory;
 		this.spreadsheetFactory = spreadsheetFactory;
 		this.sketchFactory = sketchFactory;
 		this.htmlFactory = htmlFactory;
@@ -88,7 +92,8 @@ public class CreateDoc implements WorkItemHandler {
 			String processId = null;
 			Object processInput = null;
 			Map<String, Object> params = new HashMap<String, Object>();
-
+			
+			log.info("Creating Document " + alexData.getFileName());
 			if (alexInfo.getDocumentType() == DocType.Spreadsheet) {
 				SpreadsheetAlexData rr ;
 				try {
@@ -105,6 +110,14 @@ public class CreateDoc implements WorkItemHandler {
 				processInput = cadFactory.create(alexData.getFileName(), rr, networkSender);
 				params.put("CSMInput", processInput);
 				processId = "Sally.cad";
+			}
+			if (alexInfo.getDocumentType() == DocType.Mashup) {
+				AbstractMessage msg = ProtoUtils.deserialize(alexData.getData());
+				if (msg instanceof ProjectModel) {
+					ProjectModel pm = (ProjectModel) msg;
+					processInput = projectFactory.create(alexData.getFileName(), pm, networkSender);					
+					processId = "Sally.app_manager";
+				}				
 			}
 			if (alexInfo.getDocumentType() == DocType.Sketch) {
 				//log.info(msg);

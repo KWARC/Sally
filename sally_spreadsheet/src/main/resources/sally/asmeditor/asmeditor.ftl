@@ -43,6 +43,7 @@
 
 <script>
 	asmeditor = new ASMEditor(asm);
+	refresh_tree();
 </script>
 
 <script type="text/template" id="item-template">

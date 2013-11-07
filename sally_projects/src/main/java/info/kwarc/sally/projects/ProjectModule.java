@@ -1,12 +1,12 @@
 package info.kwarc.sally.projects;
 
-import org.drools.runtime.process.WorkItem;
-import org.drools.runtime.process.WorkItemHandler;
-import org.drools.runtime.process.WorkItemManager;
-
-import info.kwarc.sally.core.SallyService;
 import info.kwarc.sally.core.interfaces.SallyTask;
 import info.kwarc.sally.core.net.INetworkSender;
+
+import org.drools.process.instance.WorkItemHandler;
+import org.drools.runtime.process.WorkItem;
+import org.drools.runtime.process.WorkItemManager;
+
 import sally.ProjectModel;
 
 import com.google.inject.Inject;

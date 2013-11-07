@@ -32,8 +32,18 @@
   <xsl:text>- </xsl:text> 
 </xsl:template>
 
+<xsl:template match="m:times">
+  <xsl:text>* </xsl:text> 
+</xsl:template>
+
 <xsl:template match="m:eq">
   <xsl:text>= </xsl:text> 
+</xsl:template>
+
+<xsl:template match="m:rvar">
+  <xsl:text>x</xsl:text>
+  <xsl:value-of select="@num"/>
+  <xsl:text> </xsl:text>
 </xsl:template>
 
 </xsl:stylesheet>

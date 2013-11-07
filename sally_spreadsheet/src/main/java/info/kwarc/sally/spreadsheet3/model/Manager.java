@@ -237,6 +237,40 @@ public class Manager {
 		return new ArrayList<Block>(blocks.values());
 	}
 	
+	/**
+	 * Deletes a block.
+	 * All relations that are associated with this block are deleted as well.
+	 * @param block
+	 */
+	public void removeBlock(Block block) {
+		List<CellSpaceInformation> positions = block.getCells();
+		if (block instanceof BlockAtomic) {
+			positionToAtomicBlock.remove(positions.get(0));
+		}
+		
+		// Remove position
+		for (CellSpaceInformation pos : positions) {
+			List<Block> blocks = positionToTopLevelBlocks.get(pos);
+			blocks.remove(block);
+			if (blocks.isEmpty())
+				positionToTopLevelBlocks.remove(pos);
+		}
+		
+		blocks.remove(block.getId());
+		
+		// Remove as subblock
+		for (Block b : blocks.values())
+			if (b.contains(block))
+				b.remove(block);
+		
+		// Remove relations that contain the block
+		for (Relation rel : new ArrayList<Relation>(relations.values())) {
+			if (rel.getBlocks().contains(block))
+				removeRelation(rel);
+		}
+		
+	}
+	
 	private void addPositionToBlockLink(CellSpaceInformation position, Block addBlock, List<Block> removeBlocks) {
 		if (positionToTopLevelBlocks.containsKey(position)) {
 			List<Block> blocksForPos = positionToTopLevelBlocks.get(position);
@@ -278,6 +312,15 @@ public class Manager {
 		return r;
 	}
 	
+	public Relation createUnaryRelation(Relation.RelationType type, Block block) {
+		maxRelationID++;
+		
+		Relation r = new Relation(maxRelationID, type, block);
+		this.relations.put(maxRelationID, r);
+		addPositionsToRelationLink(block.getCells(), r);
+		return r;
+	}
+	
 	/**
 	 * Returns all relations.
 	 * @return All relations.
@@ -308,6 +351,22 @@ public class Manager {
 			return relations;
 	}
 	
+	public List<Relation> getRelationsFor(CellSpaceInformation position, Block block, Relation.RelationType type) {
+		List<Relation> relationList1;
+		if (position != null)
+			relationList1 = positionToRelations.get(position);
+		else
+			relationList1 = getAllRelations();
+		
+		List<Relation> relationList2 = new ArrayList<Relation>();
+		for (Relation rel : relationList1) {
+			if ( ((block == null) || (rel.getBlocks().contains(block)) ) &&
+				 ((type == null) || (rel.getRelationType().equals(type)) ) )
+				 relationList2.add(rel);
+		}
+		return relationList2;
+	}
+	
 	/**
 	 * Getting all cell relations that contain the given position.
 	 * @param position The position which must be part of the cell relations.
@@ -322,6 +381,18 @@ public class Manager {
 	}
 
 
+	public void removeRelation(Relation rel) {
+		relations.remove(rel.getId());
+		for (Block b : rel.getBlocks() ){
+			for (CellSpaceInformation pos : b.getCells()) {
+				List<Relation> allRelationsForPos = positionToRelations.get(pos);
+				allRelationsForPos.remove(rel);
+				if (allRelationsForPos.isEmpty())
+					positionToRelations.remove(pos);
+			}
+		}
+	}
+	
 	private void addPositionToRelationLink(CellSpaceInformation position, Relation relation) {
 		if (positionToRelations.containsKey(position)) {
 			positionToRelations.get(position).add(relation);
@@ -368,9 +439,11 @@ public class Manager {
 		
 		// Interpretations for functional blocks
 		for (Relation rel : this.relations.values()) {
-			for (CellTuple cellTuple : rel.getCellRelations()) {
-				String interpretation = RelationInterpreter.interprete(rel,cellTuple, spreadsheet, ontologyInterface.getBuilderML());
-				mapping.put(cellTuple.getTuple().get(cellTuple.getTuple().size()-1), interpretation);
+			if (rel.getRelationType().equals(Relation.RelationType.FUNCTIONALRELATION)) {
+				for (CellTuple cellTuple : rel.getCellRelations()) {
+					String interpretation = RelationInterpreter.interprete(rel,cellTuple, spreadsheet, ontologyInterface.getBuilderML());
+					mapping.put(cellTuple.getTuple().get(cellTuple.getTuple().size()-1), interpretation);
+				}
 			}
 		}
 	

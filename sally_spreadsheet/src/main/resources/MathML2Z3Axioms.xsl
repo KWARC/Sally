@@ -3,7 +3,8 @@
 <xsl:output method="text" encoding="UTF-8"/>
 
 <xsl:template match="m:apply">
-  <xsl:text>(</xsl:text> <xsl:apply-templates/>
+  <xsl:text>(</xsl:text>
+  <xsl:apply-templates/>
   <xsl:text>)</xsl:text> 
 </xsl:template>
 
@@ -45,15 +46,8 @@
 </xsl:template>
 
 <xsl:template match="m:condition">
-  <xsl:text>(</xsl:text> 
-  <xsl:value-of select="."/>
-  <xsl:text>)</xsl:text> 
+  <xsl:apply-templates/>
 </xsl:template>
 
-<xsl:template match="m:condition/m:apply/m:and">
-  <xsl:text>(</xsl:text> 
-  <xsl:value-of select="."/>
-  <xsl:text>)</xsl:text> 
-</xsl:template>
 
 </xsl:stylesheet>

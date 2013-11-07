@@ -17,34 +17,43 @@ import java.util.Map;
 public class VerificationDataExtractor {
 	
 	static psf.ParserInterface parser = new psf.ParserInterface();
-	static String[] stdDataTypes = {"omdoc://MathML#Real", "omdoc://MathML#Int", "omdoc://MathML#Bool" };
+	//static String[] stdDataTypes = {"omdoc://MathML#Real", "omdoc://MathML#Int", "omdoc://MathML#Bool" };
 	
-	public static Map<String, List<String>> extractDataTypes(Map<Block, String> blocks, FormalSpreadsheet spreadsheet) {
-		Map<String, List<String>> dataTypes = new HashMap<String,List<String>>();
+	public static List<DataSymbolInformation> extractDataTypes(Map<Block, String> blocks, FormalSpreadsheet spreadsheet) {
+		/*Map<String, List<String>> dataTypes = new HashMap<String,List<String>>();
 		
 		for (Block b : blocks.keySet()) {
 			List<String> values;
-			boolean isStdDT = false;
+			/*boolean isStdDT = false;
 			for (String dt : stdDataTypes)
 				if (dt.equals( blocks.get(b)) )
-					isStdDT = true;
-			if (!isStdDT) {
-				if (dataTypes.containsKey(blocks.get(b)))
-					values = dataTypes.get(blocks.get(b));
-				else {
-					values = new ArrayList<String>();
-					dataTypes.put(blocks.get(b), values);
-				}
-				for (CellSpaceInformation pos : b.getCells()) {
-					if ((spreadsheet.get(pos) != null) && 
-							!spreadsheet.get(pos).getValue().isEmpty() &&
-							!values.contains(b.getValueInterpretation( spreadsheet.get(pos).getValue()) ) )
-						values.add(b.getValueInterpretation( spreadsheet.get(pos).getValue()) );
+					isStdDT = true;* /
+			
+			if (dataTypes.containsKey(blocks.get(b)))
+				values = dataTypes.get(blocks.get(b));
+			else {
+				values = new ArrayList<String>();
+				dataTypes.put(blocks.get(b), values);
+			}
+			for (CellSpaceInformation pos : b.getCells()) {
+				if ((spreadsheet.get(pos) != null) && 
+						!spreadsheet.get(pos).getValue().isEmpty() &&
+						!values.contains(b.getValueInterpretation( spreadsheet.get(pos).getValue()) ) )
+					values.add(b.getValueInterpretation( spreadsheet.get(pos).getValue()) );
+			}
+		}*/
+		
+		List<DataSymbolInformation> dataObjects = new ArrayList<DataSymbolInformation>();
+		
+		for (Block b : blocks.keySet()) {
+			for (CellSpaceInformation pos : b.getCells()) {
+				if ((spreadsheet.get(pos) != null) && !spreadsheet.get(pos).getValue().isEmpty()) {
+					dataObjects.add(new DataSymbolInformation(blocks.get(b), b.getValueInterpretation( spreadsheet.get(pos).getValue()), pos));
 				}
 			}
 		}
 		
-		return dataTypes;
+		return dataObjects;
 	}
 	
 	public static Map<Relation, String> extractCPSimilarFBs(Manager manager, FormalSpreadsheet spreadsheet, BuilderML builderML) {

@@ -1,10 +1,11 @@
 package info.kwarc.sally.spreadsheet3.verification;
 
 import static org.junit.Assert.*;
-
 import info.kwarc.sally.spreadsheet3.Util;
 import info.kwarc.sally.spreadsheet3.WinogradData;
 import info.kwarc.sally.spreadsheet3.model.Block;
+import info.kwarc.sally.spreadsheet3.model.CellSpaceInformation;
+import info.kwarc.sally.spreadsheet3.model.Relation;
 import info.kwarc.sally.spreadsheet3.ontology.BuilderML;
 import info.kwarc.sally.spreadsheet3.ontology.BuilderMathML;
 
@@ -19,60 +20,94 @@ import org.junit.Test;
 public class VerificationDataExtractorTest {
 	WinogradData winData;
 	BuilderML builderML;
+	//List<String> standardTypes;
 
 	@Before
 	public void setUp() throws Exception {
 		winData =  new WinogradData();
 		builderML = new BuilderMathML();
+		/*standardTypes = new ArrayList<String>();
+		standardTypes.add("money#monetary-quantity");
+		standardTypes.add("spsht-numbers#spshReal");
+		standardTypes.add("spsht-bool#spshBool");*/
 	}
 
 	@Test
 	public void extractDataTypesTest() {
-		Map<Block, String> blocksToUris = new HashMap<Block,String>();
-		for (Block b : winData.getManager().getAllTopLevelBlocks())
-			blocksToUris.put(b, "TODO");
-		Map<String, List<String>> dataTypes = VerificationDataExtractor.extractDataTypes(blocksToUris, winData.getSpreadsheet());
-		assertEquals("<ci>Costtype: Revenues</ci>", dataTypes.get("omdoc://winograd#Costs").get(0));
-		assertEquals("<apply><csymbol>times</csymbol><ci>1000000</ci><ci>0.2</ci></apply>", dataTypes.get("omdoc://winograd#CostsPerYear").get(5));
+		Map<Block, String> blocksToUris = new HashMap<Block, String>();
+		for (Block b : winData.getManager().getAllTopLevelBlocks()) {
+			Relation blockRelation = winData.getManager().getRelationsFor(null, b, Relation.RelationType.TYPERELATION).get(0);
+			
+			blocksToUris.put(b, blockRelation.getUri());	
+		}
+		List<DataSymbolInformation> dataTypes = VerificationDataExtractor.extractDataTypes(blocksToUris, winData.getSpreadsheet());
+		
+		assertTrue(dataTypes.size() == 29);
+		assertEquals("profits#profit", dataTypes.get(0).getOntologyType());
+		assertEquals("<ci>Profit</ci>", dataTypes.get(0).getContent());
+		assertEquals(new CellSpaceInformation("Table1",5,0), dataTypes.get(0).getPostition());
 	}
 	
 	@Test
 	public void extractCPSimilarFBsTest() {
-		//VerificationDataExtractor.extractCPSimilarFBs(winData.getManager(), winData.getSpreadsheet());
 		List <String> cpSimilarRepresentations = new ArrayList<String>(VerificationDataExtractor.extractCPSimilarFBs(winData.getManager(), winData.getSpreadsheet(), builderML).values());
 		assertEquals(2, cpSimilarRepresentations.size());
-		System.out.println("CPSimilar:\n" + cpSimilarRepresentations.get(0));
+		int indexExpensesPerYear = 0;
+		if (cpSimilarRepresentations.get(0).contains("profit"))
+			indexExpensesPerYear = 1;		// Sometimes the order flips
 		assertEquals(
 				"<apply>\n" +
 				"<csymbol cd=\"spsht-arith\">equal</csymbol>\n" +
 				"<apply>\n" +
-				"<csymbol cd=\"winograd\">ExpensesPerYear</csymbol>\n" +
+				"<csymbol cd=\"expenses\">ExpensesPerYear</csymbol>\n" +
 				"<rvar num=\"0\"/>\n" +
 				"<rvar num=\"1\"/>\n" +
 				"</apply>\n" +
 				"  <apply>\n" +
 				"    <csymbol cd=\"spsht-arith\">plus</csymbol>\n" +
 				"      <apply>\n" +
-				"      <csymbol cd=\"winograd\">ExpensesPerYear</csymbol>\n" +
+				"      <csymbol cd=\"expenses\">ExpensesPerYear</csymbol>\n" +
 				"      <rvar num=\"0\"/>\n" +
-				"      <ci>Costtype: Materials</ci>\n" +
+				"      <ci>Material Costs</ci>\n" +
 				"      </apply>\n" +
 				"      <apply>\n" +
-				"      <csymbol cd=\"winograd\">ExpensesPerYear</csymbol>\n" +
+				"      <csymbol cd=\"expenses\">ExpensesPerYear</csymbol>\n" +
 				"      <rvar num=\"0\"/>\n" +
-				"      <ci>Costtype: Salaries</ci>\n" +
+				"      <ci>Salary Costs</ci>\n" +
 				"      </apply>\n" +
 				"  </apply>\n" +
-				"</apply>\n",cpSimilarRepresentations.get(0).replaceAll("\r", "")
+				"</apply>\n",cpSimilarRepresentations.get(indexExpensesPerYear).replaceAll("\r", "")
 				);
 	}
 	
 	@Test
 	public void extractMLFormulaRepresentationsTest() {
-		List <String> mlFormulae = new ArrayList<String>(VerificationDataExtractor.extractMLFormulaRepresentations(winData.getRelationCalc(), winData.getManager(), winData.getSpreadsheet(), builderML).values());
+		List <String> mlFormulae = new ArrayList<String>(VerificationDataExtractor.extractMLFormulaRepresentations(winData.getRelationTotalCosts(), winData.getManager(), winData.getSpreadsheet(), builderML).values());
 		assertEquals(4, mlFormulae.size());
-		System.out.println("Formula for 1986:\n" + Util.tagAsMathMLObject(mlFormulae.get(2), new BuilderMathML()) );
-
+		assertEquals(
+				"<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" +
+				"<apply>\n" +
+				"<csymbol cd=\"spsht-arith\">equal</csymbol>\n" +
+				"<apply>\n" +
+				"<csymbol cd=\"expenses\">ExpensesPerYear</csymbol>\n" +
+				"<ci>Year 1986 AD</ci>\n" +
+				"<ci>Total Costs</ci>\n" +
+				"</apply>\n" +
+				"  <apply>\n" +
+				"    <csymbol cd=\"spsht-arith\">plus</csymbol>\n" +
+				"      <apply>\n" +
+				"      <csymbol cd=\"expenses\">ExpensesPerYear</csymbol>\n" +
+				"      <ci>Year 1986 AD</ci>\n" +
+				"      <ci>Material Costs</ci>\n" +
+				"      </apply>\n" +
+				"      <apply>\n" +
+				"      <csymbol cd=\"expenses\">ExpensesPerYear</csymbol>\n" +
+				"      <ci>Year 1986 AD</ci>\n" +
+				"      <ci>Salary Costs</ci>\n" +
+				"      </apply>\n" +
+				"  </apply>\n" +
+				"</apply>\n" +
+				"</math>\n", Util.tagAsMathMLObject(mlFormulae.get(2), new BuilderMathML()).replaceAll("\r", ""));
 	}
 
 }

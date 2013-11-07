@@ -6,21 +6,21 @@ import java.util.Map;
 public class DataTypeSpec {
 	
 	List<String> specification;
-	Map<String, String> identifierToSymbol;
+	Map<String, String> viToZ3String;			// Maps a value interpretation for a string to a Z3 Identifier (e.g. <ci>Total Costs</ci> -> Total_Costs)
 	
 	public DataTypeSpec(List<String> specification,
-			Map<String, String> identifierToSymbol) {
+			Map<String, String> viToZ3String) {
 		super();
 		this.specification = specification;
-		this.identifierToSymbol = identifierToSymbol;
+		this.viToZ3String = viToZ3String;
 	}
 
 	public List<String> getSpecification() {
 		return specification;
 	}
 
-	public Map<String, String> getIdentifierToSymbol() {
-		return identifierToSymbol;
+	public Map<String, String> getViToZ3StringMap() {
+		return viToZ3String;
 	}
 	
 

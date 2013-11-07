@@ -12,7 +12,9 @@ import info.kwarc.sally.html.injection.HTMLDocModule;
 import info.kwarc.sally.networking.CometD;
 import info.kwarc.sally.networking.ConnectionManager;
 import info.kwarc.sally.networking.interfaces.IConnectionManager;
+import info.kwarc.sally.pivot.PivotingService;
 import info.kwarc.sally.planetary.injection.PlanetaryModule;
+import info.kwarc.sally.projects.injection.ProjectDocModule;
 import info.kwarc.sally.sketch.injection.SketchDocModule;
 import info.kwarc.sally.spreadsheet.injection.SpreadsheetModule;
 import info.kwarc.sally.theofx.injection.TheoFX;
@@ -34,6 +36,7 @@ public class Configuration extends AbstractModule {
 		install(new WebTheoModule());
 		install(new SketchDocModule());
 		install(new HTMLDocModule());
+		install(new ProjectDocModule());
 		
 		bind(CookieProvider.class);
 		bind(IPositionProvider.class).to(ScreenCoordinatesProvider.class);
@@ -42,6 +45,7 @@ public class Configuration extends AbstractModule {
 		bind(PricingService.class);
 		bind(DocumentManager.class);
 		bind(RDFStore.class);
+		bind(PivotingService.class);
 		
 		bind(String.class).annotatedWith(Names.named("SallyPackage")).toInstance("Sally.pkg");
 				

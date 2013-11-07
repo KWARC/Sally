@@ -38,7 +38,7 @@ public class GetSheets implements WorkItemHandler  {
 
 	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
-		final sally.GetMeta  gm = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), sally.GetMeta.class);
+		final sally.GetSheets gm = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), sally.GetSheets.class);
 		log.info("Create Blocks "+gm);
 		try {
 			if (gm == null)
@@ -49,7 +49,7 @@ public class GetSheets implements WorkItemHandler  {
 				throw new Exception("No document model");
 			SpreadsheetDocument spdoc = (SpreadsheetDocument) docModel;
 
-			docInfo.getNetworkSender().sendMessage("/service/get/meta", gm, new IMessageCallback() {
+			docInfo.getNetworkSender().sendMessage("/spreadsheet/get/sheets", gm, new IMessageCallback() {
 				
 				@Override
 				public void onMessage(AbstractMessage msg) {

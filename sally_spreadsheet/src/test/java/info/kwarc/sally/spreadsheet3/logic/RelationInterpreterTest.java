@@ -22,18 +22,18 @@ public class RelationInterpreterTest {
 		String definition = RelationInterpreter.getDefinition(winData.getRelationProfit(), 
 				winData.getRelationProfit().getCellRelationFor(pos).get(0),
 				winData.getSpreadsheet(), new InterfaceMockup());
-		//System.out.println(definition);
-		assertEquals("<apply>\n  <csymbol cd=\"spsht-arith\">minus</csymbol>\n  <apply>\n    <csymbol cd=\"winograd\">RevenuePerYear</csymbol>\n    <ci>Year 1984 AD</ci>\n  </apply>\n  <apply>\n    <csymbol cd=\"winograd\">ExpensesPerYear</csymbol>\n    <ci>Year 1984 AD</ci>\n    <ci>Costtype: Total</ci>\n  </apply>\n</apply>\n", definition);
+		System.out.println(definition);
+		assertEquals("<apply>\n  <csymbol cd=\"spsht-arith\">minus</csymbol>\n  <apply>\n    <csymbol cd=\"revenues\">RevenuesPerYear</csymbol>\n    <ci>Year 1984 AD</ci>\n  </apply>\n  <apply>\n    <csymbol cd=\"expenses\">ExpensesPerYear</csymbol>\n    <ci>Year 1984 AD</ci>\n    <ci>Total Costs</ci>\n  </apply>\n</apply>\n", definition);
 	}
 
 	@Test
 	public void testInterprete() {
 		CellSpaceInformation pos = new CellSpaceInformation("Table1",2,1);
-		String interpretation = RelationInterpreter.interprete(winData.getRelationInput(), 
-				winData.getRelationInput().getCellRelationFor(pos).get(0),
+		String interpretation = RelationInterpreter.interprete(winData.getRelationCosts(), 
+				winData.getRelationCosts().getCellRelationFor(pos).get(0),
 				winData.getSpreadsheet(), winData.getManager().getOntologyInterface().getBuilderML() );
 		
-		assertEquals("<apply>\n<csymbol cd=\"winograd\">ExpensesPerYear</csymbol>\n<ci>Year 1984 AD</ci>\n<ci>Costtype: Materials</ci>\n</apply>", interpretation);
+		assertEquals("<apply>\n<csymbol cd=\"expenses\">ExpensesPerYear</csymbol>\n<ci>Year 1984 AD</ci>\n<ci>Material Costs</ci>\n</apply>", interpretation);
 	}
 
 }

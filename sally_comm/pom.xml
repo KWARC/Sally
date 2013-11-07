@@ -99,7 +99,8 @@
 											<arg value="src/main/resources/common.proto" />
 											<arg value="target/common.js" />
 										</exec>
-										<copy file="target/common.js" tofile="../sally_net/src/main/resources/sally/web/sally/comm/common.js"></copy>
+										<copy file="target/common.js"
+											tofile="../sally_net/src/main/resources/sally/web/sally/comm/common.js"></copy>
 									</tasks>
 								</configuration>
 								<goals>
@@ -172,6 +173,12 @@
 			<groupId>com.google.protobuf</groupId>
 			<artifactId>protobuf-java</artifactId>
 			<version>2.5.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
 		</dependency>
 	</dependencies>
 

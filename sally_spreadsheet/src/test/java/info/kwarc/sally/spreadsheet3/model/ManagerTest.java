@@ -38,21 +38,21 @@ public class ManagerTest {
 		assertEquals(4, p1.get(0).getCells().size());
 		
 		List<Relation> p2 = manager.getRelationForPosition(new CellSpaceInformation("Table1", 2, 3));
-		assertEquals(new Integer(1), new Integer(p2.size()));
+		assertEquals(new Integer(2), new Integer(p2.size()));
 		
 		List<CellTuple> relation = manager.getCellRelationsForPosition(new CellSpaceInformation("Table1", 2, 3));
-		assertEquals(new Integer(1), new Integer(relation.size()));
+		assertEquals(new Integer(2), new Integer(relation.size()));
 		assertTrue(relation.get(0).contains((new CellSpaceInformation("Table1", 2, 0))));
 		assertTrue(relation.get(0).contains((new CellSpaceInformation("Table1", 0, 3))));
 		assertFalse(relation.get(0).contains((new CellSpaceInformation("Table1", 2, 2))));
 		
 		Map<CellSpaceInformation, String> interpretation = manager.getCompleteSemanticMapping(spreadsheet);
 		assertEquals("<ci>Year 1985 AD</ci>", interpretation.get(new CellSpaceInformation("Table1", 0, 2)));
-		assertEquals("<ci>Costtype: total</ci>", interpretation.get(new CellSpaceInformation("Table1", 4, 0)));
+		assertEquals("<ci>Total Costs</ci>", interpretation.get(new CellSpaceInformation("Table1", 4, 0)));
 		assertEquals("<apply>\n" +
-				"<csymbol cd=\"winograd\">ExpensesPerYear</csymbol>\n" +
+				"<csymbol cd=\"expenses\">ExpensesPerYear</csymbol>\n" +
 				"<ci>Year 1985 AD</ci>\n" +
-				"<ci>Costtype: total</ci>\n" +
+				"<ci>Total Costs</ci>\n" +
 				"</apply>", interpretation.get(new CellSpaceInformation("Table1", 4,2)));
 	}
 	
@@ -77,6 +77,15 @@ public class ManagerTest {
 		Manager managerNew = new Manager(manager.getOntologyInterface(), modelData);
 
 		assertEquals(manager, managerNew);
+	}
+	
+	@Test
+	public void testRemove() {
+		int numberOfBlocks = manager.getAllBlocks().size();
+		int numberOfRelations = manager.getAllRelations().size();
+		manager.removeBlock(year);
+		assertTrue(manager.getAllBlocks().size() == (numberOfBlocks - 1) );
+		assertTrue(manager.getAllRelations().size() == (numberOfRelations - 5)); // typeYear, revenues, costs, total costs, profit
 	}
 
 }

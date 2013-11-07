@@ -1,11 +1,13 @@
 package info.kwarc.sally.spreadsheet3.verification;
 
 import static org.junit.Assert.*;
-
 import info.kwarc.sally.spreadsheet3.FormalSpreadsheet;
 import info.kwarc.sally.spreadsheet3.WinogradData;
+import info.kwarc.sally.spreadsheet3.model.Block;
 import info.kwarc.sally.spreadsheet3.model.Manager;
+import info.kwarc.sally.spreadsheet3.model.Relation;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,50 +25,84 @@ public class VerificationSpecificationGeneratorTest {
 		manager = winData.getManager();
 		spreadsheet = winData.getSpreadsheet();
 	}
-/*
-	@Ignore
+
+	@Test
 	public void testGetDataTypeSpecification() {
 		// Datatypes
-		Map<String, List<String>> dataTypes = VerificationDataExtractor.extractDataTypes(manager.getAllTopLevelBlocks(), spreadsheet);
-		List<String> dtSpec = VerificationSpecificationGenerator.getDataTypeSpecification(dataTypes).getSpecification();
-		System.out.println("Datatypes:");
+		Map<Block, String> blocks = new HashMap<Block, String>();
+		for (Block b : manager.getAllTopLevelBlocks()) {
+			Relation blockRelation = manager.getRelationsFor(null, b, Relation.RelationType.TYPERELATION).get(0);
+			blocks.put(b, blockRelation.getUri());
+			
+		}
+		List<DataSymbolInformation> dataSym = VerificationDataExtractor.extractDataTypes(blocks, spreadsheet);
+		List<String> dtSpec = VerificationSpecificationGenerator.getDataTypeSpecification(manager, dataSym).getSpecification();
+		
+		assertTrue(dtSpec.size() == 40);
+		/*System.out.println("Data specification. Size: " + dtSpec.size());
 		for (String s : dtSpec)
-			System.out.println(s);
-	}
-	@Ignore
-	public void testGetFunctionDefinition() {
-		fail("Not yet implemented");
+			System.out.println(s);*/
 	}
 
-	@Ignore
+	@Test
 	public void testCreateFunctionDeclarations() {
-		System.out.println("Function declarations:");
-		for (String decl : VerificationSpecificationGenerator.createFunctionDeclarations((new OntologyData()).getAll()))
-			System.out.println(decl);
+		List<String> declarations = VerificationSpecificationGenerator.createFunctionDeclarations(manager.getOntologyInterface().getAllFunctionObjects(), manager);
+		assertTrue(declarations.size() == 2);
+		assertEquals("(declare-fun revenues~RevenuesPerYear (String ) Real)", declarations.get(0));
+		assertEquals("(declare-fun expenses~ExpensesPerYear (String String ) Real)", declarations.get(1));
+		
+		/*System.out.println("Declarations");
+		for (String s : declarations)
+			System.out.println(s);*/
 	}
 
-	@Ignore
+	@Test
 	public void testCreateFunctionDefinitions() {
-		Map<String, List<String>> dataTypes = VerificationDataExtractor.extractDataTypes(manager.getAllTopLevelBlocks(), spreadsheet);
-		DataTypeSpec dataTypesSpec = VerificationSpecificationGenerator.getDataTypeSpecification(dataTypes);
-		System.out.println("Function definitions:");
-		for (String def : VerificationSpecificationGenerator.createFunctionDefinitions( (new OntologyData()).getAll(), dataTypesSpec.getIdentifierToSymbol()))
-			System.out.println(def);
+		Map<Block, String> blocks = new HashMap<Block, String>();
+		for (Block b : manager.getAllTopLevelBlocks()) {
+			Relation blockRelation = manager.getRelationsFor(null, b, Relation.RelationType.TYPERELATION).get(0);
+			blocks.put(b, blockRelation.getUri());	
+		}
+		List<DataSymbolInformation> dataTypes = VerificationDataExtractor.extractDataTypes(blocks, spreadsheet);
+		DataTypeSpec dataTypesSpec = VerificationSpecificationGenerator.getDataTypeSpecification(manager, dataTypes);
+
+		List<String> definitions = VerificationSpecificationGenerator.createFunctionDefinitions( manager.getOntologyInterface().getAllFunctionObjects(), manager, dataTypesSpec.getViToZ3StringMap());
+		assertTrue(definitions.size() == 6);
+		assertEquals(
+				"(define-funprofits~ProfitPerYear((x0String))Real"
+				+ "("
+				+ "spsht-arith~minus"
+				+ "("
+				+ "revenues~RevenuesPerYear"
+				+ "x0"
+				+ ")"
+				+ "("
+				+ "expenses~ExpensesPerYear"
+				+ "x0"
+				+ "Total-Costs"
+				+ ")"
+				+ "))", 
+				definitions.get(0).replaceAll(" ", "").replaceAll("\r", "").replaceAll("\n", ""));
+		
+		/*System.out.println("Function definitions:");
+		for (String def : definitions)
+			System.out.println(def);*/
 	}
-*/
 	
+	/*
 	@Test
 	public void testCreateAxiom() {
-		String axiom = "<apply><forall/><bvar><ci>y</ci></bvar><condition><apply><and/><apply><in/><ci>y</ci><ci>omdoc://winograd#years</ci></apply></apply></condition>" +
-			"<apply><csymbol cd=\"spsht-arith\">equal</csymbol><apply><csymbol cd=\"winograd\">ExpensesPerYear</csymbol><ci>Costtype: total</ci><ci>y</ci></apply> " +
-			"<apply><csymbol cd=\"spsht-arith\">sum5</csymbol>" +
-			"<apply><csymbol cd=\"winograd\">ExpensesPerYear</csymbol><ci>Costtype: Salaries</ci><ci>y</ci></apply>" +
-			"<apply><csymbol cd=\"winograd\">ExpensesPerYear</csymbol><ci>Costtype: Materials</ci><ci>y</ci></apply>" +
-			"<apply><csymbol cd=\"winograd\">ExpensesPerYear</csymbol><ci>Costtype: Revenues</ci><ci>y</ci></apply>" +
-			"</apply></apply></apply>";
-		System.out.println("Axiom:");
-		System.out.println(VerificationSpecificationGenerator.getAxiom(axiom));
-	}
+		Map<Block, String> blocks = new HashMap<Block, String>();
+		for (Block b : manager.getAllTopLevelBlocks()) {
+			Relation blockRelation = manager.getRelationsFor(null, b, Relation.RelationType.TYPERELATION).get(0);
+			blocks.put(b, blockRelation.getUri());	
+		}
+		Map<String, List<String>> dataTypes = VerificationDataExtractor.extractDataTypes(blocks, spreadsheet);
+		DataTypeSpec dataTypesSpec = VerificationSpecificationGenerator.getDataTypeSpecification(dataTypes);
+		
+		String axiomSpec = VerificationSpecificationGenerator.getAxiom(manager.getOntologyInterface().getAxioms().get(0), dataTypesSpec.getIdentifierToSymbol());
+		System.out.println("Axiom Specification:\n" + axiomSpec);
+	}*/
 
 	@Ignore
 	public void testCreateCompeteSpecification() {
