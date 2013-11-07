@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 
 public class Util {
 	
-	static Pattern omdocUriPattern = Pattern.compile("omdoc://(.+)#(.+)");
+	static Pattern omdocUriPattern = Pattern.compile("(.+?)#(\\p{Graph}+)");
 	static Pattern cellAddressPattern = Pattern.compile("([A-Z]+)([0-9]+)");
 	static Pattern rangeAddressPattern = Pattern.compile("(.+)!([A-Z]+)([0-9]+):([A-Z]+)([0-9]+)");
 	
@@ -243,6 +243,19 @@ public class Util {
 			return matcher.group(2);
 		else
 			return "";
+	}
+	
+	public static String replaceURIsWithIdentifiers(String data) {
+		Matcher matcher = omdocUriPattern.matcher(data);
+		String result = "";
+		int lastIndex = 0;
+		while (matcher.find()) {
+			result = result + data.substring(lastIndex, matcher.start());
+			result = result + getCDFromURI(matcher.group()) + "~" + getSymbolFromURI(matcher.group());
+			lastIndex = matcher.end();
+		}
+		result = result + data.substring(lastIndex);
+		return result;
 	}
 	
 }

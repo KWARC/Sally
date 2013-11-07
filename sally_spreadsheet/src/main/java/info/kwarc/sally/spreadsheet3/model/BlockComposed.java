@@ -63,6 +63,16 @@ public class BlockComposed extends Block {
 	}
 	
 	@Override
+	public boolean contains(Block b) {
+		return blocks.contains(b);
+	}
+	
+	@Override
+	public void remove(Block b) {
+		blocks.remove(b);
+	}
+	
+	@Override
 	public int getMinRow() {
 		int min = Integer.MAX_VALUE;
 		for (Block b : this.getSubBlocks())
@@ -102,6 +112,10 @@ public class BlockComposed extends Block {
 		blockMsg.setWorksheet(this.worksheet);
 		for (ValueInterpretation vi : this.valueInterpretations)
 			blockMsg.addValueInterpretations(vi.serialize());
+		
+		for (PropertyName p : properties.keySet())
+			blockMsg.addProperties(sally.Property.newBuilder().setPropertyID(p.ordinal()).setValue(properties.get(p)).build() );
+		
 		for (Block b : this.blocks)
 			blockMsg.addSubBlockIds(b.getId());
 		return blockMsg.build();

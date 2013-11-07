@@ -18,12 +18,13 @@ public class WinogradData {
 	
 	Manager manager;
 	FormalSpreadsheet spreadsheet;
-	Block year, cost, profit, dataInput, dataCalc, dataProfit; 
-	Relation relationInput, relationCalc, relationProfit;
+	Block year, revenues, cost, profit, dataRevenues, dataCosts, dataTotalCosts, dataProfit; 
+	Relation relationRevenues, relationCosts, relationTotalCosts, relationProfit,
+		typeYear, typeRevenues, typeCost, typeProfit, typeDataRevenues, typeDataCosts, typeDataTotalCosts, typeDataProfit;
 	
 	public WinogradData() {
 		
-		// Setting up formal Spreadsheet
+		// +++ Setting up formal Spreadsheet +++
 		spreadsheet = new FormalSpreadsheet();
 		
 		spreadsheet.setContent(new CellSpaceInformation("Table1",0,1), "1984", "", ContentValueType.STRING_NUMBER);
@@ -32,9 +33,9 @@ public class WinogradData {
 		spreadsheet.setContent(new CellSpaceInformation("Table1",0,4), "1987", "", ContentValueType.STRING_NUMBER);
 		
 		spreadsheet.setContent(new CellSpaceInformation("Table1",1,0), "Revenues", "", ContentValueType.STRING_NUMBER);
-		spreadsheet.setContent(new CellSpaceInformation("Table1",2,0), "Materials", "", ContentValueType.STRING_NUMBER);
-		spreadsheet.setContent(new CellSpaceInformation("Table1",3,0), "Salaries","",  ContentValueType.STRING_NUMBER);
-		spreadsheet.setContent(new CellSpaceInformation("Table1",4,0), "total", "", ContentValueType.STRING_NUMBER);
+		spreadsheet.setContent(new CellSpaceInformation("Table1",2,0), "Material", "", ContentValueType.STRING_NUMBER);
+		spreadsheet.setContent(new CellSpaceInformation("Table1",3,0), "Salary","",  ContentValueType.STRING_NUMBER);
+		spreadsheet.setContent(new CellSpaceInformation("Table1",4,0), "Total", "", ContentValueType.STRING_NUMBER);
 		
 		spreadsheet.setContent(new CellSpaceInformation("Table1",5,0), "Profit", "", ContentValueType.STRING_NUMBER);
 		
@@ -63,47 +64,68 @@ public class WinogradData {
 		spreadsheet.setContent(new CellSpaceInformation("Table1",5,3), "3.3", "D5-D2", ContentValueType.FLOAT);
 		spreadsheet.setContent(new CellSpaceInformation("Table1",5,4), "3.4", "E5-E2", ContentValueType.FLOAT);
 		
-		// Setting up the manager
+		// +++ Setting up the manager +++
 		manager = new Manager(new InterfaceMockup());
+		
+		// +++ Setting up the ASM +++
+		
+		// Blocks
 		List<CellSpaceInformation> positionYear = Util.expandRange(
 				new CellSpaceInformation("Table1",0,1), new CellSpaceInformation("Table1",0,4));
 		year = manager.createComposedBlock(positionYear);
 		
+		revenues = manager.getOrCreateAtomicBlock(new CellSpaceInformation("Table1",1,0));
+		
 		List<CellSpaceInformation> positionCosts = Util.expandRange(
-				new CellSpaceInformation("Table1",1,0), new CellSpaceInformation("Table1",4,0));
+				new CellSpaceInformation("Table1",2,0), new CellSpaceInformation("Table1",4,0));
 		cost = manager.createComposedBlock(positionCosts);
 		
-		List<CellSpaceInformation> positionDataInput = Util.expandRange(
-				new CellSpaceInformation("Table1",1,1), new CellSpaceInformation("Table1",3,4));
-		dataInput = manager.createComposedBlock(positionDataInput);
-		
-		List<CellSpaceInformation> positionDataCalc = Util.expandRange(
-				new CellSpaceInformation("Table1",4,1), new CellSpaceInformation("Table1",4,4));
-		dataCalc = manager.createComposedBlock(positionDataCalc);
-		
 		profit = manager.getOrCreateAtomicBlock(new CellSpaceInformation("Table1",5,0));
+		
+		
+		List<CellSpaceInformation> positionDataRevenues = Util.expandRange(
+				new CellSpaceInformation("Table1",1,1), new CellSpaceInformation("Table1",1,4));
+		dataRevenues = manager.createComposedBlock(positionDataRevenues);
+		
+		List<CellSpaceInformation> positionDataCosts = Util.expandRange(
+				new CellSpaceInformation("Table1",2,1), new CellSpaceInformation("Table1",3,4));
+		dataCosts = manager.createComposedBlock(positionDataCosts);
+		
+		List<CellSpaceInformation> positionDataTotalCosts = Util.expandRange(
+				new CellSpaceInformation("Table1",4,1), new CellSpaceInformation("Table1",4,4));
+		dataTotalCosts = manager.createComposedBlock(positionDataTotalCosts);
 		
 		List<CellSpaceInformation> positionDataProfit = Util.expandRange(
 				new CellSpaceInformation("Table1",5,1), new CellSpaceInformation("Table1",5,4));
 		dataProfit = manager.createComposedBlock(positionDataProfit);
 		
-		List<Block> blocksInput = new ArrayList<Block>();
-		blocksInput.add(year);
-		blocksInput.add(cost);
-		blocksInput.add(dataInput);
+		// Functional relations
+		List<Block> blocksRevenues = new ArrayList<Block>();
+		blocksRevenues.add(year);
+		blocksRevenues.add(revenues);
+		blocksRevenues.add(dataRevenues);
 
-		List<CellDependencyDescription> relationInputDesc = new ArrayList<CellDependencyDescription>();
-		relationInputDesc.add(new CellDependencyDescription(0,2,0,3,"0,y;x,0;x,y"));
-		relationInput = manager.createRelation(Relation.RelationType.FUNCTIONALRELATION, blocksInput, relationInputDesc);
+		List<CellDependencyDescription> relationRevenuesDesc = new ArrayList<CellDependencyDescription>();
+		relationRevenuesDesc.add(new CellDependencyDescription(0,0,0,3,"0,y;x,0;x,y"));
+		relationRevenues = manager.createRelation(Relation.RelationType.FUNCTIONALRELATION, blocksRevenues, relationRevenuesDesc);
+		
+		List<Block> blocksCosts = new ArrayList<Block>();
+		blocksCosts.add(year);
+		blocksCosts.add(cost);
+		blocksCosts.add(dataCosts);
+
+		List<CellDependencyDescription> relationCostsDesc = new ArrayList<CellDependencyDescription>();
+		relationCostsDesc.add(new CellDependencyDescription(0,1,0,3,"0,y;x,0;x,y"));
+		relationCosts = manager.createRelation(Relation.RelationType.FUNCTIONALRELATION, blocksCosts, relationCostsDesc);
  		
- 		List<Block> blocksCalc = new ArrayList<Block>();
- 		blocksCalc.add(year);
- 		blocksCalc.add(cost);
- 		blocksCalc.add(dataCalc);
+ 		List<Block> blocksTotalCosts = new ArrayList<Block>();
+ 		blocksTotalCosts.add(year);
+ 		blocksTotalCosts.add(cost);
+ 		blocksTotalCosts.add(dataTotalCosts);
 
- 		List<CellDependencyDescription> relationCalcDesc = new ArrayList<CellDependencyDescription>();
-		relationCalcDesc.add(new CellDependencyDescription(0,0,0,3,"0,y;x+3,0;x,y"));
- 		relationCalc = manager.createRelation(Relation.RelationType.FUNCTIONALRELATION, blocksCalc, relationCalcDesc);
+ 		List<CellDependencyDescription> relationTotalCostsDesc = new ArrayList<CellDependencyDescription>();
+		relationTotalCostsDesc.add(new CellDependencyDescription(0,0,0,3,"0,y;x+2,0;x,y"));
+ 		relationTotalCosts = manager.createRelation(Relation.RelationType.FUNCTIONALRELATION, blocksTotalCosts, relationTotalCostsDesc);
  		
  		List<Block> blocksProfit = new ArrayList<Block>();
  		blocksProfit.add(year);
@@ -114,36 +136,67 @@ public class WinogradData {
  		relationProfitDesc.add(new CellDependencyDescription(0,0,0,3,"0,y;x,0;x,y"));
  		relationProfit = manager.createRelation(Relation.RelationType.FUNCTIONALRELATION, blocksProfit, relationProfitDesc);
  		
- 		// Setting up the ontology linking
+ 		// Type relations
+ 		typeYear = manager.createUnaryRelation(Relation.RelationType.TYPERELATION, year);
+ 		typeRevenues = manager.createUnaryRelation(Relation.RelationType.TYPERELATION, revenues);
+ 		typeCost = manager.createUnaryRelation(Relation.RelationType.TYPERELATION, cost);
+ 		typeProfit = manager.createUnaryRelation(Relation.RelationType.TYPERELATION, profit);
+ 		typeDataRevenues = manager.createUnaryRelation(Relation.RelationType.TYPERELATION, dataRevenues);
+ 		typeDataCosts = manager.createUnaryRelation(Relation.RelationType.TYPERELATION, dataCosts);
+ 		typeDataTotalCosts = manager.createUnaryRelation(Relation.RelationType.TYPERELATION, dataTotalCosts);
+ 		typeDataProfit = manager.createUnaryRelation(Relation.RelationType.TYPERELATION, dataProfit);
+ 		
+ 		// +++ Setting up the ontology linking +++
+ 		
+ 		// Value Interpretation
  		BuilderML builderML = manager.getOntologyInterface().getBuilderML();
  		
  		Map<Integer, String> subExpressions = new HashMap<Integer,String>();
 		subExpressions.put(new Integer(1), "\\d+");
 		year.setValueInterpretation(new ValueInterpretation("#1", subExpressions, "<ci>Year <rvar num=\"1\"/> AD</ci>", builderML));
 		
+		Map<Integer, String> subExpressions1a = new HashMap<Integer,String>();
+		subExpressions1a.put(new Integer(1), "\\p{Alpha}+");
+		revenues.setValueInterpretation(new ValueInterpretation("#1", subExpressions1a, "<ci>Revenues</ci>", builderML));
+		
 		Map<Integer, String> subExpressions2 = new HashMap<Integer,String>();
 		subExpressions2.put(new Integer(1), "\\p{Alpha}+");
-		cost.setValueInterpretation(new ValueInterpretation("#1", subExpressions2, "<ci>Costtype: <rvar num=\"1\"/></ci>", builderML));
+		cost.setValueInterpretation(new ValueInterpretation("#1", subExpressions2, "<ci><rvar num=\"1\"/> Costs</ci>", builderML));
 		
 		Map<Integer, String> subExpressions2a = new HashMap<Integer,String>();
 		subExpressions2a.put(new Integer(1), "\\p{Alpha}+");
 		profit.setValueInterpretation(new ValueInterpretation("#1", subExpressions2a, "<ci>Profit</ci>", builderML));
 		
+		Map<Integer, String> subExpressions3a = new HashMap<Integer,String>();
+		subExpressions3a.put(new Integer(1), "\\d+\\.\\d+");
+		dataRevenues.setValueInterpretation(new ValueInterpretation("#1", subExpressions3a, "<apply><csymbol cd=\"spsht-arith\">times</csymbol><ci>1000000</ci><ci><rvar num=\"1\"/></ci></apply>", builderML));
+		
 		Map<Integer, String> subExpressions3 = new HashMap<Integer,String>();
 		subExpressions3.put(new Integer(1), "\\d+\\.\\d+");
-		dataInput.setValueInterpretation(new ValueInterpretation("#1", subExpressions3, "<apply><csymbol cd=\"spsht-arith\">times</csymbol><ci>1000000</ci><ci><rvar num=\"1\"/></ci></apply>", builderML));
+		dataCosts.setValueInterpretation(new ValueInterpretation("#1", subExpressions3, "<apply><csymbol cd=\"spsht-arith\">times</csymbol><ci>1000000</ci><ci><rvar num=\"1\"/></ci></apply>", builderML));
 		
 		Map<Integer, String> subExpressions4 = new HashMap<Integer,String>();
 		subExpressions4.put(new Integer(1), "\\d+\\.\\d+");
-		dataCalc.setValueInterpretation(new ValueInterpretation("#1", subExpressions4, "<apply><csymbol cd=\"spsht-arith\">times</csymbol><ci>1000000</ci><ci><rvar num=\"1\"/></ci></apply>", builderML));
+		dataTotalCosts.setValueInterpretation(new ValueInterpretation("#1", subExpressions4, "<apply><csymbol cd=\"spsht-arith\">times</csymbol><ci>1000000</ci><ci><rvar num=\"1\"/></ci></apply>", builderML));
 		
 		Map<Integer, String> subExpressions5 = new HashMap<Integer,String>();
 		subExpressions5.put(new Integer(1), "\\d+\\.\\d+");
 		dataProfit.setValueInterpretation(new ValueInterpretation("#1", subExpressions5, "<apply><csymbol cd=\"spsht-arith\">times</csymbol><ci>1000000</ci><ci><rvar num=\"1\"/></ci></apply>", builderML));
 		
-		relationInput.setUri("omdoc://winograd#ExpensesPerYear");
-		relationCalc.setUri("omdoc://winograd#ExpensesPerYear");
-		relationProfit.setUri("omdoc://winograd#profit");
+		// Relation linking
+		relationRevenues.setUri("revenues#RevenuesPerYear");
+		relationCosts.setUri("expenses#ExpensesPerYear");
+		relationTotalCosts.setUri("expenses#ExpensesPerYear");
+		relationProfit.setUri("profits#ProfitPerYear");
+		
+		typeYear.setUri("timeinterval#yearAD");
+		typeRevenues.setUri("revenues#Revenues");
+		typeCost.setUri("costs#cost");
+		typeProfit.setUri("profits#profit");
+		typeDataRevenues.setUri("money#monetary-quantity");
+		typeDataCosts.setUri("money#monetary-quantity");
+		typeDataTotalCosts.setUri("money#monetary-quantity");
+		typeDataProfit.setUri("money#monetary-quantity");
 	}
 
 	public Manager getManager() {
@@ -157,6 +210,10 @@ public class WinogradData {
 	public Block getYear() {
 		return year;
 	}
+	
+	public Block getRevenues() {
+		return revenues;
+	}
 
 	public Block getCost() {
 		return cost;
@@ -165,29 +222,69 @@ public class WinogradData {
 	public Block getProfit() {
 		return profit;
 	}
-
-	public Block getDataCalc() {
-		return dataCalc;
+	
+	public Block getDataRevenues() {
+		return dataRevenues;
+	}
+	
+	public Block getDataCosts() {
+		return dataCosts;
 	}
 
-	public Block getDataInput() {
-		return dataInput;
+	public Block getDataTotalCosts() {
+		return dataTotalCosts;
 	}
 	
 	public Block getDataProfit() {
 		return dataProfit;
 	}
-
-	public Relation getRelationInput() {
-		return relationInput;
+	
+	public Relation getRelationRevenues() {
+		return relationRevenues;
 	}
 
-	public Relation getRelationCalc() {
-		return relationCalc;
+	public Relation getRelationCosts() {
+		return relationCosts;
+	}
+
+	public Relation getRelationTotalCosts() {
+		return relationTotalCosts;
 	}
 
 	public Relation getRelationProfit() {
 		return relationProfit;
+	}
+
+	public Relation getTypeYear() {
+		return typeYear;
+	}
+	
+	public Relation getTypeRevenues() {
+		return typeRevenues;
+	}
+
+	public Relation getTypeCost() {
+		return typeCost;
+	}
+
+	public Relation getTypeProfit() {
+		return typeProfit;
+	}
+	
+	public Relation getTypeDataRevenues() {
+		return typeDataRevenues;
+	}
+
+	public Relation getTypeDataCosts() {
+		return typeDataCosts;
+	}
+
+	public Relation getTypeDataTotalCosts() {
+		return typeDataTotalCosts;
+	}
+
+	public Relation getTypeDataProfit() {
+		return typeDataProfit;
 	}
 	
 }
