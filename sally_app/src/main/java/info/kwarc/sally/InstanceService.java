@@ -97,7 +97,7 @@ public class InstanceService {
 					DocumentInformation docInfo = docManager.getDocumentInformation(file);
 					Theo theo = docInfo.getTheo();
 					//TODO Changed this temporarily to match with the processInstanceId argument
-					theo.openWindow(docInfo, "Pricing results", URL, 300, 600);
+					theo.openWindow(docInfo, parentProcessInstanceID, "Pricing results", URL, 300, 600);
 				}
 			});
 		}

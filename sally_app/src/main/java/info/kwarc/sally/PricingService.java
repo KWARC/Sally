@@ -107,7 +107,7 @@ public class PricingService {
 					Theo theo = docInfo.getTheo();
 					kb.signal_global_event("switch_app", file);
 					
-					theo.openWindow(docInfo, "Instance Selector", "http://localhost:8181/sally/pricing?node="+uri.getCadNodeId()+"&file="+file, 450, 600);
+					theo.openWindow(docInfo, parentProcessInstanceID, "Instance Selector", "http://localhost:8181/sally/pricing?node="+uri.getCadNodeId()+"&file="+file, 450, 600);
 				}
 			});
 		}

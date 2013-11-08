@@ -109,6 +109,12 @@ sally.TheoCloseWindow = PROTO.Message("sally.TheoCloseWindow",{
 		type: function(){return PROTO.int32;},
 		id: 1
 	}});
+sally.DocType= PROTO.Enum("sally.DocType",{
+		Spreadsheet :0,
+		Text :1,
+		CAD :2,
+		Sketch :3,
+		Mashup :4});
 sally.WhoAmI = PROTO.Message("sally.WhoAmI",{
 	ClientType: PROTO.Enum("sally.WhoAmI.ClientType",{
 		Alex :0,
@@ -116,11 +122,6 @@ sally.WhoAmI = PROTO.Message("sally.WhoAmI",{
 	EnvironmentType: PROTO.Enum("sally.WhoAmI.EnvironmentType",{
 		Desktop :0,
 		Web :1	}),
-	DocType: PROTO.Enum("sally.WhoAmI.DocType",{
-		Spreadsheet :0,
-		Text :1,
-		CAD :2,
-		Sketch :3	}),
 	clientType: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -136,7 +137,7 @@ sally.WhoAmI = PROTO.Message("sally.WhoAmI",{
 	documentType: {
 		options: {},
 		multiplicity: PROTO.required,
-		type: function(){return sally.WhoAmI.DocType;},
+		type: function(){return sally.DocType;},
 		id: 3
 	}});
 sally.AlexData = PROTO.Message("sally.AlexData",{
@@ -414,6 +415,19 @@ sally.SpreadsheetAlexData = PROTO.Message("sally.SpreadsheetAlexData",{
 		type: function(){return sally.ModelDataMsg;},
 		id: 2
 	}});
+sally.SoftwareObject = PROTO.Message("sally.SoftwareObject",{
+	fileName: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return PROTO.string;},
+		id: 1
+	},
+	uri: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return PROTO.string;},
+		id: 2
+	}});
 sally.MMTUri = PROTO.Message("sally.MMTUri",{
 	uri: {
 		options: {},
@@ -465,7 +479,7 @@ sally.SpreadsheetDocMeta = PROTO.Message("sally.SpreadsheetDocMeta",{
 		type: function(){return PROTO.string;},
 		id: 2
 	}});
-sally.GetMeta = PROTO.Message("sally.GetMeta",{
+sally.GetSheets = PROTO.Message("sally.GetSheets",{
 	fileName: {
 		options: {},
 		multiplicity: PROTO.optional,
@@ -577,6 +591,19 @@ sally.CellSpaceInformationMsg = PROTO.Message("sally.CellSpaceInformationMsg",{
 		type: function(){return PROTO.int32;},
 		id: 5
 	}});
+sally.Property = PROTO.Message("sally.Property",{
+	propertyID: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return PROTO.int32;},
+		id: 1
+	},
+	value: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return PROTO.string;},
+		id: 2
+	}});
 sally.BlockMsg = PROTO.Message("sally.BlockMsg",{
 	Type: PROTO.Enum("sally.BlockMsg.Type",{
 		Atomic :1,
@@ -605,17 +632,23 @@ sally.BlockMsg = PROTO.Message("sally.BlockMsg",{
 		type: function(){return sally.ValueInterpretationMsg;},
 		id: 4
 	},
+	properties: {
+		options: {},
+		multiplicity: PROTO.repeated,
+		type: function(){return sally.Property;},
+		id: 5
+	},
 	position: {
 		options: {},
 		multiplicity: PROTO.optional,
 		type: function(){return sally.CellSpaceInformationMsg;},
-		id: 5
+		id: 6
 	},
 	subBlockIds: {
 		options: {},
 		multiplicity: PROTO.repeated,
 		type: function(){return PROTO.int32;},
-		id: 6
+		id: 7
 	}});
 sally.CellTupleMsg = PROTO.Message("sally.CellTupleMsg",{
 	tuple: {
@@ -833,4 +866,30 @@ sally.HTMLSelectPart = PROTO.Message("sally.HTMLSelectPart",{
 		multiplicity: PROTO.required,
 		type: function(){return PROTO.string;},
 		id: 2
+	}});
+sally.ProjectFile = PROTO.Message("sally.ProjectFile",{
+	fileName: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return PROTO.string;},
+		id: 1
+	},
+	cache: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return PROTO.string;},
+		id: 2
+	},
+	docType: {
+		options: {},
+		multiplicity: PROTO.required,
+		type: function(){return sally.DocType;},
+		id: 3
+	}});
+sally.ProjectModel = PROTO.Message("sally.ProjectModel",{
+	files: {
+		options: {},
+		multiplicity: PROTO.repeated,
+		type: function(){return sally.ProjectFile;},
+		id: 1
 	}});

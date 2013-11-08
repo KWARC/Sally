@@ -1,5 +1,5 @@
 package info.kwarc.sally.projects;
-
+/*
 import info.kwarc.mmt.api.Content;
 import info.kwarc.mmt.api.DPath;
 import info.kwarc.mmt.api.LocalName;
@@ -99,3 +99,5 @@ public class MMTWrapper {
 	}
 	
 }
+
+*/

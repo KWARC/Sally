@@ -20,7 +20,14 @@ public class HandlerUtils {
 		}
 		return new HashMap<String, Object>();
 	}
-	
+
+	public static void setProcessVariable(ProcessInstance pi, String name, Object value) {
+		if (pi instanceof RuleFlowProcessInstance) {
+			((RuleFlowProcessInstance) pi).setVariable(name, value);
+		}
+	}
+
+
 	public static <T> T safeGet(Map<String, Object> map, String key, Class<T> cls) {
 		Object t = map.get(key);
 		if (t==null)
@@ -30,7 +37,7 @@ public class HandlerUtils {
 		}			
 		return null;
 	}
-	
+
 	public static String guessOutputName(Map<String, Object> params) {
 		for (String param : params.keySet()) {
 			if (param.endsWith("Output")) {
@@ -39,7 +46,7 @@ public class HandlerUtils {
 		}
 		return null;
 	}
-	
+
 	public static HashMap<String, TestCounterHandler> registerCounterHandlers(ISallyWorkflowManager kb, String ...handlers) {
 		HashMap<String, TestCounterHandler> result = new HashMap<String, TestCounterHandler>();
 		for (String handler : handlers) {

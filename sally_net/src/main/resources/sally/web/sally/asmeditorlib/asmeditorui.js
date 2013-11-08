@@ -9,10 +9,12 @@ function open_sheet(spreadsheet, sheet) {
 }
 
 function refresh_tree() {
-	var sheet_tree = [];
-	$.each(asmeditor.getSpreadsheets(), function(idx, name) {
+	var cmd = new sally.GetSheets();
+	var sheet_tree = null;
+	
+	Communication.sendMessage(cmd, function(data) {
 		var sheets = [];
-		$.each(asmeditor.getSheets(name), function(idx, stName) {
+		$.each(data.sheets, function(idx, stName) {
 			sheets.push($("<li>").append(
 					$("<span>")
 					.append(	$("<i>").addClass("icon-sheet"))
@@ -21,14 +23,13 @@ function refresh_tree() {
 					}))
 			));
 		});
-		sheet_tree.push($("<li>").append(
+		sheet_tree = $("<li>").append(
 				$("<span>")
 				.append(	$("<i>").addClass("icon-xls"))
-				.append($("<a>").text(name).click(function() {
+				.append($("<a>").text(data.fileName).click(function() {
 					open_spread(name);
 				})))
-				.append($("<ul>").append(sheets))
-		);
+				.append($("<ul>").append(sheets));
+		$("#block-spread-root").append(sheet_tree); 		
 	});
-	$("#block-spread-root").append(sheet_tree);
 }

@@ -13,6 +13,7 @@ import org.cometd.bayeux.server.BayeuxServer;
 import org.cometd.bayeux.server.LocalSession;
 import org.cometd.bayeux.server.ServerChannel;
 import org.cometd.bayeux.server.ServerSession;
+import org.cometd.server.AbstractService;
 import org.cometd.server.BayeuxServerImpl;
 import org.cometd.server.CometdServlet;
 import org.eclipse.jetty.server.DispatcherType;
@@ -29,10 +30,8 @@ import org.eclipse.jetty.util.resource.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.jucovschi.ProtoCometD.CommunicationCallback;
-import com.github.jucovschi.ProtoCometD.CommunicationContext;
-import com.github.jucovschi.ProtoCometD.ProtoService;
-import com.github.jucovschi.ProtoCometD.ProtoUtils;
+import sally_comm.ProtoUtils;
+
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
@@ -60,7 +59,7 @@ public class CometD {
 		return cometdServlet.getBayeux();
 	}
 
-	class CometDProtoService extends ProtoService {
+	class CometDProtoService extends AbstractService {
 		IConnectionManager connManager;
 		HashSet<String> clients;
 
@@ -70,7 +69,7 @@ public class CometD {
 
 			clients = new HashSet<String>();
 
-			addService("/service/**", CommunicationCallback.newBuilder().allowMessages(AbstractMessage.class).build("forward", this));
+			addService("/service/**", "forward");
 
 			addService(Channel.META_CONNECT, "onConnect");
 			addService(Channel.META_DISCONNECT, "onDisconnect");
@@ -93,16 +92,15 @@ public class CometD {
 			};
 		}
 
-		public AbstractMessage forward(ServerSession remote, final AbstractMessage msg, CommunicationContext context) {
+		public void forward(ServerSession remote, Map<String, Object> data) {
 			if (!clients.contains(remote.getId())) {
 				log.debug("client "+remote.getId()+" connected");
 				String clientID = remote.getId();
 				connManager.newClient(clientID, getNetworkSender(clientID));
 				clients.add(remote.getId());
 			}
-			log.debug(String.format("--> [%s]: %s", context.getChannel(), msg.getClass().getName()));
+			AbstractMessage msg = ProtoUtils.createProto(data);
 			connManager.newMessage(remote.getId(), msg);
-			return null;
 		}
 
 		public void onConnect(ServerSession cometd, Map<String, Object> data) {
@@ -135,6 +133,8 @@ public class CometD {
 		// context will contain the rest of the servlets  
 		ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
 		context.setContextPath("/");
+		context.setInitParameter("maxInterval", "1000");
+		context.setInitParameter("logLevel", "2");
 
 		// setting everything up
 		handlers.setHandlers(new Handler[] { resource_handler, context});

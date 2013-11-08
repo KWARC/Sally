@@ -5,29 +5,37 @@ import info.kwarc.sally.core.SallyContext;
 import info.kwarc.sally.core.SallyInteraction;
 import info.kwarc.sally.core.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.SallyService;
+import info.kwarc.sally.core.comm.CallbackManager;
 import info.kwarc.sally.core.comm.SallyMenuItem;
+import info.kwarc.sally.core.interfaces.IAbstractMessageRunner;
 import info.kwarc.sally.core.interfaces.IPositionProvider;
 import info.kwarc.sally.core.net.INetworkSender;
 import info.kwarc.sally.core.ontologies.IM;
 import info.kwarc.sally.core.theo.Coordinates;
+import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.sketch.ontology.Sketch;
+import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.drools.runtime.process.ProcessInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import sally.HTMLSelectPart;
 import sally.MMTUri;
 import sally.ScreenCoordinates;
 import sally.SketchASM;
 import sally.SketchAtomic;
 import sally.SketchSelect;
 import sally.SketchSelectPart;
+import sally.SoftwareObject;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
+import com.google.protobuf.AbstractMessage;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Resource;
@@ -41,14 +49,18 @@ public class SketchDocument {
 	IPositionProvider provider;
 	Logger log;
 	RDFStore rdfStore;
+	CallbackManager callbacks;
+	ISallyWorkflowManager wm;
 
 	@Inject
-	public SketchDocument(@Assisted String filePath, @Assisted SketchASM data, @Assisted INetworkSender sender,  IPositionProvider provider, RDFStore rdfStore) {
+	public SketchDocument(@Assisted String filePath, @Assisted SketchASM data, @Assisted INetworkSender sender,  IPositionProvider provider, ISallyWorkflowManager wm, RDFStore rdfStore, CallbackManager callbacks) {
+		this.callbacks = callbacks;
 		this.filePath = filePath;
 		this.data = data;
 		this.sender = sender;
 		this.provider = provider;
 		this.rdfStore = rdfStore;
+		this.wm = wm;
 		log = LoggerFactory.getLogger(getClass());
 		urimap = new HashMap<Integer, String>();
 		init();
@@ -73,8 +85,14 @@ public class SketchDocument {
 		return model;
 	}
 
+	public void selectObject(int id) {
+		SketchSelectPart selCmd = SketchSelectPart.newBuilder().setId(id).setFileName(filePath).build();
+		sender.sendMessage("/sketch/sketchSelectPart", selCmd);
+	}
+	
 	@SallyService	
 	public void sketchClickInteraction(MMTUri mmtURI, SallyInteractionResultAcceptor acceptor, SallyContext context) {
+		final Long parentProcessInstanceID = context.getContextVar("processInstanceId", Long.class);
 		String origFile = context.getContextVar("origFile", String.class);
 		if (filePath.equals(origFile))
 			return;
@@ -88,19 +106,31 @@ public class SketchDocument {
 		if (refs.size() == 0)
 			return;
 		if (refs.size() > 1) {
-			acceptor.acceptResult(new SallyMenuItem("References", "In "+filePath+" ("+refs.size()+")", "Show references in figure ") {
+			acceptor.acceptResult(new SallyMenuItem("Go to", "In "+filePath+" ("+refs.size()+")", "Show references in figure ") {
 				@Override
 				public void run() {
-					SketchSelectPart selCmd = SketchSelectPart.newBuilder().setId(refs.get(0)).setFileName(filePath).build();
-					sender.sendMessage("/sketch/sketchSelectPart", selCmd);
+					Long callbackid = callbacks.registerCallback(new IAbstractMessageRunner() {
+						
+						@Override
+						public void run(AbstractMessage m) {
+							selectObject(((HTMLSelectPart)m).getId());
+						}
+					});
+					
+					HashMap<String, Object>  input = new  HashMap<String, Object>();
+					
+					input.put("ObjectIDs", refs);
+					input.put("CallbackID", Long.toString(callbackid));
+					ProcessInstance pi =wm.prepareProcess(parentProcessInstanceID, "Sally.sketch_navigation", input);
+					HandlerUtils.setProcessVariable(pi, "ServiceURL", "http://localhost:8181/sally/html/navigate?id="+pi.getId());
+					wm.startProcess(pi);					
 				}
 			});
 		} else {
-			acceptor.acceptResult(new SallyMenuItem("References", "In "+filePath, "Show reference in figure ") {
+			acceptor.acceptResult(new SallyMenuItem("Go to", "In "+filePath, "Show reference in figure ") {
 				@Override
 				public void run() {
-					SketchSelectPart selCmd = SketchSelectPart.newBuilder().setId(refs.get(0)).setFileName(filePath).build();
-					sender.sendMessage("/sketch/sketchSelectPart", selCmd);
+					selectObject(refs.get(0));
 				}
 			});
 		}
@@ -117,13 +147,16 @@ public class SketchDocument {
 		ScreenCoordinates coords = click.getPosition();
 		provider.setRecommendedCoordinates(new Coordinates(coords.getX(), coords.getY()));
 
-		MMTUri mmtURI = MMTUri.newBuilder().setUri(getSemantics(click.getId())).build();
-		if (mmtURI == null)
-			return;
-		log.info(mmtURI.toString());
-
 		List<SallyMenuItem> items = new ArrayList<SallyMenuItem>();
-		items.addAll(interaction.getPossibleInteractions(mmtURI, SallyMenuItem.class));
+
+		SoftwareObject obj = SoftwareObject.newBuilder().setFileName(filePath).setUri("htmlid#"+click.getId()).build();
+		items.addAll(interaction.getPossibleInteractions(obj, SallyMenuItem.class));
+
+		
+		MMTUri mmtURI = MMTUri.newBuilder().setUri(getSemantics(click.getId())).build();
+		if (mmtURI != null)
+			items.addAll(interaction.getPossibleInteractions(mmtURI, SallyMenuItem.class));
+
 		for (SallyMenuItem r : items) {
 			acceptor.acceptResult(r);
 		}

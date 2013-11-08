@@ -66,6 +66,17 @@
 		</dependency>
 		<dependency>
 			<groupId>info.kwarc.sally</groupId>
+			<artifactId>sally_def_lookup</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>info.kwarc.sally</groupId>
+			<artifactId>sally_projects</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>info.kwarc.sally</groupId>
 			<artifactId>sally_html</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
@@ -98,6 +109,13 @@
 			<artifactId>sally_planetary</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+
+		<dependency>
+			<groupId>info.kwarc.sally</groupId>
+			<artifactId>sally_pivoter</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>info.kwarc.sally</groupId>

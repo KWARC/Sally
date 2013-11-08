@@ -57,10 +57,10 @@ public class TheoService implements Theo {
 		this.callbacks = callbacks;
 	}
 
-	public int openWindow(DocumentInformation networkSender, String title, String URL, int sizeX, int sizeY) {
+	public int openWindow(DocumentInformation networkSender, Long requestWorkflowID, String title, String URL, int sizeX, int sizeY) {
 		Coordinates coords = coordProvider.getRecommendedPosition();
 		Cookie cookies = Cookie.newBuilder().setCookie(cookieProvider.getCookies()).setUrl(cookieProvider.getUrl()).build();
-		TheoWindow wnd = theoWindowProvider.create(networkSender.getDocumentWorkflowID(), sizeY, sizeX, coords.getX(), coords.getY(), title, URL, cookies, true);
+		TheoWindow wnd = theoWindowProvider.create(requestWorkflowID, sizeY, sizeX, coords.getX(), coords.getY(), title, URL, cookies, true);
 		wnd.showWindow();
 		openedWindows.put(wnd.getWndID(), wnd);
 		return wnd.getWndID();

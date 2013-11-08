@@ -29,10 +29,9 @@ public class DocumentManager {
 		this.workflowManager = workflowManager;
 		processDocMap = new HashMap<Long, DocumentInformation>();
 	}
-	
+
 	// Gets document information associated with a workflow task
-	public DocumentInformation getDocumentInformation(WorkItem wi) {
-		Long pid = wi.getProcessInstanceId();
+	public DocumentInformation getDocumentInformation(Long pid) {
 		while (pid != null) {
 			if (processDocMap.containsKey(pid)) {
 				return processDocMap.get(pid);
@@ -40,6 +39,12 @@ public class DocumentManager {
 			pid = workflowManager.getWorkflowParent(pid);
 		}
 		return null;
+	}
+
+	
+	// Gets document information associated with a workflow task
+	public DocumentInformation getDocumentInformation(WorkItem wi) {
+		return getDocumentInformation(wi.getProcessInstanceId());
 	}
 
 	public void addDocument(DocumentInformation docInfo) {

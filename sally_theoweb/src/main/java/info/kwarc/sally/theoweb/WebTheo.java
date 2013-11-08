@@ -85,7 +85,7 @@ public class WebTheo implements Theo {
 	}
 
 	@Override
-	public int openWindow(DocumentInformation sender, String title, String URL, int sizeX, int sizeY) {
+	public int openWindow(DocumentInformation sender, Long workflowRequestID, String title, String URL, int sizeX, int sizeY) {
 		Coordinates coords = coordProvider.getRecommendedPosition();
 		Cookie cookies = Cookie.newBuilder().setCookie(cookieProvider.getCookies()).setUrl(cookieProvider.getUrl()).build();
 		
