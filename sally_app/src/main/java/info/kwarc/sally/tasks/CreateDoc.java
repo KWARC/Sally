@@ -92,7 +92,8 @@ public class CreateDoc implements WorkItemHandler {
 			String processId = null;
 			Object processInput = null;
 			Map<String, Object> params = new HashMap<String, Object>();
-
+			
+			log.info("Creating Document " + alexData.getFileName());
 			if (alexInfo.getDocumentType() == DocType.Spreadsheet) {
 				SpreadsheetAlexData rr ;
 				try {

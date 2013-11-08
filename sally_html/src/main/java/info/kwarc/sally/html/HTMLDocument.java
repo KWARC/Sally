@@ -44,7 +44,7 @@ public class HTMLDocument {
 	String filePath;
 	HTMLASM data;
 	INetworkSender sender;
-	HashMap<Integer, String> urimap;
+	HashMap<String, String> urimap;
 	IPositionProvider provider;
 	Logger log;
 	RDFStore rdfStore;
@@ -61,13 +61,26 @@ public class HTMLDocument {
 		this.provider = provider;
 		this.rdfStore = rdfStore;
 		log = LoggerFactory.getLogger(getClass());
-		urimap = new HashMap<Integer, String>();
+		urimap = new HashMap<String, String>();
 		init();
 	}
 	
-	public void selectObject(int id) {
+	public void selectObject(String id) {
 		HTMLSelectPart selCmd = HTMLSelectPart.newBuilder().setId(id).setFileName(filePath).build();
 		sender.sendMessage("/html/htmlSelectPart", selCmd);
+	}
+	
+	@SallyService(channel="navigateTo")
+	public void navigateTo(final SoftwareObject so, SallyInteractionResultAcceptor acceptor, SallyContext context) {
+		if (!filePath.equals(so.getFileName()))
+			return;
+		acceptor.acceptResult(new Runnable() {
+			
+			@Override
+			public void run() {
+				selectObject(so.getUri().substring(7));
+			}
+		});
 	}
 
 	@SallyService	
@@ -76,8 +89,8 @@ public class HTMLDocument {
 		String origFile = context.getContextVar("origFile", String.class);
 		if (filePath.equals(origFile))
 			return;
-		final List<Integer> refs = new ArrayList<Integer>();
-		for (int key : urimap.keySet()) {
+		final List<String> refs = new ArrayList<String>();
+		for (String key : urimap.keySet()) {
 			if (urimap.get(key).equals(mmtURI.getUri())) {
 				refs.add(key);
 			}
@@ -127,7 +140,7 @@ public class HTMLDocument {
 	private Model createModel() {
 		Model model = ModelFactory.createDefaultModel();
 		model.setNsPrefix("rdf", RDF.getURI());
-		for (Integer key : urimap.keySet()) {
+		for (String key : urimap.keySet()) {
 			Resource comp = model.createResource();
 			model.add(comp, IM.partOfFile, model.createLiteral(filePath));
 			model.add(comp, IM.ontologyURI, model.createLiteral(urimap.get(key)));
@@ -162,7 +175,7 @@ public class HTMLDocument {
 		}
 	}
 
-	public String getSemantics(int id) {
+	public String getSemantics(String id) {
 		return urimap.get(id);
 	}
 

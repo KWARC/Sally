@@ -45,7 +45,7 @@ public class SketchDocument {
 	String filePath;
 	SketchASM data;
 	INetworkSender sender;
-	HashMap<Integer, String> urimap;
+	HashMap<String, String> urimap;
 	IPositionProvider provider;
 	Logger log;
 	RDFStore rdfStore;
@@ -62,7 +62,7 @@ public class SketchDocument {
 		this.rdfStore = rdfStore;
 		this.wm = wm;
 		log = LoggerFactory.getLogger(getClass());
-		urimap = new HashMap<Integer, String>();
+		urimap = new HashMap<String, String>();
 		init();
 	}
 
@@ -76,7 +76,7 @@ public class SketchDocument {
 	private Model createModel() {
 		Model model = ModelFactory.createDefaultModel();
 		model.setNsPrefix("rdf", RDF.getURI());
-		for (Integer key : urimap.keySet()) {
+		for (String  key : urimap.keySet()) {
 			Resource comp = model.createResource();
 			model.add(comp, IM.partOfFile, model.createLiteral(filePath));
 			model.add(comp, IM.ontologyURI, model.createLiteral(urimap.get(key)));
@@ -85,11 +85,24 @@ public class SketchDocument {
 		return model;
 	}
 
-	public void selectObject(int id) {
+	public void selectObject(String id) {
 		SketchSelectPart selCmd = SketchSelectPart.newBuilder().setId(id).setFileName(filePath).build();
 		sender.sendMessage("/sketch/sketchSelectPart", selCmd);
 	}
-	
+
+	@SallyService(channel="navigateTo")
+	public void navigateTo(final SoftwareObject so, SallyInteractionResultAcceptor acceptor, SallyContext context) {
+		if (!filePath.equals(so.getFileName()))
+			return;
+		acceptor.acceptResult(new Runnable() {
+
+			@Override
+			public void run() {
+				selectObject(so.getUri().substring(7));
+			}
+		});
+	}
+
 	@SallyService	
 	public void sketchClickInteraction(MMTUri mmtURI, SallyInteractionResultAcceptor acceptor, SallyContext context) {
 		final Long parentProcessInstanceID = context.getContextVar("processInstanceId", Long.class);
@@ -97,8 +110,8 @@ public class SketchDocument {
 		if (filePath.equals(origFile))
 			return;
 
-		final List<Integer> refs = new ArrayList<Integer>();
-		for (int key : urimap.keySet()) {
+		final List<String> refs = new ArrayList<String>();
+		for (String key : urimap.keySet()) {
 			if (urimap.get(key).equals(mmtURI.getUri())) {
 				refs.add(key);
 			}
@@ -110,15 +123,13 @@ public class SketchDocument {
 				@Override
 				public void run() {
 					Long callbackid = callbacks.registerCallback(new IAbstractMessageRunner() {
-						
 						@Override
 						public void run(AbstractMessage m) {
 							selectObject(((HTMLSelectPart)m).getId());
 						}
 					});
-					
 					HashMap<String, Object>  input = new  HashMap<String, Object>();
-					
+
 					input.put("ObjectIDs", refs);
 					input.put("CallbackID", Long.toString(callbackid));
 					ProcessInstance pi =wm.prepareProcess(parentProcessInstanceID, "Sally.sketch_navigation", input);
@@ -152,7 +163,6 @@ public class SketchDocument {
 		SoftwareObject obj = SoftwareObject.newBuilder().setFileName(filePath).setUri("htmlid#"+click.getId()).build();
 		items.addAll(interaction.getPossibleInteractions(obj, SallyMenuItem.class));
 
-		
 		MMTUri mmtURI = MMTUri.newBuilder().setUri(getSemantics(click.getId())).build();
 		if (mmtURI != null)
 			items.addAll(interaction.getPossibleInteractions(mmtURI, SallyMenuItem.class));
@@ -162,7 +172,7 @@ public class SketchDocument {
 		}
 	}
 
-	public String getSemantics(int id) {
+	public String getSemantics(String id) {
 		return urimap.get(id);
 	}
 

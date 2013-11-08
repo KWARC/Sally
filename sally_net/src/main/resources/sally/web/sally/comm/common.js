@@ -742,7 +742,7 @@ sally.SketchSelect = PROTO.Message("sally.SketchSelect",{
 	id: {
 		options: {},
 		multiplicity: PROTO.required,
-		type: function(){return PROTO.int32;},
+		type: function(){return PROTO.string;},
 		id: 1
 	},
 	fileName: {
@@ -761,7 +761,7 @@ sally.SketchAtomic = PROTO.Message("sally.SketchAtomic",{
 	id: {
 		options: {},
 		multiplicity: PROTO.required,
-		type: function(){return PROTO.int32;},
+		type: function(){return PROTO.string;},
 		id: 1
 	},
 	mmturi: {
@@ -774,7 +774,7 @@ sally.SketchRelation = PROTO.Message("sally.SketchRelation",{
 	parts: {
 		options: {},
 		multiplicity: PROTO.repeated,
-		type: function(){return PROTO.int32;},
+		type: function(){return PROTO.string;},
 		id: 1
 	},
 	relation: {
@@ -806,7 +806,7 @@ sally.SketchSelectPart = PROTO.Message("sally.SketchSelectPart",{
 	id: {
 		options: {},
 		multiplicity: PROTO.required,
-		type: function(){return PROTO.int32;},
+		type: function(){return PROTO.string;},
 		id: 1
 	},
 	fileName: {
@@ -819,7 +819,7 @@ sally.HTMLSelect = PROTO.Message("sally.HTMLSelect",{
 	id: {
 		options: {},
 		multiplicity: PROTO.required,
-		type: function(){return PROTO.int32;},
+		type: function(){return PROTO.string;},
 		id: 1
 	},
 	fileName: {
@@ -838,7 +838,7 @@ sally.HTMLAtomic = PROTO.Message("sally.HTMLAtomic",{
 	id: {
 		options: {},
 		multiplicity: PROTO.required,
-		type: function(){return PROTO.int32;},
+		type: function(){return PROTO.string;},
 		id: 1
 	},
 	mmturi: {
@@ -858,7 +858,7 @@ sally.HTMLSelectPart = PROTO.Message("sally.HTMLSelectPart",{
 	id: {
 		options: {},
 		multiplicity: PROTO.required,
-		type: function(){return PROTO.int32;},
+		type: function(){return PROTO.string;},
 		id: 1
 	},
 	fileName: {

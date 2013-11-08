@@ -1,30 +1,20 @@
 package info.kwarc.sally;
 
 import info.kwarc.sally.core.SallyInteraction;
-import info.kwarc.sally.core.net.IMessageCallback;
-import info.kwarc.sally.core.net.INetworkSender;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.injection.Configuration;
 import info.kwarc.sally.networking.CometD;
 import info.kwarc.sally.networking.Injection.ProductionNetworking;
 import info.kwarc.sally.networking.interfaces.IConnectionManager;
+import info.kwarc.sally.pivot.PivotingService;
 import info.kwarc.sally.planetary.Planetary;
 import info.kwarc.sally.service.def_lookup.DefinitionLookupService;
 import info.kwarc.sally.spreadsheet.ASMEditor;
 import info.kwarc.sissi.bpm.injection.ProductionLocalKnowledgeBase;
 import info.kwarc.sissi.bpm.injection.ProductionSallyActions;
-import sally.AlexClick;
-import sally.AlexData;
-import sally.GetSheets;
-import sally.RangeSelection;
-import sally.SallyFrame;
-import sally.ScreenCoordinates;
-import sally.SpreadsheetDocMeta;
-import sally_comm.MessageUtils;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.google.protobuf.AbstractMessage;
 
 /**
  * This is a sample file to launch a process.
@@ -39,13 +29,14 @@ public class ProcessMain {
 				new ProductionSallyActions(),
 				new ProductionNetworking()
 		);
-		
+				
 		SallyInteraction interaction = i.getInstance(SallyInteraction.class);
 		interaction.registerServices(i.getInstance(Planetary.class));
 		interaction.registerServices(i.getInstance(PricingService.class));
 		interaction.registerServices(i.getInstance(InstanceService.class));
 		interaction.registerServices(i.getInstance(ASMEditor.class));		
 		interaction.registerServices(i.getInstance(DefinitionLookupService.class));		
+		interaction.registerServices(i.getInstance(PivotingService.class));		
 		
 		ISallyWorkflowManager kb = i.getInstance(ISallyWorkflowManager.class);
 		//kb.startProcess(null, "Sally.browse_ontology");
