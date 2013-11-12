@@ -39,10 +39,10 @@ public class WinogradData {
 		
 		spreadsheet.setContent(new CellSpaceInformation("Table1",5,0), "Profit", "", ContentValueType.STRING_NUMBER);
 		
-		spreadsheet.setContent(new CellSpaceInformation("Table1",1,1), "0.1", "", ContentValueType.FLOAT);
-		spreadsheet.setContent(new CellSpaceInformation("Table1",1,2), "0.2", "", ContentValueType.FLOAT);
-		spreadsheet.setContent(new CellSpaceInformation("Table1",1,3), "0.3", "", ContentValueType.FLOAT);
-		spreadsheet.setContent(new CellSpaceInformation("Table1",1,4), "0.4", "", ContentValueType.FLOAT);
+		spreadsheet.setContent(new CellSpaceInformation("Table1",1,1), "4.1", "", ContentValueType.FLOAT);
+		spreadsheet.setContent(new CellSpaceInformation("Table1",1,2), "4.2", "", ContentValueType.FLOAT);
+		spreadsheet.setContent(new CellSpaceInformation("Table1",1,3), "4.3", "", ContentValueType.FLOAT);
+		spreadsheet.setContent(new CellSpaceInformation("Table1",1,4), "4.4", "", ContentValueType.FLOAT);
 		
 		spreadsheet.setContent(new CellSpaceInformation("Table1",2,1), "1.1", "", ContentValueType.FLOAT);
 		spreadsheet.setContent(new CellSpaceInformation("Table1",2,2), "1.2", "", ContentValueType.FLOAT);
@@ -59,10 +59,10 @@ public class WinogradData {
 		spreadsheet.setContent(new CellSpaceInformation("Table1",4,3), "3.6", "D3+D4", ContentValueType.FLOAT);
 		spreadsheet.setContent(new CellSpaceInformation("Table1",4,4), "3.8", "E3+E4", ContentValueType.FLOAT);
 		
-		spreadsheet.setContent(new CellSpaceInformation("Table1",5,1), "3.1", "B5-B2", ContentValueType.FLOAT);
-		spreadsheet.setContent(new CellSpaceInformation("Table1",5,2), "3.2", "C5-C2", ContentValueType.FLOAT);
-		spreadsheet.setContent(new CellSpaceInformation("Table1",5,3), "3.3", "D5-D2", ContentValueType.FLOAT);
-		spreadsheet.setContent(new CellSpaceInformation("Table1",5,4), "3.4", "E5-E2", ContentValueType.FLOAT);
+		spreadsheet.setContent(new CellSpaceInformation("Table1",5,1), "0.9", "B2-B5", ContentValueType.FLOAT);
+		spreadsheet.setContent(new CellSpaceInformation("Table1",5,2), "0.8", "C2-C5", ContentValueType.FLOAT);
+		spreadsheet.setContent(new CellSpaceInformation("Table1",5,3), "0.7", "D2-D5", ContentValueType.FLOAT);
+		spreadsheet.setContent(new CellSpaceInformation("Table1",5,4), "0.6", "E2-E5", ContentValueType.FLOAT);
 		
 		// +++ Setting up the manager +++
 		manager = new Manager(new InterfaceMockup());
@@ -102,11 +102,11 @@ public class WinogradData {
 		// Functional relations
 		List<Block> blocksRevenues = new ArrayList<Block>();
 		blocksRevenues.add(year);
-		blocksRevenues.add(revenues);
+		//blocksRevenues.add(revenues);
 		blocksRevenues.add(dataRevenues);
 
 		List<CellDependencyDescription> relationRevenuesDesc = new ArrayList<CellDependencyDescription>();
-		relationRevenuesDesc.add(new CellDependencyDescription(0,0,0,3,"0,y;x,0;x,y"));
+		relationRevenuesDesc.add(new CellDependencyDescription(0,0,0,3,"0,y;x,y"));
 		relationRevenues = manager.createRelation(Relation.RelationType.FUNCTIONALRELATION, blocksRevenues, relationRevenuesDesc);
 		
 		List<Block> blocksCosts = new ArrayList<Block>();
@@ -129,11 +129,11 @@ public class WinogradData {
  		
  		List<Block> blocksProfit = new ArrayList<Block>();
  		blocksProfit.add(year);
- 		blocksProfit.add(profit);
+ 		//blocksProfit.add(profit);
  		blocksProfit.add(dataProfit);
 
  		List<CellDependencyDescription> relationProfitDesc = new ArrayList<CellDependencyDescription>();
- 		relationProfitDesc.add(new CellDependencyDescription(0,0,0,3,"0,y;x,0;x,y"));
+ 		relationProfitDesc.add(new CellDependencyDescription(0,0,0,3,"0,y;x,y"));
  		relationProfit = manager.createRelation(Relation.RelationType.FUNCTIONALRELATION, blocksProfit, relationProfitDesc);
  		
  		// Type relations

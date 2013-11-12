@@ -20,35 +20,14 @@ public class VerificationDataExtractor {
 	//static String[] stdDataTypes = {"omdoc://MathML#Real", "omdoc://MathML#Int", "omdoc://MathML#Bool" };
 	
 	public static List<DataSymbolInformation> extractDataTypes(Map<Block, String> blocks, FormalSpreadsheet spreadsheet) {
-		/*Map<String, List<String>> dataTypes = new HashMap<String,List<String>>();
-		
-		for (Block b : blocks.keySet()) {
-			List<String> values;
-			/*boolean isStdDT = false;
-			for (String dt : stdDataTypes)
-				if (dt.equals( blocks.get(b)) )
-					isStdDT = true;* /
-			
-			if (dataTypes.containsKey(blocks.get(b)))
-				values = dataTypes.get(blocks.get(b));
-			else {
-				values = new ArrayList<String>();
-				dataTypes.put(blocks.get(b), values);
-			}
-			for (CellSpaceInformation pos : b.getCells()) {
-				if ((spreadsheet.get(pos) != null) && 
-						!spreadsheet.get(pos).getValue().isEmpty() &&
-						!values.contains(b.getValueInterpretation( spreadsheet.get(pos).getValue()) ) )
-					values.add(b.getValueInterpretation( spreadsheet.get(pos).getValue()) );
-			}
-		}*/
 		
 		List<DataSymbolInformation> dataObjects = new ArrayList<DataSymbolInformation>();
-		
+		int symbolID = 0;
 		for (Block b : blocks.keySet()) {
 			for (CellSpaceInformation pos : b.getCells()) {
 				if ((spreadsheet.get(pos) != null) && !spreadsheet.get(pos).getValue().isEmpty()) {
-					dataObjects.add(new DataSymbolInformation(blocks.get(b), b.getValueInterpretation( spreadsheet.get(pos).getValue()), pos));
+					dataObjects.add(new DataSymbolInformation(blocks.get(b), b.getValueInterpretation( spreadsheet.get(pos).getValue()), pos, symbolID));
+					symbolID++;
 				}
 			}
 		}
@@ -56,10 +35,11 @@ public class VerificationDataExtractor {
 		return dataObjects;
 	}
 	
-	public static Map<Relation, String> extractCPSimilarFBs(Manager manager, FormalSpreadsheet spreadsheet, BuilderML builderML) {
-		Map<Relation, String> mathMLRepresentations = new HashMap<Relation, String>();
-		List<Relation> relations = manager.getAllRelations();
-		for (Relation fbRelation : relations) {
+	public static List<CPSimilarBlockData> extractCPSimilarFBs(Manager manager, FormalSpreadsheet spreadsheet, BuilderML builderML) {
+		List<CPSimilarBlockData> cpSimilarBlockData = new ArrayList<CPSimilarBlockData>();
+		//Map<Relation, String> mathMLRepresentations = new HashMap<Relation, String>();
+		//List<Relation> relations = manager.getAllRelations();
+		for (Relation fbRelation : manager.getAllRelations()) {
 			if (fbRelation.getRelationType().equals(Relation.RelationType.FUNCTIONALRELATION)) {
 		
 				Block fb = fbRelation.getBlocks().get(fbRelation.getBlocks().size()-1);
@@ -108,12 +88,13 @@ public class VerificationDataExtractor {
 						for (int i = 0; i < manager.getOntologyInterface().getFunctionObject(fbRelation.getUri()).getArgumentTypes().size(); i++ )
 							equatation = equatation + builderML.getVIVaribale(i) + "\n";
 						equatation = equatation + builderML.getApplicationEnd() + "\n" + Util.untagMathObject(antiunification, builderML) + builderML.getApplicationEnd() + "\n";
-						mathMLRepresentations.put(fbRelation, equatation);
+						//mathMLRepresentations.put(fbRelation, equatation);
+						cpSimilarBlockData.add(new CPSimilarBlockData(fbRelation, equatation, Util.getConstantArguments(domainValues)));
 					}
 				}
 			}
 		}
-		return mathMLRepresentations;
+		return cpSimilarBlockData;
 	}
 	
 	public static Map<CellSpaceInformation, String> extractMLFormulaRepresentations(Relation fbRelation, Manager manager, FormalSpreadsheet spreadsheet, BuilderML builderML) {

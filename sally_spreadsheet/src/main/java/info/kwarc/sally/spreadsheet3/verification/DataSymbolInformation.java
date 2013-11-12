@@ -9,12 +9,12 @@ public class DataSymbolInformation {
 	CellSpaceInformation position;
 	int symbolID;
 	
-	public DataSymbolInformation(String ontologyType, String content, CellSpaceInformation postition) {
+	public DataSymbolInformation(String ontologyType, String content, CellSpaceInformation postition, int symbolID) {
 		super();
 		this.ontologyType = ontologyType;
 		this.content = content;
 		this.position = postition;
-		this.symbolID = -1;
+		this.symbolID = symbolID;
 	}
 
 	public String getOntologyType() {

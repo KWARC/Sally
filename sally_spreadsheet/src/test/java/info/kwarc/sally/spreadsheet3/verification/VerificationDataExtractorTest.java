@@ -50,10 +50,10 @@ public class VerificationDataExtractorTest {
 	
 	@Test
 	public void extractCPSimilarFBsTest() {
-		List <String> cpSimilarRepresentations = new ArrayList<String>(VerificationDataExtractor.extractCPSimilarFBs(winData.getManager(), winData.getSpreadsheet(), builderML).values());
+		List<CPSimilarBlockData> cpSimilarRepresentations = new ArrayList<CPSimilarBlockData>(VerificationDataExtractor.extractCPSimilarFBs(winData.getManager(), winData.getSpreadsheet(), builderML));
 		assertEquals(2, cpSimilarRepresentations.size());
 		int indexExpensesPerYear = 0;
-		if (cpSimilarRepresentations.get(0).contains("profit"))
+		if (cpSimilarRepresentations.get(0).getAntiunification().contains("profit"))
 			indexExpensesPerYear = 1;		// Sometimes the order flips
 		assertEquals(
 				"<apply>\n" +
@@ -76,7 +76,7 @@ public class VerificationDataExtractorTest {
 				"      <ci>Salary Costs</ci>\n" +
 				"      </apply>\n" +
 				"  </apply>\n" +
-				"</apply>\n",cpSimilarRepresentations.get(indexExpensesPerYear).replaceAll("\r", "")
+				"</apply>\n",cpSimilarRepresentations.get(indexExpensesPerYear).getAntiunification().replaceAll("\r", "")
 				);
 	}
 	

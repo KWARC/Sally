@@ -24,9 +24,13 @@ public abstract class IOntologyProvider {
 
 	abstract public FunctionObject getFunctionObject(String uri);
 	
-	abstract public List<FunctionObject> getAllFunctionObjects();
+	abstract public List<FunctionObject> getAllBasicFunctionObjects();
 	
-	abstract public Map<String, FunctionObject> getFunctionObjectMap();
+	abstract public Map<String, FunctionObject> getBasicFunctionObjectMap();
+	
+	abstract public List<FunctionObject> getAllDomainFunctionObjects();
+	
+	abstract public Map<String, FunctionObject> getDomainFunctionObjectMap();
 	
 	abstract public DataTypeObject getDataTypeObject(String uri);
 	
