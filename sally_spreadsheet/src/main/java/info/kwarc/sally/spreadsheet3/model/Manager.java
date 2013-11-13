@@ -422,7 +422,7 @@ public class Manager {
 	 * Get a semantic interpretation for all cells. If a cell is part of a relation, the cell will be interpreted by the semantic of the relation. 
 	 * Cells that do not belong to a relation are interpreted by their value interpretation. Therefore at the moment a cell has just one semantic interpretation.
 	 * @param spreadsheet
-	 * @return A map that maps a cell to its semantic intrpretation.
+	 * @return A map that maps a cell to its semantic interpretation.
 	 */
 	public Map<CellSpaceInformation, String> getCompleteSemanticMapping(FormalSpreadsheet spreadsheet) {
 		Map<CellSpaceInformation, String> mapping = new HashMap<CellSpaceInformation, String>();
@@ -448,6 +448,17 @@ public class Manager {
 		}
 	
 		return mapping;
+	}
+	
+	
+	public Map<Block, String> getBlockTypes(List<Block> blocks) {
+		Map<Block, String> blockTypes = new HashMap<Block, String>();
+		for (Block b : blocks) {
+			List<Relation> typeRelations = getRelationsFor(null, b, Relation.RelationType.TYPERELATION);
+			if (typeRelations.size() == 1)
+				blockTypes.put(b, typeRelations.get(0).getUri());
+		}
+		return blockTypes;
 	}
 	
 	/**

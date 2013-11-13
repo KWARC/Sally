@@ -41,6 +41,10 @@
   <xsl:text>= </xsl:text> 
 </xsl:template>
 
+<xsl:template match="m:leq">
+  <xsl:text>&lt;= </xsl:text> 
+</xsl:template>
+
 <xsl:template match="m:forall">
   <xsl:text>forall </xsl:text> 
 </xsl:template>

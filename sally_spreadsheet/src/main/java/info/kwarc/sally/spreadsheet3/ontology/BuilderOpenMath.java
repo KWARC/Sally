@@ -39,7 +39,7 @@ public class BuilderOpenMath extends BuilderML {
 	}
 	
 	@Override
-	public AxiomObject parseMLAxiom(String axiom) {
+	public AxiomObject parseMLAxiom(String uri, String axiom) {
 		// TODO Auto-generated method stub
 		return null;
 	}

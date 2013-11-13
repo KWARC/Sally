@@ -5,19 +5,24 @@ import java.util.List;
 
 public class AxiomObject {
 	
+	String uri;
 	List<AxiomVariableObject> variables;
 	String varConditions;
-
 	String constrain;
 	
-	public AxiomObject(List<AxiomVariableObject> variables, String varConditions,
+	public AxiomObject(String uri, List<AxiomVariableObject> variables, String varConditions,
 			String mlConstrain) {
 		super();
+		this.uri = uri;
 		this.variables = variables;
 		this.varConditions = varConditions;
 		this.constrain = mlConstrain;
 	}
 
+	public String getUri() {
+		return uri;
+	}
+	
 	public List<AxiomVariableObject> getVariables() {
 		return variables;
 	}

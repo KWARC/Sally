@@ -45,7 +45,7 @@ public class BuilderMathML extends BuilderML {
 	}
 	
 	@Override
-	public AxiomObject parseMLAxiom(String axiom) {
+	public AxiomObject parseMLAxiom(String uri, String axiom) {
 		// axiom = axiom.replaceAll("\\p{Space}", "");
 
 		AxiomObject partialParsed = extractVariables(axiom, forAllPattern);
@@ -70,7 +70,7 @@ public class BuilderMathML extends BuilderML {
 			
 		String varConditions = allQuantVarConditions + existQuantVarConditions;
 		
-		return new AxiomObject(variables, varConditions, constrain);
+		return new AxiomObject(uri, variables, varConditions, constrain);
 	}
 	
 	private AxiomObject extractVariables(String axiom, Pattern pattern) {
@@ -102,7 +102,7 @@ public class BuilderMathML extends BuilderML {
 					throw new java.lang.IllegalArgumentException("Domain binding for unquantified variable: " + varName);
 			}
 			conditionStatement = conditionStatement.replaceAll(inPattern.pattern(), "");
-			return new AxiomObject(axiomVariables, conditionStatement, matcher.group(4));
+			return new AxiomObject("", axiomVariables, conditionStatement, matcher.group(4));
 		} else {
 			return null;
 		}

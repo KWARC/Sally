@@ -71,6 +71,14 @@ public class InterfaceMockup extends IOntologyProvider {
 		mathML = "<apply><eq/><rvar num=\"0\"/><rvar num=\"1\"/></apply>";
 		ontologyBasicFunctions.put("spsht-arith#equal", new FunctionObject("spsht-arith#equal", arguments, "spsht-bool#spshBool", mathML, mathMLBuilder));
 		
+		// spsht-arith#leq
+		arguments = new ArrayList<String>();
+		arguments.add("spsht-numbers#spshReal");
+		arguments.add("spsht-numbers#spshReal");
+			
+		mathML = "<apply><leq/><rvar num=\"0\"/><rvar num=\"1\"/></apply>";
+		ontologyBasicFunctions.put("spsht-arith#leq", new FunctionObject("spsht-arith#leq", arguments, "spsht-bool#spshBool", mathML, mathMLBuilder));
+		
 		// spsht-arith#sum5
 		arguments = new ArrayList<String>();
 		arguments.add("spsht-numbers#spshReal");
@@ -162,12 +170,18 @@ public class InterfaceMockup extends IOntologyProvider {
 	@Override
 	public List<AxiomObject> getAxioms() {
 		List<AxiomObject> axioms = new ArrayList<AxiomObject>();
-		axioms.add(getBuilderML().parseMLAxiom("<apply><forall/><bvar><ci>y</ci></bvar><condition><apply><in/><ci>y</ci><ci>timeinterval#yearAD</ci></apply></condition>" +
+		axioms.add(getBuilderML().parseMLAxiom("expenses#ExpensesPerYear-Axiom1", "<apply><forall/><bvar><ci>y</ci></bvar><condition><apply><in/><ci>y</ci><ci>timeinterval#yearAD</ci></apply></condition>" +
 			"<apply><csymbol cd=\"spsht-arith\">equal</csymbol><apply><csymbol cd=\"expenses\">ExpensesPerYear</csymbol><ci>y</ci><ci>Total Costs</ci></apply>" +
 			"<apply><csymbol cd=\"spsht-arith\">plus</csymbol>" +
 			"<apply><csymbol cd=\"expenses\">ExpensesPerYear</csymbol><ci>y</ci><ci>Salary Costs</ci></apply>" +
 			"<apply><csymbol cd=\"expenses\">ExpensesPerYear</csymbol><ci>y</ci><ci>Material Costs</ci></apply>" +
 			"</apply></apply></apply>"));
+		axioms.add(getBuilderML().parseMLAxiom("expenses#ExpensesPerYear-Axiom1", "<apply><forall/><bvar><ci>c</ci></bvar><bvar><ci>y</ci></bvar><condition><apply><and/><apply><in/><ci>y</ci><ci>timeinterval#yearAD</ci></apply>"
+				+ "<apply><in/><ci>c</ci><ci>costs#cost</ci></apply></apply></condition>"
+				+ "<apply><csymbol cd=\"spsht-arith\">leq</csymbol>"
+				+ "<apply><csymbol cd=\"expenses\">ExpensesPerYear</csymbol><ci>y</ci><ci>c</ci></apply>"
+				+ "<apply><csymbol cd=\"expenses\">ExpensesPerYear</csymbol><ci>y</ci><ci>Total Costs</ci></apply>" 
+				+ "</apply></apply>"));
 		return axioms;
 	}
 	

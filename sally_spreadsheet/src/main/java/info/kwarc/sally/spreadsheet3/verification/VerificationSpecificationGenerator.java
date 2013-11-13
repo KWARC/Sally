@@ -38,12 +38,18 @@ import org.xml.sax.SAXException;
 
 public class VerificationSpecificationGenerator {
 	
-	final static String mathML2Z3XLSTTypes = "src/main/resources/MathML2Z3Types.xsl";
-	final static String mathML2Z3XLSTFunctions = "src/main/resources/MathML2Z3Functions.xsl";
+	//final static String mathML2Z3XLSTTypes = "src/main/resources/MathML2Z3Types.xsl";
+	final static String mathML2Z3XLST = "src/main/resources/MathML2Z3.xsl";
 	final static String mathML2Z3XLSTAxioms = "src/main/resources/MathML2Z3Axioms.xsl";
 	final static Logger logger = LoggerFactory.getLogger(VerificationSpecificationGenerator.class);
-	final static String BADTYPE = "(- 99999999)";
 	
+	/**
+	 * Create a complete Z3 specification for a given spreadsheet. 
+	 * Mostly used for testing purposes.
+	 * @param manager
+	 * @param spreadsheet
+	 * @return
+	 */
 	public static List<String> createCompeteSpecification(Manager manager, FormalSpreadsheet spreadsheet) {
 		List<String> specification = new ArrayList<String>();
 		
@@ -105,21 +111,10 @@ public class VerificationSpecificationGenerator {
 		List<String> specification = new ArrayList<String>();
 		Map<String, String> viToZ3String = new HashMap<String,String>();
 		
-		/*
-		// Generating symbols
-		String objectDefinition = "(declare-datatypes () ((Object ";
-		
-		for (DataSymbolInformation dataSymbol :  dataSymbols) 
-			objectDefinition += "Sym-" + dataSymbol.getSymbolID() + " ";
-	
-		objectDefinition += ")))";
-		specification.add(objectDefinition);
-		*/
-		
 		// Generating datatype String
 		for (DataSymbolInformation symbol : dataSymbols) {
 			if (manager.getOntologyInterface().getDataTypeObject(symbol.getOntologyType()).getBasicType() == DataTypeObject.BasicType.String) {
-				viToZ3String.put(symbol.getContent(), toZ3Value(ml2Z3(symbol.getContent(), mathML2Z3XLSTTypes)));
+				viToZ3String.put(symbol.getContent(), toZ3Value(ml2Z3(symbol.getContent(), mathML2Z3XLST)));
 			}
 		}
 		if (!viToZ3String.values().isEmpty()) {
@@ -158,7 +153,7 @@ public class VerificationSpecificationGenerator {
 		
 		// Asserting values to symbols
 		for (DataSymbolInformation symbol : dataSymbols) {
-			String value =  ml2Z3(symbol.getContent(),mathML2Z3XLSTFunctions);
+			String value =  ml2Z3(symbol.getContent(),mathML2Z3XLST);
 			if (manager.getOntologyInterface().getDataTypeObject(symbol.getOntologyType()).getBasicType() == DataTypeObject.BasicType.String)
 				value = toZ3Value(value);
 			if (!value.isEmpty())
@@ -252,7 +247,7 @@ public class VerificationSpecificationGenerator {
 			axiomSpec += "     (is-" + uriToIdentifier(varType.get(v)) + " " + v + ")\n";
 		
 		if (!axiom.getVarConditions().isEmpty())
-			axiomSpec += ml2Z3(axiom.getVarConditions(), mathML2Z3XLSTFunctions) + "\n";
+			axiomSpec += ml2Z3(axiom.getVarConditions(), mathML2Z3XLST) + "\n";
 		
 		// Replace identifiers with Z3 valid name
 		String mlDef = axiom.getMLConstrain();
@@ -266,7 +261,7 @@ public class VerificationSpecificationGenerator {
 			mlDef = mlDef.replaceAll(manager.getOntologyInterface().getBuilderML().getIdentifier(var.getName()),  " (value-" + varBaisType + " " + var.getName() + ") ");
 		}
 					
-		axiomSpec += "  )\n  " + ml2Z3(mlDef, mathML2Z3XLSTFunctions) + ")\n";
+		axiomSpec += "  )\n  " + ml2Z3(mlDef, mathML2Z3XLST) + ")\n";
 		
 		//axiomSpec += "  )\n  " + mathML2Z3(axiom.getMLConstrain(), mathML2Z3XLSTFunctions, identifierToSymbol) + ")\n";
 		
@@ -306,7 +301,7 @@ public class VerificationSpecificationGenerator {
 			mlRep = mlRep.replaceAll(di.getContent(), " (value-" + basicType + " Sym-" + di.getSymbolID() + ") ");
 		}
 		
-		String z3DefRep = ml2Z3(mlRep, mathML2Z3XLSTFunctions) + "))))";
+		String z3DefRep = ml2Z3(mlRep, mathML2Z3XLST) + "))))";
 		for (int i = 0; i < func.getArgumentTypes().size(); i++) {
 			String varBaisType = manager.getOntologyInterface().getDataTypeObject(func.getArgumentTypes().get(i)).getBasicType().name();
 			if (!constantArguments.keySet().contains(i))
@@ -349,7 +344,7 @@ public class VerificationSpecificationGenerator {
 		//for (String vi : viToZ3String.keySet())
 		//	mlDef = mlDef.replaceAll(vi, viToZ3String.get(vi));
 		
-		funcDef = funcDef + ml2Z3(mlDef, mathML2Z3XLSTFunctions);
+		funcDef = funcDef + ml2Z3(mlDef, mathML2Z3XLST);
 		funcDef += "\n)";
 		return funcDef;
 	}

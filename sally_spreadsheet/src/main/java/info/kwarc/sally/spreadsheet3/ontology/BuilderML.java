@@ -16,6 +16,6 @@ public abstract class BuilderML {
 	
 	public abstract String getApplicationEnd();
 	
-	public abstract AxiomObject parseMLAxiom(String axiom);
+	public abstract AxiomObject parseMLAxiom(String uri, String axiom);
 
 }
