@@ -20,31 +20,16 @@
 	<dependencies>
 		<dependency>
 			<groupId>info.kwarc.sally</groupId>
-			<artifactId>sally_core</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>info.kwarc.sally</groupId>
-			<artifactId>sally_projects</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>info.kwarc.sally</groupId>
 			<artifactId>sally_comm</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		<dependency>
-			<groupId>info.kwarc.sally</groupId>
-			<artifactId>references</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
 
 		<dependency>
 			<groupId>info.kwarc.sally</groupId>
-			<artifactId>sally_theofx</artifactId>
+			<artifactId>sally_sharejs</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-
+		
 		<dependency>
 			<artifactId>jedit</artifactId>
 			<groupId>jedit</groupId>
@@ -52,29 +37,6 @@
 			<scope>system</scope>
 			<systemPath>${project.basedir}/lib/jedit.jar</systemPath>
 		</dependency>
-
-		<dependency>
-			<groupId>org.tmatesoft.svnkit</groupId>
-			<artifactId>svnkit-cli</artifactId>
-			<version>1.7.8</version>
-		</dependency>
-
-		<dependency>
-			<artifactId>MarkerSets</artifactId>
-			<groupId>jedit</groupId>
-			<version>0.9</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/MarkerSets.jar</systemPath>
-		</dependency>
-
-		<dependency>
-			<artifactId>MarkerSets</artifactId>
-			<groupId>jedit</groupId>
-			<version>0.9</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/SideKick.jar</systemPath>
-		</dependency>
-
 	</dependencies>
 	<parent>
 		<groupId>info.kwarc.sally</groupId>

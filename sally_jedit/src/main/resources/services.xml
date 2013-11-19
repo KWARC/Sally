@@ -1,5 +1,2 @@
 <SERVICES>
-	<SERVICE CLASS="sidekick.SideKickParser" NAME="stex">
-		new info.kwarc.sally.jedit.STeXParser();
-	</SERVICE>
 </SERVICES>

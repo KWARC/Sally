@@ -19,8 +19,6 @@ plugin.info.kwarc.sally.jedit.SallyPlugin.activate=startup
 plugin.info.kwarc.sally.jedit.SallyPlugin.usePluginHome=true
 plugin.info.kwarc.sally.jedit.SallyPlugin.version=1
 plugin.info.kwarc.sally.jedit.SallyPlugin.depend.0=jedit 04.05.00.00
-plugin.info.kwarc.sally.jedit.SallyPlugin.depend.1=plugin sidekick.SideKickPlugin 1.3
-plugin.info.kwarc.sally.jedit.SallyPlugin.depend.2=plugin marker.MarkerSetsPlugin 0.9
 
 # labels for actions defined in actions.xml
 #mmt-showinfo.label=Show Dockable
@@ -53,8 +51,8 @@ plugin.info.kwarc.sally.jedit.SallyPlugin.depend.2=plugin marker.MarkerSetsPlugi
 #sidekick.parser.mmt.label=MMT parser
 #mode.mmt.sidekick.parser=mmt
 #mode.lf.sidekick.parser=mmt
-sidekick.parser.stex.label=sTeX parser
-mode.tex.sidekick.parser=stex
+#sidekick.parser.stex.label=sTeX parser
+#mode.tex.sidekick.parser=stex
 
 # hyperlink
 #mode.mmt.hyperlink.source=mmt
