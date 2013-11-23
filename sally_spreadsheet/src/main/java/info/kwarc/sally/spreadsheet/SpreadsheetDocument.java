@@ -10,6 +10,9 @@ import info.kwarc.sally.core.interfaces.IPositionProvider;
 import info.kwarc.sally.core.net.IMessageCallback;
 import info.kwarc.sally.core.net.INetworkSender;
 import info.kwarc.sally.core.theo.Coordinates;
+import info.kwarc.sally.sharejs.IDocManager;
+import info.kwarc.sally.sharejs.JSONSnapshot;
+import info.kwarc.sally.sharejs.models.SpreadsheetModel;
 import info.kwarc.sally.spreadsheet3.Util;
 import info.kwarc.sally.spreadsheet3.export.ModelRDFExport;
 import info.kwarc.sally.spreadsheet3.model.Block;
@@ -18,6 +21,7 @@ import info.kwarc.sally.spreadsheet3.model.Manager;
 import info.kwarc.sally.spreadsheet3.model.Relation;
 import info.kwarc.sally.spreadsheet3.ontology.IOntologyProvider;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,8 +36,12 @@ import sally.ScreenCoordinates;
 import sally.SpreadsheetAlexData;
 import sally.SwitchToApp;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
+import com.google.inject.name.Named;
 import com.google.protobuf.AbstractMessage;
 
 public class SpreadsheetDocument {
@@ -45,20 +53,36 @@ public class SpreadsheetDocument {
 	
 	String filePath;
 	IPositionProvider provider;
+	SpreadsheetModel shareJSModel;
 
 	IOntologyProvider ontoProvider;
-
+	IDocManager documentManager;
+	
 	public String getFilePath() {
 		return filePath;
 	}
 
 	@Inject
-	public SpreadsheetDocument(@Assisted String filePath, @Assisted SpreadsheetAlexData data, @Assisted INetworkSender sender, IPositionProvider provider) {
+	public SpreadsheetDocument(@Assisted String filePath, @Assisted SpreadsheetAlexData data, @Assisted INetworkSender sender, IPositionProvider provider, IDocManager documentManager, @Named("ShareJSCollection") String shareJSCollection) {
 		asm = new Manager(ontoProvider, data.getAsm());
 		this.filePath = filePath;
 		this.sender = sender;
 		this.provider = provider;
 		log = LoggerFactory.getLogger(getClass());
+		JSONSnapshot snap  = JSONSnapshot.retrieveSnapshot(documentManager, shareJSCollection, filePath);
+		ObjectMapper mapper = new ObjectMapper(); // create once, reuse
+		try {
+			shareJSModel= mapper.readValue(snap.getSnapshot(), SpreadsheetModel.class);
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void switchToApp() {

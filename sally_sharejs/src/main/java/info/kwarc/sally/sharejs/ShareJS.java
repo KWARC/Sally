@@ -13,13 +13,16 @@ import java.net.URLEncoder;
 import org.apache.commons.io.IOUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 
 public class ShareJS implements IDocManager {
 	String baseUrl;
 	String charset = "UTF-8";
 	ObjectMapper mapper; 
 
-	public ShareJS(String url) {
+	@Inject
+	public ShareJS(@Named("ShareJSURL") String url) {
 		this.baseUrl = url;
 		mapper = new ObjectMapper();
 	}

@@ -15,6 +15,8 @@ import info.kwarc.sally.networking.interfaces.IConnectionManager;
 import info.kwarc.sally.pivot.PivotingService;
 import info.kwarc.sally.planetary.injection.PlanetaryModule;
 import info.kwarc.sally.projects.injection.ProjectDocModule;
+import info.kwarc.sally.sharejs.IDocManager;
+import info.kwarc.sally.sharejs.ShareJS;
 import info.kwarc.sally.sketch.injection.SketchDocModule;
 import info.kwarc.sally.spreadsheet.injection.SpreadsheetModule;
 import info.kwarc.sally.theofx.injection.TheoFX;
@@ -53,6 +55,10 @@ public class Configuration extends AbstractModule {
 		bind(CometD.class);
 		bind(CallbackManager.class);
 		bind(SubtaskCallbackMap.class);
+		bind(IDocManager.class).to(ShareJS.class);
+		
+		bind(String.class).annotatedWith(Names.named("ShareJSCollection")).toInstance("libreoffice");
+		bind(String.class).annotatedWith(Names.named("ShareJSURL")).toInstance("http://127.0.0.1:7007");
 		
 		bind(String.class).annotatedWith(Names.named("PlanetaryURL")).toInstance("http://localhost/planetmmt");
 		bind(String.class).annotatedWith(Names.named("PlanetaryEndPoint")).toInstance("sallyrpc");  
