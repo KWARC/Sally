@@ -104,6 +104,8 @@ message TheoCloseWindow {
 message AlexData {
         optional string fileName = 1;
         optional string data = 2;
+        optional string shareJSColection = 3;
+        optional string shareJSDocument = 4;
 }
 
 /**

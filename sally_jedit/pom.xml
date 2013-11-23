@@ -25,11 +25,23 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.cometd.java</groupId>
+			<artifactId>cometd-java-client</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.6</version>
+		</dependency>
+
+		<dependency>
 			<groupId>info.kwarc.sally</groupId>
 			<artifactId>sally_sharejs</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		
+
 		<dependency>
 			<artifactId>jedit</artifactId>
 			<groupId>jedit</groupId>

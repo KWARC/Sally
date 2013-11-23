@@ -1,101 +1,68 @@
 package info.kwarc.sally.sharejs;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URLConnection;
-
-import org.apache.commons.io.IOUtils;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import info.kwarc.sally.sharejs.text.TextOp;
 
 public class TextSnapshot extends AbstractSnapshot{
 	String snapshot;
-	ShareJS shareJS;
-
-	private TextSnapshot(ShareJS sharejs, String collection, String fileName, long version) {
-		super(version, collection, fileName);
-		this.shareJS = sharejs;
-		System.out.println("ver = "+version);
+	IDocManager docManager;
+	
+	private TextSnapshot(IDocManager docManager) {
+		super();
+		this.docManager = docManager;
 	}
 
 	private void setSnapshot(String snapshot) {
 		this.snapshot = snapshot;
 	}
+	
+	public String getSnapshot() {
+		return snapshot;
+	}
 
-	public static TextSnapshot create(ShareJS shareJS, String collection, String fileName, String content) {
-		JSONObject jsonData=new JSONObject();
-		jsonData.put("type", ShareJS.textType);
-		jsonData.put("data", content);
-		JSONObject request = new JSONObject();
-		request.put("create", jsonData);
-		URLConnection conn = shareJS.postOp(collection, fileName, request.toJSONString());
-		Long version = shareJS.getVersion(conn) + 1;
-		System.out.println("Create version "+version);
-		TextSnapshot snap = new TextSnapshot(shareJS, collection, fileName, version);
+	public static TextSnapshot create(IDocManager docManager, String collection, String fileName, String content) {
+		ISyncResult result = docManager.sendOp(collection, fileName, new DocumentCreateRequest().setData(content).setType(IDocManager.textType));
+		Long version = result.getVersion() + 1;
+		TextSnapshot snap = new TextSnapshot(docManager);
+		snap.setCollection(collection).setFileName(fileName).setVersion(version);
 		snap.setSnapshot(content);
 		return snap;
 	}
+	
+	public static TextSnapshot retrieveSnapshot(IDocManager docManager, String collection, String fileName) {
+		TextSnapshot snap = new TextSnapshot(docManager);
+		snap.setCollection(collection).setFileName(fileName);
+		
+		ISyncResult result = docManager.getSnapshot(collection, fileName, snap);
+		snap.setVersion(result.getVersion());
+		return snap;
+	}	
 
 	public void insertText(int offset, String text) {
-		JSONArray opSpec = new JSONArray();
-		if (offset > 0) {
-			opSpec.add(offset);
-		}
-		opSpec.add(text);
-
-		JSONObject op = new JSONObject();
-		op.put("v", getVersion());
-		op.put("op", opSpec);
-		URLConnection conn = shareJS.postOp(getCollection(), getFileName(), op.toJSONString());
-		this.version = shareJS.getVersion(conn) + 1;
-		
-		ByteArrayOutputStream writer = new ByteArrayOutputStream();
-		try {
-			IOUtils.copy(conn.getInputStream(), writer);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		String rest = writer.toString();
-		System.out.println("need to do " +version+" - " + rest);
+		ISyncResult result= docManager.sendOp(getCollection(), getFileName(), new TextOp().setBaseVersion(getVersion()).addSkipOp(offset).addInsertOp(text));
+		this.version = result.getVersion() + 1;
 	}
 
 	public void removeText(int offset, int len) {
-		JSONArray opSpec = new JSONArray();
-		if (offset > 0) {
-			opSpec.add(offset);
-		}
-		JSONObject del = new JSONObject();
-		del.put("d", len);
-		opSpec.add(del);
+		ISyncResult result= docManager.sendOp(getCollection(), getFileName(), new TextOp().setBaseVersion(getVersion()).addSkipOp(offset).addRemoveOp(len));
+		this.version = result.getVersion() + 1;
+	}
 
-		JSONObject op = new JSONObject();
-		op.put("v", getVersion());
-		op.put("op", opSpec);
-		URLConnection conn = shareJS.postOp(getCollection(), getFileName(), op.toJSONString());
-		this.version = shareJS.getVersion(conn) + 1;
+	public static void main(String[] args) {
+		ShareJS sharejs = new ShareJS("http://localhost:7007");
+		TextSnapshot u1 = TextSnapshot.create(sharejs, "test", "test.txt", "hi there");
+		TextSnapshot u2 = TextSnapshot.retrieveSnapshot(sharejs, "test", "test.txt");
 		
-		ByteArrayOutputStream writer = new ByteArrayOutputStream();
-		try {
-			IOUtils.copy(conn.getInputStream(), writer);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		String rest = writer.toString();
-		System.out.println("need to do " +version+" - " + rest);
+		u1.insertText(8, " everyone!");
+		u2.insertText(9, "another one\n");
+		
+		sharejs.deleteFile("test", "test.txt");
 	}
 
-	static TextSnapshot parse(ShareJS shareJS, String collection, String fileName, long version, InputStream response) {
-		TextSnapshot result = new TextSnapshot(shareJS, collection, fileName, version);
-
-		ByteArrayOutputStream writer = new ByteArrayOutputStream();
-		try {
-			IOUtils.copy(response, writer);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		result.setSnapshot(writer.toString());
-		return result;
+	@Override
+	public void setSnapshot(String otType, String data) {
+		if (!IDocManager.textType.equals(otType)) 
+			return;
+		
+		setSnapshot(data);
 	}
-
 }

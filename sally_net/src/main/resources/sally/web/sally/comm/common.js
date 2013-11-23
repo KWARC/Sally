@@ -152,6 +152,18 @@ sally.AlexData = PROTO.Message("sally.AlexData",{
 		multiplicity: PROTO.optional,
 		type: function(){return PROTO.string;},
 		id: 2
+	},
+	shareJSColection: {
+		options: {},
+		multiplicity: PROTO.optional,
+		type: function(){return PROTO.string;},
+		id: 3
+	},
+	shareJSDocument: {
+		options: {},
+		multiplicity: PROTO.optional,
+		type: function(){return PROTO.string;},
+		id: 4
 	}});
 sally.SallyFrame = PROTO.Message("sally.SallyFrame",{
 	fileName: {

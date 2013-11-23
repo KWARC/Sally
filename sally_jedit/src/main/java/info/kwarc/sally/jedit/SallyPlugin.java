@@ -1,6 +1,6 @@
 package info.kwarc.sally.jedit;
 
-import info.kwarc.sally.sharejs.ShareJS;
+import info.kwarc.sally.sharejs.IDocManager;
 import info.kwarc.sally.sharejs.TextSnapshot;
 
 import java.util.ArrayList;
@@ -14,16 +14,29 @@ import org.gjt.sp.jedit.jEdit;
 import org.gjt.sp.jedit.buffer.BufferListener;
 import org.gjt.sp.jedit.buffer.JEditBuffer;
 
+import sally.AlexData;
+import sally.DocType;
+import sally.WhoAmI;
+import sally.WhoAmI.ClientType;
+import sally.WhoAmI.EnvironmentType;
+
 public class SallyPlugin extends EBPlugin {
 	String collection = "users";
-	ShareJS sharejs;
 	HashMap<String, TextSnapshot> snapshots;
 	List<ITextBufferAdapter> adapters;
-
+	SallyCommunication comm;
+	
+	IDocManager sharejs;
+	
 	public SallyPlugin() {
-		sharejs = new ShareJS("http://localhost:7007");
+		//sharejs = new ShareJS("http://localhost:7007");
+		sharejs = new LocalDoc();
+
 		snapshots = new HashMap<String, TextSnapshot>();
 		adapters = new ArrayList<SallyPlugin.ITextBufferAdapter>();
+		comm = new SallyCommunication("localhost", 8181);
+		comm.start();
+		comm.sendMessage("/service/alex", WhoAmI.newBuilder().setClientType(ClientType.Alex).setDocumentType(DocType.Text).setEnvironmentType(EnvironmentType.Desktop).build());
 	}
 
 	@Override
@@ -56,7 +69,7 @@ public class SallyPlugin extends EBPlugin {
 			}
 			TextSnapshot snap = TextSnapshot.create(sharejs, collection, file, buffer.getText());
 			snapshots.put(file, snap);
-
+			comm.sendMessage("/service/alex", AlexData.newBuilder().setFileName(file).setData("").setShareJSColection(collection).setShareJSDocument(file).build());
 			return snap;
 		}
 
