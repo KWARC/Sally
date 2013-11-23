@@ -39,6 +39,7 @@
 								</goals>
 							</execution>
 
+<!--
 							<execution>
 								<id>javascript</id>
 								<phase>generate-sources</phase>
@@ -54,7 +55,7 @@
 									<goal>run</goal>
 								</goals>
 							</execution>
-
+-->
 						</executions>
 					</plugin>
 				</plugins>

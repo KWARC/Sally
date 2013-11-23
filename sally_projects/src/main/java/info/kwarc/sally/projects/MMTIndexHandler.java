@@ -1,5 +1,5 @@
 package info.kwarc.sally.projects;
-
+/*
 import info.kwarc.mmt.api.frontend.Controller;
 import info.kwarc.mmt.api.modules.DeclaredTheory;
 import info.kwarc.sally.core.SallyContext;
@@ -106,5 +106,7 @@ public class MMTIndexHandler implements IndexHandler, STeXParsingEvents  {
 			acceptor.acceptResult(constants);
 		} 
 	}
-	*/
+	
 }
+
+*/

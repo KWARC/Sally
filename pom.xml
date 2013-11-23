@@ -26,6 +26,7 @@
 		<module>sally_sketch</module>
 		<module>sally_theoweb</module>
 		<module>sally_jedit</module>
+		<module>sally_pivoter</module>
 		<!-- <module>sally_jedit</module> <module>sally_projects</module> <module>sally_theoxul</module> -->
 		<module>sally_jbpm</module>
 	</modules>

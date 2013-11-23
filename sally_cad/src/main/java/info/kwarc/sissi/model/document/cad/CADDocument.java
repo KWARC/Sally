@@ -74,6 +74,8 @@ public class CADDocument {
 
 	@SallyService(channel="/what")
 	public void getIMMapping(CADAlexClick click, SallyInteractionResultAcceptor acceptor, SallyContext context) {
+		if (!click.getFileName().equals(filePath))
+			return;
 		CADNode node = acm.getNodeById(click.getCadNodeId());
 		if (node == null)
 			return;

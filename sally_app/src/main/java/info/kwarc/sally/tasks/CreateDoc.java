@@ -138,7 +138,7 @@ public class CreateDoc implements WorkItemHandler {
 			if (processId == null || processInput == null) {
 				throw new Exception("Could not handle document type "+alexInfo.getDocumentType());
 			}
-
+			log.info("Opening "+ alexData.getFileName());
 			interaction.registerServices(processInput);
 
 			ProcessInstance instance = kb.startProcess(workItem.getProcessInstanceId(), processId, params);

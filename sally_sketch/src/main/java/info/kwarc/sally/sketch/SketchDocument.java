@@ -123,13 +123,11 @@ public class SketchDocument {
 				@Override
 				public void run() {
 					Long callbackid = callbacks.registerCallback(new IAbstractMessageRunner() {
-
 						@Override
 						public void run(AbstractMessage m) {
 							selectObject(((HTMLSelectPart)m).getId());
 						}
 					});
-
 					HashMap<String, Object>  input = new  HashMap<String, Object>();
 
 					input.put("ObjectIDs", refs);
@@ -164,7 +162,6 @@ public class SketchDocument {
 
 		SoftwareObject obj = SoftwareObject.newBuilder().setFileName(filePath).setUri("htmlid#"+click.getId()).build();
 		items.addAll(interaction.getPossibleInteractions(obj, SallyMenuItem.class));
-
 
 		MMTUri mmtURI = MMTUri.newBuilder().setUri(getSemantics(click.getId())).build();
 		if (mmtURI != null)

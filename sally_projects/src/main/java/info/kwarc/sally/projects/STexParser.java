@@ -104,7 +104,7 @@ public class STexParser {
 				String stex = getContent(file.getContent().getInputStream());
 				String fileURI = removeExtension(file.getURL().toString());
 
-				sTeXToMMT(stex, fileURI, interaction, new MMTIndexHandler(interaction));
+				//sTeXToMMT(stex, fileURI, interaction, new MMTIndexHandler(interaction));
 			}
 		} catch (FileSystemException e) {
 			e.printStackTrace();
