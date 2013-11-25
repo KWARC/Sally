@@ -84,6 +84,10 @@ public class SpreadsheetDocument {
 			e.printStackTrace();
 		}
 	}
+	
+	public SpreadsheetModel getConcreteSpreadsheetModel() {
+		return shareJSModel;
+	}
 
 	public void switchToApp() {
 		SwitchToApp request = SwitchToApp.newBuilder().setFileName(filePath).build();
