@@ -79,6 +79,15 @@ public class InterfaceMockup extends IOntologyProvider {
 		mathML = "<apply><leq/><rvar num=\"0\"/><rvar num=\"1\"/></apply>";
 		ontologyBasicFunctions.put("spsht-arith#leq", new FunctionObject("spsht-arith#leq", arguments, "spsht-bool#spshBool", mathML, mathMLBuilder));
 		
+		// spsht-arith#geq
+		arguments = new ArrayList<String>();
+		arguments.add("spsht-numbers#spshReal");
+		arguments.add("spsht-numbers#spshReal");
+			
+		mathML = "<apply><geq/><rvar num=\"0\"/><rvar num=\"1\"/></apply>";
+		ontologyBasicFunctions.put("spsht-arith#geq", new FunctionObject("spsht-arith#geq", arguments, "spsht-bool#spshBool", mathML, mathMLBuilder));
+		
+		
 		// spsht-arith#sum5
 		arguments = new ArrayList<String>();
 		arguments.add("spsht-numbers#spshReal");
@@ -181,6 +190,11 @@ public class InterfaceMockup extends IOntologyProvider {
 				+ "<apply><csymbol cd=\"spsht-arith\">leq</csymbol>"
 				+ "<apply><csymbol cd=\"expenses\">ExpensesPerYear</csymbol><ci>y</ci><ci>c</ci></apply>"
 				+ "<apply><csymbol cd=\"expenses\">ExpensesPerYear</csymbol><ci>y</ci><ci>Total Costs</ci></apply>" 
+				+ "</apply></apply>"));
+		axioms.add(getBuilderML().parseMLAxiom("money#monetary-quantity-Axiom1", "<apply><forall/><bvar><ci>c</ci></bvar><condition><apply><in/><ci>c</ci><ci>money#monetary-quantity</ci></apply></condition>"
+				+ "<apply><csymbol cd=\"spsht-arith\">geq</csymbol>"
+				+ "<ci>c</ci>"
+				+ "<ci>100000</ci>" 
 				+ "</apply></apply>"));
 		return axioms;
 	}

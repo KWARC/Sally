@@ -16,7 +16,7 @@ import org.junit.Test;
 
 public class UtilTest {
 	Manager manager;
-	FormalSpreadsheet spreadsheet;
+	ConcreteSpreadsheet spreadsheet;
 	psf.ParserInterface parser;
 	BuilderML mlBuilder;
 

@@ -7,7 +7,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import info.kwarc.sally.spreadsheet3.FormalSpreadsheet;
+import info.kwarc.sally.spreadsheet3.ConcreteSpreadsheet;
 import info.kwarc.sally.spreadsheet3.model.CellSpaceInformation;
 import info.kwarc.sally.spreadsheet3.model.CellTuple;
 import info.kwarc.sally.spreadsheet3.model.Manager;
@@ -18,14 +18,14 @@ public class Verifier {
 	
 	Z3Interface z3;
 	Manager manager;
-	FormalSpreadsheet spreadsheet;
+	ConcreteSpreadsheet spreadsheet;
 	List<DataSymbolInformation> dataSymbols;
 	Map<CellSpaceInformation, String> semanticMapping;
 	boolean ready = false;
 	
 	final Logger logger = LoggerFactory.getLogger(Verifier.class);
 	
-	public Verifier(Manager manager, FormalSpreadsheet spreadsheet) {
+	public Verifier(Manager manager, ConcreteSpreadsheet spreadsheet) {
 		this.manager = manager;
 		this.spreadsheet = spreadsheet;
 		reinit();

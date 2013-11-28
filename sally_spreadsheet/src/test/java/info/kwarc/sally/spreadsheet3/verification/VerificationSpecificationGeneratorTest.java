@@ -1,9 +1,10 @@
 package info.kwarc.sally.spreadsheet3.verification;
 
 import static org.junit.Assert.*;
-import info.kwarc.sally.spreadsheet3.FormalSpreadsheet;
+import info.kwarc.sally.spreadsheet3.ConcreteSpreadsheet;
 import info.kwarc.sally.spreadsheet3.WinogradData;
 import info.kwarc.sally.spreadsheet3.model.Block;
+import info.kwarc.sally.spreadsheet3.model.CellSpaceInformation;
 import info.kwarc.sally.spreadsheet3.model.Manager;
 import info.kwarc.sally.spreadsheet3.model.Relation;
 
@@ -20,7 +21,7 @@ import org.junit.Test;
 
 public class VerificationSpecificationGeneratorTest {
 	Manager manager;
-	FormalSpreadsheet spreadsheet;
+	ConcreteSpreadsheet spreadsheet;
 	WinogradData winData;
 
 	@Before
@@ -40,7 +41,9 @@ public class VerificationSpecificationGeneratorTest {
 			
 		}
 		List<DataSymbolInformation> dataSym = VerificationDataExtractor.extractDataTypes(blocks, spreadsheet);
-		List<String> dtSpec = VerificationSpecificationGenerator.getDataTypeSpecification(manager, dataSym).getSpecification();
+		List<String> dtSpec = VerificationSpecificationGenerator.getDataTypeSpecification(manager, dataSym);
+		for (DataSymbolInformation symbol : dataSym)
+			dtSpec.add(VerificationSpecificationGenerator.createSymbolValueAssertion(manager, symbol));
 		
 		assertTrue(dtSpec.size() == 39);
 		/*System.out.println("Data specification. Size: " + dtSpec.size());
@@ -177,6 +180,31 @@ public class VerificationSpecificationGeneratorTest {
 				+ ")\n"
 				+ "))))"
 				, spec.replaceAll("\\s*\\n\\s+", "\n"));
+	}
+	
+	@Test
+	public void testGetFormulaSpec() {
+		Map<CellSpaceInformation, String> interpretation = manager.getCompleteSemanticMapping(spreadsheet);
+		List<DataSymbolInformation> dataSymbols = VerificationDataExtractor.extractDataTypes(manager.getBlockTypes(manager.getAllTopLevelBlocks()), spreadsheet);
+		
+		String specification = VerificationSpecificationGenerator.getFormulaSpec(manager, winData.getRelationProfit(), "C2-C5", new CellSpaceInformation("Table1",5,2), interpretation, dataSymbols);
+		assertEquals(
+				  "(assert (spsht-arith~equal \n"
+				+ "(profits~ProfitPerYear (value-String Sym-2) )\n"
+				+ "(\n"
+				+ "spsht-arith~minus\n"
+				+ "(\n"
+				+ "revenues~RevenuesPerYear\n"
+				+ "(value-String Sym-2)\n"
+				+ ")\n"
+				+ "(\n"
+				+ "expenses~ExpensesPerYear\n"
+				+ "(value-String Sym-2)\n"
+				+ "(value-String Sym-7)\n"
+				+ ")\n"
+				+ ")\n"
+				+ "))"
+				, specification.replaceAll("\\s*\\n\\s+", "\n"));
 	}
 
 	@Test

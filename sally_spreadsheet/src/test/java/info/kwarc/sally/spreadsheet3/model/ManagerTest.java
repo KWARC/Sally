@@ -2,7 +2,7 @@ package info.kwarc.sally.spreadsheet3.model;
 
 import static org.junit.Assert.*;
 
-import info.kwarc.sally.spreadsheet3.FormalSpreadsheet;
+import info.kwarc.sally.spreadsheet3.ConcreteSpreadsheet;
 import info.kwarc.sally.spreadsheet3.WinogradData;
 
 import java.util.List;
@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 
 public class ManagerTest {
 	Manager manager;
-	FormalSpreadsheet spreadsheet;
+	ConcreteSpreadsheet spreadsheet;
 	Block year;
 	
 	final Logger logger = LoggerFactory.getLogger(ManagerTest.class);

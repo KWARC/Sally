@@ -17,7 +17,7 @@ import java.util.Map;
 public class WinogradData {
 	
 	Manager manager;
-	FormalSpreadsheet spreadsheet;
+	ConcreteSpreadsheet spreadsheet;
 	Block year, revenues, cost, profit, dataRevenues, dataCosts, dataTotalCosts, dataProfit; 
 	Relation relationRevenues, relationCosts, relationTotalCosts, relationProfit,
 		typeYear, typeRevenues, typeCost, typeProfit, typeDataRevenues, typeDataCosts, typeDataTotalCosts, typeDataProfit;
@@ -25,7 +25,7 @@ public class WinogradData {
 	public WinogradData() {
 		
 		// +++ Setting up formal Spreadsheet +++
-		spreadsheet = new FormalSpreadsheet();
+		spreadsheet = new ConcreteSpreadsheet();
 		
 		spreadsheet.setContent(new CellSpaceInformation("Table1",0,1), "1984", "", ContentValueType.STRING_NUMBER);
 		spreadsheet.setContent(new CellSpaceInformation("Table1",0,2), "1985", "", ContentValueType.STRING_NUMBER);
@@ -203,7 +203,7 @@ public class WinogradData {
 		return manager;
 	}
 
-	public FormalSpreadsheet getSpreadsheet() {
+	public ConcreteSpreadsheet getSpreadsheet() {
 		return spreadsheet;
 	}
 

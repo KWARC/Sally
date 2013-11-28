@@ -1,6 +1,6 @@
 package info.kwarc.sally.spreadsheet3.verification;
 
-import info.kwarc.sally.spreadsheet3.FormalSpreadsheet;
+import info.kwarc.sally.spreadsheet3.ConcreteSpreadsheet;
 import info.kwarc.sally.spreadsheet3.Util;
 import info.kwarc.sally.spreadsheet3.model.Block;
 import info.kwarc.sally.spreadsheet3.model.CellSpaceInformation;
@@ -39,9 +39,10 @@ import org.xml.sax.SAXException;
 public class VerificationSpecificationGenerator {
 	
 	//final static String mathML2Z3XLSTTypes = "src/main/resources/MathML2Z3Types.xsl";
-	final static String mathML2Z3XLST = "src/main/resources/MathML2Z3.xsl";
-	final static String mathML2Z3XLSTAxioms = "src/main/resources/MathML2Z3Axioms.xsl";
+	final static String mathML2Z3XLST = "src/main/resources/info/kwarc/sally/spreadsheet3/verification/MathML2Z3.xsl";
+	final static String mathML2Z3XLSTAxioms = "src/main/resources/info/kwarc/sally/spreadsheet3/verification/MathML2Z3Axioms.xsl";
 	final static Logger logger = LoggerFactory.getLogger(VerificationSpecificationGenerator.class);
+	static psf.ParserInterface parser = new psf.ParserInterface();
 	
 	/**
 	 * Create a complete Z3 specification for a given spreadsheet. 
@@ -50,7 +51,7 @@ public class VerificationSpecificationGenerator {
 	 * @param spreadsheet
 	 * @return
 	 */
-	public static List<String> createCompeteSpecification(Manager manager, FormalSpreadsheet spreadsheet) {
+	public static List<String> createCompeteSpecification(Manager manager, ConcreteSpreadsheet spreadsheet) {
 		List<String> specification = new ArrayList<String>();
 		
 		// Datatypes
@@ -68,7 +69,7 @@ public class VerificationSpecificationGenerator {
 		
 		specification.addAll( VerificationSpecificationGenerator.createFunctionDefinitions( manager.getOntologyInterface().getAllBasicFunctionObjects(), manager, dataSym));
 		
-		specification.addAll( VerificationSpecificationGenerator.getDataTypeSpecification(manager, dataSym).getSpecification() );
+		specification.addAll( VerificationSpecificationGenerator.getDataTypeSpecification(manager, dataSym));
 		
 		specification.addAll( VerificationSpecificationGenerator.createFunctionDeclarations(manager.getOntologyInterface().getAllDomainFunctionObjects(), manager));
 		
@@ -107,20 +108,32 @@ public class VerificationSpecificationGenerator {
 		
 	}
 	
-	public static DataTypeSpec getDataTypeSpecification(Manager manager, List<DataSymbolInformation> dataSymbols) {
+	// public static DataTypeSpec getDataTypeSpecification(Manager manager, List<DataSymbolInformation> dataSymbols) {
+	public static List<String> getDataTypeSpecification(Manager manager, List<DataSymbolInformation> dataSymbols) {
 		List<String> specification = new ArrayList<String>();
-		Map<String, String> viToZ3String = new HashMap<String,String>();
+		//Map<String, String> viToZ3String = new HashMap<String,String>();
 		
 		// Generating datatype String
+		boolean stringDataTypes = false;
 		for (DataSymbolInformation symbol : dataSymbols) {
 			if (manager.getOntologyInterface().getDataTypeObject(symbol.getOntologyType()).getBasicType() == DataTypeObject.BasicType.String) {
-				viToZ3String.put(symbol.getContent(), toZ3Value(ml2Z3(symbol.getContent(), mathML2Z3XLST)));
+				//viToZ3String.put(symbol.getContent(), toZ3Value(ml2Z3(symbol.getContent(), mathML2Z3XLST)));
+				//symbol.setZ3String(toZ3Value(ml2Z3(symbol.getContent(), mathML2Z3XLST)));
+				stringDataTypes = true;
 			}
 		}
-		if (!viToZ3String.values().isEmpty()) {
+		/*if (!viToZ3String.values().isEmpty()) {
 			String stringDefinition = "(declare-datatypes () ((String ";
 			for (String s : viToZ3String.values())
 				stringDefinition += s + " ";
+			stringDefinition += ")))";
+			specification.add(stringDefinition);
+		}*/
+		if (stringDataTypes) {
+			String stringDefinition = "(declare-datatypes () ((String ";
+			for (DataSymbolInformation dataSymbol : dataSymbols)
+				if ((manager.getOntologyInterface().getDataTypeObject(dataSymbol.getOntologyType()).getBasicType() == DataTypeObject.BasicType.String) && !toZ3Value(dataSymbol.getContent()).isEmpty())
+					stringDefinition += toZ3Value(dataSymbol.getContent()) + " ";
 			stringDefinition += ")))";
 			specification.add(stringDefinition);
 		}
@@ -152,15 +165,30 @@ public class VerificationSpecificationGenerator {
 		}
 		
 		// Asserting values to symbols
+		/*
 		for (DataSymbolInformation symbol : dataSymbols) {
 			String value =  ml2Z3(symbol.getContent(),mathML2Z3XLST);
 			if (manager.getOntologyInterface().getDataTypeObject(symbol.getOntologyType()).getBasicType() == DataTypeObject.BasicType.String)
 				value = toZ3Value(value);
 			if (!value.isEmpty())
 				specification.add("(assert (= (value-" + manager.getOntologyInterface().getDataTypeObject(symbol.getOntologyType()).getBasicType().name() + " Sym-" + symbol.getSymbolID() + ") " + value + "))");
-		}
-		return new DataTypeSpec(specification, viToZ3String);
-
+		}*/
+		//return new DataTypeSpec(specification, viToZ3String);
+		return specification;
+	}
+	
+	public static String createSymbolValueAssertion(Manager manager, DataSymbolInformation symbol) {
+		String value = "";
+		
+		if (manager.getOntologyInterface().getDataTypeObject(symbol.getOntologyType()).getBasicType() == DataTypeObject.BasicType.String)
+			value = toZ3Value(symbol.getContent());
+		else
+			value = ml2Z3(symbol.getContent(), mathML2Z3XLST);
+		
+		if (!value.isEmpty())
+			return "(assert (= (value-" + manager.getOntologyInterface().getDataTypeObject(symbol.getOntologyType()).getBasicType().name() + " Sym-" + symbol.getSymbolID() + ") " + value + "))";
+		else
+			return "";
 	}
 		
 	public static List<String> createFunctionDeclarations(List<FunctionObject> functions, Manager manager) {
@@ -317,6 +345,36 @@ public class VerificationSpecificationGenerator {
 		return funcSpec;
 	}
 	
+	public static String getFormulaSpec(Manager manager, Relation relation, String formula, CellSpaceInformation position, Map<CellSpaceInformation, String> interpretation, List<DataSymbolInformation> dataSymbols) {
+		psf.SemanticMapping mapping = new psf.SemanticMapping();
+		for (CellSpaceInformation pos : interpretation.keySet()) 
+			mapping.add(pos.getWorksheet(), pos.getRow(), pos.getColumn(), interpretation.get(pos));
+		
+		psf.ParserParameter p = new psf.ParserParameter(formula, position.getWorksheet(), false, true, false, true, mapping.getMapping());
+		String mlRep = parser.parseFormula(p).getMathML();
+		
+		String specification = "(assert (spsht-arith~equal \n";
+		specification += "(" + uriToIdentifier(relation.getUri()) + " ";
+		
+		Map<CellSpaceInformation, DataSymbolInformation> posToSymbol = new HashMap<CellSpaceInformation, DataSymbolInformation>();
+		for (DataSymbolInformation symbol : dataSymbols)
+			posToSymbol.put(symbol.getPostition(), symbol);
+		logger.info("Spec for Relation: " + relation.getUri());
+		logger.info("Number of blocks: " + relation.getBlocks().size());
+		logger.info("Number of related cells: " + relation.getCellRelationFor(position).size());
+		for (int i = 0; i < relation.getCellRelationFor(position).size(); i++) 
+			specification += "(value-" + manager.getOntologyInterface().getDataTypeObject(posToSymbol.get(relation.getCellRelationFor(position).get(0).getTuple().get(i)).getOntologyType()).getBasicType() + " Sym-" + posToSymbol.get(relation.getCellRelationFor(position).get(0).getTuple().get(i)).getSymbolID() + ") ";
+		
+		for (DataSymbolInformation di : dataSymbols) {
+			String basicType = manager.getOntologyInterface().getDataTypeObject(di.getOntologyType()).getBasicType().name();
+			mlRep = mlRep.replaceAll(di.getContent(), " (value-" + basicType + " Sym-" + di.getSymbolID() + ") ");
+		}
+		
+		specification += ") " + ml2Z3(mlRep, mathML2Z3XLST) + "))";
+		
+		return specification;
+	}
+	
 	private static String getFunctionDeclaration(FunctionObject function, Manager manager) {
 		String funcDef = "(declare-fun " + uriToIdentifier(function.getUri()) + " (";
 		for (String argType : function.getArgumentTypes()) {
@@ -404,7 +462,7 @@ public class VerificationSpecificationGenerator {
 	}
 	
 	private static String toZ3Value(String s) {
-		return s.trim().replaceAll(" ", "-");
+		return ml2Z3(s, mathML2Z3XLST).trim().replaceAll(" ", "-");
 	}
 
 }

@@ -13,14 +13,12 @@ import org.slf4j.LoggerFactory;
 
 public class Z3Interface {
 	
-	public enum VerificationStatus {
-		SAT, UNSAT, FAILED
-	}
-	
 	final Logger logger = LoggerFactory.getLogger(Z3Interface.class);
 	
 	private BufferedReader reader = null;
 	private BufferedWriter writer = null;
+	
+	List<String> completeSpecification = new ArrayList<String>();
 	
 	public Z3Interface() {
 		List<String> commands = new ArrayList<String>();
@@ -79,6 +77,7 @@ public class Z3Interface {
 				logger.error("Verification failed.");
 				for (String s : output)
 					logger.info("[Z3 Output] " + s);
+				printCompleteSpecification();
 				status = VerificationStatus.FAILED;
 			} else if (output.get(0).equals("sat"))
 				status = VerificationStatus.SAT;
@@ -91,13 +90,22 @@ public class Z3Interface {
 		return status;
 	}
 	
+	public void printCompleteSpecification() {
+		System.out.println("Complete Specification");
+		for (String s : completeSpecification)
+			System.out.println(s);
+		System.out.println("--------------");
+	}
+	
 	 private boolean writeSpec(List<String> commands) {
 		 boolean succeed = false;
 		 
 		 if (writer != null) {
 			try {
-				for (String cmd : commands)
+				for (String cmd : commands) {
 					writer.write(cmd);
+					completeSpecification.add(cmd);
+				}
 				writer.flush();
 				succeed = true;
 			} catch (IOException e) {

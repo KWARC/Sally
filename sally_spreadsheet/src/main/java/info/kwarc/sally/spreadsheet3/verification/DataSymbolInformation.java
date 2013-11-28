@@ -8,6 +8,7 @@ public class DataSymbolInformation {
 	String content;
 	CellSpaceInformation position;
 	int symbolID;
+	String z3String;
 	
 	public DataSymbolInformation(String ontologyType, String content, CellSpaceInformation postition, int symbolID) {
 		super();
@@ -15,6 +16,7 @@ public class DataSymbolInformation {
 		this.content = content;
 		this.position = postition;
 		this.symbolID = symbolID;
+		this.z3String = "";
 	}
 
 	public String getOntologyType() {
@@ -36,6 +38,15 @@ public class DataSymbolInformation {
 	public int getSymbolID() {
 		return symbolID;
 	}
+	/*
+	public void setZ3String(String z3String) {
+		this.z3String = z3String;
+	}
+	
+	public String getZ3String() {
+		//return content.trim().replaceAll(" ", "-");
+		return z3String;
+	}*/
 	
 	@Override
 	public String toString() {

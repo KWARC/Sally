@@ -1,5 +1,6 @@
 package info.kwarc.sally.spreadsheet3.ontology;
 
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -80,11 +81,11 @@ public class ValueInterpretation {
 	public Boolean isInterpretable(String value) {
 		return valuePattern.matcher(value).matches();
 	}
-	
+
 	public String getValueInterpretation(String value) {	
 		Matcher matcher = valuePattern.matcher(value);
 		
-		if (matcher.matches()) {
+		if (matcher.matches() ) {
 			String interpretation = interpretationTemplate;
 			for (int i = 1; i <= matcher.groupCount(); i++) {
 				interpretation = interpretation.replaceAll(builderML.getVIVaribale(i), matcher.group(i));

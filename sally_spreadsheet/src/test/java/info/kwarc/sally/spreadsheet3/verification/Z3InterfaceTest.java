@@ -1,18 +1,13 @@
 package info.kwarc.sally.spreadsheet3.verification;
 
 import static org.junit.Assert.*;
-import info.kwarc.sally.spreadsheet3.FormalSpreadsheet;
+import info.kwarc.sally.spreadsheet3.ConcreteSpreadsheet;
 import info.kwarc.sally.spreadsheet3.WinogradData;
-import info.kwarc.sally.spreadsheet3.model.Block;
 import info.kwarc.sally.spreadsheet3.model.Manager;
-import info.kwarc.sally.spreadsheet3.model.Relation;
 import info.kwarc.sally.spreadsheet3.ontology.AxiomObject;
-import info.kwarc.sally.spreadsheet3.verification.Z3Interface.VerificationStatus;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +17,7 @@ import org.slf4j.LoggerFactory;
 public class Z3InterfaceTest {
 	Z3Interface z3;
 	Manager manager;
-	FormalSpreadsheet spreadsheet;
+	ConcreteSpreadsheet spreadsheet;
 	
 	final Logger logger = LoggerFactory.getLogger(Z3InterfaceTest.class);
 
@@ -48,7 +43,7 @@ public class Z3InterfaceTest {
 		
 		specification.addAll( VerificationSpecificationGenerator.createFunctionDefinitions( manager.getOntologyInterface().getAllBasicFunctionObjects(), manager, dataSym));
 		
-		specification.addAll( VerificationSpecificationGenerator.getDataTypeSpecification(manager, dataSym).getSpecification() );
+		specification.addAll( VerificationSpecificationGenerator.getDataTypeSpecification(manager, dataSym) );
 		
 		specification.addAll( VerificationSpecificationGenerator.createFunctionDeclarations(manager.getOntologyInterface().getAllDomainFunctionObjects(), manager));
 		
@@ -56,14 +51,24 @@ public class Z3InterfaceTest {
 		
 		specification.addAll( VerificationSpecificationGenerator.createFunctionSymbolAssertions(manager, dataSym));
 		
-		parseResult(z3.verify(specification, false), "Background Knowledge");
+		/*parseResult(z3.verify(specification, false), "Background Knowledge");
 		
 		for (AxiomObject axiom : manager.getOntologyInterface().getAxioms())
 			parseResult(z3.verify( VerificationSpecificationGenerator.getAxiom(manager, axiom, dataSym), false), "Axiom " + axiom.getUri());
 		
 		for (CPSimilarBlockData cpBlock : VerificationDataExtractor.extractCPSimilarFBs(manager, spreadsheet, manager.getOntologyInterface().getBuilderML()))
 			parseResult(z3.verify( VerificationSpecificationGenerator.getCPSimilarBlockSpec(manager, cpBlock, dataSym), true), "FBBlock for: " + cpBlock.getRelation().getUri());
-				
+		*/
+		assertEquals(z3.verify(specification, false), VerificationStatus.SAT);
+		
+		for (AxiomObject axiom : manager.getOntologyInterface().getAxioms())
+			assertEquals(z3.verify(VerificationSpecificationGenerator.getAxiom(manager, axiom, dataSym), false), VerificationStatus.SAT);
+		
+		for (DataSymbolInformation symbol : dataSym)
+			assertEquals(z3.verify(VerificationSpecificationGenerator.createSymbolValueAssertion(manager, symbol), false), VerificationStatus.SAT);
+		
+		for (CPSimilarBlockData cpBlock : VerificationDataExtractor.extractCPSimilarFBs(manager, spreadsheet, manager.getOntologyInterface().getBuilderML()))
+			assertEquals(z3.verify(VerificationSpecificationGenerator.getCPSimilarBlockSpec(manager, cpBlock, dataSym), true), VerificationStatus.UNSAT);
 	}
 	
 	private void parseResult(VerificationStatus status, String msg) {

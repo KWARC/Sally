@@ -1,7 +1,7 @@
 package info.kwarc.sally.spreadsheet3.model;
 
 
-import info.kwarc.sally.spreadsheet3.FormalSpreadsheet;
+import info.kwarc.sally.spreadsheet3.ConcreteSpreadsheet;
 import info.kwarc.sally.spreadsheet3.Util;
 import info.kwarc.sally.spreadsheet3.logic.RelationBuilder;
 import info.kwarc.sally.spreadsheet3.logic.RelationInterpreter;
@@ -424,7 +424,7 @@ public class Manager {
 	 * @param spreadsheet
 	 * @return A map that maps a cell to its semantic interpretation.
 	 */
-	public Map<CellSpaceInformation, String> getCompleteSemanticMapping(FormalSpreadsheet spreadsheet) {
+	public Map<CellSpaceInformation, String> getCompleteSemanticMapping(ConcreteSpreadsheet spreadsheet) {
 		Map<CellSpaceInformation, String> mapping = new HashMap<CellSpaceInformation, String>();
 		
 		// Value Interpretations
