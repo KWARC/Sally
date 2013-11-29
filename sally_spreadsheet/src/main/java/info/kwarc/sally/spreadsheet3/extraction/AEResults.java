@@ -1,6 +1,5 @@
 package info.kwarc.sally.spreadsheet3.extraction;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -254,26 +253,4 @@ public class AEResults {
 		return out;
 	}
 	
-	/*
-	public void print(PrintWriter out) {
-		out.println("Printing areas:");
-		for (AreaInformation area : getAreas()) {
-			out.println("Area with id " + area.getId() + " and type " + area.getType().name());
-			for (RangeCoordinates range : area.getRanges())
-				out.println("    (" + range.getStartRow() + "/" + range.getStartColumn() + ") - (" + range.getEndRow() + "/" + range.getEndColumn() + ")");
-		}
-		out.println("Ambiguous cells:");
-		for (AmbiguousInformation ambig : getAmbiguous() ) {
-			String cellAmbigInfo = "";
-			cellAmbigInfo += "Cell (" + ambig.getRow() + "/" + ambig.getColumn() + "): ";
-			for (Integer id : ambig.getRelatedAreas())
-				cellAmbigInfo += id + "  ";
-			out.println(cellAmbigInfo);
-		}
-	}
-	
-	public void print() {
-		System.out.println("Here are the results");
-		print(new PrintWriter(System.out));
-	}*/
 }

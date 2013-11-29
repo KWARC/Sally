@@ -16,7 +16,6 @@ public class AreaExtraction {
 	
 	public static AEResults extractAreas(Sheet sheet, String sheetName, int startID, CellAttributeInformation[][] cellFeatures, FeatureMaps features) {
 				
-		
 		AEResults results = new AEResults(sheetName, cellFeatures.length, cellFeatures[0].length);
 				
 		int id = startID;
@@ -262,6 +261,7 @@ public class AreaExtraction {
 					map[row][column] = -1;
 			}
 		}
+
 		/*int index = 0;
 		int row = 0;
 		while (row < sheet.getMaxRow()) {

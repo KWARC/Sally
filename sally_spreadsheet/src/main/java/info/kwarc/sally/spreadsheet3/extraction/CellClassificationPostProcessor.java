@@ -25,7 +25,7 @@ public class CellClassificationPostProcessor {
 				Cell cell = sheet.getCellForPosition(row, column);
 				if (cell != null) {
 					theMobIsRightPattern(cell, cellInformation);
-					legendOrHeaderPattern(cell, cellInformation);
+					//legendOrHeaderPattern(cell, cellInformation);
 				}
 			}
 		}

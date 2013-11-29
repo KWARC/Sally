@@ -49,12 +49,30 @@ public class ExtractionInterfaceTest {
 	@Test
 	public void testExtractStructures() throws FileNotFoundException {
 		List<info.kwarc.sally.spreadsheet3.extraction.Sheet> sheets = parseSpreadsheet(workbook,10000);
-		ParsingResult results = extractor.extractStructures(sheets, new ExtractionParameter(true, true, true, true));
-		System.out.println("AEResults: " + results.getAeResults().size());
-		for (AEResults r : results.getAeResults())
+		ParsingResult results = extractor.extractStructures(sheets, new ExtractionParameter(true, true, true, true, true, true));
+		assertTrue(results.getAeResults().size() == 1);
+		assertTrue(results.getAeResults().get(0).getAreas().size() == 14);
+		assertTrue(results.getAeResults().get(0).getAreas().get(4).getStartRow() == 4 ); 
+		assertTrue(results.getAeResults().get(0).getAreas().get(4).getEndRow() == 4 ); 
+		assertTrue(results.getAeResults().get(0).getAreas().get(4).getStartColumn() == 0 ); 
+		assertTrue(results.getAeResults().get(0).getAreas().get(4).getEndColumn() == 0 ); 
+		
+		assertTrue(results.getAeResults().get(0).getAreas().get(5).getStartRow() == 4 ); 
+		assertTrue(results.getAeResults().get(0).getAreas().get(5).getEndRow() == 4 ); 
+		assertTrue(results.getAeResults().get(0).getAreas().get(5).getStartColumn() == 1 ); 
+		assertTrue(results.getAeResults().get(0).getAreas().get(5).getEndColumn() == 5 ); 
+		
+		assertTrue(results.getAffInfos().size() == 5);
+		assertTrue(results.getAffInfos().get(0).getId() == 5);
+		assertTrue(results.getAffInfos().get(0).getAffiliatedIds().size() == 4);
+		assertTrue(results.getAffInfos().get(0).getAffiliatedIds().contains(3));
+		assertTrue(results.getAffInfos().get(0).getAffiliatedIds().contains(2));
+		assertTrue(results.getAffInfos().get(0).getAffiliatedIds().contains(1));
+		assertTrue(results.getAffInfos().get(0).getAffiliatedIds().contains(4));
+		/*for (AEResults r : results.getAeResults())
 			System.out.println(r.toString());
 		for (AffiliationInformation i : results.getAffInfos())
-			System.out.println(i.toString());
+			System.out.println(i.toString());*/
 	}
 	
 	static public List<info.kwarc.sally.spreadsheet3.extraction.Sheet> parseSpreadsheet(Workbook wb, int maxRows) {
@@ -136,7 +154,8 @@ public class ExtractionInterfaceTest {
 			value = c.getContent();
 			formula = c.getFormula();
 		}
-		int backgroundColor = cell.getCellStyle().getFillBackgroundColor();
+		int backgroundColor = cell.getCellStyle().getFillForegroundColor();
+		//cell.getCellStyle().
 		info.kwarc.sally.spreadsheet3.extraction.Font font = convertFont(wb.getFontAt(cell.getCellStyle().getFontIndex()));
 		CellBorder border = convertBorder(cell);
 		

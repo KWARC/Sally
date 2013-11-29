@@ -73,14 +73,14 @@ public class ExtractionInterface {
 					System.out.println();
 				}*/
 				
-				// Parsing of all formulae
+				// Parsing of all formula not unified
 				Map<CellSpaceInformation, psf.ParserResult> cellFormula = new HashMap<CellSpaceInformation, psf.ParserResult>();
 				for (int row = 0; row < sheet.getMaxRow(); row++) {
 					for (int column = 0; column < sheet.getMaxColumn(); column++) {
 						Cell cell = sheet.getCellForPosition(row, column); 
 						if ((cell != null) && !cell.getFormula().isEmpty()) {
 							//psf.ParserResult formula = parser.parseFormula(cell.getFormula(), "", true, true, false);
-							psf.ParserResult formula = parser.parseFormula(new ParserParameter(cell.getFormula(), sheet.getId(), false, true, false, true, null));
+							psf.ParserResult formula = parser.parseFormula(new ParserParameter(cell.getFormula(), sheet.getId(), false, false, false, true, null));
 				
 							cellFormula.put(new CellSpaceInformation(sheet.getId(), row, column), formula);
 						}
@@ -125,6 +125,19 @@ public class ExtractionInterface {
 				else
 					AreaExtraction.markMapUniform(sheet, features.createMap("Font Map"));
 				
+				// Parsing of all formula unified
+				cellFormula = new HashMap<CellSpaceInformation, psf.ParserResult>();
+				for (int row = 0; row < sheet.getMaxRow(); row++) {
+					for (int column = 0; column < sheet.getMaxColumn(); column++) {
+						Cell cell = sheet.getCellForPosition(row, column); 
+						if ((cell != null) && !cell.getFormula().isEmpty()) {
+							//psf.ParserResult formula = parser.parseFormula(cell.getFormula(), "", true, true, false);
+							psf.ParserResult formula = parser.parseFormula(new ParserParameter(cell.getFormula(), sheet.getId(), true, true, false, false, null));
+				
+							cellFormula.put(new CellSpaceInformation(sheet.getId(), row, column), formula);
+						}
+					}
+				}
 				AreaExtraction.markMapByFormulae(sheet, features.createMap("Formulae Map"), cellFormula);
 				
 				//System.out.println("Maps");
