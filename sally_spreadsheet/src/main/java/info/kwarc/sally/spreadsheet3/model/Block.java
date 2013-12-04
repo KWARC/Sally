@@ -112,6 +112,10 @@ abstract public class Block {
 		return valueInterpretation;
 	}
 	
+	public boolean hasProperty(PropertyName key) {
+		return properties.containsKey(key);
+	}
+	
 	public String getProperty(PropertyName key) {
 		return properties.get(key);
 	}

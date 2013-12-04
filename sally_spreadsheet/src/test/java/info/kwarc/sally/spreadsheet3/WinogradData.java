@@ -4,6 +4,7 @@ import info.kwarc.sally.spreadsheet3.model.Block;
 import info.kwarc.sally.spreadsheet3.model.CellDependencyDescription;
 import info.kwarc.sally.spreadsheet3.model.CellSpaceInformation;
 import info.kwarc.sally.spreadsheet3.model.Manager;
+import info.kwarc.sally.spreadsheet3.model.PropertyName;
 import info.kwarc.sally.spreadsheet3.model.Relation;
 import info.kwarc.sally.spreadsheet3.ontology.BuilderML;
 import info.kwarc.sally.spreadsheet3.ontology.ValueInterpretation;
@@ -18,9 +19,9 @@ public class WinogradData {
 	
 	Manager manager;
 	ConcreteSpreadsheet spreadsheet;
-	Block year, revenues, cost, profit, dataRevenues, dataCosts, dataTotalCosts, dataProfit; 
+	Block year, year2, revenues, cost, profit, dataRevenues, dataCosts, dataTotalCosts, dataProfit; 
 	Relation relationRevenues, relationCosts, relationTotalCosts, relationProfit,
-		typeYear, typeRevenues, typeCost, typeProfit, typeDataRevenues, typeDataCosts, typeDataTotalCosts, typeDataProfit;
+		typeYear, typeYear2, typeRevenues, typeCost, typeProfit, typeDataRevenues, typeDataCosts, typeDataTotalCosts, typeDataProfit;
 	
 	public WinogradData() {
 		
@@ -73,15 +74,18 @@ public class WinogradData {
 		List<CellSpaceInformation> positionYear = Util.expandRange(
 				new CellSpaceInformation("Table1",0,1), new CellSpaceInformation("Table1",0,4));
 		year = manager.createComposedBlock(positionYear);
+		year.setProperty(PropertyName.COMPLETESEMANTICBLOCK, "true");
 		
 		revenues = manager.getOrCreateAtomicBlock(new CellSpaceInformation("Table1",1,0));
+		revenues.setProperty(PropertyName.COMPLETESEMANTICBLOCK, "true");
 		
 		List<CellSpaceInformation> positionCosts = Util.expandRange(
 				new CellSpaceInformation("Table1",2,0), new CellSpaceInformation("Table1",4,0));
 		cost = manager.createComposedBlock(positionCosts);
+		cost.setProperty(PropertyName.COMPLETESEMANTICBLOCK, "true");
 		
 		profit = manager.getOrCreateAtomicBlock(new CellSpaceInformation("Table1",5,0));
-		
+		profit.setProperty(PropertyName.COMPLETESEMANTICBLOCK, "true");
 		
 		List<CellSpaceInformation> positionDataRevenues = Util.expandRange(
 				new CellSpaceInformation("Table1",1,1), new CellSpaceInformation("Table1",1,4));
@@ -198,6 +202,27 @@ public class WinogradData {
 		typeDataTotalCosts.setUri("money#monetary-quantity");
 		typeDataProfit.setUri("money#monetary-quantity");
 	}
+	
+	public void createSecondWorksheet() {
+		spreadsheet.setContent(new CellSpaceInformation("Table2",0,1), "1984", "", ContentValueType.STRING_NUMBER);
+		spreadsheet.setContent(new CellSpaceInformation("Table2",0,2), "1985", "", ContentValueType.STRING_NUMBER);
+		spreadsheet.setContent(new CellSpaceInformation("Table2",0,3), "1986", "", ContentValueType.STRING_NUMBER);
+		
+		List<CellSpaceInformation> positionYear = Util.expandRange(
+				new CellSpaceInformation("Table2",0,1), new CellSpaceInformation("Table2",0,3));
+		year2 = manager.createComposedBlock(positionYear);
+		year2.setProperty(PropertyName.COMPLETESEMANTICBLOCK, "true");
+		
+		typeYear2 = manager.createUnaryRelation(Relation.RelationType.TYPERELATION, year2);
+		
+		BuilderML builderML = manager.getOntologyInterface().getBuilderML();
+ 		
+ 		Map<Integer, String> subExpressions = new HashMap<Integer,String>();
+		subExpressions.put(new Integer(1), "\\d+");
+		year2.setValueInterpretation(new ValueInterpretation("#1", subExpressions, "<ci>Year <rvar num=\"1\"/> AD</ci>", builderML));
+		
+		typeYear2.setUri("timeinterval#yearAD");
+	}
 
 	public Manager getManager() {
 		return manager;
@@ -209,6 +234,10 @@ public class WinogradData {
 
 	public Block getYear() {
 		return year;
+	}
+	
+	public Block getYear2() {
+		return year2;
 	}
 	
 	public Block getRevenues() {
@@ -257,6 +286,10 @@ public class WinogradData {
 
 	public Relation getTypeYear() {
 		return typeYear;
+	}
+	
+	public Relation getTypeYear2() {
+		return typeYear2;
 	}
 	
 	public Relation getTypeRevenues() {
