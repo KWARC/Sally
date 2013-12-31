@@ -1,12 +1,12 @@
 package info.kwarc.sally.tasks;
 
-import info.kwarc.sally.core.DocumentInformation;
-import info.kwarc.sally.core.DocumentManager;
-import info.kwarc.sally.core.SallyInteraction;
-import info.kwarc.sally.core.interfaces.SallyTask;
+import info.kwarc.sally.core.composition.SallyInteraction;
+import info.kwarc.sally.core.doc.DocumentInformation;
+import info.kwarc.sally.core.doc.DocumentManager;
 import info.kwarc.sally.core.net.INetworkSender;
 import info.kwarc.sally.core.theo.Theo;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
+import info.kwarc.sally.core.workflow.SallyTask;
 import info.kwarc.sally.html.HTMLFactory;
 import info.kwarc.sally.projects.ProjectFactory;
 import info.kwarc.sally.sketch.SketchFactory;

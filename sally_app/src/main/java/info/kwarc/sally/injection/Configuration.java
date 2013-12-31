@@ -1,17 +1,17 @@
 package info.kwarc.sally.injection;
 
 import info.kwarc.sally.PricingService;
-import info.kwarc.sally.core.DocumentManager;
-import info.kwarc.sally.core.RDFStore;
-import info.kwarc.sally.core.SallyInteraction;
-import info.kwarc.sally.core.comm.CallbackManager;
-import info.kwarc.sally.core.interfaces.IPositionProvider;
+import info.kwarc.sally.core.composition.SallyInteraction;
+import info.kwarc.sally.core.doc.DocumentManager;
+import info.kwarc.sally.core.interaction.CallbackManager;
+import info.kwarc.sally.core.net.IConnectionManager;
+import info.kwarc.sally.core.rdf.RDFStore;
 import info.kwarc.sally.core.theo.CookieProvider;
+import info.kwarc.sally.core.theo.IPositionProvider;
 import info.kwarc.sally.core.theo.ScreenCoordinatesProvider;
 import info.kwarc.sally.html.injection.HTMLDocModule;
 import info.kwarc.sally.networking.CometD;
 import info.kwarc.sally.networking.ConnectionManager;
-import info.kwarc.sally.networking.interfaces.IConnectionManager;
 import info.kwarc.sally.pivot.PivotingService;
 import info.kwarc.sally.planetary.injection.PlanetaryModule;
 import info.kwarc.sally.projects.injection.ProjectDocModule;

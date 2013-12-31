@@ -1,9 +1,9 @@
 package info.kwarc.sally.projects;
 
-import info.kwarc.sally.core.SallyInteractionResultAcceptor;
-import info.kwarc.sally.core.SallyContext;
-import info.kwarc.sally.core.SallyInteraction;
-import info.kwarc.sally.core.SallyService;
+import info.kwarc.sally.core.composition.SallyContext;
+import info.kwarc.sally.core.composition.SallyInteraction;
+import info.kwarc.sally.core.composition.SallyInteractionResultAcceptor;
+import info.kwarc.sally.core.composition.SallyService;
 
 import java.io.IOException;
 import java.io.InputStream;

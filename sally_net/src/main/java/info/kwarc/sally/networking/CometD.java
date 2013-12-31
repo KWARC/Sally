@@ -1,8 +1,8 @@
 package info.kwarc.sally.networking;
 
-import info.kwarc.sally.core.net.IMessageCallback;
+import info.kwarc.sally.core.interaction.IMessageCallback;
+import info.kwarc.sally.core.net.IConnectionManager;
 import info.kwarc.sally.core.net.INetworkSender;
-import info.kwarc.sally.networking.interfaces.IConnectionManager;
 
 import java.util.EnumSet;
 import java.util.HashSet;

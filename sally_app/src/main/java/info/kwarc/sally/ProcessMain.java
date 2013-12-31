@@ -1,11 +1,13 @@
 package info.kwarc.sally;
 
-import info.kwarc.sally.core.SallyInteraction;
+import info.kwarc.sally.core.composition.SallyInteraction;
+import info.kwarc.sally.core.doc.DocumentInformation;
+import info.kwarc.sally.core.doc.DocumentManager;
+import info.kwarc.sally.core.net.IConnectionManager;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.injection.Configuration;
 import info.kwarc.sally.networking.CometD;
 import info.kwarc.sally.networking.Injection.ProductionNetworking;
-import info.kwarc.sally.networking.interfaces.IConnectionManager;
 import info.kwarc.sally.networking.interfaces.MockNetworkSender;
 import info.kwarc.sally.pivot.PivotingService;
 import info.kwarc.sally.planetary.Planetary;
@@ -13,11 +15,7 @@ import info.kwarc.sally.service.def_lookup.DefinitionLookupService;
 import info.kwarc.sally.spreadsheet.ASMEditor;
 import info.kwarc.sissi.bpm.injection.ProductionLocalKnowledgeBase;
 import info.kwarc.sissi.bpm.injection.ProductionSallyActions;
-import sally.AlexClick;
 import sally.AlexData;
-import sally.RangeSelection;
-import sally.SallyFrame;
-import sally.ScreenCoordinates;
 import sally_comm.MessageUtils;
 
 import com.google.inject.Guice;
@@ -55,6 +53,7 @@ public class ProcessMain {
 		//ConnectionPlayer player = i.getInstance(IConnectionPlayerFactory.class).create(new FileReader("rec_spreadsheet.json"));
 		//player.start();
 
+		/*
 		conn.newClient("spread", new MockNetworkSender());
 				
 		conn.newMessage("spread", MessageUtils.createDesktopSpreadsheetAlex());
@@ -70,11 +69,21 @@ public class ProcessMain {
 
 		SallyFrame frame =  SallyFrame.newBuilder().setFileName(fileName).build();
 		conn.newMessage("spread", frame);
+*/
 
-
-		//Theo t = i.getInstance(Theo.class);
-		//t.openWindow(0L, "hello", "http://localhost:8181/sally/test/test.html", 500, 500);
+		conn.newClient("spread", new MockNetworkSender());
 		
+		conn.newMessage("spread", MessageUtils.createDesktopSpreadsheetAlex());
+
+		String fileName = "file:////home/costea/kwarc/sissi/doc/papers/Interact_2013/spsht/PipeEndPricing_v4.xlsm";
+		AlexData alexData = AlexData.newBuilder().setShareJSColection("libreoffice").setShareJSDocument(fileName).setFileName(fileName).setData("").build();
+		conn.newMessage("spread", alexData);
+		
+		DocumentManager docMan = i.getInstance(DocumentManager.class);
+		
+		DocumentInformation docInfof = docMan.getDocumentInformation(fileName);
+		docInfof.getTheo().openWindow(docInfof, docInfof.getDocumentWorkflowID(), "Impact Analysis", "http://localhost/krane/impact.html", 500, 500);
+
 		/*
 		
 		conn.newClient("cad", new MockNetworkSender());

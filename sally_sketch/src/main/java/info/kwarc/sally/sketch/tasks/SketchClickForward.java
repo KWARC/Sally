@@ -1,9 +1,9 @@
 package info.kwarc.sally.sketch.tasks;
 
-import info.kwarc.sally.core.interfaces.IPositionProvider;
-import info.kwarc.sally.core.interfaces.SallyTask;
 import info.kwarc.sally.core.theo.Coordinates;
+import info.kwarc.sally.core.theo.IPositionProvider;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
+import info.kwarc.sally.core.workflow.SallyTask;
 import info.kwarc.sally.sketch.SketchDocument;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 

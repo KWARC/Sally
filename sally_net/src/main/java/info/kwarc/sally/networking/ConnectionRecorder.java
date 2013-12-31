@@ -1,7 +1,7 @@
 package info.kwarc.sally.networking;
 
+import info.kwarc.sally.core.net.IConnectionManager;
 import info.kwarc.sally.core.net.INetworkSender;
-import info.kwarc.sally.networking.interfaces.IConnectionManager;
 
 import java.io.FileWriter;
 import java.io.IOException;

@@ -1,10 +1,10 @@
 package info.kwarc.sally.tasks;
 
-import info.kwarc.sally.core.DocumentInformation;
-import info.kwarc.sally.core.DocumentManager;
-import info.kwarc.sally.core.MessageForward;
-import info.kwarc.sally.core.interfaces.SallyTask;
+import info.kwarc.sally.core.doc.DocumentInformation;
+import info.kwarc.sally.core.doc.DocumentManager;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
+import info.kwarc.sally.core.workflow.MessageForward;
+import info.kwarc.sally.core.workflow.SallyTask;
 import info.kwarc.sissi.bpm.BPMNUtils;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 

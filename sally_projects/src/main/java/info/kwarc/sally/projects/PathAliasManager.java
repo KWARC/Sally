@@ -1,8 +1,8 @@
 package info.kwarc.sally.projects;
 
-import info.kwarc.sally.core.SallyInteractionResultAcceptor;
-import info.kwarc.sally.core.SallyContext;
-import info.kwarc.sally.core.SallyService;
+import info.kwarc.sally.core.composition.SallyContext;
+import info.kwarc.sally.core.composition.SallyInteractionResultAcceptor;
+import info.kwarc.sally.core.composition.SallyService;
 
 import java.util.ArrayList;
 import java.util.HashMap;

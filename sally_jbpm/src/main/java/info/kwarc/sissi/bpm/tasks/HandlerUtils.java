@@ -1,7 +1,5 @@
 package info.kwarc.sissi.bpm.tasks;
 
-import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,15 +45,6 @@ public class HandlerUtils {
 		return null;
 	}
 
-	public static HashMap<String, TestCounterHandler> registerCounterHandlers(ISallyWorkflowManager kb, String ...handlers) {
-		HashMap<String, TestCounterHandler> result = new HashMap<String, TestCounterHandler>();
-		for (String handler : handlers) {
-			TestCounterHandler counterHandler = new TestCounterHandler();
-			kb.registerWorkItemHandler(handler, counterHandler);
-			result.put(handler, counterHandler);
-		}
-		return result;
-	}
 
 	public static String getFileNameFromMessage(AbstractMessage msg) {
 		for (FieldDescriptor fld :  msg.getAllFields().keySet()) {

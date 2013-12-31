@@ -1,7 +1,7 @@
 package info.kwarc.sissi.bpm;
 
-import info.kwarc.sally.core.MessageForward;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
+import info.kwarc.sally.core.workflow.MessageForward;
 
 import java.util.HashMap;
 import java.util.List;

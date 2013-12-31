@@ -1,24 +1,20 @@
 package info.kwarc.sissi.bpm.injection;
 
-import info.kwarc.sally.core.interfaces.SallyTask;
-import info.kwarc.sissi.bpm.tasks.DynamicApplyHandler;
+import info.kwarc.sally.core.workflow.SallyTask;
 
 import java.util.HashMap;
 import java.util.Set;
 
 import org.drools.process.instance.WorkItemHandler;
-import org.hibernate.engine.NamedSQLQueryDefinition;
 import org.reflections.Reflections;
 import org.reflections.scanners.TypeAnnotationsScanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
-import org.reflections.util.FilterBuilder;
 import org.slf4j.Logger;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
-import com.sun.xml.bind.v2.runtime.Name;
 
 /**
  * This module establishes the how boxes in BPMN 
@@ -56,11 +52,6 @@ public class ProductionSallyActions extends AbstractModule {
 		}
 		
 		bind(new TypeLiteral<HashMap<String, Class<? extends WorkItemHandler>>>(){}).annotatedWith(Names.named("WorkItemHandlers")).toInstance(handlers);
-		
-		bind(DynamicApplyHandler.class);
-
-		bind(WorkItemHandler.class).annotatedWith(Names.named("DynamicApplicability")).to(DynamicApplyHandler.class);
-
 	}
 
 }

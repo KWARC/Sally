@@ -1,12 +1,12 @@
 package info.kwarc.sally;
 
+import info.kwarc.sally.bpm.tasks.TestCounterHandler;
+import info.kwarc.sally.core.net.IConnectionManager;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.injection.Configuration;
 import info.kwarc.sally.networking.ConnectionManager;
-import info.kwarc.sally.networking.interfaces.IConnectionManager;
 import info.kwarc.sally.networking.interfaces.MockNetworkSender;
 import info.kwarc.sissi.bpm.injection.TestableKnowledeBase;
-import info.kwarc.sissi.bpm.tasks.TestCounterHandler;
 
 import org.drools.KnowledgeBase;
 import org.drools.runtime.process.ProcessInstance;

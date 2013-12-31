@@ -1,6 +1,6 @@
 package info.kwarc.sally.html.pages;
 
-import info.kwarc.sally.core.comm.CallbackManager;
+import info.kwarc.sally.core.interaction.CallbackManager;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.networking.TemplateEngine;
 
@@ -32,7 +32,7 @@ public class HTMLNavigateToPage {
 
 	@GET
 	public String get(@QueryParam("id") String id, @QueryParam("callbackid") Long callbackid){
-		this.callbacks.getCallback(callbackid).run(HTMLSelectPart.newBuilder().setId(id).buildPartial());
+		this.callbacks.getCallback(callbackid).onMessage(HTMLSelectPart.newBuilder().setId(id).buildPartial());
 		return "";
 	}
 }

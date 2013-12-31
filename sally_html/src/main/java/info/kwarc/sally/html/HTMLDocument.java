@@ -1,17 +1,17 @@
 package info.kwarc.sally.html;
 
-import info.kwarc.sally.core.RDFStore;
-import info.kwarc.sally.core.SallyContext;
-import info.kwarc.sally.core.SallyInteraction;
-import info.kwarc.sally.core.SallyInteractionResultAcceptor;
-import info.kwarc.sally.core.SallyService;
-import info.kwarc.sally.core.comm.CallbackManager;
-import info.kwarc.sally.core.comm.SallyMenuItem;
-import info.kwarc.sally.core.interfaces.IAbstractMessageRunner;
-import info.kwarc.sally.core.interfaces.IPositionProvider;
+import info.kwarc.sally.core.composition.SallyContext;
+import info.kwarc.sally.core.composition.SallyInteraction;
+import info.kwarc.sally.core.composition.SallyInteractionResultAcceptor;
+import info.kwarc.sally.core.composition.SallyService;
+import info.kwarc.sally.core.interaction.CallbackManager;
+import info.kwarc.sally.core.interaction.IMessageCallback;
+import info.kwarc.sally.core.interaction.SallyMenuItem;
 import info.kwarc.sally.core.net.INetworkSender;
-import info.kwarc.sally.core.ontologies.IM;
+import info.kwarc.sally.core.rdf.IM;
+import info.kwarc.sally.core.rdf.RDFStore;
 import info.kwarc.sally.core.theo.Coordinates;
+import info.kwarc.sally.core.theo.IPositionProvider;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.html.ontology.HTML;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
@@ -109,10 +109,10 @@ public class HTMLDocument {
 			acceptor.acceptResult(new SallyMenuItem("Go to", "In "+filePath+" ("+refs.size()+")", "Show references in text") {
 				@Override
 				public void run() {
-					Long callbackid = callbacks.registerCallback(new IAbstractMessageRunner() {
+					Long callbackid = callbacks.registerCallback(new IMessageCallback() {
 						
 						@Override
-						public void run(AbstractMessage m) {
+						public void onMessage(AbstractMessage m) {
 							selectObject(((HTMLSelectPart)m).getId());
 						}
 					});

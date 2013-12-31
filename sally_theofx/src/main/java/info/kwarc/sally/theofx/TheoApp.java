@@ -1,7 +1,7 @@
 package info.kwarc.sally.theofx;
 
-import info.kwarc.sally.core.comm.CallbackManager;
-import info.kwarc.sally.core.interfaces.IAbstractMessageRunner;
+import info.kwarc.sally.core.interaction.CallbackManager;
+import info.kwarc.sally.core.interaction.IMessageCallback;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.theofx.ui.TheoWindow;
 import info.kwarc.sissi.bpm.BPMNUtils;
@@ -68,7 +68,7 @@ public class TheoApp {
 		sendMessage(msg, null);
 	}
 	
-	private class CallbackRunner implements IAbstractMessageRunner {
+	private class CallbackRunner implements IMessageCallback {
 		Long callback;
 		
 		public CallbackRunner(Long callback) {
@@ -76,7 +76,7 @@ public class TheoApp {
 		}
 
 		@Override
-		public void run(AbstractMessage m) {
+		public void onMessage(AbstractMessage m) {
 			JSObject wnd = (JSObject) webEngine.executeScript("window");
 			JSObject comm = (JSObject) wnd.getMember("Communication");
 			comm.call("runCallback", callback, ProtoUtils.serialize(m));

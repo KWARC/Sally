@@ -1,13 +1,13 @@
 package info.kwarc.sally;
 
-import info.kwarc.sally.core.DocumentInformation;
-import info.kwarc.sally.core.DocumentManager;
-import info.kwarc.sally.core.SallyContext;
-import info.kwarc.sally.core.SallyInteraction;
-import info.kwarc.sally.core.SallyInteractionResultAcceptor;
-import info.kwarc.sally.core.SallyService;
-import info.kwarc.sally.core.comm.SallyMenuItem;
-import info.kwarc.sally.core.comm.SallyModelRequest;
+import info.kwarc.sally.core.composition.SallyContext;
+import info.kwarc.sally.core.composition.SallyInteraction;
+import info.kwarc.sally.core.composition.SallyInteractionResultAcceptor;
+import info.kwarc.sally.core.composition.SallyService;
+import info.kwarc.sally.core.doc.DocumentInformation;
+import info.kwarc.sally.core.doc.DocumentManager;
+import info.kwarc.sally.core.interaction.SallyMenuItem;
+import info.kwarc.sally.core.rdf.RDFStore;
 import info.kwarc.sally.core.theo.Theo;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 
@@ -16,7 +16,6 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
@@ -33,8 +32,6 @@ import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 @Singleton
 public class InstanceService {
@@ -42,28 +39,20 @@ public class InstanceService {
 	String instanceSparql;
 	DocumentManager docManager;
 	
-	Model common;
 	SallyInteraction sally;
 	Logger log;
 	ISallyWorkflowManager kb;
-
+	RDFStore rdfStore;
+	
 	@Inject
-	public InstanceService(DocumentManager docManager, SallyInteraction sally, ISallyWorkflowManager kb) {
+	public InstanceService(DocumentManager docManager, SallyInteraction sally, ISallyWorkflowManager kb, RDFStore rdfStore) {
 		this.docManager = docManager;
 		instanceSparql = loadSparql("/instance.sparql");
+		this.rdfStore = rdfStore;
 		
-		common = null;
 		this.sally = sally;
 		this.kb = kb;
 		log = LoggerFactory.getLogger(getClass());
-	}
-
-	private void loadModels() {
-		common = ModelFactory.createDefaultModel();
-		List<Model> models = sally.getPossibleInteractions("/get/semantics", new SallyModelRequest(), Model.class);
-		for (Model mod : models) {
-			common.add(mod);
-		}
 	}
 
 	private String loadSparql(String file) {
@@ -123,15 +112,10 @@ public class InstanceService {
 	}
 
 	public ResultSet queryModel(String uri) {
-		//if (common == null)
-		loadModels();
-		if (common == null) {
-			return null;
-		}
 
 		String queryStr = String.format(instanceSparql, uri);
 		Query query = QueryFactory.create(queryStr);
-		QueryExecution qe = QueryExecutionFactory.create(query, common);
+		QueryExecution qe = QueryExecutionFactory.create(query, rdfStore.getModel());
 		return qe.execSelect();		
 	}
 }

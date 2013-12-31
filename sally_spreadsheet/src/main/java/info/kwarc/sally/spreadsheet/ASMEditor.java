@@ -1,9 +1,9 @@
 package info.kwarc.sally.spreadsheet;
 
-import info.kwarc.sally.core.SallyContext;
-import info.kwarc.sally.core.SallyInteractionResultAcceptor;
-import info.kwarc.sally.core.SallyService;
-import info.kwarc.sally.core.comm.SallyMenuItem;
+import info.kwarc.sally.core.composition.SallyContext;
+import info.kwarc.sally.core.composition.SallyInteractionResultAcceptor;
+import info.kwarc.sally.core.composition.SallyService;
+import info.kwarc.sally.core.interaction.SallyMenuItem;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 

@@ -1,7 +1,7 @@
 package info.kwarc.sally.tasks;
 
-import info.kwarc.sally.core.interfaces.SallyTask;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
+import info.kwarc.sally.core.workflow.SallyTask;
 import info.kwarc.sally.spreadsheet.SpreadsheetDocument;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 import info.kwarc.sissi.model.document.cad.CADDocument;

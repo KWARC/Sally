@@ -1,6 +1,6 @@
 package info.kwarc.sally.html.pages;
 
-import info.kwarc.sally.core.DocumentManager;
+import info.kwarc.sally.core.doc.DocumentManager;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.networking.TemplateEngine;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;

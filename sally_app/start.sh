@@ -1,0 +1,1 @@
+java -cp /usr/java/default/jre/lib/jfxrt.jar:target/sally_app-0.0.1-SNAPSHOT.jar info.kwarc.sally.ProcessMain

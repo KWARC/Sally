@@ -82,7 +82,7 @@
   </rdf:Description>
   <rdf:Description rdf:nodeID="A1">
     <rdf:type rdf:resource="http://www.kwarc.info/sally/pivot#knowledgeUnit"/>
-    <pivot:hasName>Crane Project</pivot:hasName>
+    <pivot:hasName>Spring Tester Project</pivot:hasName>
   </rdf:Description>
   <rdf:Description rdf:nodeID="A13">
     <rdf:type rdf:resource="http://www.kwarc.info/sally/pivot#softwareObject"/>

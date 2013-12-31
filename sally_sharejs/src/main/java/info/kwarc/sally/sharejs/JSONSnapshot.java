@@ -32,7 +32,8 @@ public class JSONSnapshot extends AbstractSnapshot {
 		snap.setCollection(collection).setFileName(fileName);
 		
 		ISyncResult result = docManager.getSnapshot(collection, fileName, snap);
-		snap.setVersion(result.getVersion());
+		if (result != null)
+			snap.setVersion(result.getVersion());
 		return snap;
 	}
 	

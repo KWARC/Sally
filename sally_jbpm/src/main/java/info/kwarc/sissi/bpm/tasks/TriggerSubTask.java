@@ -1,10 +1,10 @@
 package info.kwarc.sissi.bpm.tasks;
 
-import info.kwarc.sally.core.MessageForward;
-import info.kwarc.sally.core.comm.CallbackManager;
-import info.kwarc.sally.core.interfaces.IAbstractMessageRunner;
-import info.kwarc.sally.core.interfaces.SallyTask;
+import info.kwarc.sally.core.interaction.CallbackManager;
+import info.kwarc.sally.core.interaction.IMessageCallback;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
+import info.kwarc.sally.core.workflow.MessageForward;
+import info.kwarc.sally.core.workflow.SallyTask;
 import info.kwarc.sissi.bpm.SubtaskCallbackMap;
 
 import org.drools.process.instance.WorkItemHandler;
@@ -43,14 +43,14 @@ public class TriggerSubTask implements WorkItemHandler {
 			log.info("Got msg from "+sw.getFrom()+" -> ");
 			log.info("Need to notify callback -> "+callback);
 			if (callback != null) {
-				IAbstractMessageRunner runner = callbackManager.getCallback(callback);
+				IMessageCallback runner = callbackManager.getCallback(callback);
 				if (runner == null) {
 					throw new Exception("Runner for callback "+callback +" is not defined");
 				}
 				if (!(sw.getData() instanceof AbstractMessage)) {
 					throw new Exception("Event data is not an abstract message");
 				}
-				runner.run((AbstractMessage)sw.getData());
+				runner.onMessage((AbstractMessage)sw.getData());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

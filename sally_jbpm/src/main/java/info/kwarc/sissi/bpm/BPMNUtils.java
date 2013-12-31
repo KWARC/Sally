@@ -1,6 +1,6 @@
 package info.kwarc.sissi.bpm;
 
-import info.kwarc.sally.core.MessageForward;
+import info.kwarc.sally.core.workflow.MessageForward;
 
 import java.util.ArrayList;
 import java.util.Collection;

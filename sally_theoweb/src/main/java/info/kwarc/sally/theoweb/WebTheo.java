@@ -1,9 +1,9 @@
 package info.kwarc.sally.theoweb;
 
-import info.kwarc.sally.core.DocumentInformation;
-import info.kwarc.sally.core.comm.CallbackManager;
-import info.kwarc.sally.core.comm.SallyMenuItem;
-import info.kwarc.sally.core.interfaces.IAbstractMessageRunner;
+import info.kwarc.sally.core.doc.DocumentInformation;
+import info.kwarc.sally.core.interaction.CallbackManager;
+import info.kwarc.sally.core.interaction.IMessageCallback;
+import info.kwarc.sally.core.interaction.SallyMenuItem;
 import info.kwarc.sally.core.theo.CookieProvider;
 import info.kwarc.sally.core.theo.Coordinates;
 import info.kwarc.sally.core.theo.ScreenCoordinatesProvider;
@@ -67,10 +67,10 @@ public class WebTheo implements Theo {
 		log.info("Sending frames "+frameList);
 		frameList.setFileName(sender.getFileName());
 
-		Long callbackID = manager.registerCallback(new IAbstractMessageRunner() {
+		Long callbackID = manager.registerCallback(new IMessageCallback() {
 
 			@Override
-			public void run(AbstractMessage m) {
+			public void onMessage(AbstractMessage m) {
 				SallyFrameChoice choice = (SallyFrameChoice) m;
 				for (SallyMenuItem item : menuItems) {
 					if (item.hashCode() == choice.getChoiceId()) {

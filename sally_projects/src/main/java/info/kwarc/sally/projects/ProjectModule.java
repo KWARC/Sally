@@ -1,7 +1,7 @@
 package info.kwarc.sally.projects;
 
-import info.kwarc.sally.core.interfaces.SallyTask;
 import info.kwarc.sally.core.net.INetworkSender;
+import info.kwarc.sally.core.workflow.SallyTask;
 
 import org.drools.process.instance.WorkItemHandler;
 import org.drools.runtime.process.WorkItem;

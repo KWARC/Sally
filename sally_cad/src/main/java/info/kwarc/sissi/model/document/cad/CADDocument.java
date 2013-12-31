@@ -1,13 +1,13 @@
 package info.kwarc.sissi.model.document.cad;
 
-import info.kwarc.sally.core.SallyContext;
-import info.kwarc.sally.core.SallyInteraction;
-import info.kwarc.sally.core.SallyInteractionResultAcceptor;
-import info.kwarc.sally.core.SallyService;
-import info.kwarc.sally.core.comm.SallyMenuItem;
-import info.kwarc.sally.core.comm.SallyModelRequest;
-import info.kwarc.sally.core.net.IMessageCallback;
+import info.kwarc.sally.core.composition.SallyContext;
+import info.kwarc.sally.core.composition.SallyInteraction;
+import info.kwarc.sally.core.composition.SallyInteractionResultAcceptor;
+import info.kwarc.sally.core.composition.SallyService;
+import info.kwarc.sally.core.interaction.IMessageCallback;
+import info.kwarc.sally.core.interaction.SallyMenuItem;
 import info.kwarc.sally.core.net.INetworkSender;
+import info.kwarc.sally.core.rdf.RDFStore;
 
 import java.util.List;
 
@@ -28,6 +28,7 @@ public class CADDocument {
 	CADSemanticData data;
 	String filePath;
 	INetworkSender sender;
+	RDFStore rdfStore;
 	
 	public String getFilePath() {
 		return filePath;
@@ -54,9 +55,11 @@ public class CADDocument {
 	}
 	
 	@Inject
-	public CADDocument(@Assisted String filePath, @Assisted CADSemanticData data, @Assisted INetworkSender sender) {
+	public CADDocument(@Assisted String filePath, @Assisted CADSemanticData data, @Assisted INetworkSender sender, RDFStore rdfStore) {
 		this.sender = sender;
 		this.filePath = filePath;
+		this.rdfStore = rdfStore;
+		
 		acm = new ACMInterface(data.getFileName());
 		this.data = data;
 		init();
@@ -65,11 +68,7 @@ public class CADDocument {
 	public void init() {
 		acm.setRootNode(data.getRootNode());
 		acm.reindex();
-	}
-
-	@SallyService(channel="/get/semantics")
-	public void getModel(SallyModelRequest click, SallyInteractionResultAcceptor acceptor, SallyContext context) {
-		acceptor.acceptResult(acm.getRDFModel());
+		rdfStore.addModel(filePath, acm.getRDFModel());
 	}
 
 	@SallyService(channel="/what")

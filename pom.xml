@@ -18,7 +18,6 @@
 		<module>sally_net</module>
 		<module>sally_spreadsheet</module>
 		<module>sally_cad</module>
-  		<module>sally_pivoter</module>
 		<module>sally_def_lookup</module>
 		<module>sally_projects</module>
 		<module>sally_sharejs</module>
@@ -29,6 +28,7 @@
 		<module>sally_pivoter</module>
 		<!-- <module>sally_jedit</module> <module>sally_projects</module> <module>sally_theoxul</module> -->
 		<module>sally_jbpm</module>
+		<module>sally_test</module>
 	</modules>
 
 	<build>
@@ -47,14 +47,6 @@
 	</build>
 
 	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.11</version>
-			<scope>test</scope>
-		</dependency>
-
-
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
@@ -91,7 +83,7 @@
 			<version>5.4.0.Final</version>
 			<scope>test</scope>
 		</dependency>
-
+ 
 		<dependency>
 			<groupId>xml-apis</groupId>
 			<artifactId>xml-apis</artifactId>

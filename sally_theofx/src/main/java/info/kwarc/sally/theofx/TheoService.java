@@ -1,9 +1,9 @@
 package info.kwarc.sally.theofx;
 
-import info.kwarc.sally.core.DocumentInformation;
-import info.kwarc.sally.core.comm.CallbackManager;
-import info.kwarc.sally.core.comm.SallyMenuItem;
-import info.kwarc.sally.core.interfaces.IAbstractMessageRunner;
+import info.kwarc.sally.core.doc.DocumentInformation;
+import info.kwarc.sally.core.interaction.CallbackManager;
+import info.kwarc.sally.core.interaction.IMessageCallback;
+import info.kwarc.sally.core.interaction.SallyMenuItem;
 import info.kwarc.sally.core.theo.CookieProvider;
 import info.kwarc.sally.core.theo.Coordinates;
 import info.kwarc.sally.core.theo.ScreenCoordinatesProvider;
@@ -87,10 +87,10 @@ public class TheoService implements Theo {
 	}
 
 	public void letUserChoose(final DocumentInformation networkSender, final List<SallyMenuItem> items) {
-		final Long callbackID = callbacks.registerCallback(new IAbstractMessageRunner() {
+		final Long callbackID = callbacks.registerCallback(new IMessageCallback() {
 
 			@Override
-			public void run(AbstractMessage m) {
+			public void onMessage(AbstractMessage m) {
 				SallyFrameChoice choice = (SallyFrameChoice) m;
 				for (SallyMenuItem item : items) {
 					if (item.hashCode() == choice.getChoiceId()) {

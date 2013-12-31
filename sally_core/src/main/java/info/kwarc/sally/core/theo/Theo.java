@@ -1,7 +1,7 @@
 package info.kwarc.sally.core.theo;
 
-import info.kwarc.sally.core.DocumentInformation;
-import info.kwarc.sally.core.comm.SallyMenuItem;
+import info.kwarc.sally.core.doc.DocumentInformation;
+import info.kwarc.sally.core.interaction.SallyMenuItem;
 
 import java.util.List;
 

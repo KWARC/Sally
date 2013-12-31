@@ -1,9 +1,9 @@
 package info.kwarc.sally.spreadsheet.tasks;
 
-import info.kwarc.sally.core.DocumentInformation;
-import info.kwarc.sally.core.DocumentManager;
-import info.kwarc.sally.core.comm.CallbackManager;
-import info.kwarc.sally.core.interfaces.SallyTask;
+import info.kwarc.sally.core.doc.DocumentInformation;
+import info.kwarc.sally.core.doc.DocumentManager;
+import info.kwarc.sally.core.interaction.CallbackManager;
+import info.kwarc.sally.core.workflow.SallyTask;
 import info.kwarc.sally.sharejs.models.SpreadsheetModel;
 import info.kwarc.sally.spreadsheet.SpreadsheetDocument;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
@@ -55,7 +55,7 @@ public class GetSheets implements WorkItemHandler  {
 			}
 						
 			if (gm.hasCallbackToken()) {
-				callbacks.getCallback(gm.getCallbackToken()).run(result.build());
+				callbacks.getCallback(gm.getCallbackToken()).onMessage(result.build());
 			}
 			
 		} catch (Exception e) {

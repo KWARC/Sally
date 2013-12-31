@@ -24,6 +24,12 @@
 		</dependency>
 		<dependency>
 			<groupId>info.kwarc.sally</groupId>
+			<artifactId>sally_test</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>info.kwarc.sally</groupId>
 			<artifactId>sally_comm</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>

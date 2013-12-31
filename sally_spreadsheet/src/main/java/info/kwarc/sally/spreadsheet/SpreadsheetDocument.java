@@ -1,15 +1,15 @@
 package info.kwarc.sally.spreadsheet;
 
-import info.kwarc.sally.core.SallyContext;
-import info.kwarc.sally.core.SallyInteraction;
-import info.kwarc.sally.core.SallyInteractionResultAcceptor;
-import info.kwarc.sally.core.SallyService;
-import info.kwarc.sally.core.comm.SallyMenuItem;
-import info.kwarc.sally.core.comm.SallyModelRequest;
-import info.kwarc.sally.core.interfaces.IPositionProvider;
-import info.kwarc.sally.core.net.IMessageCallback;
+import info.kwarc.sally.core.composition.SallyContext;
+import info.kwarc.sally.core.composition.SallyInteraction;
+import info.kwarc.sally.core.composition.SallyInteractionResultAcceptor;
+import info.kwarc.sally.core.composition.SallyService;
+import info.kwarc.sally.core.interaction.IMessageCallback;
+import info.kwarc.sally.core.interaction.SallyMenuItem;
 import info.kwarc.sally.core.net.INetworkSender;
+import info.kwarc.sally.core.rdf.RDFStore;
 import info.kwarc.sally.core.theo.Coordinates;
+import info.kwarc.sally.core.theo.IPositionProvider;
 import info.kwarc.sally.sharejs.IDocManager;
 import info.kwarc.sally.sharejs.JSONSnapshot;
 import info.kwarc.sally.sharejs.models.SpreadsheetModel;
@@ -50,6 +50,8 @@ public class SpreadsheetDocument {
 
 	Manager asm;
 	Logger log;
+
+	RDFStore rdfStore;
 	
 	String filePath;
 	IPositionProvider provider;
@@ -57,22 +59,25 @@ public class SpreadsheetDocument {
 
 	IOntologyProvider ontoProvider;
 	IDocManager documentManager;
-	
+
 	public String getFilePath() {
 		return filePath;
 	}
 
 	@Inject
-	public SpreadsheetDocument(@Assisted String filePath, @Assisted SpreadsheetAlexData data, @Assisted INetworkSender sender, IPositionProvider provider, IDocManager documentManager, @Named("ShareJSCollection") String shareJSCollection) {
+	public SpreadsheetDocument(@Assisted String filePath, @Assisted SpreadsheetAlexData data, @Assisted INetworkSender sender, IPositionProvider provider, IDocManager documentManager, @Named("ShareJSCollection") String shareJSCollection, RDFStore rdfStore) {
 		asm = new Manager(ontoProvider, data.getAsm());
 		this.filePath = filePath;
 		this.sender = sender;
 		this.provider = provider;
+		this.rdfStore = rdfStore;
 		log = LoggerFactory.getLogger(getClass());
-		JSONSnapshot snap  = JSONSnapshot.retrieveSnapshot(documentManager, shareJSCollection, filePath);
+		
 		ObjectMapper mapper = new ObjectMapper(); // create once, reuse
 		try {
-			shareJSModel= mapper.readValue(snap.getSnapshot(), SpreadsheetModel.class);
+			JSONSnapshot snap  = JSONSnapshot.retrieveSnapshot(documentManager, shareJSCollection, filePath);
+			if (snap.getSnapshot() != null)
+				shareJSModel= mapper.readValue(snap.getSnapshot(), SpreadsheetModel.class);
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -82,9 +87,10 @@ public class SpreadsheetDocument {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
+		rdfStore.addModel(filePath, ModelRDFExport.getRDF(asm, filePath));
 	}
-	
+
 	public SpreadsheetModel getConcreteSpreadsheetModel() {
 		return shareJSModel;
 	}
@@ -99,17 +105,17 @@ public class SpreadsheetDocument {
 			}
 		});
 	}
-	
+
 	public Block createBlock(String sheet, int startRow, int startCol, int endRow, int endCol) {
 		List<CellSpaceInformation> blockPositions = Util.expandRange(
 				new CellSpaceInformation(sheet, startRow, startCol), new CellSpaceInformation(sheet, endRow, endCol));
 		return asm.createComposedBlock(blockPositions);
 	}
-	
+
 	public Manager getASMModel() {
 		return asm;
 	}
-	
+
 	public void selectRange(String sheet, int startRow, int endRow, int startCol, int endCol) {
 		RangeSelection sel = RangeSelection.newBuilder().setSheet(sheet).setStartRow(startRow).setEndRow(endRow).setStartCol(startCol).setEndCol(endCol).build();
 		AlexRangeRequest request = AlexRangeRequest.newBuilder().setFileName(filePath).addSelection(sel).build();
@@ -180,17 +186,12 @@ public class SpreadsheetDocument {
 		if (uri == null)
 			return;
 		MMTUri mmtURI = MMTUri.newBuilder().setUri(uri).build();
-		
+
 		List<SallyMenuItem> items = new ArrayList<SallyMenuItem>();
 		items.addAll(interaction.getPossibleInteractions(mmtURI, SallyMenuItem.class));
 		for (SallyMenuItem r : items) {
 			acceptor.acceptResult(r);
 		}
-	}
-
-	@SallyService(channel="/get/semantics")
-	public void getModel(SallyModelRequest click, SallyInteractionResultAcceptor acceptor, SallyContext context) {
-		acceptor.acceptResult(ModelRDFExport.getRDF(asm, filePath));
 	}
 
 
