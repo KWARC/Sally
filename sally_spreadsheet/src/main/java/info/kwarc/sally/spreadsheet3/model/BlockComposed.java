@@ -58,8 +58,16 @@ public class BlockComposed extends Block {
 		return cells;
 	}
 	
+	@Override
 	public List<Block> getSubBlocks() {
 		return new ArrayList<Block>(blocks);
+	}
+	
+	@Override
+	public void addSubBlock(Block b) throws ModelException {
+		if (!b.getWorksheet().equals(this.worksheet))
+			throw new ModelException("Can not compose blocks from different worksheets to one block.");
+		blocks.add(b);
 	}
 	
 	@Override
@@ -104,6 +112,9 @@ public class BlockComposed extends Block {
 		return max;
 	}
 	
+	
+	
+	
 	@Override
 	public sally.BlockMsg serialize() {
 		sally.BlockMsg.Builder blockMsg = sally.BlockMsg.newBuilder();
@@ -120,5 +131,6 @@ public class BlockComposed extends Block {
 			blockMsg.addSubBlockIds(b.getId());
 		return blockMsg.build();
 	}
+	
 
 }

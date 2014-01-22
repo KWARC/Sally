@@ -58,12 +58,18 @@ public class BlockAtomic extends Block {
 	}
 	
 	@Override
+	public void addSubBlock(Block subblock) throws ModelException {
+		throw new ModelException("Can not add a subblock to an atomic block.");
+	}
+	
+	@Override
 	public boolean contains(Block b) {
 		return false;
 	}
 	
 	@Override
-	public void remove(Block b) {
+	public void remove(Block b) throws ModelException {
+		throw new ModelException("Can not remove a block from an atomic block.");
 	}
 	
 	@Override

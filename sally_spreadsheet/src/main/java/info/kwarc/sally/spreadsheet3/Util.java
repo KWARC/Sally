@@ -3,7 +3,7 @@ package info.kwarc.sally.spreadsheet3;
 
 import info.kwarc.sally.spreadsheet3.model.Block;
 import info.kwarc.sally.spreadsheet3.model.CellSpaceInformation;
-import info.kwarc.sally.spreadsheet3.model.Manager;
+import info.kwarc.sally.spreadsheet3.model.ModelManager;
 import info.kwarc.sally.spreadsheet3.model.RangeInformation;
 import info.kwarc.sally.spreadsheet3.model.Relation;
 import info.kwarc.sally.spreadsheet3.ontology.BuilderML;
@@ -17,9 +17,12 @@ import java.util.regex.Pattern;
 
 public class Util {
 	
-	static Pattern omdocUriPattern = Pattern.compile("(.+?)#(\\p{Graph}+)");
+	//static Pattern omdocUriPattern = Pattern.compile("(.+?)#(\\p{Graph}+)");
+	static Pattern omdocUriPattern = Pattern.compile("(\\S+?)\\?(\\S+?)\\?(\\S+?)");
 	static Pattern cellAddressPattern = Pattern.compile("([A-Z]+)([0-9]+)");
 	static Pattern rangeAddressPattern = Pattern.compile("(.+)!([A-Z]+)([0-9]+):([A-Z]+)([0-9]+)");
+	
+
 	
 	public static RangeInformation convertRangeAddress(String position)  {
 		Matcher m = rangeAddressPattern.matcher(position);
@@ -154,7 +157,7 @@ public class Util {
 		return ids;
 	}
 	
-	public static List<Block> convertIDsToBlocks(List<Integer> ids, Manager m) {
+	public static List<Block> convertIDsToBlocks(List<Integer> ids, ModelManager m) {
 		List<Block> blocks = new ArrayList<Block>();
 		for (Integer id : ids)
 			blocks.add(m.getBlockByID(id));
@@ -232,7 +235,7 @@ public class Util {
 	public static String getCDFromURI(String uri) {
 		Matcher matcher = omdocUriPattern.matcher(uri);
 		if (matcher.matches())
-			return matcher.group(1);
+			return matcher.group(2);
 		else
 			return "";
 	}
@@ -240,7 +243,7 @@ public class Util {
 	public static String getSymbolFromURI(String uri) {
 		Matcher matcher = omdocUriPattern.matcher(uri);
 		if (matcher.matches())
-			return matcher.group(2);
+			return matcher.group(3);
 		else
 			return "";
 	}

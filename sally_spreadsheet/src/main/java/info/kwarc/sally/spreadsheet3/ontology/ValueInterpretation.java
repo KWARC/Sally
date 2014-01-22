@@ -80,11 +80,11 @@ public class ValueInterpretation {
 	public Boolean isInterpretable(String value) {
 		return valuePattern.matcher(value).matches();
 	}
-	
+
 	public String getValueInterpretation(String value) {	
 		Matcher matcher = valuePattern.matcher(value);
 		
-		if (matcher.matches()) {
+		if (matcher.matches() ) {
 			String interpretation = interpretationTemplate;
 			for (int i = 1; i <= matcher.groupCount(); i++) {
 				interpretation = interpretation.replaceAll(builderML.getVIVaribale(i), matcher.group(i));

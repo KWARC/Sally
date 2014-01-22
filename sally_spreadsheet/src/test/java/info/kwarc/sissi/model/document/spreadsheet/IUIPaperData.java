@@ -5,7 +5,7 @@ import info.kwarc.sally.spreadsheet3.export.ModelRDFExport;
 import info.kwarc.sally.spreadsheet3.model.Block;
 import info.kwarc.sally.spreadsheet3.model.CellDependencyDescription;
 import info.kwarc.sally.spreadsheet3.model.CellSpaceInformation;
-import info.kwarc.sally.spreadsheet3.model.Manager;
+import info.kwarc.sally.spreadsheet3.model.ModelManager;
 import info.kwarc.sally.spreadsheet3.model.Relation;
 
 import java.io.ByteArrayOutputStream;
@@ -24,10 +24,10 @@ import sally.SpreadsheetAlexData;
 import com.hp.hpl.jena.rdf.model.Model;
 
 public class IUIPaperData {
-	Manager asm;
+	ModelManager asm;
 
 	public IUIPaperData() {
-		asm = new Manager(null);
+		asm = new ModelManager(null);
 	}
 
 	Integer createRowFB(String sheet, int startRow, int startCol, String [] content, Integer [] ids) {
@@ -562,7 +562,7 @@ public class IUIPaperData {
 		}
 	}
 
-	public Manager getAsm() {
+	public ModelManager getAsm() {
 		return asm;
 	}
 

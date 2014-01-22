@@ -14,8 +14,8 @@ public class BuilderMathMLTest {
 	}
 	
 	@Test
-	public void testParseMLAxiom() {
-		AxiomObject axiom = builder.parseMLAxiom(
+	public void testParseMLAxiom() throws OntologyException {
+		AxiomObject axiom = builder.parseMLAxiom("test",
 				  "<apply>"
 				+ "<forall/>"
 				+ "<bvar><ci> n </ci></bvar>"

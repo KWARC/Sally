@@ -1,11 +1,12 @@
 package info.kwarc.sally.spreadsheet3.verification;
 
+import info.kwarc.sally.spreadsheet3.Manager;
 import info.kwarc.sally.spreadsheet3.Util;
-import info.kwarc.sally.spreadsheet3.FormalSpreadsheet;
+import info.kwarc.sally.spreadsheet3.ConcreteSpreadsheet;
 import info.kwarc.sally.spreadsheet3.model.Block;
 import info.kwarc.sally.spreadsheet3.model.CellSpaceInformation;
 import info.kwarc.sally.spreadsheet3.model.CellTuple;
-import info.kwarc.sally.spreadsheet3.model.Manager;
+import info.kwarc.sally.spreadsheet3.model.ModelException;
 import info.kwarc.sally.spreadsheet3.model.Relation;
 import info.kwarc.sally.spreadsheet3.ontology.BuilderML;
 
@@ -19,36 +20,15 @@ public class VerificationDataExtractor {
 	static psf.ParserInterface parser = new psf.ParserInterface();
 	//static String[] stdDataTypes = {"omdoc://MathML#Real", "omdoc://MathML#Int", "omdoc://MathML#Bool" };
 	
-	public static List<DataSymbolInformation> extractDataTypes(Map<Block, String> blocks, FormalSpreadsheet spreadsheet) {
-		/*Map<String, List<String>> dataTypes = new HashMap<String,List<String>>();
-		
-		for (Block b : blocks.keySet()) {
-			List<String> values;
-			/*boolean isStdDT = false;
-			for (String dt : stdDataTypes)
-				if (dt.equals( blocks.get(b)) )
-					isStdDT = true;* /
-			
-			if (dataTypes.containsKey(blocks.get(b)))
-				values = dataTypes.get(blocks.get(b));
-			else {
-				values = new ArrayList<String>();
-				dataTypes.put(blocks.get(b), values);
-			}
-			for (CellSpaceInformation pos : b.getCells()) {
-				if ((spreadsheet.get(pos) != null) && 
-						!spreadsheet.get(pos).getValue().isEmpty() &&
-						!values.contains(b.getValueInterpretation( spreadsheet.get(pos).getValue()) ) )
-					values.add(b.getValueInterpretation( spreadsheet.get(pos).getValue()) );
-			}
-		}*/
+	public static List<DataSymbolInformation> extractDataTypes(Map<Block, String> blocks, ConcreteSpreadsheet spreadsheet) throws ModelException {
 		
 		List<DataSymbolInformation> dataObjects = new ArrayList<DataSymbolInformation>();
-		
+		int symbolID = 0;
 		for (Block b : blocks.keySet()) {
 			for (CellSpaceInformation pos : b.getCells()) {
 				if ((spreadsheet.get(pos) != null) && !spreadsheet.get(pos).getValue().isEmpty()) {
-					dataObjects.add(new DataSymbolInformation(blocks.get(b), b.getValueInterpretation( spreadsheet.get(pos).getValue()), pos));
+					dataObjects.add(new DataSymbolInformation(blocks.get(b), b.getValueInterpretation( spreadsheet.get(pos).getValue()), pos, symbolID));
+					symbolID++;
 				}
 			}
 		}
@@ -56,16 +36,18 @@ public class VerificationDataExtractor {
 		return dataObjects;
 	}
 	
-	public static Map<Relation, String> extractCPSimilarFBs(Manager manager, FormalSpreadsheet spreadsheet, BuilderML builderML) {
-		Map<Relation, String> mathMLRepresentations = new HashMap<Relation, String>();
-		List<Relation> relations = manager.getAllRelations();
-		for (Relation fbRelation : relations) {
+	//public static List<CPSimilarBlockData> extractCPSimilarFBs(ModelManager manager, ConcreteSpreadsheet spreadsheet, BuilderML builderML) {
+	public static List<CPSimilarBlockData> extractCPSimilarFBs(Manager manager) throws ModelException {
+		List<CPSimilarBlockData> cpSimilarBlockData = new ArrayList<CPSimilarBlockData>();
+		//Map<Relation, String> mathMLRepresentations = new HashMap<Relation, String>();
+		//List<Relation> relations = manager.getAllRelations();
+		for (Relation fbRelation : manager.getModel().getAllRelations()) {
 			if (fbRelation.getRelationType().equals(Relation.RelationType.FUNCTIONALRELATION)) {
 		
 				Block fb = fbRelation.getBlocks().get(fbRelation.getBlocks().size()-1);
 				boolean calculatedFb = true;
 				for (int i = 0; i < fb.getCells().size(); i++) {
-					if (spreadsheet.get(fb.getCells().get(i)).getFormula().isEmpty())
+					if (manager.getSpreadsheet().get(fb.getCells().get(i)).getFormula().isEmpty())
 						calculatedFb = false;
 				}
 				if (calculatedFb) {
@@ -73,13 +55,13 @@ public class VerificationDataExtractor {
 					List<List<String>> domainValues = new ArrayList<List<String>>();
 					
 					psf.SemanticMapping mapping = new psf.SemanticMapping();
-					Map<CellSpaceInformation, String> interpretation = manager.getCompleteSemanticMapping(spreadsheet);
+					Map<CellSpaceInformation, String> interpretation = manager.getModel().getCompleteSemanticMapping(manager.getSpreadsheet(), manager.getOntology());
 					for (CellSpaceInformation pos : interpretation.keySet()) 
 						mapping.add(pos.getWorksheet(), pos.getRow(), pos.getColumn(), interpretation.get(pos));
 					
 					for (int i = 0; i < fb.getCells().size(); i++) {
 						CellSpaceInformation pos = fb.getCells().get(i);
-						psf.ParserParameter p = new psf.ParserParameter(spreadsheet.get(pos).getFormula(), pos.getWorksheet(), false, true, false, true, mapping.getMapping());
+						psf.ParserParameter p = new psf.ParserParameter(manager.getSpreadsheet().get(pos).getFormula(), pos.getWorksheet(), false, true, false, true, mapping.getMapping());
 						formulae.add(parser.parseFormula(p).getMathML());
 						
 						List<String> dv = new ArrayList<String>();
@@ -91,10 +73,11 @@ public class VerificationDataExtractor {
 						List<Block> domain = fbRelation.getBlocks();
 						domain.remove(domain.size()-1);
 						for (int j = 0; j < domain.size(); j++) {
-							dv.add(domain.get(j).getValueInterpretation(spreadsheet.get(cellTuple.getTuple().get(j)).getValue()));
+							dv.add(domain.get(j).getValueInterpretation(manager.getSpreadsheet().get(cellTuple.getTuple().get(j)).getValue()));
 						}
 						domainValues.add(dv);
 					}
+					BuilderML builderML = manager.getOntology().getBuilderML();
 					String antiunification = Util.antiunifyMathMLFormulae(formulae, domainValues, builderML);
 					if (!antiunification.isEmpty()) {
 						String equatation = builderML.getOperatorApplication("spsht-arith","equal") + "\n" 
@@ -105,29 +88,32 @@ public class VerificationDataExtractor {
 							variableCounter = java.lang.Math.max(variableCounter, dv.size());
 						for (int i = 0; i < variableCounter; i++)
 							equatation = equatation + builderML.getIdentifier("?X" + i) + "\n";*/
-						for (int i = 0; i < manager.getOntologyInterface().getFunctionObject(fbRelation.getUri()).getArgumentTypes().size(); i++ )
+						for (int i = 0; i < manager.getOntology().getFunctionObject(fbRelation.getUri()).getArgumentTypes().size(); i++ )
 							equatation = equatation + builderML.getVIVaribale(i) + "\n";
 						equatation = equatation + builderML.getApplicationEnd() + "\n" + Util.untagMathObject(antiunification, builderML) + builderML.getApplicationEnd() + "\n";
-						mathMLRepresentations.put(fbRelation, equatation);
+						//mathMLRepresentations.put(fbRelation, equatation);
+						cpSimilarBlockData.add(new CPSimilarBlockData(fbRelation, equatation, Util.getConstantArguments(domainValues)));
 					}
 				}
 			}
 		}
-		return mathMLRepresentations;
+		return cpSimilarBlockData;
 	}
 	
-	public static Map<CellSpaceInformation, String> extractMLFormulaRepresentations(Relation fbRelation, Manager manager, FormalSpreadsheet spreadsheet, BuilderML builderML) {
+	//public static Map<CellSpaceInformation, String> extractMLFormulaRepresentations(Relation fbRelation, ModelManager modelManager, ConcreteSpreadsheet spreadsheet, BuilderML builderML) {
+	public static Map<CellSpaceInformation, String> extractMLFormulaRepresentations(Relation fbRelation, Manager manager) throws ModelException {
 		Map<CellSpaceInformation, String> mlFormulaeRep = new HashMap<CellSpaceInformation, String>();
 		if (fbRelation.getRelationType().equals(Relation.RelationType.FUNCTIONALRELATION)) {
 			Block fb = fbRelation.getBlocks().get(fbRelation.getBlocks().size()-1);
 			
 			psf.SemanticMapping mapping = new psf.SemanticMapping();
-			Map<CellSpaceInformation, String> interpretation = manager.getCompleteSemanticMapping(spreadsheet);
+			Map<CellSpaceInformation, String> interpretation = manager.getModel().getCompleteSemanticMapping( manager.getSpreadsheet(), manager.getOntology());
 			for (CellSpaceInformation pos : interpretation.keySet()) 
 				mapping.add(pos.getWorksheet(), pos.getRow(), pos.getColumn(), interpretation.get(pos));
 			
+			BuilderML builderML = manager.getOntology().getBuilderML();
 			for (CellSpaceInformation pos : fb.getCells()) {
-				String cellFormula = spreadsheet.get(pos).getFormula();
+				String cellFormula = manager.getSpreadsheet().get(pos).getFormula();
 				String mlFormulaRep = parser.parseFormula(new psf.ParserParameter(cellFormula, pos.getWorksheet(), false, true, false, true, mapping.getMapping())).getMathML();
 				
 				String equatation = builderML.getOperatorApplication("spsht-arith","equal") + "\n" 
@@ -142,7 +128,7 @@ public class VerificationDataExtractor {
 				List<Block> domain = fbRelation.getBlocks();
 				domain.remove(domain.size()-1);
 				for (int j = 0; j < domain.size(); j++) 
-					equatation = equatation + domain.get(j).getValueInterpretation(spreadsheet.get(cellTuple.getTuple().get(j)).getValue()) + "\n";
+					equatation = equatation + domain.get(j).getValueInterpretation( manager.getSpreadsheet().get(cellTuple.getTuple().get(j)).getValue()) + "\n";
 			
 				equatation = equatation + builderML.getApplicationEnd() + "\n" + Util.untagMathObject(mlFormulaRep, builderML) + builderML.getApplicationEnd() + "\n";
 				mlFormulaeRep.put(pos, equatation);

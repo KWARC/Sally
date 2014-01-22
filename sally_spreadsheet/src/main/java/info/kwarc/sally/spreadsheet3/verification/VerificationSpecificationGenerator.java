@@ -1,12 +1,19 @@
 package info.kwarc.sally.spreadsheet3.verification;
 
-import info.kwarc.sally.spreadsheet3.FormalSpreadsheet;
+
+import info.kwarc.sally.spreadsheet3.Manager;
 import info.kwarc.sally.spreadsheet3.Util;
-import info.kwarc.sally.spreadsheet3.model.Manager;
+import info.kwarc.sally.spreadsheet3.logic.RelationInterpreter;
+import info.kwarc.sally.spreadsheet3.model.Block;
+import info.kwarc.sally.spreadsheet3.model.CellSpaceInformation;
+import info.kwarc.sally.spreadsheet3.model.CellTuple;
+import info.kwarc.sally.spreadsheet3.model.ModelException;
+import info.kwarc.sally.spreadsheet3.model.Relation;
 import info.kwarc.sally.spreadsheet3.ontology.AxiomObject;
 import info.kwarc.sally.spreadsheet3.ontology.AxiomVariableObject;
 import info.kwarc.sally.spreadsheet3.ontology.DataTypeObject;
 import info.kwarc.sally.spreadsheet3.ontology.FunctionObject;
+import info.kwarc.sally.spreadsheet3.ontology.OntologyException;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -34,76 +41,104 @@ import org.xml.sax.SAXException;
 
 public class VerificationSpecificationGenerator {
 	
-	final static String mathML2Z3XLSTTypes = "src/main/resources/MathML2Z3Types.xsl";
-	final static String mathML2Z3XLSTFunctions = "src/main/resources/MathML2Z3Functions.xsl";
-	final static String mathML2Z3XLSTAxioms = "src/main/resources/MathML2Z3Axioms.xsl";
+	//final static String mathML2Z3XLSTTypes = "src/main/resources/MathML2Z3Types.xsl";
+	final static String mathML2Z3XLST = "src/main/resources/info/kwarc/sally/spreadsheet3/verification/MathML2Z3.xsl";
+	final static String mathML2Z3XLSTAxioms = "src/main/resources/info/kwarc/sally/spreadsheet3/verification/MathML2Z3Axioms.xsl";
 	final static Logger logger = LoggerFactory.getLogger(VerificationSpecificationGenerator.class);
-	final static String BADTYPE = "(- 99999999)";
+	static psf.ParserInterface parser = new psf.ParserInterface();
 	
-	public static void createCompeteSpecification(Manager manager, FormalSpreadsheet spreadsheet) {
+	/**
+	 * Create a complete Z3 specification for a given spreadsheet. 
+	 * Mostly used for testing purposes.
+	 * @param manager
+	 * @param spreadsheet
+	 * @return
+	 * @throws ModelException 
+	 * @throws OntologyException 
+	 */
+	public static List<String> createCompeteSpecification(Manager manager) throws ModelException, OntologyException {
+		List<String> specification = new ArrayList<String>();
+		
+		// Datatypes
+		Map<Block, String> blocks = new HashMap<Block, String>();
+		for (Block b : manager.getModel().getAllTopLevelBlocks()) {
+			Relation blockRelation = manager.getModel().getRelationsFor(null, b, Relation.RelationType.TYPERELATION).get(0);
+			blocks.put(b, blockRelation.getUri());
+		}
+		List<DataSymbolInformation> dataSym = VerificationDataExtractor.extractDataTypes(blocks, manager.getSpreadsheet());
+		
+		// Specification of symbols, axioms and functions
+		specification.add( VerificationSpecificationGenerator.getObjectSymbolSpecification(dataSym));
+		
+		specification.addAll( VerificationSpecificationGenerator.createFunctionDeclarations(manager.getOntology().getAllBasicFunctionObjects(), manager));
+		
+		specification.addAll( VerificationSpecificationGenerator.createFunctionDefinitions( manager.getOntology().getAllBasicFunctionObjects(), manager, dataSym));
+		
+		specification.addAll( VerificationSpecificationGenerator.getDataTypeSpecification(manager, dataSym));
+		
+		specification.addAll( VerificationSpecificationGenerator.createFunctionDeclarations(manager.getOntology().getAllDomainFunctionObjects(), manager));
+		
+		specification.addAll( VerificationSpecificationGenerator.createFunctionDefinitions( manager.getOntology().getAllDomainFunctionObjects(), manager, dataSym));
+		
+		specification.addAll( VerificationSpecificationGenerator.createFunctionSymbolAssertions(manager, dataSym));
+		
+		for (AxiomObject axiom : manager.getOntology().getAxioms())
+			specification.add(VerificationSpecificationGenerator.getAxiom(manager, axiom, dataSym));
+		
+		specification.add("(check-sat)\n");
+		
+		// Checking cp-similar blocks
+		List<CPSimilarBlockData> cpBlocks = VerificationDataExtractor.extractCPSimilarFBs(manager);
+		
+		for (CPSimilarBlockData cpBlock : cpBlocks) {
+			specification.add("(push)\n");
+			specification.add( VerificationSpecificationGenerator.getCPSimilarBlockSpec(manager, cpBlock, dataSym));
+			specification.add("(check-sat)\n");
+			specification.add("(pop)\n");
+		}
+		
+		return specification;
+	
+	}
+	
+	public static String getObjectSymbolSpecification(List<DataSymbolInformation> dataSymbols) {
+		// Generating symbols
+		String objectDefinition = "(declare-datatypes () ((Object ";
+				
+		for (DataSymbolInformation dataSymbol :  dataSymbols) 
+			objectDefinition += "Sym-" + dataSymbol.getSymbolID() + " ";
+			
+		return (objectDefinition + ")))");
+		
 		
 	}
 	
-	public static DataTypeSpec getDataTypeSpecification(Manager manager, List<DataSymbolInformation> dataSymbols) {
+	// public static DataTypeSpec getDataTypeSpecification(Manager manager, List<DataSymbolInformation> dataSymbols) {
+	public static List<String> getDataTypeSpecification(Manager manager, List<DataSymbolInformation> dataSymbols) {
 		List<String> specification = new ArrayList<String>();
-		Map<String, String> viToZ3String = new HashMap<String,String>();
-
-		/*
-		// Generating abstract symbols 
-		int maxID = 0;
-		Map<String, String> idToSymbol = new HashMap<String, String>();
-		Map<String, String> symbolToId = new HashMap<String, String>();
-		
-		for (List<String> symbols : dataTypes.values()) {
-			for (String symbol : symbols) {
-				if (!symbolToId.containsKey(symbol)) {
-					idToSymbol.put("Sym-" + maxID, symbol);
-					symbolToId.put(symbol, "Sym-" + maxID);
-					maxID++;
-				}
-			}
-		}
-		
-		String objectDefinition = "(declare-datatypes () ((Object ";
-		for (String id : idToSymbol.keySet())
-			objectDefinition = objectDefinition + id +  " ";
-		
-		objectDefinition = objectDefinition + ")))";
-		specification.add(objectDefinition);
-		
-		// Asserting concrete symbol definitions to abstract symbols
-		for (String id : idToSymbol.keySet())
-			specification.add("(assert (= " + id + " " + mathML2Z3(idToSymbol.get(id), mathML2Z3XLSTTypes, idToSymbol) + ") )");
-		
-		for (String dataTyp : dataTypes.keySet()) {
-			String function = "(define-fun is-" + Util.getCDFromURI(dataTyp) + "~" + Util.getSymbolFromURI(dataTyp) +  " ((x Object)) Bool\n" + " (or ";
-			for (String symbol : dataTypes.get(dataTyp))
-				function = function + "(= x " + symbolToId.get(symbol) + ") ";
-			function = function + ")\n)";
-			specification.add(function);
-		}
-		return new DataTypeSpec(specification, idToSymbol);*/
-		
-		// Generating symbols
-		String objectDefinition = "(declare-datatypes () ((Object ";
-		
-		for (int id = 0; id < dataSymbols.size(); id++) {
-			objectDefinition += "Sym-" + id + " ";
-			dataSymbols.get(id).setSymbolID(id);
-		}
-		objectDefinition += ")))";
-		specification.add(objectDefinition);
+		//Map<String, String> viToZ3String = new HashMap<String,String>();
 		
 		// Generating datatype String
+		boolean stringDataTypes = false;
 		for (DataSymbolInformation symbol : dataSymbols) {
-			if (manager.getOntologyInterface().getDataTypeObject(symbol.getOntologyType()).getBasicType() == DataTypeObject.BasicType.String) {
-				viToZ3String.put(symbol.getContent(), toZ3Value(ml2Z3(symbol.getContent(), mathML2Z3XLSTTypes)));
+			if (manager.getOntology().getDataTypeObject(symbol.getOntologyType()).getBasicType() == DataTypeObject.BasicType.String) {
+				//viToZ3String.put(symbol.getContent(), toZ3Value(ml2Z3(symbol.getContent(), mathML2Z3XLST)));
+				//symbol.setZ3String(toZ3Value(ml2Z3(symbol.getContent(), mathML2Z3XLST)));
+				stringDataTypes = true;
 			}
 		}
-		if (!viToZ3String.values().isEmpty()) {
+		/*if (!viToZ3String.values().isEmpty()) {
 			String stringDefinition = "(declare-datatypes () ((String ";
 			for (String s : viToZ3String.values())
 				stringDefinition += s + " ";
+			stringDefinition += ")))";
+			specification.add(stringDefinition);
+		}*/
+		if (stringDataTypes) {
+			String stringDefinition = "(declare-datatypes () ((String ";
+			for (DataSymbolInformation dataSymbol : dataSymbols)
+				if ((manager.getOntology().getDataTypeObject(dataSymbol.getOntologyType()).getBasicType() == DataTypeObject.BasicType.String) && !toZ3Value(dataSymbol.getContent()).isEmpty())
+					stringDefinition += toZ3Value(dataSymbol.getContent()) + " ";
 			stringDefinition += ")))";
 			specification.add(stringDefinition);
 		}
@@ -135,15 +170,30 @@ public class VerificationSpecificationGenerator {
 		}
 		
 		// Asserting values to symbols
+		/*
 		for (DataSymbolInformation symbol : dataSymbols) {
-			String value =  ml2Z3(symbol.getContent(),mathML2Z3XLSTFunctions);
+			String value =  ml2Z3(symbol.getContent(),mathML2Z3XLST);
 			if (manager.getOntologyInterface().getDataTypeObject(symbol.getOntologyType()).getBasicType() == DataTypeObject.BasicType.String)
 				value = toZ3Value(value);
 			if (!value.isEmpty())
-				specification.add("(assert (= value-" + manager.getOntologyInterface().getDataTypeObject(symbol.getOntologyType()).getBasicType().name() + " Sym-" + symbol.getSymbolID() + ") " + value + "))");
-		}
-		return new DataTypeSpec(specification, viToZ3String);
-
+				specification.add("(assert (= (value-" + manager.getOntologyInterface().getDataTypeObject(symbol.getOntologyType()).getBasicType().name() + " Sym-" + symbol.getSymbolID() + ") " + value + "))");
+		}*/
+		//return new DataTypeSpec(specification, viToZ3String);
+		return specification;
+	}
+	
+	public static String createSymbolValueAssertion(Manager manager, DataSymbolInformation symbol) {
+		String value = "";
+		
+		if (manager.getOntology().getDataTypeObject(symbol.getOntologyType()).getBasicType() == DataTypeObject.BasicType.String)
+			value = toZ3Value(symbol.getContent());
+		else
+			value = ml2Z3(symbol.getContent(), mathML2Z3XLST);
+		
+		if (!value.isEmpty())
+			return "(assert (= (value-" + manager.getOntology().getDataTypeObject(symbol.getOntologyType()).getBasicType().name() + " Sym-" + symbol.getSymbolID() + ") " + value + "))";
+		else
+			return "";
 	}
 		
 	public static List<String> createFunctionDeclarations(List<FunctionObject> functions, Manager manager) {
@@ -156,17 +206,37 @@ public class VerificationSpecificationGenerator {
 		return declarations;
 	}
 	
-	public static List<String> createFunctionDefinitions(List<FunctionObject> functions, Manager manager, Map<String, String> viToZ3String) {
+	//public static List<String> createFunctionDefinitions(List<FunctionObject> functions, Manager manager, Map<String, String> viToZ3String) {
+	public static List<String> createFunctionDefinitions(List<FunctionObject> functions, Manager manager, List<DataSymbolInformation> dataSymbols) {
 		List<String> definitions = new ArrayList<String>();
 		for (FunctionObject function : functions) {
 			if (!function.getMLDefinition().isEmpty()) {
-				definitions.add(getFunctionDefinition(function, manager, viToZ3String));
+				definitions.add(getFunctionDefinition(function, manager, dataSymbols));
 			}
 		}
 		return definitions;
 	}
 	
-	public static String getAxiom(AxiomObject axiom, Map<String, String> identifierToSymbol) {
+	public static List<String> createFunctionSymbolAssertions(Manager manager, List<DataSymbolInformation> dataSymbols) throws ModelException {
+		List<String> specifications = new ArrayList<String>();
+		
+		Map<CellSpaceInformation, DataSymbolInformation> posToSymbol = new HashMap<CellSpaceInformation, DataSymbolInformation>();
+		for (DataSymbolInformation dataSymbol : dataSymbols)
+			posToSymbol.put(dataSymbol.getPostition(), dataSymbol);	// Limited to one symbol per position at the moment.
+		for (Relation rel : manager.getModel().getRelationsFor(null,  null, Relation.RelationType.FUNCTIONALRELATION)) {
+			for (CellTuple cellEntry : rel.getCellRelations()) {
+				
+				String assertion = "(assert (= " + position2Z3Function(rel,  cellEntry, manager, dataSymbols);
+				int lastIndex = cellEntry.getSize() - 1;
+				String basicType = manager.getOntology().getDataTypeObject(posToSymbol.get(cellEntry.getTuple().get(lastIndex)).getOntologyType()).getBasicType().name();
+				assertion += " (value-" + basicType + " Sym-" + posToSymbol.get(cellEntry.getTuple().get(lastIndex)).getSymbolID() + ") ) ) ";
+				specifications.add(assertion);
+			}
+		}
+		return specifications;
+	}
+	
+	public static String getAxiom(Manager manager, AxiomObject axiom, List<DataSymbolInformation> dataSymbols) {	
 		String axiomSpec = "(assert ";
 		
 		Map<String, String> varType = new HashMap<String,String>();
@@ -188,7 +258,7 @@ public class VerificationSpecificationGenerator {
 					varType.put(var.getName(), var.getType());
 				}
 			}
-			axiomSpec += "\n";
+			axiomSpec += ")\n";
 		}
 		if (!existQuantVars.isEmpty()) {
 			axiomSpec += "(exists (";
@@ -202,13 +272,29 @@ public class VerificationSpecificationGenerator {
 			}
 			axiomSpec += "\n";
 		}
-		axiomSpec += "=>\n  (and\n";
+		axiomSpec += "(=>\n  (and\n";
 		for (String v : varType.keySet())
 			axiomSpec += "     (is-" + uriToIdentifier(varType.get(v)) + " " + v + ")\n";
 		
 		if (!axiom.getVarConditions().isEmpty())
-			axiomSpec += mathML2Z3(axiom.getVarConditions(), mathML2Z3XLSTFunctions, identifierToSymbol) + "\n";
-		axiomSpec += "  )\n  " + mathML2Z3(axiom.getMLConstrain(), mathML2Z3XLSTFunctions, identifierToSymbol) + ")\n";
+			axiomSpec += ml2Z3(axiom.getVarConditions(), mathML2Z3XLST) + "\n";
+		
+		// Replace identifiers with Z3 valid name
+		String mlDef = axiom.getMLConstrain();
+		for (DataSymbolInformation di : dataSymbols) {
+			String basicType = manager.getOntology().getDataTypeObject(di.getOntologyType()).getBasicType().name();
+			mlDef = mlDef.replaceAll(di.getContent(), " (value-" + basicType + " Sym-" + di.getSymbolID() + ") ");
+		}
+
+		for (AxiomVariableObject var : axiom.getVariables()) {
+						
+			String varBasicType = manager.getOntology().getDataTypeObject(var.getType()).getBasicType().name();
+			mlDef = mlDef.replaceAll(manager.getOntology().getBuilderML().getIdentifier(var.getName()),  " (value-" + varBasicType + " " + var.getName() + ") ");
+		}
+					
+		axiomSpec += "  )\n  " + ml2Z3(mlDef, mathML2Z3XLST) + ")\n";
+		
+		//axiomSpec += "  )\n  " + mathML2Z3(axiom.getMLConstrain(), mathML2Z3XLSTFunctions, identifierToSymbol) + ")\n";
 		
 		if (!existQuantVars.isEmpty())
 			axiomSpec += ")";
@@ -219,99 +305,99 @@ public class VerificationSpecificationGenerator {
 		return axiomSpec + ")";
 	}
 	
+	public static String getCPSimilarBlockSpec(Manager manager, CPSimilarBlockData cpBlock, List<DataSymbolInformation> dataSymbols) {
+		
+		FunctionObject func = manager.getOntology().getFunctionObject(cpBlock.getRelation().getUri());
+		Map<Integer, String> constantArguments = cpBlock.getConstantArguments();
+		Map<String, DataSymbolInformation> identifierToSymbol = new HashMap<String, DataSymbolInformation>();
+		for (DataSymbolInformation d : dataSymbols)
+			identifierToSymbol.put(d.getContent(), d);		// TODO: content should not be an unique identifier for a dataSymbol
+		
+		String funcSpec = "(assert (not (forall (";
+		for (int i = 0; i < func.getArgumentTypes().size(); i++)
+			if (!constantArguments.containsKey(new Integer(i)))
+				funcSpec += "(x" + i + " Object)";
+		
+		funcSpec += ")\n (=> (and \n";
+		for (int i = 0; i < func.getArgumentTypes().size(); i++)
+			if (!constantArguments.containsKey(new Integer(i)))
+				funcSpec += " (is-" + uriToIdentifier(func.getArgumentTypes().get(i)) + " x" + i + ") " ;
+		
+		funcSpec += ")\n";
+		
+		// Replace identifiers with Z3 valid name
+		String mlRep = cpBlock.getAntiunification();
+		for (DataSymbolInformation di : dataSymbols) {
+			String basicType = manager.getOntology().getDataTypeObject(di.getOntologyType()).getBasicType().name();
+			mlRep = mlRep.replaceAll(di.getContent(), " (value-" + basicType + " Sym-" + di.getSymbolID() + ") ");
+		}
+		
+		String z3DefRep = ml2Z3(mlRep, mathML2Z3XLST) + "))))";
+		for (int i = 0; i < func.getArgumentTypes().size(); i++) {
+			String varBaisType = manager.getOntology().getDataTypeObject(func.getArgumentTypes().get(i)).getBasicType().name();
+			if (!constantArguments.keySet().contains(i))
+				z3DefRep = z3DefRep.replaceAll("(\\n|\\s)x" + i + " ",  " (value-" + varBaisType + " x" + i + ") ");
+			else {
+				
+				z3DefRep = z3DefRep.replaceAll("(\\n|\\s)x" + i + " ", " (value-" + varBaisType + " Sym-" + identifierToSymbol.get(constantArguments.get(i)).getSymbolID() + ") ");
+			}
+		}
+		
+		funcSpec += z3DefRep;
+		
+		return funcSpec;
+	}
+	
+	public static String getFormulaSpec(Manager manager, Relation relation, String formula, CellSpaceInformation position, Map<CellSpaceInformation, String> interpretation, List<DataSymbolInformation> dataSymbols) throws ModelException {
+		// Function begin
+		String specification = "(assert (not (spsht-arith~equal \n" +  position2Z3Function(relation,  relation.getCellRelationFor(position).get(0), manager, dataSymbols);
+		
+		// Formula parsing
+		psf.SemanticMapping mapping = new psf.SemanticMapping();
+		for (CellSpaceInformation pos : interpretation.keySet()) 
+			mapping.add(pos.getWorksheet(), pos.getRow(), pos.getColumn(), interpretation.get(pos));
+		psf.ParserParameter p = new psf.ParserParameter(formula, position.getWorksheet(), false, true, false, true, mapping.getMapping());
+		String mlRep = parser.parseFormula(p).getMathML();
+		for (DataSymbolInformation di : dataSymbols) {
+			String basicType = manager.getOntology().getDataTypeObject(di.getOntologyType()).getBasicType().name();
+			mlRep = mlRep.replaceAll(di.getContent(), " (value-" + basicType + " Sym-" + di.getSymbolID() + ") ");
+		}
+		
+		// Z3 transformation and formula ending
+		specification += ml2Z3(mlRep, mathML2Z3XLST) + ")))";
+		return specification;
+	}
+	
 	private static String getFunctionDeclaration(FunctionObject function, Manager manager) {
 		String funcDef = "(declare-fun " + uriToIdentifier(function.getUri()) + " (";
 		for (String argType : function.getArgumentTypes()) {
-			funcDef = funcDef +  manager.getOntologyInterface().getDataTypeObject(argType).getBasicType().name() + " ";
+			funcDef = funcDef +  manager.getOntology().getDataTypeObject(argType).getBasicType().name() + " ";
 		}
-		return funcDef + ") " + manager.getOntologyInterface().getDataTypeObject(function.getResultType()).getBasicType().name() + ")";
+		return funcDef + ") " + manager.getOntology().getDataTypeObject(function.getResultType()).getBasicType().name() + ")";
 	}
-
-	// TODO: 
-	// - All functions on standard Datatypes. Mapping uri -> Z3 Type (Ontology)
-	// - Replace Ontology Object by its value.
-	/*private static String getFunctionDefinition(FunctionObject function, Map<String, String> identifierToSymbol, Map<String, DataTypeObject> dataTypeObjects) {
-		String funcDef = "(define-fun " + Util.getCDFromURI(function.getUri()) + "~" + Util.getSymbolFromURI(function.getUri()) + " (";
-		Map<String, String> varType = new HashMap<String,String>();
-		for (int i = 0; i < function.getArgumentTypes().size(); i++) {
-			funcDef = funcDef + "(" + mathML2Z3(function.getBuilderML().getVIVaribale(i), mathML2Z3XLSTFunctions, identifierToSymbol);
-			/*if (isStandardType(function.getArgumentTypes().get(i)) )
-				funcDef = funcDef + uriToIdentifier(function.getArgumentTypes().get(i)) + ")";
-			else {
-				funcDef = funcDef + "Object )";
-				varType.put(function.getBuilderML().getVIVaribale(i), uriToIdentifier(function.getArgumentTypes().get(i)));
-			}* /
-			funcDef = funcDef + dataTypeObjects.get(function.getArgumentTypes().get(i)) + ")";
-		}
-		funcDef =  funcDef + ") " + dataTypeObjects.get(function.getResultType()) + "\n";
-		if (!varType.isEmpty()) {
-			funcDef = funcDef + "(ite (and\n";
-			for (String var : varType.keySet())
-				funcDef = funcDef + "(is-" + varType.get(var) + " " +  mathML2Z3(var, mathML2Z3XLSTFunctions, identifierToSymbol) + ")\n";
-			funcDef = funcDef + ")";
-			funcDef = funcDef + mathML2Z3(function.getMLDefinition(), mathML2Z3XLSTFunctions, identifierToSymbol);
-			funcDef = funcDef + BADTYPE + "\n))";
-		} else
-			funcDef = funcDef + mathML2Z3(function.getMLDefinition(), mathML2Z3XLSTFunctions, identifierToSymbol) + "\n)";
-		
-		return funcDef;
-	}*/
 	
-	private static String getFunctionDefinition(FunctionObject function, Manager manager, Map<String, String> viToZ3String) {
+	//private static String getFunctionDefinition(FunctionObject function, Manager manager, Map<String, String> viToZ3String) {
+	private static String getFunctionDefinition(FunctionObject function, Manager manager, List<DataSymbolInformation> dataSymbols) {
 		String funcDef = "(define-fun " + uriToIdentifier(function.getUri()) + " (";
 		for (int i = 0; i < function.getArgumentTypes().size(); i++) 
-			funcDef += "(x" + i + " " + manager.getOntologyInterface().getDataTypeObject(function.getArgumentTypes().get(i)).getBasicType().name() + ")";
-		funcDef += ") " +  manager.getOntologyInterface().getDataTypeObject(function.getResultType()).getBasicType().name() + "\n";
+			funcDef += "(x" + i + " " + manager.getOntology().getDataTypeObject(function.getArgumentTypes().get(i)).getBasicType().name() + ")";
+		funcDef += ") " +  manager.getOntology().getDataTypeObject(function.getResultType()).getBasicType().name() + "\n";
 		
 		// Replace identifiers with Z3 valid name
 		String mlDef = function.getMLDefinition();
-		for (String vi : viToZ3String.keySet())
-			mlDef = mlDef.replaceAll(vi, viToZ3String.get(vi));
 		
-		funcDef = funcDef + ml2Z3(mlDef, mathML2Z3XLSTFunctions);
+
+		for (DataSymbolInformation di : dataSymbols) {
+			String basicType = manager.getOntology().getDataTypeObject(di.getOntologyType()).getBasicType().name();
+			mlDef = mlDef.replaceAll(di.getContent(), " (value-" + basicType + " Sym-" + di.getSymbolID() + ") ");
+		}
+		
+		//for (String vi : viToZ3String.keySet())
+		//	mlDef = mlDef.replaceAll(vi, viToZ3String.get(vi));
+		
+		funcDef = funcDef + ml2Z3(mlDef, mathML2Z3XLST);
 		funcDef += "\n)";
 		return funcDef;
-	}
-	
-	private static String mathML2Z3(String expression, String template, Map<String, String> identifierToSymbol) {
-		//logger.info("Try to transform: " + expression);
-		
-		// Map Identifier to symbols
-		for (String identifier : identifierToSymbol.keySet())
-			expression = expression.replaceAll(identifier, identifierToSymbol.get(identifier));
-		
-		return ml2Z3(expression, template);
-		
-		/*String resultStr = "";
-		try {
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-	        DocumentBuilder builder = factory.newDocumentBuilder();
-	        
-	        String xmlStatement = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">" + expression + "</math>";
-	        Document document = builder.parse(new ByteArrayInputStream(xmlStatement.getBytes()));
-	            
-	        // Use a Transformer for output
-	        TransformerFactory tFactory = TransformerFactory.newInstance();
-	        StreamSource stylesource = new StreamSource(template);
-	        Transformer transformer = tFactory.newTransformer(stylesource);
- 
-	        DOMSource source = new DOMSource(document);
-	        StreamResult result = new StreamResult(new ByteArrayOutputStream());
-	        transformer.transform(source, result);
-	        resultStr = result.getOutputStream().toString();
-		} catch (ParserConfigurationException e ) {
-			logger.error("MathML to Z3 transformation failed. Message: " + e.getMessage());
-		} catch (SAXException e) {
-			logger.error("MathML to Z3 transformation failed. Message: " + e.getMessage());
-		} catch (IOException e) {
-			logger.error("MathML to Z3 transformation failed. Message: " + e.getMessage());
-		} catch (TransformerConfigurationException e) {
-			logger.error("MathML to Z3 transformation failed. Message: " + e.getMessage());
-		} catch (TransformerException e) {
-			logger.error("MathML to Z3 transformation failed. Message: " + e.getMessage());
-		}
-		//logger.info("  ...transformed.");
-		return resultStr;*/
 	}
 	
 	private static String ml2Z3(String expression, String template) {
@@ -369,7 +455,23 @@ public class VerificationSpecificationGenerator {
 	}
 	
 	private static String toZ3Value(String s) {
-		return s.trim().replaceAll(" ", "-");
+		return ml2Z3(s, mathML2Z3XLST).trim().replaceAll(" ", "-");
+	}
+	
+	private static String position2Z3Function(Relation relation, CellTuple cells, Manager manager, List<DataSymbolInformation> dataSymbols) throws ModelException {
+		Map<CellSpaceInformation, String> posToSymbolName = new HashMap<CellSpaceInformation, String>();
+		for (DataSymbolInformation symbol : dataSymbols) {
+			posToSymbolName.put(symbol.getPostition(), "Sym-" + symbol.getSymbolID());
+			// System.out.println("Map: " + symbol.getPostition() + " -> " + symbol.getSymbolID());
+		}
+		String relationInterpretation = ml2Z3(RelationInterpreter.interprete(relation, cells, manager.getSpreadsheet(), manager.getOntology(), posToSymbolName ), mathML2Z3XLST);
+		//System.out.println("relation Interpretation: " + relationInterpretation );
+		for (DataSymbolInformation di : dataSymbols) {
+			String basicType = manager.getOntology().getDataTypeObject(di.getOntologyType()).getBasicType().name();
+			relationInterpretation = relationInterpretation.replaceAll("Sym-" + di.getSymbolID(), " (value-" + basicType + " Sym-" + di.getSymbolID() + ") "); 	
+		}
+		
+		return relationInterpretation;
 	}
 
 }
