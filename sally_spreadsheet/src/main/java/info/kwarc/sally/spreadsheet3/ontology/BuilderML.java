@@ -1,6 +1,5 @@
 package info.kwarc.sally.spreadsheet3.ontology;
 
-import java.util.List;
 
 public abstract class BuilderML {
 	
@@ -16,6 +15,6 @@ public abstract class BuilderML {
 	
 	public abstract String getApplicationEnd();
 	
-	public abstract AxiomObject parseMLAxiom(String uri, String axiom);
+	public abstract AxiomObject parseMLAxiom(String uri, String axiom) throws OntologyException;
 
 }

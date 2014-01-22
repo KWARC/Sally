@@ -330,10 +330,15 @@ message CellDependencyDescriptionMsg {
 	required string cellRelation = 5;
 }
 
+message RelationOntologyLinkMsg {
+	required string uri = 1;
+	repeated string parameterLink = 2;
+}
+
 message RelationMsg {
 	required int32 id = 1;
 	required int32 relationType = 2;
-	required string uri = 3;
+	required RelationOntologyLinkMsg ontologyLink = 3;
 	repeated int32 blockIDs = 4;
 	repeated CellTupleMsg cellRelations = 5;
 	repeated CellDependencyDescriptionMsg cellDependencyDescriptions = 6;

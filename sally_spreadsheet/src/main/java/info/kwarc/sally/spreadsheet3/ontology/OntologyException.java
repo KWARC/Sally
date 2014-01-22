@@ -2,6 +2,8 @@ package info.kwarc.sally.spreadsheet3.ontology;
 
 public class OntologyException extends Exception {
 
+	private static final long serialVersionUID = 1L;
+
 	public OntologyException() {}
 
 	public OntologyException(String message) {

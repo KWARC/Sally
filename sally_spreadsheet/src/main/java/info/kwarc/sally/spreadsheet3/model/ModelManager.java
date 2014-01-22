@@ -2,6 +2,7 @@ package info.kwarc.sally.spreadsheet3.model;
 
 
 import info.kwarc.sally.spreadsheet3.ConcreteSpreadsheet;
+import info.kwarc.sally.spreadsheet3.Message;
 import info.kwarc.sally.spreadsheet3.Util;
 import info.kwarc.sally.spreadsheet3.logic.RelationBuilder;
 import info.kwarc.sally.spreadsheet3.logic.RelationInterpreter;
@@ -15,7 +16,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Manager {
+public class ModelManager {
 	
 	//FormalSpreadsheet spreadsheet;
 	Map<Integer, Block> blocks;
@@ -26,15 +27,16 @@ public class Manager {
 	Map<CellSpaceInformation, List<Block>> positionToTopLevelBlocks;
 	Map<CellSpaceInformation, List<Relation>> positionToRelations;
 	
-	IOntologyProvider ontologyInterface;
+	//IOntologyProvider ontologyInterface;
 	
-	final Logger logger = LoggerFactory.getLogger(Manager.class);
+	
+	final Logger logger = LoggerFactory.getLogger(ModelManager.class);
 	
 	/**
 	 * Create a new manager for the abstract spreadsheet model.
 	 * @param ontologyInterface An interface to access the ontology.
 	 */
-	public Manager(IOntologyProvider ontologyInterface) {
+	public ModelManager() {
 		this.blocks = new HashMap<Integer, Block>();
 		this.relations = new HashMap<Integer, Relation>();
 		this.maxBlockID = 0;
@@ -44,15 +46,16 @@ public class Manager {
 		positionToTopLevelBlocks = new HashMap<CellSpaceInformation, List<Block>>();
 		positionToRelations = new HashMap<CellSpaceInformation, List<Relation>>();
 		
-		this.ontologyInterface = ontologyInterface;
+		//this.ontologyInterface = ontologyInterface;
 	}
 	
 	/**
 	 * Restore a manager for the abstract spreadsheet model from a protobuffer message. 
 	 * @param ontologyInterface An interface to access the ontology.
 	 * @param modelMsg A protobuffer message that contains all data to restore an abstract spreadsheet model.
+	 * @throws ModelException 
 	 */
-	public Manager(IOntologyProvider ontologyInterface, sally.ModelDataMsg modelMsg) {
+	public ModelManager(sally.ModelDataMsg modelMsg) throws ModelException {
 		this.blocks = new HashMap<Integer, Block>();
 		this.relations = new HashMap<Integer, Relation>();
 		this.maxBlockID = 0;
@@ -97,7 +100,7 @@ public class Manager {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Manager other = (Manager) obj;
+		ModelManager other = (ModelManager) obj;
 		if (blocks == null) {
 			if (other.blocks != null)
 				return false;
@@ -133,6 +136,8 @@ public class Manager {
 	// ---------- Methods for the Spreadsheet Annotation Model ----------
 	
 	// ++++ Block operations ++++
+	
+	// Block operations - Create, get, remove
 
 	/**
 	 * Create an atomic block for a cell. If there is already a block for that cell the function will not create a new one.
@@ -261,8 +266,10 @@ public class Manager {
 		// Remove as subblock
 		for (Block b : blocks.values())
 			if (b.contains(block))
-				b.remove(block);
-		
+				try {
+					b.remove(block);
+				} catch (ModelException e) {} 	// This can never happen, because of b.contains(block) 
+				
 		// Remove relations that contain the block
 		for (Relation rel : new ArrayList<Relation>(relations.values())) {
 			if (rel.getBlocks().contains(block))
@@ -270,6 +277,32 @@ public class Manager {
 		}
 		
 	}
+	
+	 // Block operations - Change Management
+	
+	 public List<Message> addCellToBlock(Block block, CellSpaceInformation position) throws ModelException {
+		 List<Message> messages = new ArrayList<Message>();
+		 
+		 // Create subblock and add it to block and update block linking
+		 Block atomicBlock = getOrCreateAtomicBlock(position);
+		 block.addSubBlock(atomicBlock);
+		 List<Block> atomicBlockList = new ArrayList<Block>();
+		 atomicBlockList.add(atomicBlock);
+		 addPositionToBlockLink(position, block, atomicBlockList);
+		 
+		 // Delete old type relation
+		 List<Relation> typeRelations = getRelationsFor(null, atomicBlock, Relation.RelationType.TYPERELATION);
+		 for (Relation r : typeRelations) {
+			 messages.add(new Message(Message.MessageType.RelationMsg, Message.MessageSubType.Info, 
+					 "Old type-relation for " + position.toString() + " deleted", r.getId()));
+			 removeRelation(r);
+		 }
+		 
+		 return messages;
+	 }
+	 
+	
+	// Block operations - Helping functions
 	
 	private void addPositionToBlockLink(CellSpaceInformation position, Block addBlock, List<Block> removeBlocks) {
 		if (positionToTopLevelBlocks.containsKey(position)) {
@@ -300,8 +333,9 @@ public class Manager {
 	 * @param type The type of the relation.
 	 * @param cellDependencyDescriptions A list of objects that describe the relations between the cells of the blocks.
 	 * @return The created relation.
+	 * @throws ModelException 
 	 */
-	public Relation createRelation(Relation.RelationType type, List<Block> blocks, List<CellDependencyDescription> cellDependencyDescriptions) {
+	public Relation createRelation(Relation.RelationType type, List<Block> blocks, List<CellDependencyDescription> cellDependencyDescriptions) throws ModelException {
 		maxRelationID++;
 		List<CellTuple> cellRelations = RelationBuilder.createCellRelation(blocks, cellDependencyDescriptions);
 		
@@ -312,9 +346,11 @@ public class Manager {
 		return r;
 	}
 	
-	public Relation createUnaryRelation(Relation.RelationType type, Block block) {
-		maxRelationID++;
+	public Relation createUnaryRelation(Relation.RelationType type, Block block) throws java.lang.IllegalArgumentException {
+		if ( (type == Relation.RelationType.TYPERELATION) && (!getRelationsFor(null, block, Relation.RelationType.TYPERELATION).isEmpty()) )
+			throw new java.lang.IllegalArgumentException("Can not create more than one type relation for one block.");
 		
+		maxRelationID++;
 		Relation r = new Relation(maxRelationID, type, block);
 		this.relations.put(maxRelationID, r);
 		addPositionsToRelationLink(block.getCells(), r);
@@ -414,17 +450,18 @@ public class Manager {
 	 * Return the ontology interface for this manager.
 	 * @return The Ontology Interface
 	 */
-	public IOntologyProvider getOntologyInterface() {
+	/*public IOntologyProvider getOntologyInterface() {
 		return this.ontologyInterface;
-	}
+	}*/
 	
 	/**
 	 * Get a semantic interpretation for all cells. If a cell is part of a relation, the cell will be interpreted by the semantic of the relation. 
 	 * Cells that do not belong to a relation are interpreted by their value interpretation. Therefore at the moment a cell has just one semantic interpretation.
 	 * @param spreadsheet
 	 * @return A map that maps a cell to its semantic interpretation.
+	 * @throws ModelException 
 	 */
-	public Map<CellSpaceInformation, String> getCompleteSemanticMapping(ConcreteSpreadsheet spreadsheet) {
+	public Map<CellSpaceInformation, String> getCompleteSemanticMapping(ConcreteSpreadsheet spreadsheet, IOntologyProvider ontologyInterface) throws ModelException {
 		Map<CellSpaceInformation, String> mapping = new HashMap<CellSpaceInformation, String>();
 		
 		// Value Interpretations
@@ -441,7 +478,7 @@ public class Manager {
 		for (Relation rel : this.relations.values()) {
 			if (rel.getRelationType().equals(Relation.RelationType.FUNCTIONALRELATION)) {
 				for (CellTuple cellTuple : rel.getCellRelations()) {
-					String interpretation = RelationInterpreter.interprete(rel,cellTuple, spreadsheet, ontologyInterface.getBuilderML());
+					String interpretation = RelationInterpreter.interprete(rel,cellTuple, spreadsheet, ontologyInterface);
 					mapping.put(cellTuple.getTuple().get(cellTuple.getTuple().size()-1), interpretation);
 				}
 			}
@@ -478,7 +515,7 @@ public class Manager {
 	}
 	
 	
-	private void createBlocks(List<sally.BlockMsg> msgListOrig) {
+	private void createBlocks(List<sally.BlockMsg> msgListOrig) throws ModelException {
 		List<sally.BlockMsg> msgList = new ArrayList<sally.BlockMsg>(msgListOrig);		// The original list does not support the remove operator
 		while (!msgList.isEmpty()) {
 			boolean createdBlock = false;
@@ -511,7 +548,7 @@ public class Manager {
 		}
 	}
 	
-	private void createRelations(List<sally.RelationMsg> msgList) {
+	private void createRelations(List<sally.RelationMsg> msgList) throws ModelException {
 		for (sally.RelationMsg msg : msgList) {
 			Relation r = new Relation(msg, this);
 			relations.put(r.getId(), r);

@@ -21,6 +21,14 @@ public class RelationOntologyLink {
 			parameterLink.add(new Integer(i).toString());
 	}
 	
+	public RelationOntologyLink(sally.RelationOntologyLinkMsg msg) {
+		super();
+		this.uri = msg.getUri();
+		parameterLink = new ArrayList<String>();
+		for (String link : msg.getParameterLinkList())
+			parameterLink.add(link);
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -82,6 +90,17 @@ public class RelationOntologyLink {
 	
 	public void setUri(String uri) {
 		this.uri = uri;
+	}
+	
+	public sally.RelationOntologyLinkMsg serialize() {
+		sally.RelationOntologyLinkMsg.Builder msgBuilder = sally.RelationOntologyLinkMsg.newBuilder();
+		
+		msgBuilder.setUri(uri);
+		
+		for (String link : parameterLink)
+			msgBuilder.addParameterLink(link);
+		
+		return msgBuilder.build();
 	}
 
 }

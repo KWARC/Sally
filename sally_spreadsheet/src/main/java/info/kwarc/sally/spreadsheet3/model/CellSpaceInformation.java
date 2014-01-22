@@ -104,12 +104,12 @@ public class CellSpaceInformation {
 		return height;
 	}
 	
-	public void add(CellSpaceInformation c) {
+	public void add(CellSpaceInformation c) throws ModelException {
 		if ( this.getWorksheet().equals( c.getWorksheet())  || c.getWorksheet().isEmpty() ) {
 			row += c.getRow();
 			column += c.getColumn();
 		} else
-			throw new java.lang.IllegalArgumentException("Could not add CellSpaceInformation with a different worksheet.");
+			throw new ModelException("Could not add CellSpaceInformation with a different worksheet.");
 	}
 	
 	public boolean isAssociated(CellSpaceInformation pos) {

@@ -96,7 +96,7 @@ abstract public class Block {
 		return valueInterpretations;
 	}
 	
-	public String getValueInterpretation(String value) {
+	public String getValueInterpretation(String value) throws ModelException {
 		String valueInterpretation = "";
 		
 		for (ValueInterpretation vi : valueInterpretations) {
@@ -105,7 +105,7 @@ abstract public class Block {
 				if (valueInterpretation.isEmpty())
 					valueInterpretation = interpretation;
 				else
-					throw new java.lang.IllegalStateException("Multiple Interpretations for value: " + value);
+					throw new ModelException("Multiple Interpretations for value: " + value);
 			}
 		}
 
@@ -128,9 +128,11 @@ abstract public class Block {
 	
 	abstract public List<Block> getSubBlocks();
 	
+	abstract public void addSubBlock(Block subblock) throws ModelException;
+	
 	abstract public boolean contains(Block b);
 	
-	abstract public void remove(Block b);
+	abstract public void remove(Block b) throws ModelException;
 	
 	abstract public int getMinRow();
 	
@@ -142,7 +144,7 @@ abstract public class Block {
 	
 	abstract public sally.BlockMsg serialize();
 	
-	public static Block createBlockFromMessage(sally.BlockMsg msg, Manager manager) {
+	public static Block createBlockFromMessage(sally.BlockMsg msg, ModelManager manager) throws ModelException {
 		List<ValueInterpretation> vi = new ArrayList<ValueInterpretation>();
 		for (sally.ValueInterpretationMsg viMsg : msg.getValueInterpretationsList())
 			vi.add(new ValueInterpretation(viMsg));
@@ -157,7 +159,7 @@ abstract public class Block {
 				subBlocks.add(manager.getBlockByID(blockId));
 			b = new BlockComposed(msg.getId(), subBlocks, vi);
 		} else
-			throw new java.lang.IllegalArgumentException("Unknown blocktype.");
+			throw new ModelException("Unknown blocktype.");
 		
 		for (sally.Property propertyMsg : msg.getPropertiesList()) {
 			b.setProperty(PropertyName.values()[propertyMsg.getPropertyID()], propertyMsg.getValue() );

@@ -42,12 +42,12 @@ public class Z3Interface {
 		}
 	}
 	
-	public VerificationStatus verify(List<String> statements, boolean temporary) {
+	public VerificationStatusIntern verify(List<String> statements, boolean temporary) {
 		if (temporary)
 			writeSpec("(push)\n");
 		
 		writeSpec(statements);
-		VerificationStatus status = isSat();
+		VerificationStatusIntern status = isSat();
 		
 		if (temporary)
 			writeSpec("(pop)\n");
@@ -55,14 +55,14 @@ public class Z3Interface {
 		return status;
 	}
 	
-	public VerificationStatus verify(String statement, boolean temporary) {
+	public VerificationStatusIntern verify(String statement, boolean temporary) {
 		List<String> statements = new ArrayList<String>();
 		statements.add(statement);
 		return verify(statements, temporary);
 	}
 	
-	public VerificationStatus isSat() {		
-		VerificationStatus status = null;
+	public VerificationStatusIntern isSat() {		
+		VerificationStatusIntern status = null;
 		
 		if (writeSpec("(check-sat)\n") && (reader != null) ) {
 			List<String> output = new ArrayList<String>();
@@ -78,14 +78,14 @@ public class Z3Interface {
 				for (String s : output)
 					logger.info("[Z3 Output] " + s);
 				printCompleteSpecification();
-				status = VerificationStatus.FAILED;
+				status = VerificationStatusIntern.ERROR;
 			} else if (output.get(0).equals("sat"))
-				status = VerificationStatus.SAT;
+				status = VerificationStatusIntern.SAT;
 			else
-				status = VerificationStatus.UNSAT;
+				status = VerificationStatusIntern.UNSAT;
 		
 		} else
-			status = VerificationStatus.FAILED;
+			status = VerificationStatusIntern.ERROR;
 		
 		return status;
 	}

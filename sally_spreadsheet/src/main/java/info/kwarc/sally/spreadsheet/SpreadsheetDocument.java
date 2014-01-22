@@ -14,7 +14,7 @@ import info.kwarc.sally.spreadsheet3.Util;
 import info.kwarc.sally.spreadsheet3.export.ModelRDFExport;
 import info.kwarc.sally.spreadsheet3.model.Block;
 import info.kwarc.sally.spreadsheet3.model.CellSpaceInformation;
-import info.kwarc.sally.spreadsheet3.model.Manager;
+import info.kwarc.sally.spreadsheet3.model.ModelManager;
 import info.kwarc.sally.spreadsheet3.model.Relation;
 import info.kwarc.sally.spreadsheet3.ontology.IOntologyProvider;
 
@@ -40,7 +40,7 @@ public class SpreadsheetDocument {
 
 	INetworkSender sender;
 
-	Manager asm;
+	ModelManager asm;
 	Logger log;
 	
 	String filePath;
@@ -54,7 +54,7 @@ public class SpreadsheetDocument {
 
 	@Inject
 	public SpreadsheetDocument(@Assisted String filePath, @Assisted SpreadsheetAlexData data, @Assisted INetworkSender sender, IPositionProvider provider) {
-		asm = new Manager(ontoProvider, data.getAsm());
+		asm = new ModelManager(ontoProvider, data.getAsm());
 		this.filePath = filePath;
 		this.sender = sender;
 		this.provider = provider;
@@ -78,7 +78,7 @@ public class SpreadsheetDocument {
 		return asm.createComposedBlock(blockPositions);
 	}
 	
-	public Manager getASMModel() {
+	public ModelManager getASMModel() {
 		return asm;
 	}
 	

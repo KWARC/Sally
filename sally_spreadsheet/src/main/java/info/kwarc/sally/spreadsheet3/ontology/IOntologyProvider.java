@@ -38,6 +38,6 @@ public abstract class IOntologyProvider {
 	
 	abstract public Map<String, DataTypeObject> getDataTypeObjectMap();
 	
-	abstract public List<AxiomObject> getAxioms();
+	abstract public List<AxiomObject> getAxioms() throws OntologyException;
 
 }

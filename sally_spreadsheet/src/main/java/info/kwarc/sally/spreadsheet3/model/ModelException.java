@@ -2,6 +2,8 @@ package info.kwarc.sally.spreadsheet3.model;
 
 public class ModelException extends Exception {
 
+	private static final long serialVersionUID = 1L;
+
 	public ModelException() {}
 
 	public ModelException(String message) {

@@ -117,7 +117,7 @@ public class CellClassificationPostProcessor {
 			}
 	}
 	
-	private static void legendOrHeaderPattern(Cell cell, CellAttributeInformation[][] cellInformation) {
+	/*private static void legendOrHeaderPattern(Cell cell, CellAttributeInformation[][] cellInformation) {
 		CellSpaceInformation pos = cell.getPosition();
 		CellSpaceInformation[] posChangings = new CellSpaceInformation[4];
 		posChangings[0] = new CellSpaceInformation(0,-1);
@@ -153,7 +153,7 @@ public class CellClassificationPostProcessor {
 			if (isAllFalse(sameBoltAsNeighbours) || isAllFalse(sameUnderlineStyleAsNeighbours) || isAllFalse(sameItalicStyleAsNeighbours))
 				cellInformation[pos.getRow()][pos.getColumn()].setCellType(StructureType.LEGENDHEADER);
 		}
-	}
+	}*/
 	
 	/*private static void missingLegendFBStartPattern(Cell cell, CellAttributeInformation[][] cellInformation) {
 		int row = cell.getPosition().getRow();
@@ -204,13 +204,13 @@ public class CellClassificationPostProcessor {
 			cellInformation[row][column].setCellType(type);
 	}
 	
-	private static Boolean isAllFalse(Boolean[] array) {
+	/*private static Boolean isAllFalse(Boolean[] array) {
 		Boolean result = true;
 		for (int i = 0; i < array.length; i++)
 			if (array[i].equals(true))
 				result = false;
 		return result;
-	}
+	}*/
 
 
 }

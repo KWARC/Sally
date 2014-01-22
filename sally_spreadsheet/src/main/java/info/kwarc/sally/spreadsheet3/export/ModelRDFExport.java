@@ -2,7 +2,7 @@ package info.kwarc.sally.spreadsheet3.export;
 
 import info.kwarc.sally.model.ontology2.ASM;
 import info.kwarc.sally.spreadsheet3.model.Block;
-import info.kwarc.sally.spreadsheet3.model.Manager;
+import info.kwarc.sally.spreadsheet3.model.ModelManager;
 import info.kwarc.sally.spreadsheet3.model.Relation;
 
 import java.util.HashMap;
@@ -16,7 +16,7 @@ import com.hp.hpl.jena.vocabulary.RDF;
 
 public class ModelRDFExport {
 
-	public static Model getRDF(Manager manager, String fileName) {
+	public static Model getRDF(ModelManager manager, String fileName) {
 		Model model = ModelFactory.createDefaultModel();
 		model.setNsPrefix("asm", ASM.getURI());
 		model.setNsPrefix("rdf", RDF.getURI());
