@@ -27,11 +27,6 @@
 			<scope>system</scope>
 			<systemPath>${java.home}/lib/jfxrt.jar</systemPath>
 		</dependency>
-		<dependency>
-			<groupId>com.github.jucovschi</groupId>
-			<artifactId>ProtoCometD</artifactId>
-			<version>0.0.13</version>
-		</dependency>
 	</dependencies>
 	<parent>
 		<groupId>info.kwarc.sally</groupId>

@@ -1,7 +1,7 @@
 package info.kwarc.sissi.bpm.tasks;
 
-import info.kwarc.sally.core.interfaces.SallyTask;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
+import info.kwarc.sally.core.workflow.SallyTask;
 import info.kwarc.sissi.bpm.SubtaskCallbackMap;
 
 import org.drools.process.instance.WorkItemHandler;

@@ -1,9 +1,9 @@
 package info.kwarc.sally.spreadsheet.tasks;
 
-import info.kwarc.sally.core.interfaces.IPositionProvider;
-import info.kwarc.sally.core.interfaces.SallyTask;
 import info.kwarc.sally.core.theo.Coordinates;
+import info.kwarc.sally.core.theo.IPositionProvider;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
+import info.kwarc.sally.core.workflow.SallyTask;
 import info.kwarc.sally.spreadsheet.SpreadsheetDocument;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 

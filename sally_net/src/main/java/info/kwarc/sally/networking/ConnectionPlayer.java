@@ -1,6 +1,6 @@
 package info.kwarc.sally.networking;
 
-import info.kwarc.sally.networking.interfaces.IConnectionManager;
+import info.kwarc.sally.core.net.IConnectionManager;
 import info.kwarc.sally.networking.interfaces.MockNetworkSender;
 
 import java.io.IOException;
@@ -13,7 +13,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.jucovschi.ProtoCometD.ProtoUtils;
+import sally_comm.ProtoUtils;
+
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import com.google.protobuf.AbstractMessage;

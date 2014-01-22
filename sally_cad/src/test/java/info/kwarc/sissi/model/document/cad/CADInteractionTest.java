@@ -1,19 +1,19 @@
 package info.kwarc.sissi.model.document.cad;
 
-import info.kwarc.sally.core.SallyContext;
-import info.kwarc.sally.core.SallyInteraction;
-import info.kwarc.sally.core.SallyInteractionResultAcceptor;
-import info.kwarc.sally.core.SallyService;
-import info.kwarc.sally.core.comm.SallyMenuItem;
-import info.kwarc.sally.core.net.IMessageCallback;
+import info.kwarc.sally.bpm.tasks.TestCounterHandler;
+import info.kwarc.sally.bpm.tasks.TestHandlerUtils;
+import info.kwarc.sally.bpm.tasks.TestInputTypeHandler;
+import info.kwarc.sally.core.composition.SallyContext;
+import info.kwarc.sally.core.composition.SallyInteraction;
+import info.kwarc.sally.core.composition.SallyInteractionResultAcceptor;
+import info.kwarc.sally.core.composition.SallyService;
+import info.kwarc.sally.core.interaction.IMessageCallback;
+import info.kwarc.sally.core.interaction.SallyMenuItem;
 import info.kwarc.sally.core.net.INetworkSender;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sissi.bpm.injection.TestableKnowledeBase;
-import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 import info.kwarc.sissi.bpm.tasks.LetUserChoose;
 import info.kwarc.sissi.bpm.tasks.RunChoice;
-import info.kwarc.sissi.bpm.tasks.TestCounterHandler;
-import info.kwarc.sissi.bpm.tasks.TestInputTypeHandler;
 import info.kwarc.sissi.model.document.cad.injection.CADModule;
 import info.kwarc.sissi.model.document.cad.interfaces.CADFactory;
 
@@ -60,7 +60,7 @@ public class CADInteractionTest extends JbpmJUnitTestCase {
 	@Test
 	public void testWorkflow() {
 		ISallyWorkflowManager kb = i.getInstance(ISallyWorkflowManager.class);
-		HashMap<String, TestCounterHandler> counters = HandlerUtils.registerCounterHandlers(kb, "DynamicApplicability", "LetUserChoose", "RunChoice", "CADSelectionForwarder");
+		HashMap<String, TestCounterHandler> counters = TestHandlerUtils.registerCounterHandlers(kb, "DynamicApplicability", "LetUserChoose", "RunChoice", "CADSelectionForwarder");
 		
 		ProcessInstance inst = kb.startProcess(null, "Sally.cad");
 		inst.signalEvent("Message-CADAlexClick", null);

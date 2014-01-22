@@ -1,6 +1,6 @@
 package info.kwarc.sally.service.def_lookup.tasks;
 
-import info.kwarc.sally.core.interfaces.SallyTask;
+import info.kwarc.sally.core.workflow.SallyTask;
 import info.kwarc.sally.service.def_lookup.DefinitionLookupService;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 

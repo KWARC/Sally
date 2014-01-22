@@ -15,9 +15,9 @@ import org.eclipse.jetty.client.HttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import sally.DocType;
 import sally.WhoAmI;
 import sally.WhoAmI.ClientType;
-import sally.WhoAmI.DocType;
 import sally.WhoAmI.EnvironmentType;
 
 import com.google.protobuf.AbstractMessage;

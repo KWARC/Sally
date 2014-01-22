@@ -1,8 +1,8 @@
 package sally_comm;
 
+import sally.DocType;
 import sally.WhoAmI;
 import sally.WhoAmI.ClientType;
-import sally.WhoAmI.DocType;
 import sally.WhoAmI.EnvironmentType;
 
 public class MessageUtils {

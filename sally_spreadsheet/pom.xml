@@ -1,0 +1,124 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>sally_spreadsheet</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<parent>
+		<groupId>info.kwarc.sally</groupId>
+		<artifactId>sally</artifactId>
+		<version>1.0</version>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>info.kwarc.sally</groupId>
+			<artifactId>sally_core</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>info.kwarc.sally</groupId>
+			<artifactId>sally_comm</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>info.kwarc.sally</groupId>
+			<artifactId>sally_jbpm</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>info.kwarc.sally</groupId>
+			<artifactId>sally_net</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+<!--	<dependency>
+			<groupId>info.kwarc.sally</groupId>
+			<artifactId>sally_def_lookup</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency> -->
+
+		<dependency>
+			<groupId>org.apache.jena</groupId>
+			<artifactId>jena-arq</artifactId>
+			<version>2.10.1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.jscience</groupId>
+			<artifactId>jscience</artifactId>
+			<version>4.3.1</version>
+		</dependency>
+	
+		<dependency>
+    	<groupId>org.antlr</groupId>
+    	<artifactId>antlr</artifactId>
+    	<version>3.4</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.9</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.9</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>psf</groupId>
+			<artifactId>psf</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/psf.jar</systemPath>
+		</dependency>
+		
+		<dependency>
+			<groupId>rapidminer</groupId>
+			<artifactId>rapidminer</artifactId>
+			<version>5.2</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/Rapidminer-5.2/rapidminer.jar</systemPath>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.common.lang</groupId>
+			<artifactId>lang</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/commons-lang3-3.1.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.common.lang</groupId>
+			<artifactId>lang</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/commons-lang3-3.1.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>saxon-dom</artifactId>
+			<version>8.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sourceforge.saxon</groupId>
+			<artifactId>saxon</artifactId>
+			<version>9.1.0.8</version>
+		</dependency>
+	</dependencies>
+</project>

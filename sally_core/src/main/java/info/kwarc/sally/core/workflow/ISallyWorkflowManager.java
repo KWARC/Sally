@@ -9,6 +9,11 @@ import org.drools.runtime.process.WorkItemHandler;
 public interface ISallyWorkflowManager {
 	ProcessInstance startProcess(Long parentProcessInstanceID, String processID);
 	ProcessInstance startProcess(Long parentProcessInstanceID, String processID, Map<String, Object> obj);
+	void startProcess(ProcessInstance pi);
+
+	ProcessInstance prepareProcess(Long parentProcessInstanceID, String processID);
+	ProcessInstance prepareProcess(Long parentProcessInstanceID, String processID, Map<String, Object> obj);
+
 	
 	Long getWorkflowParent(Long processInstanceID);
 	List<Long> getWorkflowChildren(Long processInstanceID);

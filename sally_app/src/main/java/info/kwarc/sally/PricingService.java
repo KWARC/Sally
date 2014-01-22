@@ -1,13 +1,13 @@
 package info.kwarc.sally;
 
-import info.kwarc.sally.core.DocumentInformation;
-import info.kwarc.sally.core.DocumentManager;
-import info.kwarc.sally.core.SallyContext;
-import info.kwarc.sally.core.SallyInteraction;
-import info.kwarc.sally.core.SallyInteractionResultAcceptor;
-import info.kwarc.sally.core.SallyService;
-import info.kwarc.sally.core.comm.SallyMenuItem;
-import info.kwarc.sally.core.comm.SallyModelRequest;
+import info.kwarc.sally.core.composition.SallyContext;
+import info.kwarc.sally.core.composition.SallyInteraction;
+import info.kwarc.sally.core.composition.SallyInteractionResultAcceptor;
+import info.kwarc.sally.core.composition.SallyService;
+import info.kwarc.sally.core.doc.DocumentInformation;
+import info.kwarc.sally.core.doc.DocumentManager;
+import info.kwarc.sally.core.interaction.SallyMenuItem;
+import info.kwarc.sally.core.rdf.RDFStore;
 import info.kwarc.sally.core.theo.Theo;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 
@@ -16,7 +16,6 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
@@ -34,7 +33,6 @@ import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 @Singleton
 public class PricingService {
@@ -46,36 +44,18 @@ public class PricingService {
 	Logger log;
 	ISallyWorkflowManager kb;
 	DocumentManager docManager;
+	RDFStore rdfStore;
 	
 	@Inject
-	public PricingService(DocumentManager docManager, SallyInteraction sally, ISallyWorkflowManager kb) {
+	public PricingService(DocumentManager docManager, SallyInteraction sally, ISallyWorkflowManager kb, RDFStore rdfStore) {
 		this.docManager = docManager; 
 		pricingSparql = loadSparql("/pricing.sparql");
 		navigateSparql = loadSparql("/navigate.sparql");
+		this.rdfStore = rdfStore;
 		
-		common = null;
 		this.sally = sally;
 		this.kb = kb;
 		log = LoggerFactory.getLogger(getClass());
-	}
-
-	private void loadModels() {
-		common = ModelFactory.createDefaultModel();
-		List<Model> models = sally.getPossibleInteractions("/get/semantics", new SallyModelRequest(), Model.class);
-		for (Model mod : models) {
-			common.add(mod);
-		}
-
-		/*
-		try {
-			FileOutputStream file = new FileOutputStream("demo.rdf");
-			common.write(file);
-			file.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 */
 	}
 
 	private String loadSparql(String file) {
@@ -107,7 +87,7 @@ public class PricingService {
 					Theo theo = docInfo.getTheo();
 					kb.signal_global_event("switch_app", file);
 					
-					theo.openWindow(docInfo, "Instance Selector", "http://localhost:8181/sally/pricing?node="+uri.getCadNodeId()+"&file="+file, 450, 600);
+					theo.openWindow(docInfo, parentProcessInstanceID, "Instance Selector", "http://localhost:8181/sally/pricing?node="+uri.getCadNodeId()+"&file="+file, 450, 600);
 				}
 			});
 		}
@@ -138,28 +118,16 @@ public class PricingService {
 	}
 
 	public ResultSet queryModel(String uri) {
-		//if (common == null)
-		loadModels();
-		if (common == null) {
-			return null;
-		}
-
 		String queryStr = String.format(pricingSparql, uri);
 		Query query = QueryFactory.create(queryStr);
-		QueryExecution qe = QueryExecutionFactory.create(query, common);
+		QueryExecution qe = QueryExecutionFactory.create(query, rdfStore.getModel());
 		return qe.execSelect();		
 	}
 	
 	public ResultSet getNavigate(String uri) {
-		//if (common == null)
-		loadModels();
-		if (common == null) {
-			return null;
-		}
-
 		String queryStr = String.format(navigateSparql, uri, uri, uri, uri, uri, uri);
 		Query query = QueryFactory.create(queryStr);
-		QueryExecution qe = QueryExecutionFactory.create(query, common);
+		QueryExecution qe = QueryExecutionFactory.create(query, rdfStore.getModel());
 		return qe.execSelect();		
 	}
 

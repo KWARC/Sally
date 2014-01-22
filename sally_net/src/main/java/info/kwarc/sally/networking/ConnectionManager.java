@@ -1,8 +1,8 @@
 package info.kwarc.sally.networking;
 
+import info.kwarc.sally.core.net.IConnectionManager;
 import info.kwarc.sally.core.net.INetworkSender;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
-import info.kwarc.sally.networking.interfaces.IConnectionManager;
 import info.kwarc.sissi.bpm.BPMNUtils;
 
 import java.util.HashMap;

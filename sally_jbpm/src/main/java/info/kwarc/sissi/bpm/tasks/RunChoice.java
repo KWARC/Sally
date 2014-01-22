@@ -1,8 +1,8 @@
 package info.kwarc.sissi.bpm.tasks;
 
-import info.kwarc.sally.core.comm.CallbackManager;
-import info.kwarc.sally.core.interfaces.IAbstractMessageRunner;
-import info.kwarc.sally.core.interfaces.SallyTask;
+import info.kwarc.sally.core.interaction.CallbackManager;
+import info.kwarc.sally.core.interaction.IMessageCallback;
+import info.kwarc.sally.core.workflow.SallyTask;
 
 import org.drools.process.instance.WorkItemHandler;
 import org.drools.runtime.process.WorkItem;
@@ -29,9 +29,9 @@ public class RunChoice implements WorkItemHandler {
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
 		try {
 			SallyFrameChoice m = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), SallyFrameChoice.class);
-			IAbstractMessageRunner runner = callbacks.getCallback(m.getCallbackToken());
+			IMessageCallback runner = callbacks.getCallback(m.getCallbackToken());
 			if (runner != null) {
-				runner.run(m);
+				runner.onMessage(m);
 			}
 		} catch (Exception e) {
 			log.error(e.getMessage());

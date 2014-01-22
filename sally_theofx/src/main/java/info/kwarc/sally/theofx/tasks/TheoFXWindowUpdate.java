@@ -1,9 +1,9 @@
 package info.kwarc.sally.theofx.tasks;
 
-import info.kwarc.sally.core.DocumentInformation;
-import info.kwarc.sally.core.DocumentManager;
-import info.kwarc.sally.core.interfaces.SallyTask;
+import info.kwarc.sally.core.doc.DocumentInformation;
+import info.kwarc.sally.core.doc.DocumentManager;
 import info.kwarc.sally.core.theo.Theo;
+import info.kwarc.sally.core.workflow.SallyTask;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 
 import org.drools.process.instance.WorkItemHandler;

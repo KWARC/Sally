@@ -1,7 +1,7 @@
 package info.kwarc.sally.tasks;
 
-import info.kwarc.sally.core.interfaces.SallyTask;
 import info.kwarc.sally.core.theo.Theo;
+import info.kwarc.sally.core.workflow.SallyTask;
 import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 
 import org.drools.process.instance.WorkItemHandler;

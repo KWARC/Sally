@@ -1,8 +1,8 @@
 package info.kwarc.sissi.model.document.spreadsheet;
 
+import info.kwarc.sally.core.net.IConnectionManager;
 import info.kwarc.sally.core.net.INetworkSender;
 import info.kwarc.sally.networking.CometD;
-import info.kwarc.sally.networking.interfaces.IConnectionManager;
 import info.kwarc.sally.spreadsheet.SpreadsheetDocument;
 import info.kwarc.sally.spreadsheet.interfaces.WorksheetFactory;
 

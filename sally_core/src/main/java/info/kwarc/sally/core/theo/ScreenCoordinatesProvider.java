@@ -1,7 +1,5 @@
 package info.kwarc.sally.core.theo;
 
-import info.kwarc.sally.core.interfaces.IPositionProvider;
-
 import com.google.inject.Singleton;
 
 @Singleton

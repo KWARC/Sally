@@ -1,18 +1,22 @@
 package info.kwarc.sally.injection;
 
 import info.kwarc.sally.PricingService;
-import info.kwarc.sally.core.DocumentManager;
-import info.kwarc.sally.core.RDFStore;
-import info.kwarc.sally.core.SallyInteraction;
-import info.kwarc.sally.core.comm.CallbackManager;
-import info.kwarc.sally.core.interfaces.IPositionProvider;
+import info.kwarc.sally.core.composition.SallyInteraction;
+import info.kwarc.sally.core.doc.DocumentManager;
+import info.kwarc.sally.core.interaction.CallbackManager;
+import info.kwarc.sally.core.net.IConnectionManager;
+import info.kwarc.sally.core.rdf.RDFStore;
 import info.kwarc.sally.core.theo.CookieProvider;
+import info.kwarc.sally.core.theo.IPositionProvider;
 import info.kwarc.sally.core.theo.ScreenCoordinatesProvider;
 import info.kwarc.sally.html.injection.HTMLDocModule;
 import info.kwarc.sally.networking.CometD;
 import info.kwarc.sally.networking.ConnectionManager;
-import info.kwarc.sally.networking.interfaces.IConnectionManager;
+import info.kwarc.sally.pivot.PivotingService;
 import info.kwarc.sally.planetary.injection.PlanetaryModule;
+import info.kwarc.sally.projects.injection.ProjectDocModule;
+import info.kwarc.sally.sharejs.IDocManager;
+import info.kwarc.sally.sharejs.ShareJS;
 import info.kwarc.sally.sketch.injection.SketchDocModule;
 import info.kwarc.sally.spreadsheet.injection.SpreadsheetModule;
 import info.kwarc.sally.theofx.injection.TheoFX;
@@ -34,6 +38,7 @@ public class Configuration extends AbstractModule {
 		install(new WebTheoModule());
 		install(new SketchDocModule());
 		install(new HTMLDocModule());
+		install(new ProjectDocModule());
 		
 		bind(CookieProvider.class);
 		bind(IPositionProvider.class).to(ScreenCoordinatesProvider.class);
@@ -42,6 +47,7 @@ public class Configuration extends AbstractModule {
 		bind(PricingService.class);
 		bind(DocumentManager.class);
 		bind(RDFStore.class);
+		bind(PivotingService.class);
 		
 		bind(String.class).annotatedWith(Names.named("SallyPackage")).toInstance("Sally.pkg");
 				
@@ -49,6 +55,10 @@ public class Configuration extends AbstractModule {
 		bind(CometD.class);
 		bind(CallbackManager.class);
 		bind(SubtaskCallbackMap.class);
+		bind(IDocManager.class).to(ShareJS.class);
+		
+		bind(String.class).annotatedWith(Names.named("ShareJSCollection")).toInstance("libreoffice");
+		bind(String.class).annotatedWith(Names.named("ShareJSURL")).toInstance("http://127.0.0.1:7007");
 		
 		bind(String.class).annotatedWith(Names.named("PlanetaryURL")).toInstance("http://localhost/planetmmt");
 		bind(String.class).annotatedWith(Names.named("PlanetaryEndPoint")).toInstance("sallyrpc");  

@@ -94,7 +94,7 @@ public class SallyUtils {
 					com.sun.star.accessibility.AccessibleRole.TABLE);
 		}
 		table = SallyUtils.accessibleTableCache;
-		
+
 		XAccessibleTable accessibleTable = (XAccessibleTable) UnoRuntime
 				.queryInterface(XAccessibleTable.class, table);
 		XAccessibleContext cellToRight = null;

@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.codec.binary.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import sally.CADNode;
 import sally.CADSemanticData;
@@ -29,6 +31,7 @@ public class ACMInterface {
 	String fileURI;
 	CADNode rootNode;
 	Map<String, CADNode> index;
+	Logger log;
 	
 	public void setDocumentURI(String documentURI) {
 		this.fileURI = documentURI;
@@ -117,9 +120,11 @@ public class ACMInterface {
 
 	public ACMInterface() {
 		this("http://default.cad/uri");
+		
 	}
 
 	private void _reindex(CADNode node) {
+		log.debug("");
 		index.put(node.getId(), node);
 		for (CADNode child : node.getChildrenList()) {
 			_reindex(child);
@@ -200,6 +205,7 @@ public class ACMInterface {
 		index = new HashMap<String, CADNode>();
 		props = new HashMap<String, Integer>();
 		IDs = 0;
+		log = LoggerFactory.getLogger(getClass());
 		this.fileURI = documentURI;
 		this.documentURI = makeValidDocURI(documentURI);
 	}	

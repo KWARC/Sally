@@ -25,6 +25,8 @@ public class SpreadsheetDoc {
 	static final String hidenSheetName = "sally";
 	SallyCommunication comm;
 
+	ShareJSAdapter sharejsAdapter;
+
 	public int getIndexOfSpreadsheet(String sheetName)
 			throws com.sun.star.uno.Exception {
 		XSpreadsheetDocument doc = xSpreadsheetDocument;
@@ -33,6 +35,7 @@ public class SpreadsheetDoc {
 			if (sheetName.toLowerCase().contentEquals(
 					nameVector[i].toLowerCase()))
 				return i;
+
 		throw new com.sun.star.uno.Exception(
 				"Spreadsheet is not part of the current workbook\n");
 	}
@@ -111,10 +114,11 @@ public class SpreadsheetDoc {
 		comm.sendMessage("/service/alex/semanticdata", getSemanticData());
 	}
 
-	public SpreadsheetDoc(XSpreadsheetDocument xSpreadsheetDocument, SallyCommunication comm) {
+	public SpreadsheetDoc(XSpreadsheetDocument xSpreadsheetDocument, SallyCommunication comm, ShareJSAdapter sharejsAdapter) {
 		this.xSpreadsheetDocument = xSpreadsheetDocument;
 		this.comm = comm;
 		log = LoggerFactory.getLogger(getClass());
+		this.sharejsAdapter = sharejsAdapter;
 		init();
 	}
 
@@ -122,6 +126,8 @@ public class SpreadsheetDoc {
 		AlexData.Builder alexData = AlexData.newBuilder();
 		alexData.setData("");
 		alexData.setFileName("new_document");
+		sharejsAdapter.exportSpreadsheet(xSpreadsheetDocument);
+
 		try {
 			Object op = xSpreadsheetDocument.getSheets().getByName(hidenSheetName);
 			XSpreadsheet xSpreadsheet = (XSpreadsheet) UnoRuntime

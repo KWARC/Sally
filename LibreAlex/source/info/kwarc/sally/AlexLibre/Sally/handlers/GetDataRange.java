@@ -25,8 +25,6 @@ public class GetDataRange implements MessageHandler {
 		
 		if (!channel.equals("/get/data") || !(msg instanceof AlexRangeRequest))
 			return null;
-
-		
 		
 		m_xContext = SallyManager.getInstance().getContext();
 		try {

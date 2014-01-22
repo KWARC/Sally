@@ -1,11 +1,11 @@
 package info.kwarc.sissi.bpm.tasks;
 
-import info.kwarc.sally.core.DocumentInformation;
-import info.kwarc.sally.core.DocumentManager;
-import info.kwarc.sally.core.comm.CallbackManager;
-import info.kwarc.sally.core.comm.SallyMenuItem;
-import info.kwarc.sally.core.interfaces.SallyTask;
+import info.kwarc.sally.core.doc.DocumentInformation;
+import info.kwarc.sally.core.doc.DocumentManager;
+import info.kwarc.sally.core.interaction.CallbackManager;
+import info.kwarc.sally.core.interaction.SallyMenuItem;
 import info.kwarc.sally.core.theo.Theo;
+import info.kwarc.sally.core.workflow.SallyTask;
 
 import java.util.List;
 

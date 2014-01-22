@@ -1,10 +1,10 @@
 package info.kwarc.sally.planetary;
 
+import info.kwarc.sally.bpm.tasks.TestCounterHandler;
+import info.kwarc.sally.bpm.tasks.TestHandlerUtils;
+import info.kwarc.sally.bpm.tasks.TestInputTypeHandler;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sissi.bpm.injection.TestableKnowledeBase;
-import info.kwarc.sissi.bpm.tasks.HandlerUtils;
-import info.kwarc.sissi.bpm.tasks.TestCounterHandler;
-import info.kwarc.sissi.bpm.tasks.TestInputTypeHandler;
 
 import java.util.HashMap;
 
@@ -36,7 +36,7 @@ public class DefinitionLookupTest extends JbpmJUnitTestCase {
 	@Test
 	public void testWorkflow() {
 		ISallyWorkflowManager kb = i.getInstance(ISallyWorkflowManager.class);
-		HashMap<String, TestCounterHandler> counters = HandlerUtils.registerCounterHandlers(kb, "theoWindowCreate", "theoWindowUpdate");
+		HashMap<String, TestCounterHandler> counters = TestHandlerUtils.registerCounterHandlers(kb, "theoWindowCreate", "theoWindowUpdate");
 
 
 		HashMap<String, Object>  input = new  HashMap<String, Object>();

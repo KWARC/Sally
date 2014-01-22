@@ -3,10 +3,10 @@ package info.kwarc.sally.spreadsheet.tasks;
 import java.util.ArrayList;
 import java.util.List;
 
-import info.kwarc.sally.core.DocumentInformation;
-import info.kwarc.sally.core.DocumentManager;
-import info.kwarc.sally.core.comm.CallbackManager;
-import info.kwarc.sally.core.interfaces.SallyTask;
+import info.kwarc.sally.core.doc.DocumentInformation;
+import info.kwarc.sally.core.doc.DocumentManager;
+import info.kwarc.sally.core.interaction.CallbackManager;
+import info.kwarc.sally.core.workflow.SallyTask;
 import info.kwarc.sally.spreadsheet.SpreadsheetDocument;
 import info.kwarc.sally.spreadsheet3.Util;
 import info.kwarc.sally.spreadsheet3.model.Block;
@@ -67,7 +67,7 @@ public class CreateBlock implements WorkItemHandler  {
 			Relation r = spdoc.getASMModel().createRelation(Relation.RelationType.LABELRELATION, blocksInput, relationInputDesc);
 			r.setUri(bi.getMeaning());
 			if (cb.hasCallbackToken()) {
-				callbacks.getCallback(cb.getCallbackToken()).run(BlockInfo.newBuilder().setId(block.getId()).build());
+				callbacks.getCallback(cb.getCallbackToken()).onMessage(BlockInfo.newBuilder().setId(block.getId()).build());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

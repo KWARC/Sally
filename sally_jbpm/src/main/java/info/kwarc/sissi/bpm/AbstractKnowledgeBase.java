@@ -1,7 +1,7 @@
 package info.kwarc.sissi.bpm;
 
-import info.kwarc.sally.core.MessageForward;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
+import info.kwarc.sally.core.workflow.MessageForward;
 
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +39,11 @@ public abstract class AbstractKnowledgeBase implements ISallyWorkflowManager{
 		return parentChildRelation.get(processInstanceID);
 	}
 
+	@Override
+	public void startProcess(ProcessInstance pi) {
+		getSession().startProcessInstance(pi.getId());
+	}
+	
 	private boolean trySendMessage(Long fromProcessID, Long targetProcessID, String message_id, Object input) {
 		ProcessInstance pi = getProcessInstance(targetProcessID);
 		for (String evt : BPMNUtils.getCallableEvents(pi)) {
@@ -107,12 +112,34 @@ public abstract class AbstractKnowledgeBase implements ISallyWorkflowManager{
 		}
 	}
 
+	@Override
+	public ProcessInstance prepareProcess(Long parentProcessInstanceID,
+			String processID) {
+		ProcessInstance pi =getSession().createProcessInstance(processID, new HashMap<String, Object>());
+
+		addRelation(parentProcessInstanceID, pi.getId());
+
+		return pi;
+	}
+	
+	@Override
+	public ProcessInstance prepareProcess(Long parentProcessInstanceID,
+			String processID, Map<String, Object> obj) {
+		ProcessInstance pi =getSession().createProcessInstance(processID, obj);
+
+		addRelation(parentProcessInstanceID, pi.getId());
+
+		return pi;
+	}
+	
 	public ProcessInstance startProcess(Long parentProcessInstanceID,
 			String processID) {
 
-		ProcessInstance pi =getSession().startProcess(processID);
+		ProcessInstance pi = getSession().createProcessInstance(processID, new HashMap<String, Object>());
 
 		addRelation(parentProcessInstanceID, pi.getId());
+		
+		getSession().startProcessInstance(pi.getId());
 
 		return pi;
 	}

@@ -46,6 +46,7 @@ public class SallyManager {
 	}
 
 	Logger log;
+	ShareJSAdapter sharejsAdapter;
 
 	HashMap<XSpreadsheetDocument, SpreadsheetDoc> docMap;
 
@@ -53,6 +54,7 @@ public class SallyManager {
 		started = false;
 		log = LoggerFactory.getLogger(this.getClass());
 		docMap = new HashMap<XSpreadsheetDocument, SpreadsheetDoc>();
+		sharejsAdapter = new ShareJSAdapter("http://localhost:7007");
 		contextMenuHandler = new ContextMenuHandler();
 		comm = new SallyCommunication("http://localhost", 8181);
 		comm.addHandler(new GetDataRange());
@@ -100,7 +102,7 @@ public class SallyManager {
 			addContextMenu(xModel.getCurrentController());
 
 			log.info("Starting to look after "+SallyUtils.getDocumentName(xSpreadsheetDocument));
-			docMap.put(xSpreadsheetDocument, new SpreadsheetDoc(xSpreadsheetDocument, comm));
+			docMap.put(xSpreadsheetDocument, new SpreadsheetDoc(xSpreadsheetDocument, comm, sharejsAdapter));
 		}
 	}
 

@@ -60,6 +60,18 @@ message TheoCloseWindow {
 }
 
 
+	/**
+ 	* Type of document
+ 	*/
+ enum DocType {
+	Spreadsheet = 0;
+	Text = 1;
+	CAD = 2;
+	Sketch = 3;
+	Mashup = 4;
+}
+
+
 /**
  * --------------- Alexes --------------------
  */
@@ -68,32 +80,22 @@ message TheoCloseWindow {
  * Message
  */
  message WhoAmI {
-        enum ClientType {
-                Alex = 0;
-                Theo = 1;
-        }
+	enum ClientType {
+		Alex = 0;
+		Theo = 1;
+	}
 
-        /**
-         * Environment in which the client in running
-         */
-        enum EnvironmentType {
-                Desktop = 0;
-                Web = 1;
-        }
+	/**
+	 * Environment in which the client in running
+	 */
+	enum EnvironmentType {
+		Desktop = 0;
+		Web = 1;
+	}
 
-        /**
-         * Type of document
-         */
-         enum DocType {
-                Spreadsheet = 0;
-                Text = 1;
-                CAD = 2;
-                Sketch = 3;
-        }
-
-        required ClientType clientType = 1;
-        required EnvironmentType environmentType = 2;
-        required DocType documentType = 3;
+	required ClientType clientType = 1;
+	required EnvironmentType environmentType = 2;
+	required DocType documentType = 3;
 }
 
 /**
@@ -102,6 +104,8 @@ message TheoCloseWindow {
 message AlexData {
         optional string fileName = 1;
         optional string data = 2;
+        optional string shareJSColection = 3;
+        optional string shareJSDocument = 4;
 }
 
 /**
@@ -222,6 +226,12 @@ message SpreadsheetAlexData {
         optional ModelDataMsg asm = 2;
 }
 
+message SoftwareObject {
+	required string fileName = 1;
+	required string uri = 2;
+}
+
+// represents the link of a software object into the ontology
 message MMTUri {
         required string uri = 1;
 }
@@ -244,7 +254,7 @@ message SpreadsheetDocMeta {
 }
 
 // Message to get Meta-information about the spreadsheet document
-message GetMeta {
+message GetSheets {
 	optional string fileName = 1;
 	// callback token - will be set automatically
 	optional int64 callbackToken = 2;
@@ -354,18 +364,18 @@ message ModelDataMsg {
  */
 
 message SketchSelect {
-	required int32 id = 1;
+	required string id = 1;
 	required string fileName = 2;
 	required ScreenCoordinates position = 3;
 }
 
 message SketchAtomic {
-	required int32 id = 1;
+	required string id = 1;
 	required MMTUri mmturi = 2;
 }
 
 message SketchRelation {
-	repeated int32 parts = 1;
+	repeated string parts = 1;
 	repeated MMTUri relation = 2;
 }
 
@@ -376,7 +386,7 @@ message SketchASM {
 }
 
 message SketchSelectPart {
-	required int32 id = 1;
+	required string id = 1;
 	required string fileName = 2;
 }
 
@@ -385,13 +395,13 @@ message SketchSelectPart {
  */
 
 message HTMLSelect {
-	required int32 id = 1;
+	required string id = 1;
 	required string fileName = 2;
 	required ScreenCoordinates position = 3;
 }
 
 message HTMLAtomic {
-	required int32 id = 1;
+	required string id = 1;
 	required MMTUri mmturi = 2;
 }
 
@@ -400,6 +410,21 @@ message HTMLASM {
 }
 
 message HTMLSelectPart {
-	required int32 id = 1;
+	required string id = 1;
 	required string fileName = 2;
 }
+
+/**
+ * Project Messages
+ */
+
+message ProjectFile {
+	required string fileName = 1;
+	required string cache = 2;
+	required DocType docType = 3;
+}
+
+message ProjectModel {
+	repeated ProjectFile files = 1;
+}
+

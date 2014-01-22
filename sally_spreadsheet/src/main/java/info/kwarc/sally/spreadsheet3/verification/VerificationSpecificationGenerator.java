@@ -12,7 +12,6 @@ import info.kwarc.sally.spreadsheet3.model.Relation;
 import info.kwarc.sally.spreadsheet3.ontology.AxiomObject;
 import info.kwarc.sally.spreadsheet3.ontology.AxiomVariableObject;
 import info.kwarc.sally.spreadsheet3.ontology.DataTypeObject;
-import info.kwarc.sally.spreadsheet3.ontology.DataTypeObject.BasicType;
 import info.kwarc.sally.spreadsheet3.ontology.FunctionObject;
 import info.kwarc.sally.spreadsheet3.ontology.OntologyException;
 
