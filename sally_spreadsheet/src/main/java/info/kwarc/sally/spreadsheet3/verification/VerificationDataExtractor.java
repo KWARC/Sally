@@ -15,11 +15,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The VerificationDataExtractor extracts information about the datatypes, cp-similar blocks and formulae from an annotated spreadsheet.
+ * @author cliguda
+ *
+ */
 public class VerificationDataExtractor {
 	
 	static psf.ParserInterface parser = new psf.ParserInterface();
 	//static String[] stdDataTypes = {"omdoc://MathML#Real", "omdoc://MathML#Int", "omdoc://MathML#Bool" };
 	
+	/**
+	 * Extract information about data types (ontology objects) from an annotated spreadsheets.
+	 * @param blocks A mapping from blocks to their ontology type (URI).
+	 * @param spreadsheet A concrete spreadsheet to get the values from cells.
+	 * @return
+	 * @throws ModelException
+	 */
 	public static List<DataSymbolInformation> extractDataTypes(Map<Block, String> blocks, ConcreteSpreadsheet spreadsheet) throws ModelException {
 		
 		List<DataSymbolInformation> dataObjects = new ArrayList<DataSymbolInformation>();
@@ -36,7 +48,7 @@ public class VerificationDataExtractor {
 		return dataObjects;
 	}
 	
-	//public static List<CPSimilarBlockData> extractCPSimilarFBs(ModelManager manager, ConcreteSpreadsheet spreadsheet, BuilderML builderML) {
+	
 	public static List<CPSimilarBlockData> extractCPSimilarFBs(Manager manager) throws ModelException {
 		List<CPSimilarBlockData> cpSimilarBlockData = new ArrayList<CPSimilarBlockData>();
 		//Map<Relation, String> mathMLRepresentations = new HashMap<Relation, String>();
@@ -100,7 +112,15 @@ public class VerificationDataExtractor {
 		return cpSimilarBlockData;
 	}
 	
-	//public static Map<CellSpaceInformation, String> extractMLFormulaRepresentations(Relation fbRelation, ModelManager modelManager, ConcreteSpreadsheet spreadsheet, BuilderML builderML) {
+	/**
+	 * Extracts a ml representation for a functional relation.
+	 * For each cell the corresponding function declaration (e.g. profitPerYear(1984) ) and definition (Revenues(1984)-TotalCosts(1984)) are determined and used to generate a ML representation.
+	 * In example a MathML representation for profitPerYear(1984) = Revenues(1984)-TotalCosts(1984).
+	 * @param fbRelation
+	 * @param manager
+	 * @return
+	 * @throws ModelException
+	 */
 	public static Map<CellSpaceInformation, String> extractMLFormulaRepresentations(Relation fbRelation, Manager manager) throws ModelException {
 		Map<CellSpaceInformation, String> mlFormulaeRep = new HashMap<CellSpaceInformation, String>();
 		if (fbRelation.getRelationType().equals(Relation.RelationType.FUNCTIONALRELATION)) {

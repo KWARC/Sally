@@ -2,6 +2,11 @@ package info.kwarc.sally.spreadsheet3.extraction;
 
 import info.kwarc.sally.spreadsheet3.model.CellSpaceInformation;
 
+/**
+ * A class to represent a cell with layout information.
+ * @author cliguda
+ *
+ */
 public class Cell {
 	CellSpaceInformation position;
 	String content;

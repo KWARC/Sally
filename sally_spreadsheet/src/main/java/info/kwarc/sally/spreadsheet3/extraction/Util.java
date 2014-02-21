@@ -10,7 +10,11 @@ import java.util.regex.Pattern;
 
 import org.apache.poi.ss.usermodel.Cell;
 
-
+/**
+ * Some util functions that are needed for the extraction process.
+ * @author cliguda
+ *
+ */
 public class Util {
 	
 	

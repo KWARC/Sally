@@ -39,6 +39,11 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+/**
+ * This class provides methods to generate Z3 verification specifications. 
+ * @author cliguda
+ *
+ */
 public class VerificationSpecificationGenerator {
 	
 	//final static String mathML2Z3XLSTTypes = "src/main/resources/MathML2Z3Types.xsl";
@@ -101,6 +106,13 @@ public class VerificationSpecificationGenerator {
 	
 	}
 	
+	/**
+	 * The specification uses only one datatype "Object" that contains all symbols. 
+	 * Other datatypes like "Years" or "Costtype" are indirectly specified by functions that determine the associated datatype.
+	 * @see getDataTypeSpecification
+	 * @param dataSymbols
+	 * @return
+	 */
 	public static String getObjectSymbolSpecification(List<DataSymbolInformation> dataSymbols) {
 		// Generating symbols
 		String objectDefinition = "(declare-datatypes () ((Object ";
@@ -113,7 +125,12 @@ public class VerificationSpecificationGenerator {
 		
 	}
 	
-	// public static DataTypeSpec getDataTypeSpecification(Manager manager, List<DataSymbolInformation> dataSymbols) {
+	/**
+	 * Generates functions to determine the associated datatypes of symbols and declares functions to assign symbols to functions.
+	 * @param manager
+	 * @param dataSymbols
+	 * @return
+	 */
 	public static List<String> getDataTypeSpecification(Manager manager, List<DataSymbolInformation> dataSymbols) {
 		List<String> specification = new ArrayList<String>();
 		//Map<String, String> viToZ3String = new HashMap<String,String>();
@@ -182,6 +199,12 @@ public class VerificationSpecificationGenerator {
 		return specification;
 	}
 	
+	/**
+	 * Creates a specification to assign values (value interpretations) to symbols.
+	 * @param manager
+	 * @param symbol
+	 * @return
+	 */
 	public static String createSymbolValueAssertion(Manager manager, DataSymbolInformation symbol) {
 		String value = "";
 		
@@ -217,6 +240,13 @@ public class VerificationSpecificationGenerator {
 		return definitions;
 	}
 	
+	/**
+	 * Creates to connection between symbols and functions, e.g. that a symbol represents the cell that contains the value for profit (1984).
+	 * @param manager
+	 * @param dataSymbols
+	 * @return
+	 * @throws ModelException
+	 */
 	public static List<String> createFunctionSymbolAssertions(Manager manager, List<DataSymbolInformation> dataSymbols) throws ModelException {
 		List<String> specifications = new ArrayList<String>();
 		
@@ -236,6 +266,13 @@ public class VerificationSpecificationGenerator {
 		return specifications;
 	}
 	
+	/** 
+	 * Creates a specification for an axiom.
+	 * @param manager
+	 * @param axiom
+	 * @param dataSymbols
+	 * @return
+	 */
 	public static String getAxiom(Manager manager, AxiomObject axiom, List<DataSymbolInformation> dataSymbols) {	
 		String axiomSpec = "(assert ";
 		
@@ -251,24 +288,28 @@ public class VerificationSpecificationGenerator {
 		if (!allQuantVars.isEmpty()) {
 			axiomSpec += "(forall (";
 			for (AxiomVariableObject var : allQuantVars) {
-				if (isStandardType(var.getType()))
+				/*if (isStandardType(var.getType()))
 					axiomSpec += "(" + var.getName() + " " + uriToIdentifier(var.getType()) + ")";
 				else {
 					axiomSpec += "(" + var.getName() + " Object)";
 					varType.put(var.getName(), var.getType());
-				}
+				}*/
+				axiomSpec += "(" + var.getName() + " Object)";
+				varType.put(var.getName(), var.getType());
 			}
 			axiomSpec += ")\n";
 		}
 		if (!existQuantVars.isEmpty()) {
 			axiomSpec += "(exists (";
 			for (AxiomVariableObject var : existQuantVars) {
-				if (isStandardType(var.getType()))
+				/*if (isStandardType(var.getType()))
 					axiomSpec += "(" + var.getName() + " " + uriToIdentifier(var.getType()) + ")";
 				else {
 					axiomSpec += "(" + var.getName() + " Object)";
 					varType.put(var.getName(), var.getType());
-				}
+				}*/
+				axiomSpec += "(" + var.getName() + " Object)";
+				varType.put(var.getName(), var.getType());
 			}
 			axiomSpec += "\n";
 		}
@@ -305,6 +346,13 @@ public class VerificationSpecificationGenerator {
 		return axiomSpec + ")";
 	}
 	
+	/**
+	 * Creates a specification for a cp-similar block.
+	 * @param manager
+	 * @param cpBlock
+	 * @param dataSymbols
+	 * @return
+	 */
 	public static String getCPSimilarBlockSpec(Manager manager, CPSimilarBlockData cpBlock, List<DataSymbolInformation> dataSymbols) {
 		
 		FunctionObject func = manager.getOntology().getFunctionObject(cpBlock.getRelation().getUri());
@@ -348,6 +396,18 @@ public class VerificationSpecificationGenerator {
 		return funcSpec;
 	}
 	
+	/**
+	 * Creates a specification for a cell formula.
+	 * Thereby the position of a cell is mapped to a specification of the corresponding ontology function (e.g. profit(1984) ) which should be the same as the transformed cell formula.
+	 * @param manager
+	 * @param relation
+	 * @param formula
+	 * @param position
+	 * @param interpretation
+	 * @param dataSymbols
+	 * @return
+	 * @throws ModelException
+	 */
 	public static String getFormulaSpec(Manager manager, Relation relation, String formula, CellSpaceInformation position, Map<CellSpaceInformation, String> interpretation, List<DataSymbolInformation> dataSymbols) throws ModelException {
 		// Function begin
 		String specification = "(assert (not (spsht-arith~equal \n" +  position2Z3Function(relation,  relation.getCellRelationFor(position).get(0), manager, dataSymbols);
@@ -368,6 +428,12 @@ public class VerificationSpecificationGenerator {
 		return specification;
 	}
 	
+	/**
+	 * Declares a function from the ontology.
+	 * @param function
+	 * @param manager
+	 * @return
+	 */
 	private static String getFunctionDeclaration(FunctionObject function, Manager manager) {
 		String funcDef = "(declare-fun " + uriToIdentifier(function.getUri()) + " (";
 		for (String argType : function.getArgumentTypes()) {
@@ -376,7 +442,13 @@ public class VerificationSpecificationGenerator {
 		return funcDef + ") " + manager.getOntology().getDataTypeObject(function.getResultType()).getBasicType().name() + ")";
 	}
 	
-	//private static String getFunctionDefinition(FunctionObject function, Manager manager, Map<String, String> viToZ3String) {
+	/**
+	 * Defines a function from the ontology. 
+	 * @param function
+	 * @param manager
+	 * @param dataSymbols
+	 * @return
+	 */
 	private static String getFunctionDefinition(FunctionObject function, Manager manager, List<DataSymbolInformation> dataSymbols) {
 		String funcDef = "(define-fun " + uriToIdentifier(function.getUri()) + " (";
 		for (int i = 0; i < function.getArgumentTypes().size(); i++) 
@@ -400,6 +472,12 @@ public class VerificationSpecificationGenerator {
 		return funcDef;
 	}
 	
+	/**
+	 * Transforms a MathML or OpenMath expression to Z3 syntax by using XLST transformations.
+	 * @param expression
+	 * @param template
+	 * @return
+	 */
 	private static String ml2Z3(String expression, String template) {
 		//logger.info("Try to transform: " + expression);
 			
@@ -434,17 +512,28 @@ public class VerificationSpecificationGenerator {
 		//logger.info("  ...transformed.");
 		return resultStr;
 	}
-		
+	
+	/**
+	 * Transforms an URI that points to an Omdoc resource to a Z3 identifier of the format contentDictionary~SymbolName
+	 * @param uri
+	 * @return
+	 */
 	private static String uriToIdentifier(String uri) {
 		if (Util.isOMDocUri(uri)) {
-			if (isStandardType(uri))
+			/*if (isStandardType(uri))
 				return Util.getSymbolFromURI(uri);
 			else
-				return Util.getCDFromURI(uri) + "~" + Util.getSymbolFromURI(uri);
+				return Util.getCDFromURI(uri) + "~" + Util.getSymbolFromURI(uri);*/
+			return Util.getCDFromURI(uri) + "~" + Util.getSymbolFromURI(uri);
 		} else
 			return "";
 	}
 	
+	/**
+	 * 
+	 * @param uri
+	 * @return
+	 *
 	private static Boolean isStandardType(String uri) {
 		String[] mathMLDataTypes = {"omdoc://MathML#Real", "omdoc://MathML#Int", "omdoc://MathML#Bool" };
 		boolean isMathMLDT = false;
@@ -452,12 +541,26 @@ public class VerificationSpecificationGenerator {
 			if (dt.equals(uri) )
 				isMathMLDT = true;
 		return isMathMLDT;
-	}
+	}*/
 	
+	/**
+	 * Transforms a string to Z3 and replaces whitespaces by "-".
+	 * @param s
+	 * @return
+	 */
 	private static String toZ3Value(String s) {
 		return ml2Z3(s, mathML2Z3XLST).trim().replaceAll(" ", "-");
 	}
 	
+	/**
+	 * Creates a Z3 function call for a given cell.
+	 * @param relation
+	 * @param cells
+	 * @param manager
+	 * @param dataSymbols
+	 * @return
+	 * @throws ModelException
+	 */
 	private static String position2Z3Function(Relation relation, CellTuple cells, Manager manager, List<DataSymbolInformation> dataSymbols) throws ModelException {
 		Map<CellSpaceInformation, String> posToSymbolName = new HashMap<CellSpaceInformation, String>();
 		for (DataSymbolInformation symbol : dataSymbols) {

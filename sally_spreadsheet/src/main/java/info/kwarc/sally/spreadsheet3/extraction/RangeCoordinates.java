@@ -2,6 +2,11 @@ package info.kwarc.sally.spreadsheet3.extraction;
 
 import info.kwarc.sally.spreadsheet3.model.CellSpaceInformation;
 
+/**
+ * A class to provide information about a range in a spreadsheet.
+ * @author cliguda
+ *
+ */
 public class RangeCoordinates {
 	
 	private CellSpaceInformation startPosition, endPosition;

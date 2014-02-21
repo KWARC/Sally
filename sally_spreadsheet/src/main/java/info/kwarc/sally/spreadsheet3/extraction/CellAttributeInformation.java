@@ -2,7 +2,11 @@ package info.kwarc.sally.spreadsheet3.extraction;
 
 import info.kwarc.sally.spreadsheet3.ContentValueType;
 
-
+/**
+ * A class to represent a range of cell attributes that are necessary for the classification task.
+ * @author cliguda
+ *
+ */
 public class CellAttributeInformation {
 	final static int vectorSize = 7;
 	

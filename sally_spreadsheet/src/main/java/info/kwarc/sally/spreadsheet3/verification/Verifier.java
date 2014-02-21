@@ -15,6 +15,11 @@ import info.kwarc.sally.spreadsheet3.model.Relation;
 import info.kwarc.sally.spreadsheet3.ontology.AxiomObject;
 import info.kwarc.sally.spreadsheet3.ontology.OntologyException;
 
+/**
+ * The interface class for the verification service.
+ * @author cliguda
+ *
+ */
 public class Verifier {
 	
 	
@@ -59,6 +64,11 @@ public class Verifier {
 			ready = true;
 	}
 	
+	/**
+	 * Test the value interpretation of a cell against ontology constrains.
+	 * @param position
+	 * @return
+	 */
 	public VerificationStatus checkValue(CellSpaceInformation position) {
 		VerificationStatus status = VerificationStatus.ERROR;
 		
@@ -85,6 +95,11 @@ public class Verifier {
 		return status;
 	}
 	
+	/**
+	 * Test the value interpretations of all cells against ontology constrains.
+	 * @param position
+	 * @return
+	 */
 	public VerificationStatus checkAllValues() {
 		VerificationStatus status = VerificationStatus.ERROR;
 		
@@ -110,6 +125,11 @@ public class Verifier {
 		return status;
 	}
 	
+	/**
+	 * Verify a complete cp-similar block.
+	 * @param position
+	 * @return
+	 */
 	public VerificationStatus checkCPSimilarBlock(CPSimilarBlockData block) {
 		VerificationStatus status = VerificationStatus.ERROR;
 		
@@ -130,6 +150,13 @@ public class Verifier {
 		return status;
 	}
 	
+	/**
+	 * Test a function of a cell against ontology specifications.
+	 * @param position
+	 * @param relation
+	 * @return
+	 * @throws ModelException
+	 */
 	public VerificationStatus checkFunction(CellSpaceInformation position, Relation relation) throws ModelException {
 		VerificationStatus status;
 		String formula = manager.getSpreadsheet().get(position).getFormula();
@@ -157,6 +184,12 @@ public class Verifier {
 		return status;
 	}
 
+	/**
+	 * Test a relation against ontology specifications.
+	 * @param relation
+	 * @return
+	 * @throws ModelException
+	 */
 	public VerificationStatus checkRelation(Relation relation) throws ModelException {
 		VerificationStatus status;
 		

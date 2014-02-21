@@ -6,6 +6,14 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Class to represent relations between blocks.
+ * A relation has a type to represent different kind of relations. Furthermore information about the relation between cells 
+ * of different blocks are provided. Beside relations between blocks unary relations are also possible and can be used to
+ * link blocks by an unary relation to the ontology. 
+ * @author cliguda
+ *
+ */
 public class Relation {
 	
 	public enum RelationType {

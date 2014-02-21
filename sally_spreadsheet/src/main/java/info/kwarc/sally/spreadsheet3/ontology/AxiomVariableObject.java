@@ -1,5 +1,11 @@
 package info.kwarc.sally.spreadsheet3.ontology;
 
+/**
+ * A class to represent a variable (e.g. for axioms).
+ * The class contains informations about the type of the quantor (all, exist), the name and type.
+ * @author cliguda
+ *
+ */
 public class AxiomVariableObject {
 	
 	public enum QuantorType {All, Exist};

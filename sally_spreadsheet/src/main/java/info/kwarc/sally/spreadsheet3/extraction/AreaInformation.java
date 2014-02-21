@@ -6,7 +6,11 @@ import info.kwarc.sally.spreadsheet3.model.CellSpaceInformation;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * This class contains information about an area, whereby one area can be composed by several ranges.
+ * @author cliguda
+ *
+ */
 public class AreaInformation {
 	private StructureType type;
 	private int id;

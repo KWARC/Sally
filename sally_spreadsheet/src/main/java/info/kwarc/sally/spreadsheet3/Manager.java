@@ -14,7 +14,11 @@ import info.kwarc.sally.spreadsheet3.model.Relation;
 import info.kwarc.sally.spreadsheet3.ontology.IOntologyProvider;
 import info.kwarc.sally.spreadsheet3.ontology.SemanticModelManager;
 
-
+/**
+ * A Manager class administrates the data of a concrete spreadsheet, the annotations and ontology linking.
+ * @author cliguda
+ *
+ */
 public class Manager {
 	
 	ConcreteSpreadsheet spreadsheet;
@@ -51,6 +55,11 @@ public class Manager {
 	
 	// ---------- Methods that need an interaction between different components ----------
 	
+	/**
+	 * Adds a cell of a spreadsheet to a block.
+	 * Because adding a cell can change the semantic model an interaction between different models is necessary.
+	 * @return A list of messages, e.g. that a block is semantic complete. 
+	 */
 	public List<Message> addCellToBlock(CellSpaceInformation position, Block block) throws ModelException {
 		List<Message> messages = new ArrayList<Message>();
 

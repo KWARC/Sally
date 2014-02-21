@@ -2,9 +2,16 @@ package info.kwarc.sally.spreadsheet3.extraction;
 
 import info.kwarc.sally.spreadsheet3.ContentValueType;
 
-
+/**
+ * This class provides methods to create cell attributes that are necessary for the parsing process.
+ * @author cliguda
+ *
+ */
 public class CellAttributeInformationUtil {
 	
+	/**
+	 * Checks if the cell at row/column has possible legend cells above and on the left side.
+	 */
 	public static Boolean hasAssocLegends(CellAttributeInformation[][] cellInformation, int row, int column) {
 		Boolean assocLegendAbove = false;
 		Boolean assocLegendLeft = false;
@@ -17,6 +24,9 @@ public class CellAttributeInformationUtil {
 		return (assocLegendAbove && assocLegendLeft);
 	}
 	
+	/**
+	 * Checks if the cell at row/column has possible functional block cells below or on the right side.
+	 */
 	public static Boolean hasAssocFB(CellAttributeInformation[][] cellInformation, int row, int column) {
 		return (aboveFB(cellInformation,row,column) || besideFB(cellInformation,row,column) );
 	}
@@ -37,6 +47,9 @@ public class CellAttributeInformationUtil {
 		return assocFBRight;
 	}
 	
+	/**
+	 * Returns cell attributes for a certain cell based on cell features and other already available cell attributes.
+	 */
 	public static CellAttributeInformation createAttributes(Sheet sheet, int row, int column, CellAttributeInformation[][] cellInformation) {
 		Cell cell = sheet.getCellForPosition(row, column);		
 		
@@ -57,6 +70,10 @@ public class CellAttributeInformationUtil {
 				leftType, upperType, contentType);
 	}
 	
+	/**
+	 * Creates information about cell attributes based on cell features only.
+	 * This is necessary for a first pass of the classification algorithm.
+	 */
 	public static CellAttributeInformation createLocalAttributes(Sheet sheet, int row, int column, StructureType type) {
 		Cell cell = sheet.getCellForPosition(row, column);
 		Boolean leftBorder = ((column==0) || (sheet.getCellForPosition(row, column-1) == null) || sheet.getCellForPosition(row, column-1).getContent().isEmpty()  );

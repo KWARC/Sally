@@ -7,6 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * A class to represent the content and formulae of a spreadsheet.
+ * @author cliguda
+ *
+ */
 public class ConcreteSpreadsheet {
 	int id;
 	List<String> worksheets;

@@ -1,5 +1,11 @@
 package info.kwarc.sally.spreadsheet3.model;
 
+
+/**
+ * This class holds information about a range in a worksheet.
+ * @author cliguda
+ *
+ */
 public class RangeInformation {
 	String worksheet;
 	int startRow, endRow, startCol, endCol;

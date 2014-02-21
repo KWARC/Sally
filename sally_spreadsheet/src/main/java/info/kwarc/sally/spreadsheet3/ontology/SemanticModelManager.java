@@ -15,6 +15,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class represents the semantic data of a spreadsheet.
+ * Among other things this data is necessary to find semantic incomplete blocks.
+ * @author cliguda
+ *
+ */
 public class SemanticModelManager {
 
 	Map<String, List<String>> semanticValues;

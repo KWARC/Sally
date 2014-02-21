@@ -1,5 +1,10 @@
 package info.kwarc.sally.spreadsheet3.extraction;
 
+/**
+ * Some configuration information for the structure detection unit.
+ * @author cliguda
+ *
+ */
 public class ExtractionParameter {
 	private boolean textAsLegend, formulaAsFB, doubleAsFB, colorAsStructure, borderAsStructure, fontAsStructure, createAmbiguousInformation;
 
@@ -11,7 +16,7 @@ public class ExtractionParameter {
 		this.formulaAsFB = formulaAsFB;
 		this.doubleAsFB = doubleAsFB;
 		
-		// Parameters for area detection
+		// Parameters for area detection - Use color, border or font for detecting blocks. 
 		this.colorAsStructure = colorAsStructure;
 		this.borderAsStructure = borderAsStructure;
 		this.fontAsStructure = fontAsStructure;

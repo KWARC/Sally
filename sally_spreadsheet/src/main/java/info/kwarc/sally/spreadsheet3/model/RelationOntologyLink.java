@@ -3,6 +3,13 @@ package info.kwarc.sally.spreadsheet3.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The relation ontology link represents the connection between a relation and an ontology object.
+ * Beside the URI the RelationOntologyLink provides information how the different blocks are 
+ * related to the parameters of an ontology object.
+ * @author cliguda
+ *
+ */
 public class RelationOntologyLink {
 	String uri;
 	List<String> parameterLink;

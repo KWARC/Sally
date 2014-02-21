@@ -108,7 +108,7 @@ public class VerificationDataExtractorTest {
 				"      </apply>\n" +
 				"  </apply>\n" +
 				"</apply>\n" +
-				"</math>\n", Util.tagAsMathMLObject(mlFormulae.get(2), new BuilderMathML()).replaceAll("\r", ""));
+				"</math>\n", Util.tagAsMathObject(mlFormulae.get(2), new BuilderMathML()).replaceAll("\r", ""));
 	}
 
 }

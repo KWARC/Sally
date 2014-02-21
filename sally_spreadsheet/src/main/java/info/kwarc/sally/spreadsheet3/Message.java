@@ -3,12 +3,27 @@ package info.kwarc.sally.spreadsheet3;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Some methods return a list of messages to provide feedback.
+ * @author cliguda
+ *
+ */
 public class Message {
 	
+	/**
+	 * The message type indicates whether the message is related to blocks, relation or the semantic model. 
+	 * @author cliguda
+	 *
+	 */
 	public enum MessageType {
 		BlockMsg, RelationMsg, SemanticModelMsg 
 	}
 	
+	/**
+	 * The message subtype specifies the type of information.
+	 * @author cliguda
+	 *
+	 */
 	public enum MessageSubType {
 		Info, Error, Succeed, SemanticIncomplete
 	}

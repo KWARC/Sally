@@ -8,8 +8,14 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The class AEResult provides information about the found areas in a spreadsheet.
+ * @author cliguda
+ *
+ */
 public class AEResults {
-		
+	
+	
 	public class CellAreaRepresentation {
 		private StructureType type;
 		private List<Integer> indices;

@@ -1,5 +1,10 @@
 package info.kwarc.sally.spreadsheet3.extraction;
 
+/**
+ * A class to represent a cell border either from Excel or OpenOffice
+ * @author cliguda
+ *
+ */
 public class BorderLine {
 	
 	public enum FormatStyle {
@@ -23,11 +28,14 @@ public class BorderLine {
 	int ooOuterLineWidth;
 	int ooLineDistance;
 	
+	/**
+	 * Constructor for a borderline from an Excel cell.
+	 */
 	public BorderLine(long borderColor, FormatStyle formatStyle,
 			ExcelBorderStyle excelBorderStyle, ExcelBorderWeight excelBorderWeight) {
 		super();
 		if (formatStyle != FormatStyle.EXCELSTYLE)
-			throw new java.lang.IllegalArgumentException("ExelStyle Constructur for non ExcelStyle BorderLine.");
+			throw new java.lang.IllegalArgumentException("ExcelStyle Constructur for non ExcelStyle BorderLine.");
 		
 		this.borderColor = borderColor;
 		this.formatStyle = formatStyle;
@@ -39,6 +47,9 @@ public class BorderLine {
 		this.ooLineDistance = -1;
 	}
 
+	/**
+	 * Constructor for a borderline from an OpenOffice cell.
+	 */
 	public BorderLine(long borderColor, FormatStyle formatStyle,
 			int ooInnerLineWidth, int ooOuterLineWidth, int ooLineDistance) {
 		super();

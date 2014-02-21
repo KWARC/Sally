@@ -2,10 +2,18 @@ package info.kwarc.sally.spreadsheet3.extraction;
 
 import info.kwarc.sally.spreadsheet3.model.CellSpaceInformation;
 
-
+/**
+ * This class provides operations for postprocessing after a cell or worksheet has been classified.
+ * Thereby different heuristics are used to determine the type of some cells.
+ * 
+ * @author cliguda
+ */
 
 public class CellClassificationPostProcessor {
 	
+	/**
+	 * This method should be called after a cell has been classified.
+	 */
 	public static void processCell(Sheet sheet, Cell cell, CellAttributeInformation[][] cellInformation) {
 		expandHiddenCellPattern(sheet, cell, cellInformation);
 		hiddenCellPattern(cell, cellInformation);
@@ -19,6 +27,11 @@ public class CellClassificationPostProcessor {
 		theMobIsRightPattern(cell, cellInformation);
 	}*/
 	
+	/**
+	 * This method should be called after a worksheet has been classified.
+	 * @param cellInformation
+	 * @param sheet
+	 */
 	public static void processSheet(CellAttributeInformation[][] cellInformation, Sheet sheet) {
 		for (int row = 0; row < cellInformation.length; row++) {
 			for (int column = 0; column < cellInformation[row].length; column++) {
@@ -54,8 +67,10 @@ public class CellClassificationPostProcessor {
 		}
 	}*/
 	
+	/**
+	 * Pattern to convert hidden cells to the original type
+	 */
 	private static void expandHiddenCellPattern(Sheet sheet, Cell cell, CellAttributeInformation[][] cellInformation) {
-		// Convert hidden cells to original type
 		CellSpaceInformation cellPos = cell.getPosition();
 		int row = cellPos.getRow();
 		int column = cellPos.getColumn();
@@ -89,7 +104,9 @@ public class CellClassificationPostProcessor {
 		// Search column for available legends
 	}*/
 	
-	
+	/**
+	 * Set cells under or beside a merged cell to the type legend.
+	 */
 	private static void hiddenCellPattern(Cell cell, CellAttributeInformation[][] cellInformation) {
 		CellSpaceInformation pos = cell.getPosition();
 		if ( cellInformation[pos.getRow()][pos.getColumn()].getCellType().equals(StructureType.LEGEND) && 
@@ -168,6 +185,9 @@ public class CellClassificationPostProcessor {
 		}
 	}*/
 	
+	/**
+	 * If a cell has a different type than its left and right neighbor the type of the cell is changed to the type of its neighbors. 
+	 */
 	private static void theMobIsRightPattern(Cell cell, CellAttributeInformation[][] cellInformation) {
 		int row = cell.getPosition().getRow();
 		int column = cell.getPosition().getColumn();
@@ -185,6 +205,9 @@ public class CellClassificationPostProcessor {
 			cellInformation[row][column].setCellType(StructureType.LEGEND);
 	}
 	
+	/**
+	 * Checks if a cell at a given position is available.
+	 */
 	private static Boolean isAvailable(CellSpaceInformation pos, CellAttributeInformation[][] cellInformation) {
 		int row = pos.getRow();
 		int column = pos.getColumn();
@@ -195,6 +218,9 @@ public class CellClassificationPostProcessor {
 			(!cellInformation[row][column].getCellType().equals(StructureType.HIDDEN)) );
 	}
 	
+	/**
+	 * Set a cell to a certain type only if the type is still unknown.
+	 */
 	private static void setIfUnknown(CellSpaceInformation pos, CellAttributeInformation[][] cellInformation, StructureType type) {
 		int row = pos.getRow();
 		int column = pos.getColumn();

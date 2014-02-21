@@ -13,6 +13,11 @@ import org.slf4j.LoggerFactory;
 
 import psf.ParserParameter;
 
+
+/**
+ * The interface for the structure detection unit (SDU). 
+ * @author cliguda
+ */
 public class ExtractionInterface {
 	//This works fine when you run it with mvn jetty:run, but fails with the packaged war
 	final String process = System.getProperty("user.dir") + "/src/main/resources/info/kwarc/sally/spreadsheet3/extraction/ModelApplication.rmp";

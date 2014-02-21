@@ -1,5 +1,10 @@
 package info.kwarc.sally.spreadsheet3.extraction;
 
+/**
+ * A class to hold information about the type, content and formula of a cell.
+ * @author cliguda
+ *
+ */
 public class CellTypeContent {
 	
 	int cellType;

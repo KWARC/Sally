@@ -6,6 +6,11 @@ import info.kwarc.sally.spreadsheet3.model.CellSpaceInformation;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A class to represent a worksheet.
+ * @author cliguda
+ *
+ */
 public class Sheet {
 	String sheet;
 	int maxRow, maxColumn;

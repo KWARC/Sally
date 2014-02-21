@@ -3,6 +3,11 @@ package info.kwarc.sally.spreadsheet3.extraction;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class tries to find relations between areas (blocks).
+ * @author cliguda
+ *
+ */
 public class AffiliationInformationExtraction {
 	
 	public static List<AffiliationInformation> extract(AEResults aeResults) {

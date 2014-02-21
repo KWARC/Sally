@@ -16,6 +16,12 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * This class is the interface for the spreadsheet annotation model.
+ * It provides methods for adding blocks and relations.
+ * @author cliguda
+ *
+ */
 public class ModelManager {
 	
 	//FormalSpreadsheet spreadsheet;

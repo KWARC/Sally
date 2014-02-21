@@ -1,6 +1,11 @@
 package info.kwarc.sally.spreadsheet3.ontology;
 
-
+/**
+ * BuilderML is an abstract builder for XML expressions in e.g. MathML or OpenMath.
+ * By using BuilderML no MathML or OpenMath expressions are necessary in the project code.
+ * @author cliguda
+ *
+ */
 public abstract class BuilderML {
 	
 	public abstract String getVIVaribale(int i);

@@ -112,6 +112,11 @@ abstract public class Block {
 		return valueInterpretation;
 	}
 	
+	/**
+	 * A block can have different properties to provide addition information.
+	 * @param key
+	 * @return
+	 */
 	public boolean hasProperty(PropertyName key) {
 		return properties.containsKey(key);
 	}

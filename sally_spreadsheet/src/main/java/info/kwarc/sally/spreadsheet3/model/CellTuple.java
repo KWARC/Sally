@@ -3,6 +3,11 @@ package info.kwarc.sally.spreadsheet3.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A cell tuple can be used to represent a relation between cells.
+ * @author cliguda
+ *
+ */
 public class CellTuple {
 	
 	List<CellSpaceInformation> tuple;

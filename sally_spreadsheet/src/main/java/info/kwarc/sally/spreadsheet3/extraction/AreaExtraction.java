@@ -8,12 +8,26 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * This class provides methods to find areas of the same type with the same layout features in spreadsheets.
+ * @author cliguda
+ *
+ */
 public class AreaExtraction {
 	
 	final static int DEFAULTBACKGOUNDCOLOR = 0;
 	final static Logger log = LoggerFactory.getLogger(AreaExtraction.class);
 	//final static psf.ParserInterface parser = new psf.ParserInterface();		// Needed to compare cell formulae
 	
+	/**
+	 * Extracts areas of the same type and layout features from spreadsheets.
+	 * @param sheet The actual worksheet.
+	 * @param sheetName The name of of the worksheet.
+	 * @param startID The IDs of found areas will start at startID.
+	 * @param cellFeatures An array of cellfeatures for the worksheet
+	 * @param features A Map for layout features.
+	 * @return
+	 */
 	public static AEResults extractAreas(Sheet sheet, String sheetName, int startID, CellAttributeInformation[][] cellFeatures, FeatureMaps features) {
 				
 		AEResults results = new AEResults(sheetName, cellFeatures.length, cellFeatures[0].length);
@@ -44,7 +58,7 @@ public class AreaExtraction {
 		return results;
 	}
 	
-	public static AEResults extractLegendArea(String sheet, CellAttributeInformation[][] cellFeatures, int id, int startRow, int startColumn, FeatureMaps features ) {
+	private static AEResults extractLegendArea(String sheet, CellAttributeInformation[][] cellFeatures, int id, int startRow, int startColumn, FeatureMaps features ) {
 		AEResults idMap = new AEResults(sheet, cellFeatures.length, cellFeatures[0].length);
 		int startIndex = id;
 				
@@ -92,28 +106,7 @@ public class AreaExtraction {
 			
 		// Now expand to the right
 		int endColumn2 = startColumn;
-		/* Boolean expand = true;
-		while (expand) {
-			Boolean allValid = true;
-			Boolean expandable = true;
-			//Boolean legendFound = false;
-			for(int i = startRow; i <= endRow2; i++) {
-				if (endColumn2+1 >= cellFeatures[i].length)
-					expandable = false;
-				else {
-					if ( ( (cellFeatures[i][endColumn2+1].getCellType() !=StructureType.LEGEND) && 
-						   (cellFeatures[i][endColumn2+1].getCellType() !=StructureType.EMPTY) )  ||
-						   !features.sameFeatures(startRow, startColumn, i, endColumn2+1 ) )
-						allValid = false;
-					if ( cellFeatures[i][endColumn2+1].getCellType() == StructureType.LEGEND) 
-						legendFound = true;
-				}
-			}
-			if (allValid && legendFound && expandable)
-				endColumn2++;
-			else
-				expand = false;
-		}*/
+		
 		allValid = true;
 		while (allValid && (endColumn2+1 < cellFeatures[endRow2].length)) {
 			//Boolean legendFound = false;
@@ -122,8 +115,7 @@ public class AreaExtraction {
 					   (cellFeatures[j][endColumn2+1].getCellType() != StructureType.EMPTY) ) ||
 					   !features.sameFeatures(startRow, startColumn, j, endColumn2+1 ) )
 					allValid = false;
-				//if ( cellFeatures[endRow1+1][j].getCellType() == StructureType.LEGEND)
-					//legendFound = true;
+			
 			}
 			if (allValid)
 				endColumn2++;
@@ -148,7 +140,7 @@ public class AreaExtraction {
 		return idMap;
 	}
 	
-	public static AEResults extractFBArea(String sheet, CellAttributeInformation[][] cellFeatures, int id, int startRow, int startColumn,  FeatureMaps features ) {
+	private static AEResults extractFBArea(String sheet, CellAttributeInformation[][] cellFeatures, int id, int startRow, int startColumn,  FeatureMaps features ) {
 		AEResults results = new AEResults(sheet, cellFeatures.length, cellFeatures[0].length);
 		
 		if (cellFeatures[startRow][startColumn].getCellType() != StructureType.FB)
@@ -167,14 +159,13 @@ public class AreaExtraction {
 		Boolean expand = true;
 		while (expand && (endRow+1 < cellFeatures.length)) {
 			Boolean allValid = true;
-			//Boolean fbFound = false;
+
 			for(int j = startColumn; j <= endColumn; j++) {
 				if ( ( (cellFeatures[endRow+1][j].getCellType() !=StructureType.FB) && 
 					   (cellFeatures[endRow+1][j].getCellType() !=StructureType.EMPTY) )  ||
 					   !features.sameFeatures(startRow, startColumn, endRow+1, j ) )
 					allValid = false;
-				//if ( cellFeatures[endRow+1][j].getCellType() == StructureType.FB)
-					//fbFound = true;
+			
 			}
 			if (allValid)
 				endRow++;
@@ -191,7 +182,12 @@ public class AreaExtraction {
 		return results;
 	}
 	
-	
+	/**
+	 * Marks a 2 dimensional map with ids whereby areas in the worksheet with the same celltype are mapped to the same id.
+	 * @param sheet The actual worksheet.
+	 * @param cellFeatures A 2 dimensional array of cell features.
+	 * @param map The 2 dimensional map that should be marked.
+	 */
 	public static void markMapByCellType(Sheet sheet, CellAttributeInformation[][] cellFeatures, Integer[][] map) {
 		Map<Integer, Integer> cellType2Id = new HashMap<Integer, Integer>();
 		int maxId = 0;
@@ -212,36 +208,24 @@ public class AreaExtraction {
 			}
 		}
 		
-		/*int index = 0;
-		int row = 0;
-		while (row < sheet.getMaxRow()) {
-			int column = getNextElementInRow(sheet, row, -1, true);
-			while (column < sheet.getMaxColumn()) {
-				
-				int previousElementIndex = getPreviousElementInRow(sheet, row, column, true);
-				int upperElementIndex = getPreviousElementInColumn(sheet, row, column, true);
-				if ( (previousElementIndex >= 0) && cellFeatures[row][column].getCellType().equals(cellFeatures[row][previousElementIndex].getCellType() ) )
-					markArea(row, previousElementIndex, row, column, map, map[row][previousElementIndex]);
-				else if ( (upperElementIndex >= 0) && cellFeatures[row][column].getCellType().equals(cellFeatures[upperElementIndex][column].getCellType() ))
-					markArea(upperElementIndex, column, row, column, map, map[upperElementIndex][column]);
-				else {
-					index++;
-					map[row][column] = new Integer(index);
-				} 
-				
-				column = getNextElementInRow(sheet, row, column, true);
-			}
-			row++;
-		}*/
-		//eliminateNull(map);
 	}
 	
+	/**
+	 * Marks a 2 dimensional map with the id 0.
+	 * @param sheet The actual worksheet.
+	 * @param map The 2 dimensional map that should be marked.
+	 */
 	public static void markMapUniform(Sheet sheet, Integer[][] map) {
 		for (int i = 0; i < map.length; i++)
 			for (int j = 0; j < map[i].length; j++)
 				map[i][j] = 0;
 	}
 	
+	/**
+	 * Marks a 2 dimensional map with ids whereby areas in the worksheet with the same color are mapped to the same id.
+	 * @param sheet The actual worksheet.
+	 * @param map The 2 dimensional map that should be marked.
+	 */
 	public static void markMapByColor(Sheet sheet, Integer[][] map) {
 		Map<Integer, Integer> color2Id = new HashMap<Integer, Integer>();
 		int maxId = 0;
@@ -262,31 +246,13 @@ public class AreaExtraction {
 			}
 		}
 
-		/*int index = 0;
-		int row = 0;
-		while (row < sheet.getMaxRow()) {
-			int column = getNextElementInRow(sheet, row, -1, true);
-			while (column < sheet.getMaxColumn()) {
-				Cell cell = sheet.getCellForPosition(row, column);
-				int previousElementIndex = getPreviousElementInRow(sheet, row, column, true);
-				int upperElementIndex = getPreviousElementInColumn(sheet, row, column, true);
-				if ( (previousElementIndex >= 0) && (cell.getBackgroundColor() == sheet.getCellForPosition(row, previousElementIndex).getBackgroundColor() ) )
-					markArea(row, previousElementIndex, row, column, map, map[row][previousElementIndex]);
-				else if ( (upperElementIndex >= 0) && (cell.getBackgroundColor() == sheet.getCellForPosition(upperElementIndex, column).getBackgroundColor() ))
-					markArea(upperElementIndex, column, row, column, map, map[upperElementIndex][column]);
-				else if ( cell.getBackgroundColor() != DEFAULTBACKGOUNDCOLOR ) {
-					index++;
-					map[row][column] = new Integer(index);
-				} else {
-					map[row][column] = new Integer(-1);
-				}
-				column = getNextElementInRow(sheet, row, column, true);
-			}
-			row++;
-		}*/
-		//eliminateNull(map);
 	}
 	
+	/**
+	 * Marks a 2 dimensional map with ids whereby areas in the worksheet with the same font are mapped to the same id.
+	 * @param sheet The actual worksheet.
+	 * @param map The 2 dimensional map that should be marked.
+	 */
 	public static void markMapByFont(Sheet sheet, Integer[][] map) {
 		Map<Font, Integer> font2Id = new HashMap<Font, Integer>();
 		int maxId = 0;
@@ -307,30 +273,14 @@ public class AreaExtraction {
 			}
 		}
 		
-		/*int index = 0;
-		int row = 0;
-		while (row < sheet.getMaxRow()) {
-			int column = getNextElementInRow(sheet, row, -1, true);
-			while (column < sheet.getMaxColumn()) {
-				Cell cell = sheet.getCellForPosition(row, column);
-				int previousElementIndex = getPreviousElementInRow(sheet, row, column, true);
-				int upperElementIndex = getPreviousElementInColumn(sheet, row, column, true);
-				if ( (previousElementIndex >= 0) && cell.getFont().equals(sheet.getCellForPosition(row, previousElementIndex).getFont()) )
-					markArea(row, previousElementIndex, row, column, map, map[row][previousElementIndex]);
-				else if ( (upperElementIndex >= 0) && cell.getFont().equals( sheet.getCellForPosition(upperElementIndex, column).getFont()))
-					markArea(upperElementIndex, column, row, column, map, map[upperElementIndex][column]);
-				else {
-					index++;
-					map[row][column] = new Integer(index);
-				}
-				column = getNextElementInRow(sheet, row, column, true);
-			}
-			row++;
-		}*/
-		//eliminateNull(map);
 	}
 	
- 
+	/**
+	 * Marks a 2 dimensional map with ids whereby areas in the worksheet with the same formula are mapped to the same id.
+	 * @param sheet The actual worksheet.
+	 * @param map The 2 dimensional map that should be marked.
+	 * @param cellFormulae Contains the cell formula for formulae of a worksheet.
+	 */
 	public static void markMapByFormulae(Sheet sheet, Integer[][] map, Map<CellSpaceInformation, psf.ParserResult> cellFormulae) {
 		Map<String, Integer> formula2Id = new HashMap<String, Integer>();
 		int maxId = 0;
@@ -351,30 +301,14 @@ public class AreaExtraction {
 					map[row][column] = -1;
 			}
 		}
-		/*int index = 0;
-		int row = 0;
-		while (row < sheet.getMaxRow()) {
-			int column = getNextElementInRow(sheet, row, -1, true);
-			while (column < sheet.getMaxColumn()) {
-				Cell cell = sheet.getCellForPosition(row, column);
-				int previousElementIndex = getPreviousElementInRow(sheet, row, column, true);
-				int upperElementIndex = getPreviousElementInColumn(sheet, row, column, true);
-				if ( (previousElementIndex >= 0) && similarFormulae(cell.getFormula(), sheet.getCellForPosition(row, previousElementIndex).getFormula() ) )
-					markArea(row, previousElementIndex, row, column, map, map[row][previousElementIndex]);
-				else if ( (upperElementIndex >= 0) && similarFormulae(cell.getFormula(), sheet.getCellForPosition(upperElementIndex, column).getFormula() ))
-					markArea(upperElementIndex, column, row, column, map, map[upperElementIndex][column]);
-				else if ( isFormula(cell) ) {
-					index++;
-					map[row][column] = new Integer(index);
-				} else
-					map[row][column] = new Integer(-1);
-				column = getNextElementInRow(sheet, row, column, true);
-			}
-			row++;
-		}*/
-		//eliminateNull(map);
+
 	}
 	
+	/**
+	 * Marks a 2 dimensional map with ids whereby areas in the worksheet within the same border are mapped to the same id.
+	 * @param sheet The actual worksheet.
+	 * @param map The 2 dimensional map that should be marked.
+	 */
 	public static void markMapByBorder(Sheet sheet, Integer[][] map) {
 		int index = 0;
 		int row = 0;
@@ -401,7 +335,7 @@ public class AreaExtraction {
 	}
 	
 	
-	public static int getPreviousElementInRow(Sheet sheet, int row, int column, Boolean ignoreEmpty) {
+	private static int getPreviousElementInRow(Sheet sheet, int row, int column, Boolean ignoreEmpty) {
 		Boolean found = false;
 		column--;
 		while (!found && (column >= 0) && (sheet.getCellForPosition(row, column) != null)) {
@@ -414,7 +348,7 @@ public class AreaExtraction {
 		return column;
 	}
 	
-	public static int getNextElementInRow(Sheet sheet, int row, int column, Boolean ignoreEmpty) {
+	private static int getNextElementInRow(Sheet sheet, int row, int column, Boolean ignoreEmpty) {
 		Boolean found = false;
 		column++;
 		while (!found && (column < sheet.getMaxColumn()) ) {
@@ -427,7 +361,7 @@ public class AreaExtraction {
 		return column;
 	}
 	
-	public static int getPreviousElementInColumn(Sheet sheet, int row, int column, Boolean ignoreEmpty) {
+	private static int getPreviousElementInColumn(Sheet sheet, int row, int column, Boolean ignoreEmpty) {
 		Boolean found = false;
 		row--;
 		while (!found && (row >= 0)) {
@@ -440,53 +374,12 @@ public class AreaExtraction {
 		return row;
 	}
 	
-	public static int getNextElementInColumn(Sheet sheet, int row, int column, Boolean ignoreEmpty) {
-		Boolean found = false;
-		row++;
-		while (!found && (row < sheet.getMaxRow()) ) {
-			Cell cell = sheet.getCellForPosition(row, column);
-			if (!cell.isHidden() && (!cell.getContent().isEmpty() || !ignoreEmpty) )
-				found = true;
-			else
-				row++;
-		}
-		return row;
-	}
-	
 	private static void markArea(int startRow, int startColumn, int endRow, int endColumn, Integer[][] map, int value) {
 		for (int row = startRow; row <= endRow; row++)
 			for (int column = startColumn; column <= endColumn; column++)
 				map[row][column] = new Integer(value);
 	}
-	
-	
-	/*public static Boolean similarFormulae(String f1, String f2) {
-		if (!f1.isEmpty() && !f2.isEmpty()) {
-			Tree t1 = parser.getParseTree(f1, "");	// We just want to compare 2 formulae on the same sheet and therefore the sheetname is not important here.
-			Tree t2 = parser.getParseTree(f2, "");
-		
-			return similarTree(t1, t2);
-		} else if (f1.isEmpty() && f2.isEmpty())
-			return true;
-		else
-			return false;
-	}*/
-	
-	/*private static Boolean similarTree(Tree t1, Tree t2) {
-		if (t1.getText().equals("CELL") && t2.getText().equals("CELL"))
-			return true;
-		else if (t1.getText().equals(t2.getText()) && (t1.getChildCount() == t2.getChildCount() ) ) {
-			boolean similarNode = true;
-			for (int i = 0; i < t1.getChildCount(); i++) {
-				if (!similarTree(t1.getChild(i), t2.getChild(i))  )
-					similarNode = false;
-			}
-			return similarNode;
-		} else
-			return false;
-		
-	}*/
-	
+
 	
 	private static CellSpaceInformation cuttingToFit(CellAttributeInformation[][] sheet, int startRow, int startColumn, int endRow, int endColumn) {
 		Boolean stop = false;
@@ -511,7 +404,7 @@ public class AreaExtraction {
 		return new CellSpaceInformation(endRow, endColumn);
 	}
 	
-	public static AEResults splitArea(String sheetName, CellAttributeInformation[][] sheet, StructureType type, int id, int startRow, int startColumn, int endRow, int endColumn) {
+	private static AEResults splitArea(String sheetName, CellAttributeInformation[][] sheet, StructureType type, int id, int startRow, int startColumn, int endRow, int endColumn) {
 		AEResults areas = new AEResults(sheetName, sheet.length, sheet[0].length);
 		
 		if ((startRow == endRow) || (startColumn == endColumn)) 

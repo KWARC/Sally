@@ -21,7 +21,11 @@ import com.rapidminer.operator.OperatorException;
 import com.rapidminer.operator.ProcessRootOperator;
 import com.rapidminer.tools.LogService;
 
-
+/**
+ * A class to classify cells of a worksheet as legend of functional block cells based on heuristics or a decision tree. 
+ * @author cliguda
+ *
+ */
 public class CellClassifier {
 
 	
@@ -99,6 +103,10 @@ public class CellClassifier {
 		return cellInformation;
 	}*/
 	
+	/**
+	 * Classifies a complete worksheet.
+	 * The used heuristics can be specified by the extraction parameter.
+	 */
 	public CellAttributeInformation[][] classify(Sheet sheet, ExtractionParameter parameter, Map<CellSpaceInformation, psf.ParserResult> cellFormulae) {
 		
 		CellAttributeInformation[][] cellInformation = prepocessing(sheet, parameter, cellFormulae);

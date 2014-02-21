@@ -2,6 +2,11 @@ package info.kwarc.sally.spreadsheet3;
 
 import info.kwarc.sally.spreadsheet3.model.CellSpaceInformation;
 
+/**
+ * A class to represent the position, content, formula and type of content of a spreadsheet cell.
+ * @author cliguda
+ *
+ */
 public class ConcreteSsElement {
 	CellSpaceInformation position;
 	String value, formula;

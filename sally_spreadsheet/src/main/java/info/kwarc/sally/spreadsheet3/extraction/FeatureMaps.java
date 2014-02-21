@@ -7,7 +7,11 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
+/**
+ * The structure detection unit marks areas of the same type with the same layout features (which are provided by a FeatureMap) as blocks.
+ * @author cliguda
+ *
+ */
 public class FeatureMaps {
 	private Map<String, Integer[][]> maps = new HashMap<String, Integer[][]>();
 	private int rows, columns;

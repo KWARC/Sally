@@ -3,6 +3,11 @@ package info.kwarc.sally.spreadsheet3.verification;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A class to represent the Z3 specification of a datatype (ontology object)
+ * @author cliguda
+ *
+ */
 public class DataTypeSpec {
 	
 	List<String> specification;

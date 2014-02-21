@@ -1,5 +1,11 @@
 package info.kwarc.sally.spreadsheet3.extraction;
 
+
+/**
+ * A class to represent the cell borders (top, bottom, left, right) for a cell.
+ * @author cliguda
+ *
+ */
 public class CellBorder {
 	BorderLine top, bottom, left, right;
 

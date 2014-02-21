@@ -2,6 +2,12 @@ package info.kwarc.sally.spreadsheet3.extraction;
 
 import java.util.List;
 
+
+/**
+ * Provides information that a found area with a certain id is related to some other areas.
+ * @author cliguda
+ *
+ */
 public class AffiliationInformation {
 	int id;
 	List<Integer> affiliatedIds;

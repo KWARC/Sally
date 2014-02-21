@@ -5,6 +5,11 @@ import info.kwarc.sally.spreadsheet3.ontology.ValueInterpretation;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Atomic blocks contain only one cell.
+ * @author cliguda
+ *
+ */
 public class BlockAtomic extends Block {
 	
 	CellSpaceInformation position;

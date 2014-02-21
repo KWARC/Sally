@@ -2,6 +2,12 @@ package info.kwarc.sally.spreadsheet3.verification;
 
 import info.kwarc.sally.spreadsheet3.model.CellSpaceInformation;
 
+/**
+ * This class represents a symbol for an instance of an ontology object, e.g. a concrete year for the ontology object "year".
+ * Symbols are needed for verification tasks to abstract over cell positions.
+ * @author cliguda
+ *
+ */
 public class DataSymbolInformation {
 	
 	String ontologyType;
@@ -10,6 +16,13 @@ public class DataSymbolInformation {
 	int symbolID;
 	String z3String;
 	
+	/**
+	 * Creates a symbol for an ontology object.
+	 * @param ontologyType The uri of the ontology object.
+	 * @param content The content (value interpretation) of a cell.
+	 * @param position The cell position. 
+	 * @param symbolID Each symbol needs an unique id.
+	 */
 	public DataSymbolInformation(String ontologyType, String content, CellSpaceInformation postition, int symbolID) {
 		super();
 		this.ontologyType = ontologyType;

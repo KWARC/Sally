@@ -11,6 +11,11 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Interface to Z3. Z3 must be installed and the environment variable Z3_HOME must be set. 
+ * @author cliguda
+ *
+ */
 public class Z3Interface {
 	
 	final Logger logger = LoggerFactory.getLogger(Z3Interface.class);
@@ -20,6 +25,10 @@ public class Z3Interface {
 	
 	List<String> completeSpecification = new ArrayList<String>();
 	
+	/**
+	 * Creates an interface for a specification. 
+	 * Different interfaces for independent verification tasks should be used.
+	 */
 	public Z3Interface() {
 		List<String> commands = new ArrayList<String>();
 		String z3Path = System.getenv("Z3_HOME");
@@ -42,6 +51,12 @@ public class Z3Interface {
 		}
 	}
 	
+	/**
+	 * Verifies the list of statements.
+	 * @param statements
+	 * @param temporary Should the list of statements be added to the specification temporary or permanent.
+	 * @return
+	 */
 	public VerificationStatusIntern verify(List<String> statements, boolean temporary) {
 		if (temporary)
 			writeSpec("(push)\n");
@@ -61,6 +76,10 @@ public class Z3Interface {
 		return verify(statements, temporary);
 	}
 	
+	/**
+	 * Checks if the current specification is satisfiable.
+	 * @return
+	 */
 	public VerificationStatusIntern isSat() {		
 		VerificationStatusIntern status = null;
 		

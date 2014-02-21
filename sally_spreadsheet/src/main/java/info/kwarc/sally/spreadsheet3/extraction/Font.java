@@ -1,5 +1,10 @@
 package info.kwarc.sally.spreadsheet3.extraction;
 
+/**
+ * A class to represent the font of a cell.
+ * @author cliguda
+ *
+ */
 public class Font {
 	String fontName;
 	int fontColor;

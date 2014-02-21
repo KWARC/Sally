@@ -2,6 +2,12 @@ package info.kwarc.sally.spreadsheet3.model;
 
 import java.util.List;
 
+
+/**
+ * This class provides information about the position of a cell (and optional its height and width).
+ * @author cliguda
+ *
+ */
 public class CellSpaceInformation {
 	private String worksheet; 
 	private int row, column, height, width;

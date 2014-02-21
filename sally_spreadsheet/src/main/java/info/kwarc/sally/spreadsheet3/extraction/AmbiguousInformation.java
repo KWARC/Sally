@@ -2,7 +2,11 @@ package info.kwarc.sally.spreadsheet3.extraction;
 
 import java.util.List;
 
-
+/**
+ * If a cell can not be assigned to an unique area, the ambiguous informations are hold in this class.
+ * @author cliguda
+ *
+ */
 public class AmbiguousInformation {
 	String sheet;
 	int row, column;
