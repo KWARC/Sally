@@ -1,0 +1,11 @@
+{{#sheetData}}<tr><td><input type=\"checkbox\" name=\"chkbox[]\"><\/td><td><input type=\"text\" value={{name}} class=\"span12 new-concept\"><\/td><td><input type=\"text\" value={{range}} class=\"new-range span12\"><\/td>\r\n<td><span class=\"span16 uri new-meaning\" type=\"text\">{{meaning}}<\/span><\/td><\/tr>{{/sheetData}}
+
+<tr><td><input type=\"checkbox\" name=\"chkbox[]\"><\/td><td><input type=\"text\" placeholder=\"Bolt 1\" class=\"span12 new-concept\"><\/td><td><input type=\"text\" placeholder=\"sheet!A3:B6\" class=\"span12 new-range\"><\/td>\r\n<td><input class=\"span16 uri new-meaning\" type=\"text\" placeholder=\"URI\"><\/td><\/tr>
+
+
+
+"{{#sheetData}}<tr><td><input type=\"checkbox\" name=\"chkbox[]\"><\/td><td><input id=\"new-concept\" type=\"text\" value={{name}} class=\"span12\"><\/td><td><input id=\"new-range\" type=\"text\" value={{range}} class=\"span12\"><\/td>\r\n<td><span class=\"span16 uri\" type=\"text\" id=\"new-meaning\" class=\"span12\">{{meaning}}<\/span><\/td><\/tr>{{/sheetData}}"
+
+
+"<tr><td><input type=\"checkbox\" name=\"chkbox[]\"><\/td><td><input id=\"new-concept\" type=\"text\" placeholder=\"Bolt 1\" class=\"span12\"><\/td><td><input id=\"new-range\" type=\"text\" placeholder=\"sheet!A3:B6\" class=\"span12\"><\/td>\r\n<td><input class=\"span16 uri\" type=\"text\" id=\"new-meaning\" placeholder=\"URI\" class=\"span12\"><\/td><\/tr>"
+

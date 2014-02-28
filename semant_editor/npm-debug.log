@@ -1,0 +1,37 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'search', 'undoredo' ]
+2 info using npm@1.2.18
+3 info using node@v0.10.15
+4 verbose url raw /-/all/since?stale=update_after&startkey=1391611276872
+5 verbose url resolving [ 'https://registry.npmjs.org/',
+5 verbose url resolving   './-/all/since?stale=update_after&startkey=1391611276872' ]
+6 verbose url resolved https://registry.npmjs.org/-/all/since?stale=update_after&startkey=1391611276872
+7 info trying registry request attempt 1 at 16:06:44
+8 http GET https://registry.npmjs.org/-/all/since?stale=update_after&startkey=1391611276872
+9 info retry will retry, error on last attempt: Error: SELF_SIGNED_CERT_IN_CHAIN
+10 info trying registry request attempt 2 at 16:06:55
+11 http GET https://registry.npmjs.org/-/all/since?stale=update_after&startkey=1391611276872
+12 info retry will retry, error on last attempt: Error: SELF_SIGNED_CERT_IN_CHAIN
+13 info trying registry request attempt 3 at 16:07:55
+14 http GET https://registry.npmjs.org/-/all/since?stale=update_after&startkey=1391611276872
+15 error Error: SELF_SIGNED_CERT_IN_CHAIN
+15 error     at SecurePair.<anonymous> (tls.js:1350:32)
+15 error     at SecurePair.EventEmitter.emit (events.js:92:17)
+15 error     at SecurePair.maybeInitFinished (tls.js:963:10)
+15 error     at CleartextStream.read [as _read] (tls.js:463:15)
+15 error     at CleartextStream.Readable.read (_stream_readable.js:320:10)
+15 error     at EncryptedStream.write [as _write] (tls.js:366:25)
+15 error     at doWrite (_stream_writable.js:219:10)
+15 error     at writeOrBuffer (_stream_writable.js:209:5)
+15 error     at EncryptedStream.Writable.write (_stream_writable.js:180:11)
+15 error     at write (_stream_readable.js:573:24)
+16 error If you need help, you may report this log at:
+16 error     <http://bugs.debian.org/npm>
+16 error or use
+16 error     reportbug --attach /media/rkarna/2C87C21E3E74591C/SallyAug13/Sally/semantificationeditor/SpreadsheetEditor/npm-debug.log npm
+17 error System Linux 3.11.0-12-generic
+18 error command "/usr/bin/nodejs" "/usr/bin/npm" "search" "undoredo"
+19 error cwd /media/rkarna/2C87C21E3E74591C/SallyAug13/Sally/semantificationeditor/SpreadsheetEditor
+20 error node -v v0.10.15
+21 error npm -v 1.2.18
+22 verbose exit [ 1, true ]
