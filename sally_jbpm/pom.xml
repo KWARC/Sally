@@ -17,11 +17,23 @@
 			<version>0.9.8</version>
 		</dependency>
 
-
 		<dependency>
 			<groupId>info.kwarc.sally</groupId>
 			<artifactId>sally_comm</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-bpmn2</artifactId>
+			<version>5.4.0.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-test</artifactId>
+			<version>5.4.0.Final</version>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>

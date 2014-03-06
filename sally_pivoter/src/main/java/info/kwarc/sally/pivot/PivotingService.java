@@ -1,5 +1,6 @@
 package info.kwarc.sally.pivot;
 
+import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.composition.SallyContext;
 import info.kwarc.sally.core.composition.SallyInteraction;
 import info.kwarc.sally.core.composition.SallyInteractionResultAcceptor;
@@ -7,10 +8,9 @@ import info.kwarc.sally.core.composition.SallyService;
 import info.kwarc.sally.core.doc.DocumentManager;
 import info.kwarc.sally.core.interaction.CallbackManager;
 import info.kwarc.sally.core.interaction.IMessageCallback;
-import info.kwarc.sally.core.interaction.SallyMenuItem;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
+import info.kwarc.sally.core.workflow.ProcessInstance;
 import info.kwarc.sally.pivot.ontology.Pivot;
-import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
-import org.drools.runtime.process.ProcessInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -211,7 +210,7 @@ public class PivotingService {
 			input.put("ObjectIDs", objids);
 			input.put("CallbackID", Long.toString(callbackid));
 			ProcessInstance pi =wm.prepareProcess(parentProcessID, "Sally.sketch_navigation", input);
-			HandlerUtils.setProcessVariable(pi, "ServiceURL", "http://localhost:8181/sally/html/navigate?id="+pi.getId());
+			pi.setProcessVarialbe("ServiceURL", "http://localhost:8181/sally/html/navigate?id="+pi.getId());
 			wm.startProcess(pi);					
 		}
 	}

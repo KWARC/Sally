@@ -1,12 +1,10 @@
 package info.kwarc.sally.service.def_lookup.tasks;
 
 import info.kwarc.sally.core.workflow.SallyTask;
+import info.kwarc.sally.core.workflow.WorkItem;
+import info.kwarc.sally.core.workflow.WorkItemHandler;
+import info.kwarc.sally.core.workflow.WorkItemManager;
 import info.kwarc.sally.service.def_lookup.DefinitionLookupService;
-import info.kwarc.sissi.bpm.tasks.HandlerUtils;
-
-import org.drools.process.instance.WorkItemHandler;
-import org.drools.runtime.process.WorkItem;
-import org.drools.runtime.process.WorkItemManager;
 
 import com.google.inject.Inject;
 
@@ -20,16 +18,16 @@ public class UpdateDefinitionURL implements WorkItemHandler {
 	}
 	
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
-		String mmtURI = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), String.class);
+		String mmtURI = workItem.getFirstTypedParameter(String.class);
 		try {
 			if (mmtURI == null)
 				throw new Exception("No MMT URI given");
 			String url = planetary.getDefinitionLookupURL(mmtURI);	
-			workItem.getResults().put("DefURLOutput", url);
+			workItem.addResult("DefURLOutput", url);
 		} catch (Exception e) {
 			
 		} finally {
-			manager.completeWorkItem(workItem.getId(), workItem.getResults());
+			manager.completeWorkItem(workItem);
 		}
 		
 	}

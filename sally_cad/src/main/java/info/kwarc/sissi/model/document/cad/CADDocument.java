@@ -1,11 +1,11 @@
 package info.kwarc.sissi.model.document.cad;
 
+import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.composition.SallyContext;
 import info.kwarc.sally.core.composition.SallyInteraction;
 import info.kwarc.sally.core.composition.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.composition.SallyService;
 import info.kwarc.sally.core.interaction.IMessageCallback;
-import info.kwarc.sally.core.interaction.SallyMenuItem;
 import info.kwarc.sally.core.net.INetworkSender;
 import info.kwarc.sally.core.rdf.RDFStore;
 

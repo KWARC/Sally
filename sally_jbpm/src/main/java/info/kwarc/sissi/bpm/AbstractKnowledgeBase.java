@@ -2,15 +2,24 @@ package info.kwarc.sissi.bpm;
 
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.core.workflow.MessageForward;
+import info.kwarc.sally.core.workflow.ProcessInstance;
+import info.kwarc.sally.core.workflow.WorkItemHandler;
+import info.kwarc.sissi.bpm.implementation.JBPMProcessInstance;
+import info.kwarc.sissi.bpm.implementation.JBPMWorkItemAdapter;
+import info.kwarc.sissi.bpm.implementation.JBPMWorkItemHandlerAdapter;
+import info.kwarc.sissi.bpm.implementation.JBPMWorkItemManagerAdapter;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
+//import org.drools.process.instance.WorkItemHandler;
 import org.drools.runtime.StatefulKnowledgeSession;
-import org.drools.runtime.process.ProcessInstance;
-import org.drools.runtime.process.WorkItemHandler;
+import org.drools.runtime.process.WorkItem;
+import org.drools.runtime.process.WorkItemManager;
+
+import com.google.inject.Injector;
 
 public abstract class AbstractKnowledgeBase implements ISallyWorkflowManager{
 
@@ -23,6 +32,32 @@ public abstract class AbstractKnowledgeBase implements ISallyWorkflowManager{
 	public void signal_global_event(String signal_ref, Object data) {
 		getSession().signalEvent(signal_ref, data);
 	}
+	
+	public void registerTasks(StatefulKnowledgeSession ksession, final HashMap<String, Class<? extends WorkItemHandler>> handlerClasses, final Map<String, WorkItemHandler> handlerInstances, final Injector injector) {
+		final AbstractKnowledgeBase _this = this;
+		
+		for (final String taskName : handlerClasses.keySet()) {
+			ksession.getWorkItemManager().registerWorkItemHandler(taskName, new org.drools.runtime.process.WorkItemHandler() {
+				
+				@Override
+				public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
+					if (!handlerInstances.containsKey(taskName)) {
+						handlerInstances.put(taskName, injector.getInstance(handlerClasses.get(taskName)));
+					}
+					handlerInstances.get(taskName).executeWorkItem(new JBPMWorkItemAdapter(workItem, _this), new JBPMWorkItemManagerAdapter(manager));
+				}
+				
+				@Override
+				public void abortWorkItem(WorkItem workItem, WorkItemManager manager) {
+					if (!handlerInstances.containsKey(taskName)) {
+						handlerInstances.put(taskName, injector.getInstance(handlerClasses.get(taskName)));
+					}
+					handlerInstances.get(taskName).executeWorkItem(new JBPMWorkItemAdapter(workItem, _this), new JBPMWorkItemManagerAdapter(manager));
+				}
+			});
+		}
+	}
+
 
 	public AbstractKnowledgeBase() {
 		childParentRelation = new HashMap<Long, Long>();
@@ -46,7 +81,7 @@ public abstract class AbstractKnowledgeBase implements ISallyWorkflowManager{
 	
 	private boolean trySendMessage(Long fromProcessID, Long targetProcessID, String message_id, Object input) {
 		ProcessInstance pi = getProcessInstance(targetProcessID);
-		for (String evt : BPMNUtils.getCallableEvents(pi)) {
+		for (String evt : pi.getCallableEvents()) {
 			if (evt.equals(message_id)) {
 				pi.signalEvent(message_id, input);
 				return true;
@@ -115,17 +150,15 @@ public abstract class AbstractKnowledgeBase implements ISallyWorkflowManager{
 	@Override
 	public ProcessInstance prepareProcess(Long parentProcessInstanceID,
 			String processID) {
-		ProcessInstance pi =getSession().createProcessInstance(processID, new HashMap<String, Object>());
-
+		ProcessInstance pi =new JBPMProcessInstance(getSession().createProcessInstance(processID, new HashMap<String, Object>()));
 		addRelation(parentProcessInstanceID, pi.getId());
-
 		return pi;
 	}
 	
 	@Override
 	public ProcessInstance prepareProcess(Long parentProcessInstanceID,
 			String processID, Map<String, Object> obj) {
-		ProcessInstance pi =getSession().createProcessInstance(processID, obj);
+		ProcessInstance pi =new JBPMProcessInstance(getSession().createProcessInstance(processID, obj));
 
 		addRelation(parentProcessInstanceID, pi.getId());
 
@@ -135,7 +168,7 @@ public abstract class AbstractKnowledgeBase implements ISallyWorkflowManager{
 	public ProcessInstance startProcess(Long parentProcessInstanceID,
 			String processID) {
 
-		ProcessInstance pi = getSession().createProcessInstance(processID, new HashMap<String, Object>());
+		ProcessInstance pi = new JBPMProcessInstance(getSession().createProcessInstance(processID, new HashMap<String, Object>()));
 
 		addRelation(parentProcessInstanceID, pi.getId());
 		
@@ -147,7 +180,7 @@ public abstract class AbstractKnowledgeBase implements ISallyWorkflowManager{
 	@Override
 	public ProcessInstance startProcess(Long parentProcessInstanceID,
 			String processID, Map<String, Object> obj) {
-		ProcessInstance pi = getSession().createProcessInstance(processID, obj);
+		ProcessInstance pi = new JBPMProcessInstance(getSession().createProcessInstance(processID, obj));
 
 		addRelation(parentProcessInstanceID, pi.getId());
 		
@@ -159,13 +192,12 @@ public abstract class AbstractKnowledgeBase implements ISallyWorkflowManager{
 	public ProcessInstance getProcessInstance(Long processinstanceID) {
 		if (processinstanceID == null)
 			return null;
-
-		return getSession().getProcessInstance(processinstanceID);
+		return new JBPMProcessInstance(getSession().getProcessInstance(processinstanceID));
 	}
 
 	@Override
 	public void registerWorkItemHandler(String Name, WorkItemHandler handler) {
-		getSession().getWorkItemManager().registerWorkItemHandler(Name, handler);
+		getSession().getWorkItemManager().registerWorkItemHandler(Name, new JBPMWorkItemHandlerAdapter(handler, this));
 	}
 
 }

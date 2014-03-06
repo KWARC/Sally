@@ -25,12 +25,6 @@
 
 		<dependency>
 			<groupId>info.kwarc.sally</groupId>
-			<artifactId>sally_jbpm</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-			<groupId>info.kwarc.sally</groupId>
 			<artifactId>sally_sharejs</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
@@ -67,7 +61,7 @@
     	<artifactId>antlr</artifactId>
     	<version>3.4</version>
 		</dependency>
-		
+		 
 		<dependency>
 			<groupId>psf</groupId>
 			<artifactId>psf</artifactId>

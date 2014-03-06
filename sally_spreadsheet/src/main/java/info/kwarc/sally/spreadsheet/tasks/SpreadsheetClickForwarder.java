@@ -4,14 +4,14 @@ import info.kwarc.sally.core.theo.Coordinates;
 import info.kwarc.sally.core.theo.IPositionProvider;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.core.workflow.SallyTask;
+import info.kwarc.sally.core.workflow.WorkItem;
+import info.kwarc.sally.core.workflow.WorkItemHandler;
+import info.kwarc.sally.core.workflow.WorkItemManager;
+import info.kwarc.sally.core.workflow.WorkflowUtils;
 import info.kwarc.sally.spreadsheet.SpreadsheetDocument;
-import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 
 import java.util.Map;
 
-import org.drools.process.instance.WorkItemHandler;
-import org.drools.runtime.process.WorkItem;
-import org.drools.runtime.process.WorkItemManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,10 +36,10 @@ public class SpreadsheetClickForwarder implements WorkItemHandler {
 
 	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
-		AlexClick msg = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), AlexClick.class);
-		Map<String, Object> variables = HandlerUtils.getProcessVariables(kb.getProcessInstance(workItem.getProcessInstanceId()));
+		AlexClick msg = workItem.getFirstTypedParameter(AlexClick.class);
+		Map<String, Object> variables = workItem.getProcessVariables();
 		
-		SpreadsheetDocument doc = HandlerUtils.getFirstTypedParameter(variables, SpreadsheetDocument.class);
+		SpreadsheetDocument doc = WorkflowUtils.getFirstTypedParameter(variables, SpreadsheetDocument.class);
 		try {
 			if (msg == null)
 				throw new Exception("No click to forward");
@@ -54,7 +54,7 @@ public class SpreadsheetClickForwarder implements WorkItemHandler {
 			e.printStackTrace();
 			log.error(e.getMessage());
 		} finally {
-			manager.completeWorkItem(workItem.getId(), workItem.getResults());
+			manager.completeWorkItem(workItem);
 		}
 	}
 

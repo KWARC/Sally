@@ -1,7 +1,7 @@
 package info.kwarc.sally.spreadsheet3.verification;
 
-import info.kwarc.sally.spreadsheet3.Util;
 import info.kwarc.sally.spreadsheet3.FormalSpreadsheet;
+import info.kwarc.sally.spreadsheet3.Util;
 import info.kwarc.sally.spreadsheet3.model.Block;
 import info.kwarc.sally.spreadsheet3.model.CellSpaceInformation;
 import info.kwarc.sally.spreadsheet3.model.CellTuple;

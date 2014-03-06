@@ -3,11 +3,10 @@ package info.kwarc.sally.tasks;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.core.workflow.MessageForward;
 import info.kwarc.sally.core.workflow.SallyTask;
-import info.kwarc.sissi.bpm.tasks.HandlerUtils;
+import info.kwarc.sally.core.workflow.WorkItem;
+import info.kwarc.sally.core.workflow.WorkItemHandler;
+import info.kwarc.sally.core.workflow.WorkItemManager;
 
-import org.drools.process.instance.WorkItemHandler;
-import org.drools.runtime.process.WorkItem;
-import org.drools.runtime.process.WorkItemManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +31,7 @@ public class ForwardToParent implements WorkItemHandler {
 
 	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
-		MessageForward msg = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), MessageForward.class);
+		MessageForward msg = workItem.getFirstTypedParameter(MessageForward.class);
 		try {
 			if (msg == null)
 				throw new Exception("No MessageForward input given");
@@ -43,7 +42,7 @@ public class ForwardToParent implements WorkItemHandler {
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		} finally {
-			manager.completeWorkItem(workItem.getId(), null);
+			manager.completeWorkItem(workItem);
 		}
 	}
 }

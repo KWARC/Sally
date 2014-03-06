@@ -4,11 +4,10 @@ import info.kwarc.sally.core.doc.DocumentInformation;
 import info.kwarc.sally.core.doc.DocumentManager;
 import info.kwarc.sally.core.theo.Theo;
 import info.kwarc.sally.core.workflow.SallyTask;
-import info.kwarc.sissi.bpm.tasks.HandlerUtils;
+import info.kwarc.sally.core.workflow.WorkItem;
+import info.kwarc.sally.core.workflow.WorkItemHandler;
+import info.kwarc.sally.core.workflow.WorkItemManager;
 
-import org.drools.process.instance.WorkItemHandler;
-import org.drools.runtime.process.WorkItem;
-import org.drools.runtime.process.WorkItemManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,8 +27,8 @@ public class TheoFXWindowUpdate implements WorkItemHandler{
 
 	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
-		String url = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), String.class);
-		Integer window = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), Integer.class);
+		String url = workItem.getFirstTypedParameter(String.class);
+		Integer window = workItem.getFirstTypedParameter(Integer.class);
 		DocumentInformation docInfo = docManager.getDocumentInformation(workItem);
 		
 		try {
@@ -41,7 +40,7 @@ public class TheoFXWindowUpdate implements WorkItemHandler{
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			manager.completeWorkItem(workItem.getId(), workItem.getResults());
+			manager.completeWorkItem(workItem);
 		}
 	}
 

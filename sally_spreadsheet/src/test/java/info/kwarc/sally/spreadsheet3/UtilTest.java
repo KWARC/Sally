@@ -1,6 +1,6 @@
 package info.kwarc.sally.spreadsheet3;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import info.kwarc.sally.spreadsheet3.model.CellSpaceInformation;
 import info.kwarc.sally.spreadsheet3.model.Manager;
 import info.kwarc.sally.spreadsheet3.model.RangeInformation;

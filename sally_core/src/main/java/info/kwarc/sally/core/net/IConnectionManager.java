@@ -2,6 +2,7 @@ package info.kwarc.sally.core.net;
 
 import com.google.protobuf.AbstractMessage;
 
+
 /**
  * This interface is the main gateway for passing messages from 
  * networking frameworks to/from Sally. 

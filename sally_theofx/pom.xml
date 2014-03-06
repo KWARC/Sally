@@ -16,11 +16,6 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>info.kwarc.sally</groupId>
-			<artifactId>sally_jbpm</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			<groupId>sun.java</groupId>
 			<artifactId>jfxrt</artifactId>
 			<version>2.0</version>

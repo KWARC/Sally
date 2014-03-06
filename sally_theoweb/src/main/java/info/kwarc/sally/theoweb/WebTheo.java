@@ -1,9 +1,9 @@
 package info.kwarc.sally.theoweb;
 
+import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.doc.DocumentInformation;
 import info.kwarc.sally.core.interaction.CallbackManager;
 import info.kwarc.sally.core.interaction.IMessageCallback;
-import info.kwarc.sally.core.interaction.SallyMenuItem;
 import info.kwarc.sally.core.theo.CookieProvider;
 import info.kwarc.sally.core.theo.Coordinates;
 import info.kwarc.sally.core.theo.ScreenCoordinatesProvider;

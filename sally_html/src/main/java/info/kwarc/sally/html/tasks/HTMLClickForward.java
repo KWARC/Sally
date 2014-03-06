@@ -4,14 +4,14 @@ import info.kwarc.sally.core.theo.Coordinates;
 import info.kwarc.sally.core.theo.IPositionProvider;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.core.workflow.SallyTask;
+import info.kwarc.sally.core.workflow.WorkItem;
+import info.kwarc.sally.core.workflow.WorkItemHandler;
+import info.kwarc.sally.core.workflow.WorkItemManager;
+import info.kwarc.sally.core.workflow.WorkflowUtils;
 import info.kwarc.sally.html.HTMLDocument;
-import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 
 import java.util.Map;
 
-import org.drools.process.instance.WorkItemHandler;
-import org.drools.runtime.process.WorkItem;
-import org.drools.runtime.process.WorkItemManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,10 +37,10 @@ public class HTMLClickForward implements WorkItemHandler {
 
 	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
-		HTMLSelect msg = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), HTMLSelect.class);
-		Map<String, Object> variables = HandlerUtils.getProcessVariables(kb.getProcessInstance(workItem.getProcessInstanceId()));
-		
-		HTMLDocument doc = HandlerUtils.getFirstTypedParameter(variables, HTMLDocument.class);
+		HTMLSelect msg = workItem.getFirstTypedParameter(HTMLSelect.class);
+		Map<String, Object> variables = workItem.getProcessVariables();
+
+		HTMLDocument doc = WorkflowUtils.getFirstTypedParameter(variables, HTMLDocument.class);
 		try {
 			if (msg == null)
 				throw new Exception("No click to forward");
@@ -55,7 +55,7 @@ public class HTMLClickForward implements WorkItemHandler {
 			e.printStackTrace();
 			log.error(e.getMessage());
 		} finally {
-			manager.completeWorkItem(workItem.getId(), workItem.getResults());
+			manager.completeWorkItem(workItem);
 		}
 	}
 

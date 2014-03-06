@@ -16,6 +16,7 @@
 		<module>sally_planetary</module>
 		<module>sally_theofx</module>
 		<module>sally_net</module>
+		<module>sally_basic_workflows</module>
 		<module>sally_spreadsheet</module>
 		<module>sally_cad</module>
 		<module>sally_def_lookup</module>
@@ -26,6 +27,8 @@
 		<module>sally_theoweb</module>
 		<module>sally_jedit</module>
 		<module>sally_pivoter</module>
+		<module>sally_cometd</module>
+		<module>sally_stomp</module>
 		<!-- <module>sally_jedit</module> <module>sally_projects</module> <module>sally_theoxul</module> -->
 		<module>sally_jbpm</module>
 		<module>sally_test</module>
@@ -62,6 +65,12 @@
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-assistedinject</artifactId>
+			<version>3.0</version>
+		</dependency>
+		
+			<dependency>
+			<groupId>com.google.inject.extensions</groupId>
+			<artifactId>guice-multibindings</artifactId>
 			<version>3.0</version>
 		</dependency>
 

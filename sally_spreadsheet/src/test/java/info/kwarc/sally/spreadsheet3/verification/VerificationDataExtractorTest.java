@@ -1,6 +1,7 @@
 package info.kwarc.sally.spreadsheet3.verification;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import info.kwarc.sally.spreadsheet3.Util;
 import info.kwarc.sally.spreadsheet3.WinogradData;
 import info.kwarc.sally.spreadsheet3.model.Block;

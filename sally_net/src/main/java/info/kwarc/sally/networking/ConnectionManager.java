@@ -3,11 +3,10 @@ package info.kwarc.sally.networking;
 import info.kwarc.sally.core.net.IConnectionManager;
 import info.kwarc.sally.core.net.INetworkSender;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
-import info.kwarc.sissi.bpm.BPMNUtils;
+import info.kwarc.sally.core.workflow.ProcessInstance;
 
 import java.util.HashMap;
 
-import org.drools.runtime.process.ProcessInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,7 +68,7 @@ public class ConnectionManager implements IConnectionManager {
 			log.debug("Client "+clientID+" does not have an active session. Ignoring.");
 			return;
 		}
-		BPMNUtils.sendMessageOrForward(0L, sess, type, data);
+		sess.sendMessageOrForward(0L, type, data);
 	}
 	
 	/* (non-Javadoc)

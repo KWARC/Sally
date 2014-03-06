@@ -2,8 +2,8 @@ package info.kwarc.sally.html.pages;
 
 import info.kwarc.sally.core.doc.DocumentManager;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
+import info.kwarc.sally.core.workflow.ProcessInstance;
 import info.kwarc.sally.networking.TemplateEngine;
-import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +12,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 
-import org.drools.runtime.process.ProcessInstance;
 import org.slf4j.Logger;
 
 import com.google.inject.Inject;
@@ -37,7 +36,7 @@ public class HTMLNavigatePage {
 	public String get(@QueryParam("id") String _pid){
 		Long pid = Long.parseLong(_pid);
 		ProcessInstance pi = kb.getProcessInstance(pid);
-		Map<String, Object> vars = HandlerUtils.getProcessVariables(pi);
+		Map<String, Object> vars = pi.getProcessVariables();
 		HashMap<String, Object> input = new HashMap<String, Object>();
 		input.putAll(vars);;
 		input.put("pid", pid);

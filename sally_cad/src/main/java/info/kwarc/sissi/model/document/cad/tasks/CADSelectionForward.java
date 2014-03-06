@@ -1,15 +1,13 @@
 package info.kwarc.sissi.model.document.cad.tasks;
 
-import java.util.PriorityQueue;
-
 import info.kwarc.sally.core.theo.Coordinates;
 import info.kwarc.sally.core.theo.ScreenCoordinatesProvider;
 import info.kwarc.sally.core.workflow.SallyTask;
-import info.kwarc.sissi.bpm.tasks.HandlerUtils;
+import info.kwarc.sally.core.workflow.WorkItem;
+import info.kwarc.sally.core.workflow.WorkItemHandler;
+import info.kwarc.sally.core.workflow.WorkItemManager;
 
-import org.drools.process.instance.WorkItemHandler;
-import org.drools.runtime.process.WorkItem;
-import org.drools.runtime.process.WorkItemManager;
+import java.util.PriorityQueue;
 
 import sally.CADAlexClick;
 import sally.ScreenCoordinates;
@@ -44,13 +42,13 @@ public class CADSelectionForward implements WorkItemHandler {
 	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
 		try {
-			CADAlexClick click = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), CADAlexClick.class);
+			CADAlexClick click = workItem.getFirstTypedParameter(CADAlexClick.class);
 			ScreenCoordinates pos = click.getPosition();
 			coordProvider.setRecommendedCoordinates(new Coordinates(pos.getX(), pos.getY()));
 		} catch (Exception e) {
 			
 		} finally {
-			manager.completeWorkItem(workItem.getId(), workItem.getResults());
+			manager.completeWorkItem(workItem);
 		}
 	}
 

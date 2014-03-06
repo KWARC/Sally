@@ -1,12 +1,12 @@
 package info.kwarc.sally;
 
+import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.composition.SallyContext;
 import info.kwarc.sally.core.composition.SallyInteraction;
 import info.kwarc.sally.core.composition.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.composition.SallyService;
 import info.kwarc.sally.core.doc.DocumentInformation;
 import info.kwarc.sally.core.doc.DocumentManager;
-import info.kwarc.sally.core.interaction.SallyMenuItem;
 import info.kwarc.sally.core.rdf.RDFStore;
 import info.kwarc.sally.core.theo.Theo;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;

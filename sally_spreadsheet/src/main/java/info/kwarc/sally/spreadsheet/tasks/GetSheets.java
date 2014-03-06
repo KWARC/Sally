@@ -4,13 +4,12 @@ import info.kwarc.sally.core.doc.DocumentInformation;
 import info.kwarc.sally.core.doc.DocumentManager;
 import info.kwarc.sally.core.interaction.CallbackManager;
 import info.kwarc.sally.core.workflow.SallyTask;
+import info.kwarc.sally.core.workflow.WorkItem;
+import info.kwarc.sally.core.workflow.WorkItemHandler;
+import info.kwarc.sally.core.workflow.WorkItemManager;
 import info.kwarc.sally.sharejs.models.SpreadsheetModel;
 import info.kwarc.sally.spreadsheet.SpreadsheetDocument;
-import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 
-import org.drools.process.instance.WorkItemHandler;
-import org.drools.runtime.process.WorkItem;
-import org.drools.runtime.process.WorkItemManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,7 +36,7 @@ public class GetSheets implements WorkItemHandler  {
 
 	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
-		final sally.GetSheets gm = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), sally.GetSheets.class);
+		final sally.GetSheets gm = workItem.getFirstTypedParameter(sally.GetSheets.class);
 		log.info("Create Blocks "+gm);
 		try {
 			if (gm == null)
@@ -62,7 +61,7 @@ public class GetSheets implements WorkItemHandler  {
 			e.printStackTrace();
 			log.error(e.getMessage());
 		} finally {
-			manager.completeWorkItem(workItem.getId(), workItem.getResults());
+			manager.completeWorkItem(workItem);
 		}
 
 	}

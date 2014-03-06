@@ -4,14 +4,13 @@ import info.kwarc.sally.core.interaction.CallbackManager;
 import info.kwarc.sally.core.interaction.IMessageCallback;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.theofx.ui.TheoWindow;
-import info.kwarc.sissi.bpm.BPMNUtils;
-import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 import javafx.scene.web.WebEngine;
 import netscape.javascript.JSObject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import sally_comm.MessageUtils;
 import sally_comm.ProtoUtils;
 
 import com.google.inject.Inject;
@@ -94,14 +93,14 @@ public class TheoApp {
 		if (callback != null) {
 			Long callbackID = callbackManager.registerCallback(new CallbackRunner(new Long(callback)));
 			
-			absMsg = HandlerUtils.setCallbackTokenToMessage(absMsg, callbackID);
+			absMsg = MessageUtils.setCallbackTokenToMessage(absMsg, callbackID);
 		}
 
 		if (absMsg == null) {
 			log.info("could not deserialize "+msg);
 		}
 		
-		BPMNUtils.sendMessageOrForward(processInstanceID, kb.getProcessInstance(processInstanceID), absMsg);
+		kb.getProcessInstance(processInstanceID).sendMessageOrForward(processInstanceID, absMsg);
 	}
 
 	//	//This guy sends the above result back to Communication.sendMessage from communication.js

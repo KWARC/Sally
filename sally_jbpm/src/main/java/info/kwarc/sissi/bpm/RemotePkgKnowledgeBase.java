@@ -1,5 +1,7 @@
 package info.kwarc.sissi.bpm;
 
+import info.kwarc.sally.core.workflow.WorkItemHandler;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,10 +13,7 @@ import org.drools.io.ResourceFactory;
 import org.drools.io.impl.UrlResource;
 import org.drools.logger.KnowledgeRuntimeLogger;
 import org.drools.logger.KnowledgeRuntimeLoggerFactory;
-import org.drools.process.instance.WorkItemHandler;
 import org.drools.runtime.StatefulKnowledgeSession;
-import org.drools.runtime.process.WorkItem;
-import org.drools.runtime.process.WorkItemManager;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -58,28 +57,7 @@ public class RemotePkgKnowledgeBase extends AbstractKnowledgeBase {
 	public void init() {
 		kb = kbuilder.newKnowledgeBase();
 		ksession = kb.newStatefulKnowledgeSession();
-
-		for (final String taskName : handlerClasses.keySet()) {
-			ksession.getWorkItemManager().registerWorkItemHandler(taskName, new org.drools.runtime.process.WorkItemHandler() {
-				
-				@Override
-				public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
-					if (!handlerInstances.containsKey(taskName)) {
-						handlerInstances.put(taskName, injector.getInstance(handlerClasses.get(taskName)));
-					}
-					handlerInstances.get(taskName).executeWorkItem(workItem, manager);
-				}
-				
-				@Override
-				public void abortWorkItem(WorkItem workItem, WorkItemManager manager) {
-					if (!handlerInstances.containsKey(taskName)) {
-						handlerInstances.put(taskName, injector.getInstance(handlerClasses.get(taskName)));
-					}
-					handlerInstances.get(taskName).executeWorkItem(workItem, manager);
-				}
-			});
-		}
-
+		registerTasks(ksession, handlerClasses, handlerInstances, injector);
 		klogger = KnowledgeRuntimeLoggerFactory.newThreadedFileLogger(ksession, "session", 500);
 	}
 

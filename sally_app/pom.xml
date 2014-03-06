@@ -78,6 +78,24 @@
 		
 		<dependency>
 			<groupId>info.kwarc.sally</groupId>
+			<artifactId>sally_basic_workflows</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>info.kwarc.sally</groupId>
+			<artifactId>sally_cometd</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>		
+
+		<dependency>
+			<groupId>info.kwarc.sally</groupId>
+			<artifactId>sally_stomp</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>		
+		
+		<dependency>
+			<groupId>info.kwarc.sally</groupId>
 			<artifactId>sally_projects</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>

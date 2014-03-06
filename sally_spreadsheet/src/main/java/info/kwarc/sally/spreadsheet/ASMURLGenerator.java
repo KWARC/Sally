@@ -1,10 +1,10 @@
 package info.kwarc.sally.spreadsheet;
 
 import info.kwarc.sally.core.workflow.SallyTask;
+import info.kwarc.sally.core.workflow.WorkItem;
+import info.kwarc.sally.core.workflow.WorkItemHandler;
+import info.kwarc.sally.core.workflow.WorkItemManager;
 
-import org.drools.process.instance.WorkItemHandler;
-import org.drools.runtime.process.WorkItem;
-import org.drools.runtime.process.WorkItemManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,8 +20,8 @@ public class ASMURLGenerator implements WorkItemHandler {
 	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
 		log.info("Executing generate");
-		workItem.getResults().put("URLOutput", "http://localhost:8181/sally/asmeditor?pid="+workItem.getProcessInstanceId());
-		manager.completeWorkItem(workItem.getId(), workItem.getResults());
+		workItem.addResult("URLOutput", "http://localhost:8181/sally/asmeditor?pid="+workItem.getProcessInstanceId());
+		manager.completeWorkItem(workItem);
 	}
 
 	@Override

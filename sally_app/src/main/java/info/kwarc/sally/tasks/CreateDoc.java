@@ -6,22 +6,22 @@ import info.kwarc.sally.core.doc.DocumentManager;
 import info.kwarc.sally.core.net.INetworkSender;
 import info.kwarc.sally.core.theo.Theo;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
+import info.kwarc.sally.core.workflow.ProcessInstance;
 import info.kwarc.sally.core.workflow.SallyTask;
+import info.kwarc.sally.core.workflow.WorkItem;
+import info.kwarc.sally.core.workflow.WorkItemHandler;
+import info.kwarc.sally.core.workflow.WorkItemManager;
+import info.kwarc.sally.core.workflow.WorkflowUtils;
 import info.kwarc.sally.html.HTMLFactory;
 import info.kwarc.sally.projects.ProjectFactory;
 import info.kwarc.sally.sketch.SketchFactory;
 import info.kwarc.sally.spreadsheet.interfaces.WorksheetFactory;
-import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 import info.kwarc.sissi.model.document.cad.interfaces.CADFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.codec.binary.Base64;
-import org.drools.process.instance.WorkItemHandler;
-import org.drools.runtime.process.ProcessInstance;
-import org.drools.runtime.process.WorkItem;
-import org.drools.runtime.process.WorkItemManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,16 +67,15 @@ public class CreateDoc implements WorkItemHandler {
 
 	@Override
 	public void abortWorkItem(WorkItem workItem, WorkItemManager manager) {
-		manager.completeWorkItem(workItem.getId(), null);
 	}
 	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
-		WhoAmI alexInfo = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), WhoAmI.class);
-		AlexData alexData = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), AlexData.class);
-		Theo theo = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), Theo.class);;
+		WhoAmI alexInfo = workItem.getFirstTypedParameter(WhoAmI.class);
+		AlexData alexData = workItem.getFirstTypedParameter(AlexData.class);
+		Theo theo = workItem.getFirstTypedParameter(Theo.class);;
 		
-		Map<String, Object> variable = HandlerUtils.getProcessVariables(kb.getProcessInstance(workItem.getProcessInstanceId()));
-		INetworkSender networkSender = HandlerUtils.safeGet(variable, "NetworkSender", INetworkSender.class);		
+		Map<String, Object> variable = kb.getProcessInstance(workItem.getProcessInstanceId()).getProcessVariables();
+		INetworkSender networkSender = WorkflowUtils.safeGet(variable, "NetworkSender", INetworkSender.class);		
 		try{
 			if (networkSender == null)
 				throw new Exception("No network sender available.");
@@ -150,7 +149,7 @@ public class CreateDoc implements WorkItemHandler {
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		} finally {
-			manager.completeWorkItem(workItem.getId(), null);
+			manager.completeWorkItem(workItem);
 		}
 	}
 }

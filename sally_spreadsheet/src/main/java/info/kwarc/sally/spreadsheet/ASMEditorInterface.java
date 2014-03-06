@@ -1,10 +1,12 @@
 package info.kwarc.sally.spreadsheet;
 
 import freemarker.template.TemplateException;
+import info.kwarc.sally.core.doc.DocumentManager;
+import info.kwarc.sally.core.net.INetworkSender;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
-import info.kwarc.sally.networking.CometDSendRequest;
+import info.kwarc.sally.core.workflow.ProcessInstance;
+import info.kwarc.sally.core.workflow.WorkflowUtils;
 import info.kwarc.sally.networking.TemplateEngine;
-import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -16,7 +18,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 
-import org.drools.runtime.process.ProcessInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,11 +34,13 @@ public class ASMEditorInterface {
 	Logger log;
 	ISallyWorkflowManager kb;
 	TemplateEngine templ;
+	DocumentManager docManager;
 
 	@Inject
-	public ASMEditorInterface(ISallyWorkflowManager kb, TemplateEngine templ) {
+	public ASMEditorInterface(ISallyWorkflowManager kb, TemplateEngine templ, DocumentManager docManager) {
 		log = LoggerFactory.getLogger(ASMEditorInterface.class);
 		this.kb = kb;
+		this.docManager = docManager;
 		this.templ = templ;
 	}
 
@@ -47,13 +50,13 @@ public class ASMEditorInterface {
 		if (pi == null) {
 			return "invalid session";
 		}
-		
-		Map<String, Object> vars = HandlerUtils.getProcessVariables(pi);
+
+		Map<String, Object> vars = pi.getProcessVariables();
 		if (vars == null ){
 			return "invalid session";
 		}
 
-		RangeSelection cellPosition = HandlerUtils.getFirstTypedParameter(vars, RangeSelection.class);
+		RangeSelection cellPosition = WorkflowUtils.getFirstTypedParameter(vars, RangeSelection.class);
 		if (cellPosition == null) {
 			return "session did not provide a valid cell range";
 		}
@@ -61,7 +64,7 @@ public class ASMEditorInterface {
 		Map<String, Object> templateData = new HashMap<String, Object>();
 		templateData.put("WorksheetName", "pipe-end.xls");
 		templateData.put("SheetNames", new String[]{"sheet1", "sheet2"});
-		
+
 		templateData.put("Sheet", cellPosition.getSheet());
 		templateData.put("StartRow", Integer.toString(cellPosition.getStartRow()));
 		templateData.put("StartCol", Integer.toString(cellPosition.getStartCol()));
@@ -78,25 +81,26 @@ public class ASMEditorInterface {
 		if (pi == null) {
 			return "invalid session";
 		}
-		
-		Map<String, Object> vars = HandlerUtils.getProcessVariables(pi);
+
+		Map<String, Object> vars = pi.getProcessVariables();
 		if (vars == null ){
 			return "session has no variables";
 		}
 
-		RangeSelection cellPosition = HandlerUtils.getFirstTypedParameter(vars, RangeSelection.class);
+		RangeSelection cellPosition = WorkflowUtils.getFirstTypedParameter(vars, RangeSelection.class);
 		if (cellPosition == null) {
 			return "session did not provide a valid cell range";
 		}
-		
-		SpreadsheetDocument doc = HandlerUtils.getFirstTypedParameter(vars, SpreadsheetDocument.class);
+
+		SpreadsheetDocument doc = WorkflowUtils.getFirstTypedParameter(vars, SpreadsheetDocument.class);
 		if (doc == null) {
 			return "not document found";
 		}
-		
+
+		INetworkSender sender = docManager.getDocumentInformation(pi.getId()).getNetworkSender();
 		AlexRangeRequest rangeRequest = AlexRangeRequest.newBuilder().setFileName(doc.getFilePath()).addSelection(cellPosition).build();
-		kb.propagateParentMessage(processInstanceID, "Message-onSendMessage", new CometDSendRequest("/service/get/data", rangeRequest));
-		
+		sender.sendMessage("/service/get/data", rangeRequest);
+
 		return "ok";
 	}
 }

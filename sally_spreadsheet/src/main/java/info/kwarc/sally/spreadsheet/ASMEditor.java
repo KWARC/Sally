@@ -1,16 +1,16 @@
 package info.kwarc.sally.spreadsheet;
 
+import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.composition.SallyContext;
 import info.kwarc.sally.core.composition.SallyInteractionResultAcceptor;
 import info.kwarc.sally.core.composition.SallyService;
-import info.kwarc.sally.core.interaction.SallyMenuItem;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
-import info.kwarc.sissi.bpm.tasks.HandlerUtils;
+import info.kwarc.sally.core.workflow.ProcessInstance;
+import info.kwarc.sally.core.workflow.WorkflowUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.drools.runtime.process.ProcessInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,9 +34,9 @@ public class ASMEditor {
 		final Long processInstanceID = context.getContextVar("processInstanceId", Long.class);
 
 		ProcessInstance pi = kb.getProcessInstance(processInstanceID);
-		Map<String, Object> vars = HandlerUtils.getProcessVariables(pi);
+		Map<String, Object> vars = pi.getProcessVariables();
 
-		final SpreadsheetDocument doc = HandlerUtils.getFirstTypedParameter(vars, SpreadsheetDocument.class);
+		final SpreadsheetDocument doc = WorkflowUtils.getFirstTypedParameter(vars, SpreadsheetDocument.class);
 		if (doc == null) {
 			log.warn("No variables attached to process "+processInstanceID);
 			return;

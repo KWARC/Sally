@@ -1,10 +1,9 @@
 package info.kwarc.sally.bpm.tasks;
 
-import info.kwarc.sissi.bpm.tasks.HandlerUtils;
+import info.kwarc.sally.core.workflow.WorkItem;
+import info.kwarc.sally.core.workflow.WorkItemHandler;
+import info.kwarc.sally.core.workflow.WorkItemManager;
 
-import org.drools.process.instance.WorkItemHandler;
-import org.drools.runtime.process.WorkItem;
-import org.drools.runtime.process.WorkItemManager;
 import org.junit.Assert;
 
 public class TestInputTypeHandler implements WorkItemHandler {
@@ -23,15 +22,15 @@ public class TestInputTypeHandler implements WorkItemHandler {
 
 	@Override
 	public void abortWorkItem(WorkItem workItem, WorkItemManager manager) {
-		manager.completeWorkItem(workItem.getId(), null);
+		manager.completeWorkItem(workItem);
 	}
 
 	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
-		Object result = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), inputType);
+		Object result = workItem.getFirstTypedParameter(inputType);
 		if (result == null) {
 			Assert.fail("No input of type "+inputType+" was given to "+workItem);
 		}
-		manager.completeWorkItem(workItem.getId(), null);
+		manager.completeWorkItem(workItem);
 	}
 }

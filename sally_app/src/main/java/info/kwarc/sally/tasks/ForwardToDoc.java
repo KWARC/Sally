@@ -5,14 +5,14 @@ import info.kwarc.sally.core.doc.DocumentManager;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.core.workflow.MessageForward;
 import info.kwarc.sally.core.workflow.SallyTask;
-import info.kwarc.sissi.bpm.BPMNUtils;
-import info.kwarc.sissi.bpm.tasks.HandlerUtils;
+import info.kwarc.sally.core.workflow.WorkItem;
+import info.kwarc.sally.core.workflow.WorkItemHandler;
+import info.kwarc.sally.core.workflow.WorkItemManager;
 
-import org.drools.process.instance.WorkItemHandler;
-import org.drools.runtime.process.WorkItem;
-import org.drools.runtime.process.WorkItemManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import sally_comm.MessageUtils;
 
 import com.google.inject.Inject;
 import com.google.protobuf.AbstractMessage;
@@ -38,14 +38,14 @@ public class ForwardToDoc implements WorkItemHandler {
 
 	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
-		MessageForward msg = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), MessageForward.class);
+		MessageForward msg = workItem.getFirstTypedParameter(MessageForward.class);
 		try {
 			if (!(msg.getData() instanceof AbstractMessage)) {
 				throw new Exception("Don't know how to forward objects of type "+msg.getData().getClass());
 			}
 
 			AbstractMessage absmsg = (AbstractMessage) msg.getData();
-			String fileName = HandlerUtils.getFileNameFromMessage(absmsg);
+			String fileName = MessageUtils.getFileNameFromMessage(absmsg);
 			if (fileName  == null) {
 				throw new Exception("No file name could be extracted from the forwarding message. Skipping.");
 			}
@@ -59,11 +59,11 @@ public class ForwardToDoc implements WorkItemHandler {
 				throw new Exception("No process ID corresponds to file name "+fileName);
 
 			System.out.println("Forwarded to process id="+pforward);
-			BPMNUtils.sendMessageOrForward(workItem.getProcessInstanceId(), kb.getProcessInstance(pforward), msg.getType(), msg.getData());
+			kb.getProcessInstance(pforward).sendMessageOrForward(workItem.getProcessInstanceId(), msg.getType(), msg.getData());
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		} finally {
-			manager.completeWorkItem(workItem.getId(), null);
+			manager.completeWorkItem(workItem);
 		}
 	}
 }

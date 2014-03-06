@@ -3,9 +3,6 @@ package info.kwarc.sally.core.workflow;
 import java.util.List;
 import java.util.Map;
 
-import org.drools.runtime.process.ProcessInstance;
-import org.drools.runtime.process.WorkItemHandler;
-
 public interface ISallyWorkflowManager {
 	ProcessInstance startProcess(Long parentProcessInstanceID, String processID);
 	ProcessInstance startProcess(Long parentProcessInstanceID, String processID, Map<String, Object> obj);

@@ -18,9 +18,7 @@ public class ProductionNetworking extends ServletModule {
 	protected void configureServlets() {
         bind(GuiceFilter.class).asEagerSingleton();
 
-        //bind(INetworkSenderAdapter.class).toProvider(CometD.class);
-        
-		install(new FactoryModuleBuilder()
+        install(new FactoryModuleBuilder()
 		.build(IConnectionPlayerFactory.class));	
 		
 		 // hook Jersey into Guice Servlet

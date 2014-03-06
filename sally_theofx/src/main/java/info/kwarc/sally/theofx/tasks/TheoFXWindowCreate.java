@@ -5,11 +5,10 @@ import info.kwarc.sally.core.doc.DocumentManager;
 import info.kwarc.sally.core.theo.ScreenCoordinatesProvider;
 import info.kwarc.sally.core.theo.Theo;
 import info.kwarc.sally.core.workflow.SallyTask;
-import info.kwarc.sissi.bpm.tasks.HandlerUtils;
+import info.kwarc.sally.core.workflow.WorkItem;
+import info.kwarc.sally.core.workflow.WorkItemHandler;
+import info.kwarc.sally.core.workflow.WorkItemManager;
 
-import org.drools.process.instance.WorkItemHandler;
-import org.drools.runtime.process.WorkItem;
-import org.drools.runtime.process.WorkItemManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +29,7 @@ public class TheoFXWindowCreate implements WorkItemHandler {
 	
 	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
-		String url = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), String.class);
+		String url = workItem.getFirstTypedParameter(String.class);
 		try {
 			if (url == null) 
 				throw new Exception("No URL given");
@@ -39,12 +38,12 @@ public class TheoFXWindowCreate implements WorkItemHandler {
 				throw new Exception("No document associated with this workflow");
 			Theo theo = docInfo.getTheo();
 			int theoOutput = theo.openWindow(docInfo, workItem.getProcessInstanceId(), "", url, 700, 600);
-			workItem.getResults().put("wndIDOutput", theoOutput);
+			workItem.addResult("wndIDOutput", theoOutput);
 		} catch (Exception e) {
 			log.error(e.getMessage());
 			e.printStackTrace();
 		} finally {
-			manager.completeWorkItem(workItem.getId(), workItem.getResults());
+			manager.completeWorkItem(workItem);
 		}
 	}
 

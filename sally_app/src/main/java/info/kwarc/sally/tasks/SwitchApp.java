@@ -2,15 +2,15 @@ package info.kwarc.sally.tasks;
 
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.core.workflow.SallyTask;
+import info.kwarc.sally.core.workflow.WorkItem;
+import info.kwarc.sally.core.workflow.WorkItemHandler;
+import info.kwarc.sally.core.workflow.WorkItemManager;
+import info.kwarc.sally.core.workflow.WorkflowUtils;
 import info.kwarc.sally.spreadsheet.SpreadsheetDocument;
-import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 import info.kwarc.sissi.model.document.cad.CADDocument;
 
 import java.util.Map;
 
-import org.drools.process.instance.WorkItemHandler;
-import org.drools.runtime.process.WorkItem;
-import org.drools.runtime.process.WorkItemManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,12 +30,12 @@ public class SwitchApp implements WorkItemHandler {
 	
 	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
-		String fileName = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), String.class);
+		String fileName = workItem.getFirstTypedParameter(String.class);
 		Long pid = workItem.getProcessInstanceId();
-		Map<String, Object> vars = HandlerUtils.getProcessVariables(kb.getProcessInstance(pid));
+		Map<String, Object> vars = workItem.getProcessVariables();
 		
-		SpreadsheetDocument wd = HandlerUtils.getFirstTypedParameter(vars, SpreadsheetDocument.class);
-		CADDocument cd = HandlerUtils.getFirstTypedParameter(vars, CADDocument.class);
+		SpreadsheetDocument wd = WorkflowUtils.getFirstTypedParameter(vars, SpreadsheetDocument.class);
+		CADDocument cd = WorkflowUtils.getFirstTypedParameter(vars, CADDocument.class);
 
 		try {
 			if (fileName == null)
@@ -50,7 +50,7 @@ public class SwitchApp implements WorkItemHandler {
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		} finally {
-			manager.completeWorkItem(workItem.getId(), workItem.getResults());
+			manager.completeWorkItem(workItem);
 		}
 	}
 

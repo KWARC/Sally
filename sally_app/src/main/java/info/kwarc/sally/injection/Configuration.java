@@ -9,9 +9,12 @@ import info.kwarc.sally.core.rdf.RDFStore;
 import info.kwarc.sally.core.theo.CookieProvider;
 import info.kwarc.sally.core.theo.IPositionProvider;
 import info.kwarc.sally.core.theo.ScreenCoordinatesProvider;
+import info.kwarc.sally.core.workflow.SubtaskCallbackMap;
 import info.kwarc.sally.html.injection.HTMLDocModule;
-import info.kwarc.sally.networking.CometD;
 import info.kwarc.sally.networking.ConnectionManager;
+import info.kwarc.sally.networking.IRequestHandler;
+import info.kwarc.sally.networking.cometd.CometD;
+import info.kwarc.sally.networking.stomp.StompServer;
 import info.kwarc.sally.pivot.PivotingService;
 import info.kwarc.sally.planetary.injection.PlanetaryModule;
 import info.kwarc.sally.projects.injection.ProjectDocModule;
@@ -21,10 +24,10 @@ import info.kwarc.sally.sketch.injection.SketchDocModule;
 import info.kwarc.sally.spreadsheet.injection.SpreadsheetModule;
 import info.kwarc.sally.theofx.injection.TheoFX;
 import info.kwarc.sally.theoweb.injection.WebTheoModule;
-import info.kwarc.sissi.bpm.SubtaskCallbackMap;
 import info.kwarc.sissi.model.document.cad.injection.CADModule;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.multibindings.Multibinder;
 import com.google.inject.name.Names;
 
 public class Configuration extends AbstractModule {
@@ -39,6 +42,10 @@ public class Configuration extends AbstractModule {
 		install(new SketchDocModule());
 		install(new HTMLDocModule());
 		install(new ProjectDocModule());
+		
+	    Multibinder<IRequestHandler> uriBinder = Multibinder.newSetBinder(binder(), IRequestHandler.class);
+	    uriBinder.addBinding().to(CometD.class);
+	    uriBinder.addBinding().to(StompServer.class);
 		
 		bind(CookieProvider.class);
 		bind(IPositionProvider.class).to(ScreenCoordinatesProvider.class);

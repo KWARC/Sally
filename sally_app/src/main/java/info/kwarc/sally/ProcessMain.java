@@ -1,12 +1,10 @@
 package info.kwarc.sally;
 
 import info.kwarc.sally.core.composition.SallyInteraction;
-import info.kwarc.sally.core.doc.DocumentInformation;
-import info.kwarc.sally.core.doc.DocumentManager;
 import info.kwarc.sally.core.net.IConnectionManager;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.injection.Configuration;
-import info.kwarc.sally.networking.CometD;
+import info.kwarc.sally.networking.SallyServer;
 import info.kwarc.sally.networking.Injection.ProductionNetworking;
 import info.kwarc.sally.networking.interfaces.MockNetworkSender;
 import info.kwarc.sally.pivot.PivotingService;
@@ -15,7 +13,11 @@ import info.kwarc.sally.service.def_lookup.DefinitionLookupService;
 import info.kwarc.sally.spreadsheet.ASMEditor;
 import info.kwarc.sissi.bpm.injection.ProductionLocalKnowledgeBase;
 import info.kwarc.sissi.bpm.injection.ProductionSallyActions;
+import sally.AlexClick;
 import sally.AlexData;
+import sally.RangeSelection;
+import sally.SallyFrame;
+import sally.ScreenCoordinates;
 import sally_comm.MessageUtils;
 
 import com.google.inject.Guice;
@@ -47,13 +49,12 @@ public class ProcessMain {
 		//kb.startProcess(null, "Sally.browse_ontology");
 		IConnectionManager conn = i.getInstance(IConnectionManager.class);
 
-		CometD cometD = i.getInstance(CometD.class);
-		cometD.start();
+		SallyServer sallyService = i.getInstance(SallyServer.class);
+		sallyService.start();
 
 		//ConnectionPlayer player = i.getInstance(IConnectionPlayerFactory.class).create(new FileReader("rec_spreadsheet.json"));
 		//player.start();
 
-		/*
 		conn.newClient("spread", new MockNetworkSender());
 				
 		conn.newMessage("spread", MessageUtils.createDesktopSpreadsheetAlex());
@@ -69,8 +70,8 @@ public class ProcessMain {
 
 		SallyFrame frame =  SallyFrame.newBuilder().setFileName(fileName).build();
 		conn.newMessage("spread", frame);
-*/
 
+		/*
 		conn.newClient("spread", new MockNetworkSender());
 		
 		conn.newMessage("spread", MessageUtils.createDesktopSpreadsheetAlex());
@@ -84,8 +85,6 @@ public class ProcessMain {
 		DocumentInformation docInfof = docMan.getDocumentInformation(fileName);
 		docInfof.getTheo().openWindow(docInfof, docInfof.getDocumentWorkflowID(), "Impact Analysis", "http://localhost/krane/impact.html", 500, 500);
 
-		/*
-		
 		conn.newClient("cad", new MockNetworkSender());
 		conn.newMessage("cad", MessageUtils.createDesktopCADAlex());
 

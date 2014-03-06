@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
-import org.drools.command.runtime.rule.GetAgendaEventListenersCommand;
 
 import sally.SpreadsheetAlexData;
 

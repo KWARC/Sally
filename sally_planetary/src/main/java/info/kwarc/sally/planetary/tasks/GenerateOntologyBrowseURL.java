@@ -2,11 +2,11 @@ package info.kwarc.sally.planetary.tasks;
 
 import info.kwarc.sally.core.theo.CookieProvider;
 import info.kwarc.sally.core.workflow.SallyTask;
+import info.kwarc.sally.core.workflow.WorkItem;
+import info.kwarc.sally.core.workflow.WorkItemHandler;
+import info.kwarc.sally.core.workflow.WorkItemManager;
 import info.kwarc.sally.planetary.Planetary;
 
-import org.drools.process.instance.WorkItemHandler;
-import org.drools.runtime.process.WorkItem;
-import org.drools.runtime.process.WorkItemManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,12 +31,12 @@ public class GenerateOntologyBrowseURL implements WorkItemHandler {
 		try {
 			cookieProvider.setCookies(planetary.getSessionCookie());
 			planetary.enable_sally("concept_sender");
-			workItem.getResults().put("URLOutput", planetary.getPlanetaryRoot());
+			workItem.addResult("URLOutput", planetary.getPlanetaryRoot());
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
 		} finally {
-			manager.completeWorkItem(workItem.getId(), workItem.getResults());
+			manager.completeWorkItem(workItem);
 		}
 	}
 

@@ -1,7 +1,7 @@
 package info.kwarc.sally.spreadsheet3.logic;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import info.kwarc.sally.spreadsheet3.model.Block;
 import info.kwarc.sally.spreadsheet3.model.BlockAtomic;
 import info.kwarc.sally.spreadsheet3.model.BlockComposed;

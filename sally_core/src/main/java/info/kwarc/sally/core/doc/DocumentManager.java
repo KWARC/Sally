@@ -1,10 +1,9 @@
 package info.kwarc.sally.core.doc;
 
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
+import info.kwarc.sally.core.workflow.WorkItem;
 
 import java.util.HashMap;
-
-import org.drools.runtime.process.WorkItem;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

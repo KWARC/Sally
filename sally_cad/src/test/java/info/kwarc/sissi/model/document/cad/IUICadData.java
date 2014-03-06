@@ -1,5 +1,4 @@
 package info.kwarc.sissi.model.document.cad;
-import info.kwarc.sissi.model.document.cad.ACMInterface;
 import sally.CADNode;
 import sally.Parameter;
 

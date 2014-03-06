@@ -1,23 +1,22 @@
 package info.kwarc.sally.spreadsheet.tasks;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import info.kwarc.sally.core.doc.DocumentInformation;
 import info.kwarc.sally.core.doc.DocumentManager;
 import info.kwarc.sally.core.interaction.CallbackManager;
 import info.kwarc.sally.core.workflow.SallyTask;
+import info.kwarc.sally.core.workflow.WorkItem;
+import info.kwarc.sally.core.workflow.WorkItemHandler;
+import info.kwarc.sally.core.workflow.WorkItemManager;
 import info.kwarc.sally.spreadsheet.SpreadsheetDocument;
 import info.kwarc.sally.spreadsheet3.Util;
 import info.kwarc.sally.spreadsheet3.model.Block;
 import info.kwarc.sally.spreadsheet3.model.CellDependencyDescription;
 import info.kwarc.sally.spreadsheet3.model.RangeInformation;
 import info.kwarc.sally.spreadsheet3.model.Relation;
-import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 
-import org.drools.process.instance.WorkItemHandler;
-import org.drools.runtime.process.WorkItem;
-import org.drools.runtime.process.WorkItemManager;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,7 +43,7 @@ public class CreateBlock implements WorkItemHandler  {
 
 	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
-		sally.CreateBlock cb = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), sally.CreateBlock.class);
+		sally.CreateBlock cb = workItem.getFirstTypedParameter(sally.CreateBlock.class);
 		log.info("Create Blocks "+cb);
 		try {
 			if (cb == null)
@@ -73,7 +72,7 @@ public class CreateBlock implements WorkItemHandler  {
 			e.printStackTrace();
 			log.error(e.getMessage());
 		} finally {
-			manager.completeWorkItem(workItem.getId(), workItem.getResults());
+			manager.completeWorkItem(workItem);
 		}
 
 	}

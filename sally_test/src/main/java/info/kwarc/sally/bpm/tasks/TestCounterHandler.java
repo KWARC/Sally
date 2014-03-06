@@ -1,8 +1,8 @@
 package info.kwarc.sally.bpm.tasks;
 
-import org.drools.process.instance.WorkItemHandler;
-import org.drools.runtime.process.WorkItem;
-import org.drools.runtime.process.WorkItemManager;
+import info.kwarc.sally.core.workflow.WorkItem;
+import info.kwarc.sally.core.workflow.WorkItemHandler;
+import info.kwarc.sally.core.workflow.WorkItemManager;
 
 public class TestCounterHandler implements WorkItemHandler {
 	int executed;
@@ -24,12 +24,12 @@ public class TestCounterHandler implements WorkItemHandler {
 	@Override
 	public void abortWorkItem(WorkItem workItem, WorkItemManager manager) {
 		aborted ++;
-		manager.completeWorkItem(workItem.getId(), null);
+		manager.completeWorkItem(workItem);
 	}
 
 	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
 		executed++;
-		manager.completeWorkItem(workItem.getId(), null);
+		manager.completeWorkItem(workItem);
 	}
 }

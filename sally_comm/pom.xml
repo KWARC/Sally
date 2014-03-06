@@ -39,23 +39,10 @@
 								</goals>
 							</execution>
 
-<!--
-							<execution>
-								<id>javascript</id>
-								<phase>generate-sources</phase>
-								<configuration>
-									<tasks>
-										<exec executable="pbj.exe">
-											<arg value="src/main/resources/common.proto" />
-											<arg value="target/sallycomm.js" />
-										</exec>
-									</tasks>
-								</configuration>
-								<goals>
-									<goal>run</goal>
-								</goals>
-							</execution>
--->
+							<!-- <execution> <id>javascript</id> <phase>generate-sources</phase> 
+								<configuration> <tasks> <exec executable="pbj.exe"> <arg value="src/main/resources/common.proto" 
+								/> <arg value="target/sallycomm.js" /> </exec> </tasks> </configuration> 
+								<goals> <goal>run</goal> </goals> </execution> -->
 						</executions>
 					</plugin>
 				</plugins>
@@ -175,7 +162,7 @@
 			<artifactId>protobuf-java</artifactId>
 			<version>2.5.0</version>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>

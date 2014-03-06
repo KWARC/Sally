@@ -2,11 +2,10 @@ package info.kwarc.sally.tasks;
 
 import info.kwarc.sally.core.theo.Theo;
 import info.kwarc.sally.core.workflow.SallyTask;
-import info.kwarc.sissi.bpm.tasks.HandlerUtils;
+import info.kwarc.sally.core.workflow.WorkItem;
+import info.kwarc.sally.core.workflow.WorkItemHandler;
+import info.kwarc.sally.core.workflow.WorkItemManager;
 
-import org.drools.process.instance.WorkItemHandler;
-import org.drools.runtime.process.WorkItem;
-import org.drools.runtime.process.WorkItemManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,12 +29,12 @@ public class InitTheo implements WorkItemHandler {
 
 	@Override
 	public void abortWorkItem(WorkItem workItem, WorkItemManager manager) {
-		manager.completeWorkItem(workItem.getId(), null);
+		manager.completeWorkItem(workItem);
 	}
 	
 	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
-		WhoAmI alexInfo = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), WhoAmI.class);
+		WhoAmI alexInfo = workItem.getFirstTypedParameter(WhoAmI.class);
 		try {
 			if (alexInfo == null) {
 				throw new Exception("Got no AlexInfo message");
@@ -43,9 +42,9 @@ public class InitTheo implements WorkItemHandler {
 			log.info(alexInfo.toString());
 
 			if (alexInfo.getEnvironmentType() == EnvironmentType.Desktop) {
-				workItem.getResults().put("TheoOutput", desktopTheo);				
+				workItem.addResult("TheoOutput", desktopTheo);				
 			} else if (alexInfo.getEnvironmentType() == EnvironmentType.Web) {
-				workItem.getResults().put("TheoOutput", webTheo);				
+				workItem.addResult("TheoOutput", webTheo);				
 			}
 			else {
 				throw new Exception("No Theo available for environment "+alexInfo.getEnvironmentType());
@@ -53,7 +52,7 @@ public class InitTheo implements WorkItemHandler {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			manager.completeWorkItem(workItem.getId(), workItem.getResults());
+			manager.completeWorkItem(workItem);
 		}
 	}
 }

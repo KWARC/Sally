@@ -1,12 +1,11 @@
 package info.kwarc.sally.spreadsheet3.logic;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import info.kwarc.sally.spreadsheet3.WinogradData;
+import info.kwarc.sally.spreadsheet3.model.Block;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import info.kwarc.sally.spreadsheet3.WinogradData;
-import info.kwarc.sally.spreadsheet3.model.Block;
 
 import org.junit.Before;
 import org.junit.Test;

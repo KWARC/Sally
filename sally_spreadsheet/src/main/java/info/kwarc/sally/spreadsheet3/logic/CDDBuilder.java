@@ -1,10 +1,10 @@
 package info.kwarc.sally.spreadsheet3.logic;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import info.kwarc.sally.spreadsheet3.model.Block;
 import info.kwarc.sally.spreadsheet3.model.CellDependencyDescription;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A CDD builder provides an interface to build CellDependencyDescription classes for standard use cases.

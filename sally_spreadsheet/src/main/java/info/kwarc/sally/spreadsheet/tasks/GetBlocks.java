@@ -4,16 +4,14 @@ import info.kwarc.sally.core.doc.DocumentInformation;
 import info.kwarc.sally.core.doc.DocumentManager;
 import info.kwarc.sally.core.interaction.CallbackManager;
 import info.kwarc.sally.core.workflow.SallyTask;
+import info.kwarc.sally.core.workflow.WorkItem;
+import info.kwarc.sally.core.workflow.WorkItemHandler;
+import info.kwarc.sally.core.workflow.WorkItemManager;
 import info.kwarc.sally.spreadsheet.SpreadsheetDocument;
 import info.kwarc.sally.spreadsheet3.Util;
 import info.kwarc.sally.spreadsheet3.model.Block;
 import info.kwarc.sally.spreadsheet3.model.Relation;
-import info.kwarc.sally.spreadsheet3.model.Relation.RelationType;
-import info.kwarc.sissi.bpm.tasks.HandlerUtils;
 
-import org.drools.process.instance.WorkItemHandler;
-import org.drools.runtime.process.WorkItem;
-import org.drools.runtime.process.WorkItemManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,7 +39,7 @@ public class GetBlocks implements WorkItemHandler  {
 
 	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
-		sally.GetBlocks getBlocks = HandlerUtils.getFirstTypedParameter(workItem.getParameters(), sally.GetBlocks.class);
+		sally.GetBlocks getBlocks = workItem.getFirstTypedParameter(sally.GetBlocks.class);
 		try {
 			if (getBlocks == null)
 				throw new Exception("No GetBlocks request ");
@@ -88,7 +86,7 @@ public class GetBlocks implements WorkItemHandler  {
 			e.printStackTrace();
 			log.error(e.getMessage());
 		} finally {
-			manager.completeWorkItem(workItem.getId(), workItem.getResults());
+			manager.completeWorkItem(workItem);
 		}
 
 	}
