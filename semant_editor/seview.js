@@ -50,69 +50,26 @@ var mockdata = {
     ]
 };
 
-var undoManager = new UndoManager();
-
-  function addRow(){
-
-    addBlocksItem();
-
-    // make undo-able
-    undoManager.add({
-        undo: function() {
-            removeBlocksItem();
-        },
-        redo: function() {
-            addBlocksItem();
-        }
-    });
-  }
 
 
+/**
+TODO fix this module pattern
+*/
+// var Current = (function() {
+//     var sheetNum = 0;
+//     var inRelations = 0;
 
-function semUndo(){
-  document.execCommand('undo', false, null);
-}
+//     return {
+//         setSheetNum: function(num) {
+//             console.log("Sheetnum updated")
+//             sheetNum = num; 
+//         },
+//         getSheetNum: function() {
+//             return sheetNum; 
+//         }
+//     };
 
-function semRedo(){
-  document.execCommand('redo', false, null);
-}
-
-function checkAll() {
-     var checkboxes = new Array();
-     checkboxes = document.getElementsByTagName('input');
-
-     for (var i = 0; i < checkboxes.length; i++) {
-         if (checkboxes[i].type == 'checkbox') {
-             checkboxes[i].setAttribute('checked', true)
-         }
-     }
- }
-
-
-
-//Helper Utilities can be put in another file
-function setAttributes(el, attrs) {
-  for(var key in attrs) {
-    el.setAttribute(key, attrs[key]);
-  }
-  return el;
-}
-
-var Current = (function() {
-    var sheetNum = 0;
-    var inRelations = 0;
-
-    return {
-        setSheetNum: function(num) {
-            console.log("Sheetnum updated")
-            sheetNum = num; 
-        },
-        getSheetNum: function() {
-            return sheetNum; 
-        }
-    };
-
-})();
+// })();
 
 
 
@@ -140,23 +97,119 @@ var Current = (function() {
     fillBlocksTable();
     
     //events
-    document.getElementById("addblocksrow").onclick = addBlocksItem;
+    document.getElementById("addblocksrow").onclick = addRow;
     document.getElementById("semundo").onclick = semUndo;
     document.getElementById("semredo").onclick = semRedo;
-    document.getElementById("nsemundo").onclick = semUndo;
-    document.getElementById("nsemredo").onclick = semRedo;
+    document.getElementById("nsemundo").onclick = nsemUndo;
+    document.getElementById("nsemredo").onclick = nsemRedo;
     document.getElementById("checkall").onchange = checkAll;
     document.getElementById("deleteblocksrows").onclick = deleteRows;
+    document.getElementById("semauto").onclick = semAuto;
+
 
     //listen for any form updates and modify json accordingly. n.b. in memory save does not validate form data
     listenForInputs();
 
     //Persist form's data in a browser's Local Storage and never loose them on occasional tabs closing, browser crashes and other disasters
-    $('#todo-list').sisyphus({
+    $('#basic_form').sisyphus({
       timeout: 10
     });
 
   }
+  var sheetNum = 0;
+  var inRelations = 0;
+  var latestJSID = 0;
+  var undoManager = new UndoManager();
+
+  function setSheetNum(num) {
+    console.log("Sheetnum updated: "+num)
+    sheetNum = num; 
+  }
+  function getSheetNum() {
+    console.log(sheetNum)
+    return sheetNum; 
+  }
+  function setJSID(num) {
+    console.log("JSID updated: "+num)
+    latestJSID = num; 
+  }
+  function getJSID() {
+    console.log(latestJSID)
+    return latestJSID; 
+  }
+
+  function addRow(){
+
+    addBlocksItem();
+
+    // make undo-able
+    undoManager.add({
+        undo: function() {
+          console.log("Trying to removeBlocksItem")
+          unAddBlocksItem();
+        },
+        redo: function() {
+          console.log("Trying to addBlocksItem")
+          addBlocksItem();
+        }
+    });
+  }
+
+  // function delRows(){
+  //   deleteRows();
+
+  //   undoManager.add({
+  //     undo: function(){
+
+  //   },
+  //   redo: function(){
+
+  //   }
+  //   });
+  // }
+
+
+
+function semUndo(){
+  document.execCommand('undo', false, null);
+}
+
+function semRedo(){
+  document.execCommand('redo', false, null);
+}
+
+function nsemUndo(){
+  undoManager.undo();
+}
+
+function nsemRedo(){
+  undoManager.redo();
+}
+
+function semAuto(){
+  fillBlocksTable(0,mockdata); //or any other jsonObject 
+}
+
+function checkAll() {
+     var checkboxes = new Array();
+     checkboxes = document.getElementsByTagName('input');
+d 
+     for (var i = 0; i < checkboxes.length; i++) {
+         if (checkboxes[i].type == 'checkbox') {
+             checkboxes[i].setAttribute('checked', true)
+         }
+     }
+ }
+
+
+
+//Helper Utilities can be put in another file
+function setAttributes(el, attrs) {
+  for(var key in attrs) {
+    el.setAttribute(key, attrs[key]);
+  }
+  return el;
+}
 
   function listenForInputs(){
     $('#todo-list').on(
@@ -164,11 +217,11 @@ var Current = (function() {
         var jsid = $(this).closest("tr").attr('id');
         var classArray = $(this).closest("input").attr('class').split(/\s+/);
         var newVal =  $(this).closest("input").val();
-        console.log("Current Sheet: "+ Current.getSheetNum());
-        console.log("updating after two seconds");
+        console.log("Current Sheet: "+ getSheetNum()+" jsid: "+jsid+" classArray: "+classArray+" newVal: "+newVal);
+        console.log("updating after one second");
         setTimeout(function() {
-          updateJSON(jsid, classArray, newVal, Current.getSheetNum());
-        }, 2000);
+          updateJSON(jsid, classArray, newVal, getSheetNum());
+        }, 1000);
       }
     );
   }
@@ -176,37 +229,41 @@ var Current = (function() {
   function updateJSON(jsid, classArray, newVal, currentSheetNum){
     
     if (jQuery.inArray("new-concept",classArray) !==-1){
+      console.log("inArray concept");
       for (var i=0; i<mockdata.sheets[currentSheetNum].sheetData.length; i++) {
-        if (mockdata.sheets[currentSheetNum].idx === jsid) {
-          mockdata.sheets[currentSheetNum].name = newVal;
+        console.log("inFor "+mockdata.sheets[currentSheetNum].sheetData.length+" "+mockdata.sheets[currentSheetNum].sheetData[jsid-1].idx);
+        if (mockdata.sheets[currentSheetNum].sheetData[jsid-1].idx == jsid) {
+          console.log("inJsid "+jsid+" vs "+mockdata.sheets[currentSheetNum].sheetData[jsid-1].idx);
+          mockdata.sheets[currentSheetNum].sheetData[jsid-1].name = newVal;
+          console.log("JSON name updated"+mockdata.sheets[currentSheetNum].sheetData[jsid-1].name);
           break;
         }
       }
     }
-    else if (jQuery.contains("new-range",classArray) !==-1){
-    if (jQuery.inArray("new-range",classArray) !==-1){
+    else if (jQuery.inArray("new-range",classArray) !==-1){
+      console.log("inArray range");
       for (var i=0; i<mockdata.sheets[currentSheetNum].sheetData.length; i++) {
-        if (mockdata.sheets[currentSheetNum].idx === jsid) {
-          mockdata.sheets[currentSheetNum].range = newVal;
+        console.log("inFor "+mockdata.sheets[currentSheetNum].sheetData.length+" "+mockdata.sheets[currentSheetNum].sheetData[jsid-1].idx);
+        if (mockdata.sheets[currentSheetNum].sheetData[jsid-1].idx == jsid) {
+          mockdata.sheets[currentSheetNum].sheetData[jsid-1].range = newVal;
+          console.log("JSON range updated"+mockdata.sheets[currentSheetNum].sheetData[jsid-1].range);
           break;
         }
       }
     }
-    }
-    else if (jQuery.contains("new-meaning",classArray) !==-1){
-    if (jQuery.inArray("new-meaning",classArray) !==-1){
+    else if (jQuery.inArray("new-meaning",classArray) !==-1){
+      console.log("inArray meaning");
       for (var i=0; i<mockdata.sheets[currentSheetNum].sheetData.length; i++) {
-        if (mockdata.sheets[currentSheetNum].idx === jsid) {
-          mockdata.sheets[currentSheetNum].meaning = newVal;
+        if (mockdata.sheets[currentSheetNum].sheetData[jsid-1].idx == jsid) {
+          mockdata.sheets[currentSheetNum].sheetData[jsid-1].meaning = newVal;
+          console.log("JSON meaning updated"+mockdata.sheets[currentSheetNum].sheetData[jsid-1].meaning);
           break;
         }
       }
-    }
     }
     else{
       console.log("Cannot recognize the input type yet.")
     }
-    console.log("JSON updated");
   }
 
   function fillTreeSideBar(){
@@ -223,17 +280,20 @@ var Current = (function() {
     $("#sheetTree").append(htmltree);
   }
 
-  function fillBlocksTable(num){
+  function fillBlocksTable(num,autodata){
     $("#todo-list").empty();
 
-    var temprow = "{{#sheetData}}<tr id={{idx}}><td><input type=\"checkbox\"><\/td><td><input type=\"text\" value={{name}} class=\"span12 new-concept\"><\/td><td><input type=\"text\" value={{range}} class=\"new-range span12\"><\/td>\r\n<td><span class=\"span16 uri new-meaning\" type=\"text\">{{meaning}}<\/span><\/td><\/tr>{{/sheetData}}";
+    var temprow = "{{#sheetData}}<tr id={{idx}}><td><input type=\"checkbox\"><\/td><td><input type=\"text\" value={{name}} class=\"span12 new-concept\"><\/td><td><input type=\"text\" value={{range}} class=\"new-range span12\"><\/td><td><span class=\"span16 uri new-meaning\" type=\"text\">{{meaning}}<\/span><\/td><\/tr>{{/sheetData}}";
     
     if (num == null){
       num = 0;
+    }
+    if (autodata != null){
+      mockdata = autodata;
     } 
     
     var htmlrow = $.parseHTML(Mustache.render(temprow, mockdata.sheets[num]));
-    Current.setSheetNum(num);
+    setSheetNum(num);
     
     $("#todo-list").append(htmlrow);
   }
@@ -244,18 +304,29 @@ var Current = (function() {
 
   //adds current length + 1 as the id of the new json node and appends a new blank row to the form
   function addBlocksItem(){
-    var newID = mockdata.sheets[Current.getSheetNum()].length+1;
-    var temprow = "<tr id="+ newID +"><td><input type=\"checkbox\"><\/td><td><input type=\"text\" placeholder=\"Bolt 1\" class=\"span12 new-concept\"><\/td><td><input type=\"text\" placeholder=\"sheet!A3:B6\" class=\"span12 new-range\"><\/td>\r\n<td><input class=\"span16 uri new-meaning\" type=\"text\" placeholder=\"URI\"><\/td><\/tr>"
+    var newID = mockdata.sheets[getSheetNum()].sheetData.length+1;
+    var temprow = "<tr id="+ newID +"><td><input type=\"checkbox\"><\/td><td><input type=\"text\" placeholder=\"Bolt 1\" class=\"span12 new-concept\"><\/td><td><input type=\"text\" placeholder=\"sheet!A3:B6\" class=\"new-range span12\"><\/td><td><span class=\"span16 uri new-meaning\" type=\"text\">URI<\/td><\/tr>"
     var htmlrow = $.parseHTML(temprow);
     $("#todo-list").append(htmlrow);
-    Current.setSheetNum(newID);
+    console.log("newID:"+newID);
+    currentSheetNum = getSheetNum();
+    addObject = {};
+    mockdata.sheets[currentSheetNum].sheetData.push(addObject); 
+    mockdata.sheets[currentSheetNum].sheetData[newID-1].idx = newID;
+    mockdata.sheets[currentSheetNum].sheetData[newID-1].name = "";
+    mockdata.sheets[currentSheetNum].sheetData[newID-1].range = "";
+    mockdata.sheets[currentSheetNum].sheetData[newID-1].meaning = "URI";
+    setJSID(newID);
   }
 
-  function removeBlocksItem(){
-    deleteRows(Current.getSheetNum());
+  function unAddBlocksItem(){
+    var newID = getJSID();
+    unAddRowByID(newID);
+    mockdata.sheets[getSheetNum()].sheetData.splice(newID, 1);
+    setJSID(newID-1);
   }
 
- function deleteRows(delID) {
+ function deleteRows() {
      try {
          var table = document.getElementById("blockstable");
          var rowCount = table.rows.length;
@@ -263,24 +334,38 @@ var Current = (function() {
          for (var i = 1; i < rowCount; i++) {
             var row = table.rows[i];
             var chkbox = row.cells[0].childNodes[0];
-            if (delID==null){
-              if (null != chkbox && true == chkbox.checked) {
+            if (null != chkbox && true == chkbox.checked) {
                 table.deleteRow(i);
                 // $(chkbox).closest("tr").remove();
                 rowCount--;
                 i--;
               }
             }
-            else{
-              if (i === delID){
+        }
+      catch (e) {
+         console.log(e);
+     }
+ }
+
+  function unAddRowByID(delID) {
+     try {
+         var table = document.getElementById("blockstable");
+         var rowCount = table.rows.length;
+
+         for (var i = 1; i < rowCount; i++) {
+            var row = table.rows[i];
+            var chkbox = row.cells[0].childNodes[0];
+
+            if (i === delID){
                 table.deleteRow(i);
+                console.log("Removed id: " +i);
                 rowCount--;
                 i--;                
               }
             }
           
         }
-     } catch (e) {
+     catch (e) {
          console.log(e);
      }
  }
