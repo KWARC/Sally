@@ -60,18 +60,6 @@ message TheoCloseWindow {
 }
 
 
-	/**
- 	* Type of document
- 	*/
- enum DocType {
-	Spreadsheet = 0;
-	Text = 1;
-	CAD = 2;
-	Sketch = 3;
-	Mashup = 4;
-}
-
-
 /**
  * --------------- Alexes --------------------
  */
@@ -95,7 +83,8 @@ message TheoCloseWindow {
 
 	required ClientType clientType = 1;
 	required EnvironmentType environmentType = 2;
-	required DocType documentType = 3;
+	repeated string interfaces = 4;
+	required string fileName = 5;
 }
 
 /**
@@ -408,18 +397,3 @@ message HTMLSelectPart {
 	required string id = 1;
 	required string fileName = 2;
 }
-
-/**
- * Project Messages
- */
-
-message ProjectFile {
-	required string fileName = 1;
-	required string cache = 2;
-	required DocType docType = 3;
-}
-
-message ProjectModel {
-	repeated ProjectFile files = 1;
-}
-

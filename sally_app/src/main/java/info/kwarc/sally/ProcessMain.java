@@ -4,21 +4,19 @@ import info.kwarc.sally.core.composition.SallyInteraction;
 import info.kwarc.sally.core.net.IConnectionManager;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.injection.Configuration;
-import info.kwarc.sally.networking.SallyServer;
 import info.kwarc.sally.networking.Injection.ProductionNetworking;
 import info.kwarc.sally.networking.interfaces.MockNetworkSender;
-import info.kwarc.sally.pivot.PivotingService;
-import info.kwarc.sally.planetary.Planetary;
-import info.kwarc.sally.service.def_lookup.DefinitionLookupService;
 import info.kwarc.sally.spreadsheet.ASMEditor;
-import info.kwarc.sissi.bpm.injection.ProductionLocalKnowledgeBase;
+import info.kwarc.sissi.bpm.injection.ProductionRemoteKnowledgeBase;
 import info.kwarc.sissi.bpm.injection.ProductionSallyActions;
 import sally.AlexClick;
-import sally.AlexData;
 import sally.RangeSelection;
-import sally.SallyFrame;
 import sally.ScreenCoordinates;
-import sally_comm.MessageUtils;
+import sally.WhoAmI;
+import sally.WhoAmI.ClientType;
+import sally.WhoAmI.EnvironmentType;
+import sally_comm.ProtoUtils;
+import XSelectionProvider.OnSelect;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -31,30 +29,42 @@ public class ProcessMain {
 	public static final void main(String[] args) throws Exception {
 		Injector i = Guice.createInjector(
 				new Configuration(),
-				//new ProductionRemoteKnowledgeBase(), 
-				new ProductionLocalKnowledgeBase(), 
+				new ProductionRemoteKnowledgeBase(), 
+				//new ProductionLocalKnowledgeBase(), 
 				new ProductionSallyActions(),
 				new ProductionNetworking()
 		);
 				
 		SallyInteraction interaction = i.getInstance(SallyInteraction.class);
-		interaction.registerServices(i.getInstance(Planetary.class));
-		interaction.registerServices(i.getInstance(PricingService.class));
-		interaction.registerServices(i.getInstance(InstanceService.class));
+		//interaction.registerServices(i.getInstance(Planetary.class));
+		//interaction.registerServices(i.getInstance(PricingService.class));
+		//interaction.registerServices(i.getInstance(InstanceService.class));
 		interaction.registerServices(i.getInstance(ASMEditor.class));		
-		interaction.registerServices(i.getInstance(DefinitionLookupService.class));		
-		interaction.registerServices(i.getInstance(PivotingService.class));		
+		//interaction.registerServices(i.getInstance(DefinitionLookupService.class));		
+		//interaction.registerServices(i.getInstance(PivotingService.class));		
 		
 		ISallyWorkflowManager kb = i.getInstance(ISallyWorkflowManager.class);
 		//kb.startProcess(null, "Sally.browse_ontology");
 		IConnectionManager conn = i.getInstance(IConnectionManager.class);
 
-		SallyServer sallyService = i.getInstance(SallyServer.class);
-		sallyService.start();
+		//SallyServer sallyService = i.getInstance(SallyServer.class);
+		//sallyService.start();
 
 		//ConnectionPlayer player = i.getInstance(IConnectionPlayerFactory.class).create(new FileReader("rec_spreadsheet.json"));
 		//player.start();
 
+		conn.newClient("spread", new MockNetworkSender());
+		
+		conn.newMessage("spread", 	WhoAmI.newBuilder().setClientType(ClientType.Alex).setEnvironmentType(EnvironmentType.Desktop).setFileName("a").addInterfaces("Sally.XSelectionProvider").addInterfaces("Sally.XSemanticStore").build());
+		AlexClick click = AlexClick.newBuilder().setFileName("a").setPosition(ScreenCoordinates.newBuilder().setX(100).setY(100).build()).setSheet("Vendor A")			
+				.setRange(RangeSelection.newBuilder().setStartCol(2).setEndCol(2).setStartRow(8).setEndRow(8).setSheet("Vendor A").build()).build();
+		
+		OnSelect sel = OnSelect.newBuilder().setFileName("a").setObjData(ProtoUtils.serialize(click)).build();
+		conn.newMessage("spread", sel);
+		
+//		String fileName = "file:////home/costea/kwarc/sissi/doc/papers/Interact_2013/spsht/PipeEndPricing_v4.xlsm";
+
+		/*
 		conn.newClient("spread", new MockNetworkSender());
 				
 		conn.newMessage("spread", MessageUtils.createDesktopSpreadsheetAlex());
@@ -70,7 +80,7 @@ public class ProcessMain {
 
 		SallyFrame frame =  SallyFrame.newBuilder().setFileName(fileName).build();
 		conn.newMessage("spread", frame);
-
+*/
 		/*
 		conn.newClient("spread", new MockNetworkSender());
 		

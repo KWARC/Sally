@@ -94,11 +94,11 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>		
 		
-		<dependency>
+		<!-- <dependency>
 			<groupId>info.kwarc.sally</groupId>
 			<artifactId>sally_projects</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+		</dependency>  -->
 		<dependency>
 			<groupId>info.kwarc.sally</groupId>
 			<artifactId>sally_html</artifactId>

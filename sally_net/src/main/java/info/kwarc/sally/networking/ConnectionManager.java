@@ -52,7 +52,7 @@ public class ConnectionManager implements IConnectionManager {
 			return;
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("NetworkSender", sender);
-		ProcessInstance instance = knowledgeBase.startProcess(null, "Sally.connect", params);
+		ProcessInstance instance = knowledgeBase.startProcess(null, "Sally.connect2", params);
 		processToSession.put(instance.getId(), clientID);
 		sessions.put(clientID, instance);
 		senders.put(clientID, sender);

@@ -14,10 +14,8 @@ import info.kwarc.sally.html.injection.HTMLDocModule;
 import info.kwarc.sally.networking.ConnectionManager;
 import info.kwarc.sally.networking.IRequestHandler;
 import info.kwarc.sally.networking.cometd.CometD;
-import info.kwarc.sally.networking.stomp.StompServer;
 import info.kwarc.sally.pivot.PivotingService;
 import info.kwarc.sally.planetary.injection.PlanetaryModule;
-import info.kwarc.sally.projects.injection.ProjectDocModule;
 import info.kwarc.sally.sharejs.IDocManager;
 import info.kwarc.sally.sharejs.ShareJS;
 import info.kwarc.sally.sketch.injection.SketchDocModule;
@@ -39,13 +37,13 @@ public class Configuration extends AbstractModule {
 		install(new PlanetaryModule());
 		install(new TheoFX());
 		install(new WebTheoModule());
-		install(new SketchDocModule());
-		install(new HTMLDocModule());
-		install(new ProjectDocModule());
+		//install(new SketchDocModule());
+		//install(new HTMLDocModule());
+		//install(new ProjectDocModule());
 		
 	    Multibinder<IRequestHandler> uriBinder = Multibinder.newSetBinder(binder(), IRequestHandler.class);
 	    uriBinder.addBinding().to(CometD.class);
-	    uriBinder.addBinding().to(StompServer.class);
+	    //uriBinder.addBinding().to(StompServer.class);
 		
 		bind(CookieProvider.class);
 		bind(IPositionProvider.class).to(ScreenCoordinatesProvider.class);

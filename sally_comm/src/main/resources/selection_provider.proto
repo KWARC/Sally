@@ -1,0 +1,12 @@
+package XSelectionProvider;
+
+/**
+* very important, otherwise serialization will not work
+*/
+
+option java_multiple_files = true;
+
+message OnSelect {
+	required string objData = 1;
+	required string fileName = 2;
+}

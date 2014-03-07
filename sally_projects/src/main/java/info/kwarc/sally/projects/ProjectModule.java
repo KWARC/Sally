@@ -5,7 +5,6 @@ import info.kwarc.sally.core.workflow.SallyTask;
 import info.kwarc.sally.core.workflow.WorkItem;
 import info.kwarc.sally.core.workflow.WorkItemHandler;
 import info.kwarc.sally.core.workflow.WorkItemManager;
-import sally.ProjectModel;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;

@@ -109,12 +109,6 @@ sally.TheoCloseWindow = PROTO.Message("sally.TheoCloseWindow",{
 		type: function(){return PROTO.int32;},
 		id: 1
 	}});
-sally.DocType= PROTO.Enum("sally.DocType",{
-		Spreadsheet :0,
-		Text :1,
-		CAD :2,
-		Sketch :3,
-		Mashup :4});
 sally.WhoAmI = PROTO.Message("sally.WhoAmI",{
 	ClientType: PROTO.Enum("sally.WhoAmI.ClientType",{
 		Alex :0,
@@ -134,11 +128,17 @@ sally.WhoAmI = PROTO.Message("sally.WhoAmI",{
 		type: function(){return sally.WhoAmI.EnvironmentType;},
 		id: 2
 	},
-	documentType: {
+	interfaces: {
+		options: {},
+		multiplicity: PROTO.repeated,
+		type: function(){return PROTO.string;},
+		id: 4
+	},
+	fileName: {
 		options: {},
 		multiplicity: PROTO.required,
-		type: function(){return sally.DocType;},
-		id: 3
+		type: function(){return PROTO.string;},
+		id: 5
 	}});
 sally.AlexData = PROTO.Message("sally.AlexData",{
 	fileName: {
@@ -878,30 +878,4 @@ sally.HTMLSelectPart = PROTO.Message("sally.HTMLSelectPart",{
 		multiplicity: PROTO.required,
 		type: function(){return PROTO.string;},
 		id: 2
-	}});
-sally.ProjectFile = PROTO.Message("sally.ProjectFile",{
-	fileName: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 1
-	},
-	cache: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return PROTO.string;},
-		id: 2
-	},
-	docType: {
-		options: {},
-		multiplicity: PROTO.required,
-		type: function(){return sally.DocType;},
-		id: 3
-	}});
-sally.ProjectModel = PROTO.Message("sally.ProjectModel",{
-	files: {
-		options: {},
-		multiplicity: PROTO.repeated,
-		type: function(){return sally.ProjectFile;},
-		id: 1
 	}});
