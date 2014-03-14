@@ -1,0 +1,19 @@
+
+Tasks for Risav:
+ - try to hunt down the JavaFX code
+ - need to support newbies
+ - UI in the Editor for spreadsheets 
+
+ [
+  "SimplePricing.xlsx": {
+    "vendor" : [
+      {
+        name : "Price",
+        range : "A4:A11",
+        meaning : "http://blahblah.com"      
+      }
+    ],
+    "customer" : [
+    ]
+  }
+ ]

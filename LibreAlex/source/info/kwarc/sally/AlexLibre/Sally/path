@@ -1,0 +1,28 @@
+C:\Program Files (x86)\AMD APP\bin\x86_64;
+C:\Program Files (x86)\AMD APP\bin\x86;
+C:\Python27\Lib\site-packages\PyQt4;
+%SystemRoot%\system32;
+%SystemRoot%;
+%SystemRoot%\System32\Wbem;
+%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\;
+C:\Program Files\TortoiseSVN\bin;
+C:\Python27;
+C:\Python27\DLLs;
+C:\Python27\Scripts;
+C:\Python27\Lib\site-packages\vtk;
+C:\Python27\gnuplot\binary;
+C:\Python27\Lib\site-packages\osgeo;
+D:\pythonxy\SciTE-3.2.2-1;
+D:\pythonxy\console;
+D:\pythonxy\swig;
+D:\pythonxy\gettext\bin;
+%MAVEN_HOME%\bin;
+%SALLYCOMM%;
+%JAVA_HOME%;
+%JAVA_HOME%\bin;
+C:\Program Files\Microsoft\Web Platform Installer\;
+C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\;
+C:\Program Files (x86)\Windows Kits\8.0\Windows Performance Toolkit\;
+C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;
+E:\adtbundle\adt-bundle-windows-x86_64-20130522\sdk\platform-tools;
+D:\SallyAug13\Sally
