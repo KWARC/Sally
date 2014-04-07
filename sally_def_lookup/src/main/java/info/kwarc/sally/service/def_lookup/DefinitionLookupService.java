@@ -9,7 +9,7 @@ import info.kwarc.sally.planetary.Planetary;
 
 import java.util.HashMap;
 
-import sally.MMTUri;
+import Sally.MMTUri;
 
 import com.google.inject.Inject;
 

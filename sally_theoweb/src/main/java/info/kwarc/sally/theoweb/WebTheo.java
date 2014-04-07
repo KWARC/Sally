@@ -15,13 +15,13 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sally.Cookie;
-import sally.SallyFrameChoice;
-import sally.SallyFrameList;
-import sally.SallyFrameResponse;
-import sally.SallyFrameService;
-import sally.ScreenCoordinates;
-import sally.TheoOpenWindow;
+import Sally.Cookie;
+import Sally.SallyFrameChoice;
+import Sally.SallyFrameList;
+import Sally.SallyFrameResponse;
+import Sally.SallyFrameService;
+import Sally.ScreenCoordinates;
+import Sally.TheoOpenWindow;
 
 import com.google.inject.Inject;
 import com.google.protobuf.AbstractMessage;
@@ -41,7 +41,6 @@ public class WebTheo implements Theo {
 		this.log = LoggerFactory.getLogger(getClass());
 	}
 
-	@Override
 	public void letUserChoose(DocumentInformation sender, final List<SallyMenuItem> menuItems) {
 
 		HashSet<String> frames=  new HashSet<String>();

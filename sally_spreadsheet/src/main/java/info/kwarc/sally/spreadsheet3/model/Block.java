@@ -136,18 +136,18 @@ abstract public class Block {
 	
 	abstract public int getMaxColumn();
 	
-	abstract public sally.BlockMsg serialize();
+	abstract public Sally.BlockMsg serialize();
 	
-	public static Block createBlockFromMessage(sally.BlockMsg msg, Manager manager) {
+	public static Block createBlockFromMessage(Sally.BlockMsg msg, Manager manager) {
 		List<ValueInterpretation> vi = new ArrayList<ValueInterpretation>();
-		for (sally.ValueInterpretationMsg viMsg : msg.getValueInterpretationsList())
+		for (Sally.ValueInterpretationMsg viMsg : msg.getValueInterpretationsList())
 			vi.add(new ValueInterpretation(viMsg));
 		
 		Block b;
 		
-		if (msg.getType().equals(sally.BlockMsg.Type.Atomic)) {
+		if (msg.getType().equals(Sally.BlockMsg.Type.Atomic)) {
 			b = new BlockAtomic(msg.getId(), new CellSpaceInformation(msg.getPosition()), vi);
-		} else if (msg.getType().equals(sally.BlockMsg.Type.Composed)) {
+		} else if (msg.getType().equals(Sally.BlockMsg.Type.Composed)) {
 			List<Block> subBlocks = new ArrayList<Block>();
 			for (int blockId : msg.getSubBlockIdsList())
 				subBlocks.add(manager.getBlockByID(blockId));
@@ -155,7 +155,7 @@ abstract public class Block {
 		} else
 			throw new java.lang.IllegalArgumentException("Unknown blocktype.");
 		
-		for (sally.Property propertyMsg : msg.getPropertiesList()) {
+		for (Sally.Property propertyMsg : msg.getPropertiesList()) {
 			b.setProperty(PropertyName.values()[propertyMsg.getPropertyID()], propertyMsg.getValue() );
 		}
 		

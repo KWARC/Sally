@@ -18,7 +18,7 @@ import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
 
-import sally.SpreadsheetAlexData;
+import Sally.SpreadsheetAlexData;
 
 import com.hp.hpl.jena.rdf.model.Model;
 
@@ -573,6 +573,8 @@ public class IUIPaperData {
 		IUIPaperData t = new IUIPaperData();
 
 		t.setData();
+		
+		
 		t.writeRDF();
 		t.writeProto();
 

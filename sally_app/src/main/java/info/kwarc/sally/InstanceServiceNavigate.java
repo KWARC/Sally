@@ -9,7 +9,7 @@ import javax.ws.rs.QueryParam;
 
 import org.slf4j.Logger;
 
-import sally.CADNavigateTo;
+import Sally.CADNavigateTo;
 
 import com.google.inject.Inject;
 

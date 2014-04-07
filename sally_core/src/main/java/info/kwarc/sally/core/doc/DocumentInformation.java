@@ -1,5 +1,6 @@
 package info.kwarc.sally.core.doc;
 
+import info.kwarc.sally.core.composition.SallyInteraction;
 import info.kwarc.sally.core.net.INetworkSender;
 import info.kwarc.sally.core.theo.Theo;
 
@@ -22,10 +23,16 @@ public class DocumentInformation {
 	Theo theo;
 	INetworkSender networkSender;
 	Object documentModel;
+	SallyInteraction interaction;
 	
 	public DocumentInformation(String fileName, Long documentWorkflowID) {
 		this.fileName = fileName;
 		this.documentWorkflowID = documentWorkflowID;
+		interaction = new SallyInteraction();
+	}
+	
+	public SallyInteraction getInteraction() {
+		return interaction;
 	}
 	
 	public Object getDocumentModel() {

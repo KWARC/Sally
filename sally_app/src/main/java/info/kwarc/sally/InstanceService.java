@@ -22,7 +22,7 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sally.MMTUri;
+import Sally.MMTUri;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

@@ -1,7 +1,7 @@
 package info.kwarc.sally.sketch;
 
 import info.kwarc.sally.core.net.INetworkSender;
-import sally.SketchASM;
+import Sally.SketchASM;
 
 
 public interface SketchFactory {

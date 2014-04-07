@@ -11,12 +11,12 @@ import info.kwarc.sally.core.rdf.RDFStore;
 
 import java.util.List;
 
-import sally.CADAlexClick;
-import sally.CADNavigateTo;
-import sally.CADNode;
-import sally.CADSemanticData;
-import sally.MMTUri;
-import sally.SwitchToApp;
+import Sally.CADAlexClick;
+import Sally.CADNavigateTo;
+import Sally.CADNode;
+import Sally.CADSemanticData;
+import Sally.MMTUri;
+import Sally.SwitchToApp;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;

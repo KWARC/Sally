@@ -97,7 +97,7 @@ public class JBPMProcessInstance  implements ProcessInstance {
 
 	@Override
 	public void sendMessageOrForward(Long from, AbstractMessage msg) {
-		sendMessageOrForward(from, "Message-"+msg.getClass().getSimpleName(), msg);		
+		sendMessageOrForward(from, "Message-"+msg.getClass().getCanonicalName(), msg);		
 	}
 
 	@Override

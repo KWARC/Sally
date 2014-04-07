@@ -12,9 +12,9 @@ public class CellTuple {
 		this.tuple = new ArrayList<CellSpaceInformation>(tuple);
 	}
 	
-	public CellTuple(sally.CellTupleMsg msg) {
+	public CellTuple(Sally.CellTupleMsg msg) {
 		tuple = new ArrayList<CellSpaceInformation>();
-		for (sally.CellSpaceInformationMsg cellMsg : msg.getTupleList())
+		for (Sally.CellSpaceInformationMsg cellMsg : msg.getTupleList())
 			tuple.add(new CellSpaceInformation(cellMsg));
 	}
 	
@@ -69,8 +69,8 @@ public class CellTuple {
 		return strRep;
 	}
 	
-	public sally.CellTupleMsg serialize() {
-		sally.CellTupleMsg.Builder msg = sally.CellTupleMsg.newBuilder();
+	public Sally.CellTupleMsg serialize() {
+		Sally.CellTupleMsg.Builder msg = Sally.CellTupleMsg.newBuilder();
 		for (CellSpaceInformation pos : this.tuple)
 			msg.addTuple(pos.serialize());
 		

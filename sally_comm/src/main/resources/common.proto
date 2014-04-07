@@ -1,4 +1,4 @@
-package sally;
+package Sally;
 
 /**
 * very important, otherwise serialization will not work

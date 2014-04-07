@@ -10,7 +10,7 @@ import javax.ws.rs.QueryParam;
 
 import org.slf4j.Logger;
 
-import sally.HTMLSelectPart;
+import Sally.HTMLSelectPart;
 
 import com.google.inject.Inject;
 

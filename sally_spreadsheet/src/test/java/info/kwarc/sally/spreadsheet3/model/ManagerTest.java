@@ -74,7 +74,7 @@ public class ManagerTest {
 		assertEquals(rel, relNew);
 				
 		// Model Test
-		sally.ModelDataMsg modelData = manager.serialize();
+		Sally.ModelDataMsg modelData = manager.serialize();
 		Manager managerNew = new Manager(manager.getOntologyInterface(), modelData);
 
 		assertEquals(manager, managerNew);

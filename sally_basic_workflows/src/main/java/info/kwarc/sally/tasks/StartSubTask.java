@@ -29,7 +29,7 @@ public class StartSubTask implements WorkItemHandler {
 
 	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
-		sally.StartSubTask sw = workItem.getFirstTypedParameter(sally.StartSubTask.class);
+		Sally.StartSubTask sw = workItem.getFirstTypedParameter(Sally.StartSubTask.class);
 		
 		try {
 			if (sw == null)

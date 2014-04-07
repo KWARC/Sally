@@ -28,13 +28,13 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sally.AlexClick;
-import sally.AlexRangeRequest;
-import sally.MMTUri;
-import sally.RangeSelection;
-import sally.ScreenCoordinates;
-import sally.SpreadsheetAlexData;
-import sally.SwitchToApp;
+import Sally.AlexClick;
+import Sally.AlexRangeRequest;
+import Sally.MMTUri;
+import Sally.RangeSelection;
+import Sally.ScreenCoordinates;
+import Sally.SpreadsheetAlexData;
+import Sally.SwitchToApp;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;

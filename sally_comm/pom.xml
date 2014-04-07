@@ -97,6 +97,25 @@
 							</execution>
 
 							<execution>
+								<id>java3</id>
+								<phase>generate-sources</phase>
+								<configuration>
+									<tasks>
+										<mkdir dir="target/java-sources" />
+										<exec executable="protoc">
+											<arg value="--java_out=target/java-sources" />
+											<arg value="src/main/resources/annotation_store.proto" />
+										</exec>
+									</tasks>
+									<sourceRoot>target/java-sources</sourceRoot>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+
+
+							<execution>
 								<id>javascript</id>
 								<phase>generate-sources</phase>
 								<configuration>

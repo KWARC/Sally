@@ -76,7 +76,7 @@ public class ConnectionManager implements IConnectionManager {
 	 */
 	@Override
 	public void newMessage(String clientID, AbstractMessage msg) {
-		newMessage(clientID, "Message-"+msg.getClass().getSimpleName(), msg);
+		newMessage(clientID, "Message-"+msg.getClass().getName(), msg);
 	}
 	
 	/* (non-Javadoc)

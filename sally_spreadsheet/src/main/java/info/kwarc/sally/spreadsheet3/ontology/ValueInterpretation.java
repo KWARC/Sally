@@ -30,13 +30,13 @@ public class ValueInterpretation {
 		this.builderML = builderML;
 	}
 	
-	public ValueInterpretation(sally.ValueInterpretationMsg msg) {
+	public ValueInterpretation(Sally.ValueInterpretationMsg msg) {
 		this.valuePattern = Pattern.compile(msg.getPattern());
 		this.patternStr = msg.getPattern();
 		this.interpretationTemplate = msg.getInterpretationTemplate();
-		if (msg.getBuilderML().getType().equals(sally.BuilderMsg.Type.MathML))
+		if (msg.getBuilderML().getType().equals(Sally.BuilderMsg.Type.MathML))
 			this.builderML = new BuilderMathML();
-		else if (msg.getBuilderML().getType().equals(sally.BuilderMsg.Type.OpenMath))
+		else if (msg.getBuilderML().getType().equals(Sally.BuilderMsg.Type.OpenMath))
 			this.builderML = new BuilderOpenMath();
 		else
 			throw new java.lang.IllegalArgumentException("Unknown BuilderML type.");
@@ -99,15 +99,15 @@ public class ValueInterpretation {
 		return "Pattern: " + valuePattern.toString() + " Template: " + interpretationTemplate;
 	}
 	
-	public sally.ValueInterpretationMsg serialize() {
-		sally.ValueInterpretationMsg.Builder msgBuilder = sally.ValueInterpretationMsg.newBuilder();
+	public Sally.ValueInterpretationMsg serialize() {
+		Sally.ValueInterpretationMsg.Builder msgBuilder = Sally.ValueInterpretationMsg.newBuilder();
 		msgBuilder.setPattern(valuePattern.toString());
 		msgBuilder.setInterpretationTemplate(interpretationTemplate);
 
 		if (builderML instanceof BuilderML)
-			msgBuilder.setBuilderML(sally.BuilderMsg.newBuilder().setType(sally.BuilderMsg.Type.MathML).build());
+			msgBuilder.setBuilderML(Sally.BuilderMsg.newBuilder().setType(Sally.BuilderMsg.Type.MathML).build());
 		else if (builderML instanceof BuilderOpenMath)
-			msgBuilder.setBuilderML(sally.BuilderMsg.newBuilder().setType(sally.BuilderMsg.Type.OpenMath).build());
+			msgBuilder.setBuilderML(Sally.BuilderMsg.newBuilder().setType(Sally.BuilderMsg.Type.OpenMath).build());
 		else
 			throw new java.lang.InstantiationError("Builder for math makeup is either MathML nor OpenMath.");
 		

@@ -9,8 +9,8 @@ import info.kwarc.sally.core.workflow.WorkItemManager;
 
 import java.util.PriorityQueue;
 
-import sally.CADAlexClick;
-import sally.ScreenCoordinates;
+import Sally.CADAlexClick;
+import Sally.ScreenCoordinates;
 
 import com.google.inject.Inject;
 

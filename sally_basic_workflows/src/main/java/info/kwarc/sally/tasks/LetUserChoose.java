@@ -4,6 +4,7 @@ import info.kwarc.sally.core.comm.SallyMenuItem;
 import info.kwarc.sally.core.doc.DocumentInformation;
 import info.kwarc.sally.core.doc.DocumentManager;
 import info.kwarc.sally.core.interaction.CallbackManager;
+import info.kwarc.sally.core.interaction.IMessageCallback;
 import info.kwarc.sally.core.theo.Theo;
 import info.kwarc.sally.core.workflow.SallyTask;
 import info.kwarc.sally.core.workflow.WorkItem;
@@ -16,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
+import com.google.protobuf.AbstractMessage;
 
 @SallyTask(action="LetUserChoose")
 public class LetUserChoose implements WorkItemHandler {
@@ -38,7 +40,14 @@ public class LetUserChoose implements WorkItemHandler {
 			}
 			DocumentInformation documentInfo = docManager.getDocumentInformation(workItem);
 			Theo theo = documentInfo.getTheo();
-			theo.letUserChoose(documentInfo, choices);
+			int wndID = theo.openWindow(documentInfo, workItem.getProcessInstanceId(), "Please choose", "localhost:8181/theo/choose", 400, 300);
+			Long callbackid = callbacks.registerCallback(new IMessageCallback() {
+				
+				@Override
+				public void onMessage(AbstractMessage msg) {
+					
+				}
+			});
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		} finally {

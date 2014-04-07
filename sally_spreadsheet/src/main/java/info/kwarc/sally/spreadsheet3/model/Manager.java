@@ -15,6 +15,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import Sally.RelationMsg;
+
 public class Manager {
 	
 	//FormalSpreadsheet spreadsheet;
@@ -52,7 +54,7 @@ public class Manager {
 	 * @param ontologyInterface An interface to access the ontology.
 	 * @param modelMsg A protobuffer message that contains all data to restore an abstract spreadsheet model.
 	 */
-	public Manager(IOntologyProvider ontologyInterface, sally.ModelDataMsg modelMsg) {
+	public Manager(IOntologyProvider ontologyInterface, Sally.ModelDataMsg modelMsg) {
 		this.blocks = new HashMap<Integer, Block>();
 		this.relations = new HashMap<Integer, Relation>();
 		this.maxBlockID = 0;
@@ -454,8 +456,8 @@ public class Manager {
 	 * Return a protobuffer message that contains all data from the model.
 	 * @return A protobuffer message that contains all data from the model.
 	 */
-	public sally.ModelDataMsg serialize() {
-		sally.ModelDataMsg.Builder msg = sally.ModelDataMsg.newBuilder();
+	public Sally.ModelDataMsg serialize() {
+		Sally.ModelDataMsg.Builder msg = Sally.ModelDataMsg.newBuilder();
 		
 		for (Block b : this.blocks.values())
 			msg.addBlocks(b.serialize());
@@ -467,13 +469,13 @@ public class Manager {
 	}
 	
 	
-	private void createBlocks(List<sally.BlockMsg> msgListOrig) {
-		List<sally.BlockMsg> msgList = new ArrayList<sally.BlockMsg>(msgListOrig);		// The original list does not support the remove operator
+	private void createBlocks(List<Sally.BlockMsg> msgListOrig) {
+		List<Sally.BlockMsg> msgList = new ArrayList<Sally.BlockMsg>(msgListOrig);		// The original list does not support the remove operator
 		while (!msgList.isEmpty()) {
 			boolean createdBlock = false;
 			for (int i = 0; (i < msgList.size()) && !createdBlock; i++) {
-				sally.BlockMsg msg = msgList.get(i);
-				if (msg.getType().equals(sally.BlockMsg.Type.Atomic)) {
+				Sally.BlockMsg msg = msgList.get(i);
+				if (msg.getType().equals(Sally.BlockMsg.Type.Atomic)) {
 					Block b = Block.createBlockFromMessage(msg, this);
 					maxBlockID = java.lang.Math.max(maxBlockID,b.getId());
 					blocks.put(b.getId(), b);
@@ -481,7 +483,7 @@ public class Manager {
 					addPositionToBlockLink(new CellSpaceInformation(msg.getPosition()), b, null);
 					msgList.remove(i);
 					createdBlock = true;
-				} else if (msg.getType().equals(sally.BlockMsg.Type.Composed)) {
+				} else if (msg.getType().equals(Sally.BlockMsg.Type.Composed)) {
 					boolean allFound = true;
 					for (Integer id : msg.getSubBlockIdsList()) {
 						if (!blocks.containsKey(id)) 
@@ -500,8 +502,8 @@ public class Manager {
 		}
 	}
 	
-	private void createRelations(List<sally.RelationMsg> msgList) {
-		for (sally.RelationMsg msg : msgList) {
+	private void createRelations(List<RelationMsg> msgList) {
+		for (RelationMsg msg : msgList) {
 			Relation r = new Relation(msg, this);
 			relations.put(r.getId(), r);
 			maxRelationID = java.lang.Math.max(maxRelationID, r.getId());

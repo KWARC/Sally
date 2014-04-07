@@ -12,9 +12,6 @@ import java.util.Stack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.inject.Singleton;
-
-@Singleton
 public class SallyInteraction {
 	static class ChannelClass {
 		String channel;

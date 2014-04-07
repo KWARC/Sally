@@ -13,7 +13,7 @@ import info.kwarc.sally.spreadsheet.SpreadsheetDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sally.SpreadsheetDocMeta;
+import Sally.SpreadsheetDocMeta;
 
 import com.google.inject.Inject;
 
@@ -36,7 +36,7 @@ public class GetSheets implements WorkItemHandler  {
 
 	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
-		final sally.GetSheets gm = workItem.getFirstTypedParameter(sally.GetSheets.class);
+		final Sally.GetSheets gm = workItem.getFirstTypedParameter(Sally.GetSheets.class);
 		log.info("Create Blocks "+gm);
 		try {
 			if (gm == null)

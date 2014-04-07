@@ -21,7 +21,7 @@ import org.apache.xmlrpc.client.XmlRpcTransport;
 import org.apache.xmlrpc.client.XmlRpcTransportFactory;
 import org.slf4j.Logger;
 
-import sally.Cookie;
+import Sally.Cookie;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -80,8 +80,8 @@ public class Planetary {
 	static final String METHOD_USER_LOGOUT = "user.logout";
 	static final String METHOD_USER_LOGIN = "user.login";
 	static final String METHOD_USER_TOKEN = "user.token";
-	static final String METHOD_SALLY_ENABLE = "sally.enable_jobad";
-	static final String METHOD_MMT_DEPENDENCIES = "sally.get_dependencies";
+	static final String METHOD_SALLY_ENABLE = "Sally.enable_jobad";
+	static final String METHOD_MMT_DEPENDENCIES = "Sally.get_dependencies";
 
 	private Logger log;
 	private String endpointURL;

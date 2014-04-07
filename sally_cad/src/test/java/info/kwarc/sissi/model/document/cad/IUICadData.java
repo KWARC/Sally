@@ -1,6 +1,6 @@
 package info.kwarc.sissi.model.document.cad;
-import sally.CADNode;
-import sally.Parameter;
+import Sally.CADNode;
+import Sally.Parameter;
 
 public class IUICadData {
 

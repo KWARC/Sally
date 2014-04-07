@@ -10,3 +10,7 @@ message OnSelect {
 	required string objData = 1;
 	required string fileName = 2;
 }
+
+message OnSallyFrame {
+	required string fileName = 1;
+}

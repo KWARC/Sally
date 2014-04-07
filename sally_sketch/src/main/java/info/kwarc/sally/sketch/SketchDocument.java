@@ -23,14 +23,14 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sally.HTMLSelectPart;
-import sally.MMTUri;
-import sally.ScreenCoordinates;
-import sally.SketchASM;
-import sally.SketchAtomic;
-import sally.SketchSelect;
-import sally.SketchSelectPart;
-import sally.SoftwareObject;
+import Sally.HTMLSelectPart;
+import Sally.MMTUri;
+import Sally.ScreenCoordinates;
+import Sally.SketchASM;
+import Sally.SketchAtomic;
+import Sally.SketchSelect;
+import Sally.SketchSelectPart;
+import Sally.SoftwareObject;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;

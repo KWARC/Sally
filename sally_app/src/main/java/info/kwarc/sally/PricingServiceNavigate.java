@@ -9,8 +9,8 @@ import javax.ws.rs.QueryParam;
 
 import org.slf4j.Logger;
 
-import sally.AlexRangeRequest;
-import sally.RangeSelection;
+import Sally.AlexRangeRequest;
+import Sally.RangeSelection;
 
 import com.google.inject.Inject;
 import com.hp.hpl.jena.query.QuerySolution;

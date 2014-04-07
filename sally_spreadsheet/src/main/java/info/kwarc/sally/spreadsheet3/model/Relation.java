@@ -65,13 +65,13 @@ public class Relation {
 		this(id, relationType, block, "");
 	}
 	
-	public Relation(sally.RelationMsg msg, Manager manager) {
+	public Relation(Sally.RelationMsg msg, Manager manager) {
 		super();
 		List<Block> msgBlocks = new ArrayList<Block>();
 		for (Integer id : msg.getBlockIDsList())
 			msgBlocks.add(manager.getBlockByID(id));
 		List<CellTuple> msgCellRelations = new ArrayList<CellTuple>();
-		for (sally.CellTupleMsg cellTupleMsg : msg.getCellRelationsList())
+		for (Sally.CellTupleMsg cellTupleMsg : msg.getCellRelationsList())
 			msgCellRelations.add(new CellTuple(cellTupleMsg));
 		if (isConsistent(msgBlocks, msgCellRelations)) {
 			this.id = msg.getId();
@@ -80,7 +80,7 @@ public class Relation {
 			this.blocks = msgBlocks;
 			this.cellRelations = msgCellRelations;
 			this.cellDependencyDescriptions = new ArrayList<CellDependencyDescription>();
-			for (sally.CellDependencyDescriptionMsg msgCDD: msg.getCellDependencyDescriptionsList())
+			for (Sally.CellDependencyDescriptionMsg msgCDD: msg.getCellDependencyDescriptionsList())
 				cellDependencyDescriptions.add(new CellDependencyDescription(msgCDD));
 		} else {
 			logger.error("Inconsistent cell relations:");
@@ -199,8 +199,8 @@ public class Relation {
 		return consistent;
 	}
 	
-	public sally.RelationMsg serialize() {
-		sally.RelationMsg.Builder msg = sally.RelationMsg.newBuilder();
+	public Sally.RelationMsg serialize() {
+		Sally.RelationMsg.Builder msg = Sally.RelationMsg.newBuilder();
 		msg.setId(this.id);
 		msg.setRelationType(this.relationType.ordinal());
 		msg.setUri(this.uri);

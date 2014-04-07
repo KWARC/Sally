@@ -20,7 +20,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sally.BlockInfo;
+import Sally.BlockInfo;
 
 import com.google.inject.Inject;
 
@@ -43,7 +43,7 @@ public class CreateBlock implements WorkItemHandler  {
 
 	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
-		sally.CreateBlock cb = workItem.getFirstTypedParameter(sally.CreateBlock.class);
+		Sally.CreateBlock cb = workItem.getFirstTypedParameter(Sally.CreateBlock.class);
 		log.info("Create Blocks "+cb);
 		try {
 			if (cb == null)

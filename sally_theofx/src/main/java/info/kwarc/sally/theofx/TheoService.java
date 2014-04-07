@@ -29,8 +29,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import sally.Cookie;
-import sally.SallyFrameChoice;
+import Sally.Cookie;
+import Sally.SallyFrameChoice;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -86,6 +86,7 @@ public class TheoService implements Theo {
 		}
 	}
 
+	
 	public void letUserChoose(final DocumentInformation networkSender, final List<SallyMenuItem> items) {
 		final Long callbackID = callbacks.registerCallback(new IMessageCallback() {
 

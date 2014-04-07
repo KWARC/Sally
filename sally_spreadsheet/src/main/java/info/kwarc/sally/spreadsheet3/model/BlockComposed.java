@@ -105,16 +105,16 @@ public class BlockComposed extends Block {
 	}
 	
 	@Override
-	public sally.BlockMsg serialize() {
-		sally.BlockMsg.Builder blockMsg = sally.BlockMsg.newBuilder();
-		blockMsg.setType(sally.BlockMsg.Type.Composed);
+	public Sally.BlockMsg serialize() {
+		Sally.BlockMsg.Builder blockMsg = Sally.BlockMsg.newBuilder();
+		blockMsg.setType(Sally.BlockMsg.Type.Composed);
 		blockMsg.setId(this.id);
 		blockMsg.setWorksheet(this.worksheet);
 		for (ValueInterpretation vi : this.valueInterpretations)
 			blockMsg.addValueInterpretations(vi.serialize());
 		
 		for (PropertyName p : properties.keySet())
-			blockMsg.addProperties(sally.Property.newBuilder().setPropertyID(p.ordinal()).setValue(properties.get(p)).build() );
+			blockMsg.addProperties(Sally.Property.newBuilder().setPropertyID(p.ordinal()).setValue(properties.get(p)).build() );
 		
 		for (Block b : this.blocks)
 			blockMsg.addSubBlockIds(b.getId());

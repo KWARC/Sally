@@ -1,7 +1,7 @@
 package info.kwarc.sally.theofx.interfaces;
 
 import info.kwarc.sally.theofx.ui.TheoWindow;
-import sally.Cookie;
+import Sally.Cookie;
 
 import com.google.inject.assistedinject.Assisted;
 

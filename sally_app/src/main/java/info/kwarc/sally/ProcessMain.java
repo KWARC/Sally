@@ -4,18 +4,20 @@ import info.kwarc.sally.core.composition.SallyInteraction;
 import info.kwarc.sally.core.net.IConnectionManager;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.injection.Configuration;
+import info.kwarc.sally.networking.SallyServer;
 import info.kwarc.sally.networking.Injection.ProductionNetworking;
 import info.kwarc.sally.networking.interfaces.MockNetworkSender;
 import info.kwarc.sally.spreadsheet.ASMEditor;
 import info.kwarc.sissi.bpm.injection.ProductionRemoteKnowledgeBase;
 import info.kwarc.sissi.bpm.injection.ProductionSallyActions;
-import sally.AlexClick;
-import sally.RangeSelection;
-import sally.ScreenCoordinates;
-import sally.WhoAmI;
-import sally.WhoAmI.ClientType;
-import sally.WhoAmI.EnvironmentType;
 import sally_comm.ProtoUtils;
+import Sally.AlexClick;
+import Sally.RangeSelection;
+import Sally.ScreenCoordinates;
+import Sally.WhoAmI;
+import Sally.WhoAmI.ClientType;
+import Sally.WhoAmI.EnvironmentType;
+import XSelectionProvider.OnSallyFrame;
 import XSelectionProvider.OnSelect;
 
 import com.google.inject.Guice;
@@ -55,12 +57,15 @@ public class ProcessMain {
 
 		conn.newClient("spread", new MockNetworkSender());
 		
-		conn.newMessage("spread", 	WhoAmI.newBuilder().setClientType(ClientType.Alex).setEnvironmentType(EnvironmentType.Desktop).setFileName("a").addInterfaces("Sally.XSelectionProvider").addInterfaces("Sally.XSemanticStore").build());
+		conn.newMessage("spread", 	WhoAmI.newBuilder().setClientType(ClientType.Alex).setEnvironmentType(EnvironmentType.Desktop).setFileName("a").addInterfaces("Sally.XSelectionProvider").addInterfaces("Sally.XAnnotationStore").build());
 		AlexClick click = AlexClick.newBuilder().setFileName("a").setPosition(ScreenCoordinates.newBuilder().setX(100).setY(100).build()).setSheet("Vendor A")			
 				.setRange(RangeSelection.newBuilder().setStartCol(2).setEndCol(2).setStartRow(8).setEndRow(8).setSheet("Vendor A").build()).build();
 		
 		OnSelect sel = OnSelect.newBuilder().setFileName("a").setObjData(ProtoUtils.serialize(click)).build();
 		conn.newMessage("spread", sel);
+		
+		OnSallyFrame frame = OnSallyFrame.newBuilder().setFileName("a").build();
+		conn.newMessage("spread", frame);
 		
 //		String fileName = "file:////home/costea/kwarc/sissi/doc/papers/Interact_2013/spsht/PipeEndPricing_v4.xlsm";
 
@@ -110,7 +115,7 @@ public class ProcessMain {
 
 		/*
 		SallyInteraction sally = i.getInstance(SallyInteraction.class);
-		List<Model> models = sally.getPossibleInteractions("/get/semantics", new SallyModelRequest(), Model.class);
+		List<Model> models = Sally.getPossibleInteractions("/get/semantics", new SallyModelRequest(), Model.class);
 		Model common = ModelFactory.createDefaultModel();
 		for (Model mod : models) {
 			common.add(mod);

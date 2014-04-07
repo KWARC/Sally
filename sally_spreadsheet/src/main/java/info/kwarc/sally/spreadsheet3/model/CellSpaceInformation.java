@@ -26,7 +26,7 @@ public class CellSpaceInformation {
 		this(ci.getWorksheet(), ci.getRow(), ci.getColumn(), ci.getWidth(),ci.getHeight() );
 	}
 	
-	public CellSpaceInformation(sally.CellSpaceInformationMsg msg) {
+	public CellSpaceInformation(Sally.CellSpaceInformationMsg msg) {
 		this.worksheet = msg.getWorksheet();
 		this.row = msg.getRow();
 		this.column = msg.getColumn();
@@ -135,8 +135,8 @@ public class CellSpaceInformation {
 		return assoc;
 	}
 	
-	public sally.CellSpaceInformationMsg serialize() {
-		sally.CellSpaceInformationMsg.Builder msg = sally.CellSpaceInformationMsg.newBuilder();
+	public Sally.CellSpaceInformationMsg serialize() {
+		Sally.CellSpaceInformationMsg.Builder msg = Sally.CellSpaceInformationMsg.newBuilder();
 		msg.setWorksheet(this.worksheet);
 		msg.setRow(this.row);
 		msg.setColumn(this.column);

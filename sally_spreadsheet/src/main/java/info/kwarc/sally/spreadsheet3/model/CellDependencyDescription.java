@@ -24,7 +24,7 @@ public class CellDependencyDescription {
 		this.cellRelation = cellRelation;
 	}
 	
-	public CellDependencyDescription(sally.CellDependencyDescriptionMsg msg) {
+	public CellDependencyDescription(Sally.CellDependencyDescriptionMsg msg) {
 		this.minX = msg.getMinX();
 		this.maxX = msg.getMaxX();
 		this.minY = msg.getMinY();
@@ -91,8 +91,8 @@ public class CellDependencyDescription {
 		return cellRelation;
 	}
 	
-	public sally.CellDependencyDescriptionMsg serialize() {
-		sally.CellDependencyDescriptionMsg.Builder msg = sally.CellDependencyDescriptionMsg.newBuilder();
+	public Sally.CellDependencyDescriptionMsg serialize() {
+		Sally.CellDependencyDescriptionMsg.Builder msg = Sally.CellDependencyDescriptionMsg.newBuilder();
 		msg.setMinX(this.minX);
 		msg.setMaxX(this.maxX);
 		msg.setMinY(this.minY);

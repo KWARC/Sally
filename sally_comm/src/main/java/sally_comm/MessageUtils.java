@@ -1,8 +1,8 @@
 package sally_comm;
 
-import sally.WhoAmI;
-import sally.WhoAmI.ClientType;
-import sally.WhoAmI.EnvironmentType;
+import Sally.WhoAmI;
+import Sally.WhoAmI.ClientType;
+import Sally.WhoAmI.EnvironmentType;
 
 import com.google.protobuf.AbstractMessage;
 import com.google.protobuf.Descriptors.FieldDescriptor;

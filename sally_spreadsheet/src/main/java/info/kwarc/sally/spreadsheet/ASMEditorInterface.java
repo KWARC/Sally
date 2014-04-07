@@ -21,8 +21,8 @@ import javax.ws.rs.QueryParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sally.AlexRangeRequest;
-import sally.RangeSelection;
+import Sally.AlexRangeRequest;
+import Sally.RangeSelection;
 
 import com.google.inject.Inject;
 

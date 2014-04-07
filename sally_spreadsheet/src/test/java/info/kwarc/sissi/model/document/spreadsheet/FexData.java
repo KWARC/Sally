@@ -14,15 +14,15 @@ import java.util.List;
 import org.apache.commons.codec.binary.Base64;
 
 import net.sf.ehcache.store.MemoryOnlyStore;
-import sally.CellData;
-import sally.CellPosition;
-import sally.CellSpaceInformation;
-import sally.DataParameter;
-import sally.FBCreateData;
-import sally.LegendCreateData;
-import sally.RangeData;
-import sally.SpreadsheetModel;
-import sally.RangeData.Builder;
+import Sally.CellData;
+import Sally.CellPosition;
+import Sally.CellSpaceInformation;
+import Sally.DataParameter;
+import Sally.FBCreateData;
+import Sally.LegendCreateData;
+import Sally.RangeData;
+import Sally.SpreadsheetModel;
+import Sally.RangeData.Builder;
 
 import com.hp.hpl.jena.rdf.model.Model;
 
@@ -55,7 +55,7 @@ public class FexData {
 		RangeData.Builder range = RangeData.newBuilder();
 		for (int i=startRow; i<=endRow; ++i) {
 			for (int j=startCol; j<=endCol; ++j) {
-				CellData data = CellData.newBuilder().setPosition(sally.CellSpaceInformation.newBuilder().setWidth(1).setHeight(1).setPosition( sally.CellPosition.newBuilder().setSheet(sheet).setCol(j).setRow(i).build()).build()).setValue(content[i-startRow][j-startCol]).build();
+				CellData data = CellData.newBuilder().setPosition(Sally.CellSpaceInformation.newBuilder().setWidth(1).setHeight(1).setPosition( Sally.CellPosition.newBuilder().setSheet(sheet).setCol(j).setRow(i).build()).build()).setValue(content[i-startRow][j-startCol]).build();
 				range.addCells(data);
 			}
 		}
@@ -77,7 +77,7 @@ public class FexData {
 	Integer setRowTableHeaders(int sheet, int startRow, int startCol, String [] text) {
 		Builder rangeData = RangeData.newBuilder();
 		for (int i=0; i<text.length; ++i) {
-			CellData data = CellData.newBuilder().setPosition(sally.CellSpaceInformation.newBuilder().setWidth(1).setHeight(1).setPosition( sally.CellPosition.newBuilder().setSheet(sheet).setCol(i+startCol).setRow(startRow).build()).build()).setValue(text[i]).build();
+			CellData data = CellData.newBuilder().setPosition(Sally.CellSpaceInformation.newBuilder().setWidth(1).setHeight(1).setPosition( Sally.CellPosition.newBuilder().setSheet(sheet).setCol(i+startCol).setRow(startRow).build()).build()).setValue(text[i]).build();
 			rangeData.addCells(data);
 		}
 		
@@ -87,7 +87,7 @@ public class FexData {
 	Integer setColTableHeaders(int sheet, int startRow, int startCol, String [] text) {
 		Builder rangeData = RangeData.newBuilder();
 		for (int i=0; i<text.length; ++i) {
-			CellData data = CellData.newBuilder().setPosition(sally.CellSpaceInformation.newBuilder().setWidth(1).setHeight(1).setPosition( sally.CellPosition.newBuilder().setSheet(sheet).setCol(startCol).setRow(startRow+i).build()).build()).setValue(text[i]).build();
+			CellData data = CellData.newBuilder().setPosition(Sally.CellSpaceInformation.newBuilder().setWidth(1).setHeight(1).setPosition( Sally.CellPosition.newBuilder().setSheet(sheet).setCol(startCol).setRow(startRow+i).build()).build()).setValue(text[i]).build();
 			rangeData.addCells(data);
 		}
 		return asm.createLegend(LegendCreateData.newBuilder().setFileName("IOI.xls").setItems(rangeData).setParameter(DataParameter.SameContentSameElement).build());

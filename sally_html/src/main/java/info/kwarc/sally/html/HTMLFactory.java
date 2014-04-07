@@ -1,7 +1,7 @@
 package info.kwarc.sally.html;
 
 import info.kwarc.sally.core.net.INetworkSender;
-import sally.HTMLASM;
+import Sally.HTMLASM;
 
 
 public interface HTMLFactory {

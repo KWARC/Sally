@@ -16,8 +16,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import sally.CellPosition;
-import sally.SpreadsheetModel;
+import Sally.CellPosition;
+import Sally.SpreadsheetModel;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;

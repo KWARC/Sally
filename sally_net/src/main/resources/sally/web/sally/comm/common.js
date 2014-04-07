@@ -1,8 +1,8 @@
 "use strict";
-/** @suppress {duplicate}*/var sally;
-if (typeof(sally)=="undefined") {sally = {};}
+/** @suppress {duplicate}*/var Sally;
+if (typeof(Sally)=="undefined") {Sally = {};}
 
-sally.Cookie = PROTO.Message("sally.Cookie",{
+Sally.Cookie = PROTO.Message("Sally.Cookie",{
 	url: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -15,18 +15,18 @@ sally.Cookie = PROTO.Message("sally.Cookie",{
 		type: function(){return PROTO.string;},
 		id: 2
 	}});
-sally.SwitchToApp = PROTO.Message("sally.SwitchToApp",{
+Sally.SwitchToApp = PROTO.Message("Sally.SwitchToApp",{
 	fileName: {
 		options: {},
 		multiplicity: PROTO.required,
 		type: function(){return PROTO.string;},
 		id: 1
 	}});
-sally.TheoOpenWindow = PROTO.Message("sally.TheoOpenWindow",{
+Sally.TheoOpenWindow = PROTO.Message("Sally.TheoOpenWindow",{
 	position: {
 		options: {},
 		multiplicity: PROTO.required,
-		type: function(){return sally.ScreenCoordinates;},
+		type: function(){return Sally.ScreenCoordinates;},
 		id: 1
 	},
 	url: {
@@ -56,14 +56,14 @@ sally.TheoOpenWindow = PROTO.Message("sally.TheoOpenWindow",{
 	cookie: {
 		options: {},
 		multiplicity: PROTO.optional,
-		type: function(){return sally.Cookie;},
+		type: function(){return Sally.Cookie;},
 		id: 6
 	}});
-sally.TheoChangeWindow = PROTO.Message("sally.TheoChangeWindow",{
+Sally.TheoChangeWindow = PROTO.Message("Sally.TheoChangeWindow",{
 	position: {
 		options: {},
 		multiplicity: PROTO.optional,
-		type: function(){return sally.ScreenCoordinates;},
+		type: function(){return Sally.ScreenCoordinates;},
 		id: 1
 	},
 	url: {
@@ -93,7 +93,7 @@ sally.TheoChangeWindow = PROTO.Message("sally.TheoChangeWindow",{
 	cookie: {
 		options: {},
 		multiplicity: PROTO.optional,
-		type: function(){return sally.Cookie;},
+		type: function(){return Sally.Cookie;},
 		id: 6
 	},
 	windowid: {
@@ -102,30 +102,30 @@ sally.TheoChangeWindow = PROTO.Message("sally.TheoChangeWindow",{
 		type: function(){return PROTO.int32;},
 		id: 7
 	}});
-sally.TheoCloseWindow = PROTO.Message("sally.TheoCloseWindow",{
+Sally.TheoCloseWindow = PROTO.Message("Sally.TheoCloseWindow",{
 	windowid: {
 		options: {},
 		multiplicity: PROTO.required,
 		type: function(){return PROTO.int32;},
 		id: 1
 	}});
-sally.WhoAmI = PROTO.Message("sally.WhoAmI",{
-	ClientType: PROTO.Enum("sally.WhoAmI.ClientType",{
+Sally.WhoAmI = PROTO.Message("Sally.WhoAmI",{
+	ClientType: PROTO.Enum("Sally.WhoAmI.ClientType",{
 		Alex :0,
 		Theo :1	}),
-	EnvironmentType: PROTO.Enum("sally.WhoAmI.EnvironmentType",{
+	EnvironmentType: PROTO.Enum("Sally.WhoAmI.EnvironmentType",{
 		Desktop :0,
 		Web :1	}),
 	clientType: {
 		options: {},
 		multiplicity: PROTO.required,
-		type: function(){return sally.WhoAmI.ClientType;},
+		type: function(){return Sally.WhoAmI.ClientType;},
 		id: 1
 	},
 	environmentType: {
 		options: {},
 		multiplicity: PROTO.required,
-		type: function(){return sally.WhoAmI.EnvironmentType;},
+		type: function(){return Sally.WhoAmI.EnvironmentType;},
 		id: 2
 	},
 	interfaces: {
@@ -140,7 +140,7 @@ sally.WhoAmI = PROTO.Message("sally.WhoAmI",{
 		type: function(){return PROTO.string;},
 		id: 5
 	}});
-sally.AlexData = PROTO.Message("sally.AlexData",{
+Sally.AlexData = PROTO.Message("Sally.AlexData",{
 	fileName: {
 		options: {},
 		multiplicity: PROTO.optional,
@@ -165,14 +165,14 @@ sally.AlexData = PROTO.Message("sally.AlexData",{
 		type: function(){return PROTO.string;},
 		id: 4
 	}});
-sally.SallyFrame = PROTO.Message("sally.SallyFrame",{
+Sally.SallyFrame = PROTO.Message("Sally.SallyFrame",{
 	fileName: {
 		options: {},
 		multiplicity: PROTO.optional,
 		type: function(){return PROTO.string;},
 		id: 1
 	}});
-sally.SallyFrameChoice = PROTO.Message("sally.SallyFrameChoice",{
+Sally.SallyFrameChoice = PROTO.Message("Sally.SallyFrameChoice",{
 	fileName: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -191,7 +191,7 @@ sally.SallyFrameChoice = PROTO.Message("sally.SallyFrameChoice",{
 		type: function(){return PROTO.int64;},
 		id: 3
 	}});
-sally.SallyFrameService = PROTO.Message("sally.SallyFrameService",{
+Sally.SallyFrameService = PROTO.Message("Sally.SallyFrameService",{
 	id: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -210,7 +210,7 @@ sally.SallyFrameService = PROTO.Message("sally.SallyFrameService",{
 		type: function(){return PROTO.string;},
 		id: 3
 	}});
-sally.SallyFrameResponse = PROTO.Message("sally.SallyFrameResponse",{
+Sally.SallyFrameResponse = PROTO.Message("Sally.SallyFrameResponse",{
 	frameName: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -220,14 +220,14 @@ sally.SallyFrameResponse = PROTO.Message("sally.SallyFrameResponse",{
 	frameServices: {
 		options: {},
 		multiplicity: PROTO.repeated,
-		type: function(){return sally.SallyFrameService;},
+		type: function(){return Sally.SallyFrameService;},
 		id: 2
 	}});
-sally.SallyFrameList = PROTO.Message("sally.SallyFrameList",{
+Sally.SallyFrameList = PROTO.Message("Sally.SallyFrameList",{
 	frames: {
 		options: {},
 		multiplicity: PROTO.repeated,
-		type: function(){return sally.SallyFrameResponse;},
+		type: function(){return Sally.SallyFrameResponse;},
 		id: 1
 	},
 	callbackToken: {
@@ -242,7 +242,7 @@ sally.SallyFrameList = PROTO.Message("sally.SallyFrameList",{
 		type: function(){return PROTO.string;},
 		id: 3
 	}});
-sally.ScreenCoordinates = PROTO.Message("sally.ScreenCoordinates",{
+Sally.ScreenCoordinates = PROTO.Message("Sally.ScreenCoordinates",{
 	x: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -255,7 +255,7 @@ sally.ScreenCoordinates = PROTO.Message("sally.ScreenCoordinates",{
 		type: function(){return PROTO.int32;},
 		id: 2
 	}});
-sally.Parameter = PROTO.Message("sally.Parameter",{
+Sally.Parameter = PROTO.Message("Sally.Parameter",{
 	key: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -268,7 +268,7 @@ sally.Parameter = PROTO.Message("sally.Parameter",{
 		type: function(){return PROTO.string;},
 		id: 2
 	}});
-sally.RangeSelection = PROTO.Message("sally.RangeSelection",{
+Sally.RangeSelection = PROTO.Message("Sally.RangeSelection",{
 	startRow: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -299,7 +299,7 @@ sally.RangeSelection = PROTO.Message("sally.RangeSelection",{
 		type: function(){return PROTO.string;},
 		id: 5
 	}});
-sally.AlexRangeRequest = PROTO.Message("sally.AlexRangeRequest",{
+Sally.AlexRangeRequest = PROTO.Message("Sally.AlexRangeRequest",{
 	fileName: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -309,10 +309,10 @@ sally.AlexRangeRequest = PROTO.Message("sally.AlexRangeRequest",{
 	selection: {
 		options: {},
 		multiplicity: PROTO.repeated,
-		type: function(){return sally.RangeSelection;},
+		type: function(){return Sally.RangeSelection;},
 		id: 2
 	}});
-sally.AlexClick = PROTO.Message("sally.AlexClick",{
+Sally.AlexClick = PROTO.Message("Sally.AlexClick",{
 	Sheet: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -322,13 +322,13 @@ sally.AlexClick = PROTO.Message("sally.AlexClick",{
 	range: {
 		options: {},
 		multiplicity: PROTO.required,
-		type: function(){return sally.RangeSelection;},
+		type: function(){return Sally.RangeSelection;},
 		id: 2
 	},
 	position: {
 		options: {},
 		multiplicity: PROTO.required,
-		type: function(){return sally.ScreenCoordinates;},
+		type: function(){return Sally.ScreenCoordinates;},
 		id: 3
 	},
 	fileName: {
@@ -337,7 +337,7 @@ sally.AlexClick = PROTO.Message("sally.AlexClick",{
 		type: function(){return PROTO.string;},
 		id: 4
 	}});
-sally.StartSubTask = PROTO.Message("sally.StartSubTask",{
+Sally.StartSubTask = PROTO.Message("Sally.StartSubTask",{
 	workflowID: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -350,7 +350,7 @@ sally.StartSubTask = PROTO.Message("sally.StartSubTask",{
 		type: function(){return PROTO.int64;},
 		id: 2
 	}});
-sally.CADAlexClick = PROTO.Message("sally.CADAlexClick",{
+Sally.CADAlexClick = PROTO.Message("Sally.CADAlexClick",{
 	cadNodeId: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -360,7 +360,7 @@ sally.CADAlexClick = PROTO.Message("sally.CADAlexClick",{
 	position: {
 		options: {},
 		multiplicity: PROTO.required,
-		type: function(){return sally.ScreenCoordinates;},
+		type: function(){return Sally.ScreenCoordinates;},
 		id: 2
 	},
 	fileName: {
@@ -369,7 +369,7 @@ sally.CADAlexClick = PROTO.Message("sally.CADAlexClick",{
 		type: function(){return PROTO.string;},
 		id: 3
 	}});
-sally.CADNavigateTo = PROTO.Message("sally.CADNavigateTo",{
+Sally.CADNavigateTo = PROTO.Message("Sally.CADNavigateTo",{
 	fileName: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -382,7 +382,7 @@ sally.CADNavigateTo = PROTO.Message("sally.CADNavigateTo",{
 		type: function(){return PROTO.string;},
 		id: 2
 	}});
-sally.CADNode = PROTO.Message("sally.CADNode",{
+Sally.CADNode = PROTO.Message("Sally.CADNode",{
 	id: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -398,16 +398,16 @@ sally.CADNode = PROTO.Message("sally.CADNode",{
 	children: {
 		options: {},
 		multiplicity: PROTO.repeated,
-		type: function(){return sally.CADNode;},
+		type: function(){return Sally.CADNode;},
 		id: 3
 	},
 	parameters: {
 		options: {},
 		multiplicity: PROTO.repeated,
-		type: function(){return sally.Parameter;},
+		type: function(){return Sally.Parameter;},
 		id: 4
 	}});
-sally.CADSemanticData = PROTO.Message("sally.CADSemanticData",{
+Sally.CADSemanticData = PROTO.Message("Sally.CADSemanticData",{
 	fileName: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -417,17 +417,17 @@ sally.CADSemanticData = PROTO.Message("sally.CADSemanticData",{
 	root_node: {
 		options: {},
 		multiplicity: PROTO.required,
-		type: function(){return sally.CADNode;},
+		type: function(){return Sally.CADNode;},
 		id: 2
 	}});
-sally.SpreadsheetAlexData = PROTO.Message("sally.SpreadsheetAlexData",{
+Sally.SpreadsheetAlexData = PROTO.Message("Sally.SpreadsheetAlexData",{
 	asm: {
 		options: {},
 		multiplicity: PROTO.optional,
-		type: function(){return sally.ModelDataMsg;},
+		type: function(){return Sally.ModelDataMsg;},
 		id: 2
 	}});
-sally.SoftwareObject = PROTO.Message("sally.SoftwareObject",{
+Sally.SoftwareObject = PROTO.Message("Sally.SoftwareObject",{
 	fileName: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -440,14 +440,14 @@ sally.SoftwareObject = PROTO.Message("sally.SoftwareObject",{
 		type: function(){return PROTO.string;},
 		id: 2
 	}});
-sally.MMTUri = PROTO.Message("sally.MMTUri",{
+Sally.MMTUri = PROTO.Message("Sally.MMTUri",{
 	uri: {
 		options: {},
 		multiplicity: PROTO.required,
 		type: function(){return PROTO.string;},
 		id: 1
 	}});
-sally.BlockInfo = PROTO.Message("sally.BlockInfo",{
+Sally.BlockInfo = PROTO.Message("Sally.BlockInfo",{
 	name: {
 		options: {},
 		multiplicity: PROTO.optional,
@@ -478,7 +478,7 @@ sally.BlockInfo = PROTO.Message("sally.BlockInfo",{
 		type: function(){return PROTO.int32;},
 		id: 5
 	}});
-sally.SpreadsheetDocMeta = PROTO.Message("sally.SpreadsheetDocMeta",{
+Sally.SpreadsheetDocMeta = PROTO.Message("Sally.SpreadsheetDocMeta",{
 	fileName: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -491,7 +491,7 @@ sally.SpreadsheetDocMeta = PROTO.Message("sally.SpreadsheetDocMeta",{
 		type: function(){return PROTO.string;},
 		id: 2
 	}});
-sally.GetSheets = PROTO.Message("sally.GetSheets",{
+Sally.GetSheets = PROTO.Message("Sally.GetSheets",{
 	fileName: {
 		options: {},
 		multiplicity: PROTO.optional,
@@ -504,7 +504,7 @@ sally.GetSheets = PROTO.Message("sally.GetSheets",{
 		type: function(){return PROTO.int64;},
 		id: 2
 	}});
-sally.GetBlocks = PROTO.Message("sally.GetBlocks",{
+Sally.GetBlocks = PROTO.Message("Sally.GetBlocks",{
 	fileName: {
 		options: {},
 		multiplicity: PROTO.optional,
@@ -523,18 +523,18 @@ sally.GetBlocks = PROTO.Message("sally.GetBlocks",{
 		type: function(){return PROTO.int64;},
 		id: 3
 	}});
-sally.BlockList = PROTO.Message("sally.BlockList",{
+Sally.BlockList = PROTO.Message("Sally.BlockList",{
 	blocks: {
 		options: {},
 		multiplicity: PROTO.repeated,
-		type: function(){return sally.BlockInfo;},
+		type: function(){return Sally.BlockInfo;},
 		id: 1
 	}});
-sally.CreateBlock = PROTO.Message("sally.CreateBlock",{
+Sally.CreateBlock = PROTO.Message("Sally.CreateBlock",{
 	blockInfo: {
 		options: {},
 		multiplicity: PROTO.required,
-		type: function(){return sally.BlockInfo;},
+		type: function(){return Sally.BlockInfo;},
 		id: 1
 	},
 	callbackToken: {
@@ -543,17 +543,17 @@ sally.CreateBlock = PROTO.Message("sally.CreateBlock",{
 		type: function(){return PROTO.int64;},
 		id: 2
 	}});
-sally.BuilderMsg = PROTO.Message("sally.BuilderMsg",{
-	Type: PROTO.Enum("sally.BuilderMsg.Type",{
+Sally.BuilderMsg = PROTO.Message("Sally.BuilderMsg",{
+	Type: PROTO.Enum("Sally.BuilderMsg.Type",{
 		MathML :1,
 		OpenMath :2	}),
 	type: {
 		options: {},
 		multiplicity: PROTO.required,
-		type: function(){return sally.BuilderMsg.Type;},
+		type: function(){return Sally.BuilderMsg.Type;},
 		id: 1
 	}});
-sally.ValueInterpretationMsg = PROTO.Message("sally.ValueInterpretationMsg",{
+Sally.ValueInterpretationMsg = PROTO.Message("Sally.ValueInterpretationMsg",{
 	pattern: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -569,10 +569,10 @@ sally.ValueInterpretationMsg = PROTO.Message("sally.ValueInterpretationMsg",{
 	builderML: {
 		options: {},
 		multiplicity: PROTO.required,
-		type: function(){return sally.BuilderMsg;},
+		type: function(){return Sally.BuilderMsg;},
 		id: 3
 	}});
-sally.CellSpaceInformationMsg = PROTO.Message("sally.CellSpaceInformationMsg",{
+Sally.CellSpaceInformationMsg = PROTO.Message("Sally.CellSpaceInformationMsg",{
 	worksheet: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -603,7 +603,7 @@ sally.CellSpaceInformationMsg = PROTO.Message("sally.CellSpaceInformationMsg",{
 		type: function(){return PROTO.int32;},
 		id: 5
 	}});
-sally.Property = PROTO.Message("sally.Property",{
+Sally.Property = PROTO.Message("Sally.Property",{
 	propertyID: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -616,14 +616,14 @@ sally.Property = PROTO.Message("sally.Property",{
 		type: function(){return PROTO.string;},
 		id: 2
 	}});
-sally.BlockMsg = PROTO.Message("sally.BlockMsg",{
-	Type: PROTO.Enum("sally.BlockMsg.Type",{
+Sally.BlockMsg = PROTO.Message("Sally.BlockMsg",{
+	Type: PROTO.Enum("Sally.BlockMsg.Type",{
 		Atomic :1,
 		Composed :2	}),
 	type: {
 		options: {},
 		multiplicity: PROTO.required,
-		type: function(){return sally.BlockMsg.Type;},
+		type: function(){return Sally.BlockMsg.Type;},
 		id: 1
 	},
 	id: {
@@ -641,19 +641,19 @@ sally.BlockMsg = PROTO.Message("sally.BlockMsg",{
 	valueInterpretations: {
 		options: {},
 		multiplicity: PROTO.repeated,
-		type: function(){return sally.ValueInterpretationMsg;},
+		type: function(){return Sally.ValueInterpretationMsg;},
 		id: 4
 	},
 	properties: {
 		options: {},
 		multiplicity: PROTO.repeated,
-		type: function(){return sally.Property;},
+		type: function(){return Sally.Property;},
 		id: 5
 	},
 	position: {
 		options: {},
 		multiplicity: PROTO.optional,
-		type: function(){return sally.CellSpaceInformationMsg;},
+		type: function(){return Sally.CellSpaceInformationMsg;},
 		id: 6
 	},
 	subBlockIds: {
@@ -662,14 +662,14 @@ sally.BlockMsg = PROTO.Message("sally.BlockMsg",{
 		type: function(){return PROTO.int32;},
 		id: 7
 	}});
-sally.CellTupleMsg = PROTO.Message("sally.CellTupleMsg",{
+Sally.CellTupleMsg = PROTO.Message("Sally.CellTupleMsg",{
 	tuple: {
 		options: {},
 		multiplicity: PROTO.repeated,
-		type: function(){return sally.CellSpaceInformationMsg;},
+		type: function(){return Sally.CellSpaceInformationMsg;},
 		id: 1
 	}});
-sally.CellDependencyDescriptionMsg = PROTO.Message("sally.CellDependencyDescriptionMsg",{
+Sally.CellDependencyDescriptionMsg = PROTO.Message("Sally.CellDependencyDescriptionMsg",{
 	minX: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -700,7 +700,7 @@ sally.CellDependencyDescriptionMsg = PROTO.Message("sally.CellDependencyDescript
 		type: function(){return PROTO.string;},
 		id: 5
 	}});
-sally.RelationMsg = PROTO.Message("sally.RelationMsg",{
+Sally.RelationMsg = PROTO.Message("Sally.RelationMsg",{
 	id: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -728,29 +728,29 @@ sally.RelationMsg = PROTO.Message("sally.RelationMsg",{
 	cellRelations: {
 		options: {},
 		multiplicity: PROTO.repeated,
-		type: function(){return sally.CellTupleMsg;},
+		type: function(){return Sally.CellTupleMsg;},
 		id: 5
 	},
 	cellDependencyDescriptions: {
 		options: {},
 		multiplicity: PROTO.repeated,
-		type: function(){return sally.CellDependencyDescriptionMsg;},
+		type: function(){return Sally.CellDependencyDescriptionMsg;},
 		id: 6
 	}});
-sally.ModelDataMsg = PROTO.Message("sally.ModelDataMsg",{
+Sally.ModelDataMsg = PROTO.Message("Sally.ModelDataMsg",{
 	blocks: {
 		options: {},
 		multiplicity: PROTO.repeated,
-		type: function(){return sally.BlockMsg;},
+		type: function(){return Sally.BlockMsg;},
 		id: 1
 	},
 	relations: {
 		options: {},
 		multiplicity: PROTO.repeated,
-		type: function(){return sally.RelationMsg;},
+		type: function(){return Sally.RelationMsg;},
 		id: 2
 	}});
-sally.SketchSelect = PROTO.Message("sally.SketchSelect",{
+Sally.SketchSelect = PROTO.Message("Sally.SketchSelect",{
 	id: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -766,10 +766,10 @@ sally.SketchSelect = PROTO.Message("sally.SketchSelect",{
 	position: {
 		options: {},
 		multiplicity: PROTO.required,
-		type: function(){return sally.ScreenCoordinates;},
+		type: function(){return Sally.ScreenCoordinates;},
 		id: 3
 	}});
-sally.SketchAtomic = PROTO.Message("sally.SketchAtomic",{
+Sally.SketchAtomic = PROTO.Message("Sally.SketchAtomic",{
 	id: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -779,10 +779,10 @@ sally.SketchAtomic = PROTO.Message("sally.SketchAtomic",{
 	mmturi: {
 		options: {},
 		multiplicity: PROTO.required,
-		type: function(){return sally.MMTUri;},
+		type: function(){return Sally.MMTUri;},
 		id: 2
 	}});
-sally.SketchRelation = PROTO.Message("sally.SketchRelation",{
+Sally.SketchRelation = PROTO.Message("Sally.SketchRelation",{
 	parts: {
 		options: {},
 		multiplicity: PROTO.repeated,
@@ -792,20 +792,20 @@ sally.SketchRelation = PROTO.Message("sally.SketchRelation",{
 	relation: {
 		options: {},
 		multiplicity: PROTO.repeated,
-		type: function(){return sally.MMTUri;},
+		type: function(){return Sally.MMTUri;},
 		id: 2
 	}});
-sally.SketchASM = PROTO.Message("sally.SketchASM",{
+Sally.SketchASM = PROTO.Message("Sally.SketchASM",{
 	parts: {
 		options: {},
 		multiplicity: PROTO.repeated,
-		type: function(){return sally.SketchAtomic;},
+		type: function(){return Sally.SketchAtomic;},
 		id: 1
 	},
 	relations: {
 		options: {},
 		multiplicity: PROTO.repeated,
-		type: function(){return sally.SketchRelation;},
+		type: function(){return Sally.SketchRelation;},
 		id: 2
 	},
 	sketchTitle: {
@@ -814,7 +814,7 @@ sally.SketchASM = PROTO.Message("sally.SketchASM",{
 		type: function(){return PROTO.string;},
 		id: 3
 	}});
-sally.SketchSelectPart = PROTO.Message("sally.SketchSelectPart",{
+Sally.SketchSelectPart = PROTO.Message("Sally.SketchSelectPart",{
 	id: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -827,7 +827,7 @@ sally.SketchSelectPart = PROTO.Message("sally.SketchSelectPart",{
 		type: function(){return PROTO.string;},
 		id: 2
 	}});
-sally.HTMLSelect = PROTO.Message("sally.HTMLSelect",{
+Sally.HTMLSelect = PROTO.Message("Sally.HTMLSelect",{
 	id: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -843,10 +843,10 @@ sally.HTMLSelect = PROTO.Message("sally.HTMLSelect",{
 	position: {
 		options: {},
 		multiplicity: PROTO.required,
-		type: function(){return sally.ScreenCoordinates;},
+		type: function(){return Sally.ScreenCoordinates;},
 		id: 3
 	}});
-sally.HTMLAtomic = PROTO.Message("sally.HTMLAtomic",{
+Sally.HTMLAtomic = PROTO.Message("Sally.HTMLAtomic",{
 	id: {
 		options: {},
 		multiplicity: PROTO.required,
@@ -856,17 +856,17 @@ sally.HTMLAtomic = PROTO.Message("sally.HTMLAtomic",{
 	mmturi: {
 		options: {},
 		multiplicity: PROTO.required,
-		type: function(){return sally.MMTUri;},
+		type: function(){return Sally.MMTUri;},
 		id: 2
 	}});
-sally.HTMLASM = PROTO.Message("sally.HTMLASM",{
+Sally.HTMLASM = PROTO.Message("Sally.HTMLASM",{
 	parts: {
 		options: {},
 		multiplicity: PROTO.repeated,
-		type: function(){return sally.HTMLAtomic;},
+		type: function(){return Sally.HTMLAtomic;},
 		id: 1
 	}});
-sally.HTMLSelectPart = PROTO.Message("sally.HTMLSelectPart",{
+Sally.HTMLSelectPart = PROTO.Message("Sally.HTMLSelectPart",{
 	id: {
 		options: {},
 		multiplicity: PROTO.required,

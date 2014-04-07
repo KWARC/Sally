@@ -15,8 +15,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sally.ScreenCoordinates;
-import sally.SketchSelect;
+import Sally.ScreenCoordinates;
+import Sally.SketchSelect;
 
 import com.google.inject.Inject;
 

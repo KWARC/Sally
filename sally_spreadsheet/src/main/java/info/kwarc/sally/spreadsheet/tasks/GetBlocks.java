@@ -15,8 +15,8 @@ import info.kwarc.sally.spreadsheet3.model.Relation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sally.BlockInfo;
-import sally.BlockList;
+import Sally.BlockInfo;
+import Sally.BlockList;
 
 import com.google.inject.Inject;
 
@@ -39,7 +39,7 @@ public class GetBlocks implements WorkItemHandler  {
 
 	@Override
 	public void executeWorkItem(WorkItem workItem, WorkItemManager manager) {
-		sally.GetBlocks getBlocks = workItem.getFirstTypedParameter(sally.GetBlocks.class);
+		Sally.GetBlocks getBlocks = workItem.getFirstTypedParameter(Sally.GetBlocks.class);
 		try {
 			if (getBlocks == null)
 				throw new Exception("No GetBlocks request ");
