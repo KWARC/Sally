@@ -48,7 +48,7 @@ public class ForwardToInterface implements WorkItemHandler {
 			}
 
 			AbstractMessage absmsg = (AbstractMessage) msg.getData();
-			String pkg = absmsg.getDescriptorForType().getFile().getPackage();
+			String pkg = "Sally."+absmsg.getDescriptorForType().getFile().getPackage();
 			if (!interfaceMap.containsKey(pkg)) {
 				throw new Exception(String.format("Package %s does not match any implemented interface name.", pkg));
 			}

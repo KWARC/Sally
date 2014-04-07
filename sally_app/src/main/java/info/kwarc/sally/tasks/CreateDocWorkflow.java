@@ -4,6 +4,7 @@ import info.kwarc.sally.core.composition.SallyInteraction;
 import info.kwarc.sally.core.doc.DocumentInformation;
 import info.kwarc.sally.core.doc.DocumentManager;
 import info.kwarc.sally.core.net.INetworkSender;
+import info.kwarc.sally.core.theo.Theo;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.core.workflow.ProcessInstance;
 import info.kwarc.sally.core.workflow.SallyTask;
@@ -17,9 +18,10 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sally.WhoAmI;
+import Sally.WhoAmI;
 
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 
 @SallyTask(action="CreateDocWorkflow")
 public class CreateDocWorkflow implements WorkItemHandler {
@@ -28,9 +30,11 @@ public class CreateDocWorkflow implements WorkItemHandler {
 	ISallyWorkflowManager kb;
 	DocumentManager docManager;
 	Logger log;
-
+	Theo desktopTheo;
+	
 	@Inject
-	public CreateDocWorkflow(SallyInteraction interaction, ISallyWorkflowManager kb, DocumentManager docMap) {
+	public CreateDocWorkflow(SallyInteraction interaction, ISallyWorkflowManager kb, DocumentManager docMap, @Named("DesktopTheo") Theo desktopTheo) {
+		this.desktopTheo = desktopTheo;
 		this.interaction = interaction;
 		this.kb = kb;
 		this.docManager = docMap;
@@ -54,10 +58,11 @@ public class CreateDocWorkflow implements WorkItemHandler {
 			ProcessInstance pi = kb.prepareProcess(workItem.getProcessInstanceId(), "Sally.document_workflow");
 			pi.setProcessVarialbe("AlexInfo", alexInfo);
 			pi.setProcessVarialbe("NetworkSender", networkSender);
+			DocumentInformation docInfo = new DocumentInformation(alexInfo.getFileName(), pi.getId());
+			docInfo.setTheo(desktopTheo);
+			docManager.addDocument(docInfo);
 			kb.startProcess(pi);
 			
-			DocumentInformation docInfo = new DocumentInformation(alexInfo.getFileName(), pi.getId());
-			docManager.addDocument(new DocumentInformation(alexInfo.getFileName(), pi.getId()));
 		} catch  (Exception e) {
 			e.printStackTrace();
 		}  finally {

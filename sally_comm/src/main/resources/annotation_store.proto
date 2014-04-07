@@ -1,0 +1,18 @@
+package XAnnotationStore;
+
+/**
+* very important, otherwise serialization will not work
+*/
+
+option java_multiple_files = true;
+
+message GetAnnotationsFromSelectionRequest {
+	required string fileName = 1;
+	required string selectData = 2;
+	required int64 callbackid = 3;
+}
+
+message GetAnnotationsFromSelectionRequestResult {
+	required string fileName = 1;
+	repeated string URIs = 2;
+}
