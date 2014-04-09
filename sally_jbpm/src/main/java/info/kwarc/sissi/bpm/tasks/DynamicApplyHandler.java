@@ -1,6 +1,7 @@
 package info.kwarc.sissi.bpm.tasks;
 
 import info.kwarc.sally.core.composition.SallyInteraction;
+import info.kwarc.sally.core.interaction.SallyMenuItem;
 import info.kwarc.sally.core.workflow.ISallyWorkflowManager;
 import info.kwarc.sally.core.workflow.SallyTask;
 
@@ -41,8 +42,13 @@ public class DynamicApplyHandler implements WorkItemHandler {
 				output = "java.lang.Object";
 			}
 
-			Class<?> c = Class.forName(output);
+			Class<?> c;
 
+			if (output.endsWith("SallyMenuItem")) {
+				c = SallyMenuItem.class;
+			} else {
+				c = Class.forName(output);
+			}
 			interaction.getContext().setContextVar("processInstanceId", arg0.getProcessInstanceId());
 			arg0.getResults().put("result", interaction.getPossibleInteractions(o, c));
 		} catch (Exception e) {

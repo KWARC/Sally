@@ -58,7 +58,7 @@ public class Configuration extends AbstractModule {
 		bind(IDocManager.class).to(ShareJS.class);
 		
 		bind(String.class).annotatedWith(Names.named("ShareJSCollection")).toInstance("libreoffice");
-		bind(String.class).annotatedWith(Names.named("ShareJSURL")).toInstance("http://127.0.0.1:7007");
+		bind(String.class).annotatedWith(Names.named("ShareJSURL")).toInstance("http://raspberry.eecs.jacobs-university.de:7007");
 		
 		bind(String.class).annotatedWith(Names.named("PlanetaryURL")).toInstance("http://localhost/planetmmt");
 		bind(String.class).annotatedWith(Names.named("PlanetaryEndPoint")).toInstance("sallyrpc");  
