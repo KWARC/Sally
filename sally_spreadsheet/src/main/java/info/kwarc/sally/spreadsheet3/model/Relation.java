@@ -6,6 +6,14 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Class to represent relations between blocks.
+ * A relation has a type to represent different kind of relations. Furthermore information about the relation between cells 
+ * of different blocks are provided. Beside relations between blocks unary relations are also possible and can be used to
+ * link blocks by an unary relation to the ontology. 
+ * @author cliguda
+ *
+ */
 public class Relation {
 	
 	public enum RelationType {
@@ -14,29 +22,38 @@ public class Relation {
 	
 	int id;
 	RelationType relationType;
-	String uri;
+	
 	List<Block> blocks;
 	List<CellTuple> cellRelations;
 	List<CellDependencyDescription> cellDependencyDescriptions;
 	
+	RelationOntologyLink ontologyLink;
+	
 	final Logger logger = LoggerFactory.getLogger(Relation.class);
 	
 	public Relation(int id, RelationType relationType, List<Block> blocks,
-			List<CellTuple> cellRelations, List<CellDependencyDescription> cellDependencyDescriptions, String uri) {
+			List<CellTuple> cellRelations, List<CellDependencyDescription> cellDependencyDescriptions, RelationOntologyLink ontologyLink) throws ModelException {
 		super();
 		if (isConsistent(blocks, cellRelations)) {
 			this.id = id;
 			this.relationType = relationType;
-			this.uri = uri;
+			//this.uri = uri;
 			this.blocks = new ArrayList<Block>(blocks);
 			this.cellRelations = new ArrayList<CellTuple>(cellRelations);
 			this.cellDependencyDescriptions = new ArrayList<CellDependencyDescription>(cellDependencyDescriptions);
+		
+			this.ontologyLink = ontologyLink;
 		} else 
-			throw new java.lang.IllegalArgumentException("Cell realations is not consistent to blocks.");
+			throw new ModelException("Cell realations is not consistent to blocks.");
 	}
 	
 	public Relation(int id, RelationType relationType, List<Block> blocks,
-			List<CellTuple> cellRelations, List<CellDependencyDescription> cellDependencyDescriptions) {
+			List<CellTuple> cellRelations, List<CellDependencyDescription> cellDependencyDescriptions, String uri) throws ModelException {
+		this(id, relationType, blocks, cellRelations, cellDependencyDescriptions, new RelationOntologyLink(uri, blocks.size()));
+	}
+	
+	public Relation(int id, RelationType relationType, List<Block> blocks,
+			List<CellTuple> cellRelations, List<CellDependencyDescription> cellDependencyDescriptions) throws ModelException {
 		this(id, relationType, blocks, cellRelations, cellDependencyDescriptions, "");
 	}
 	
@@ -48,9 +65,10 @@ public class Relation {
 		super();
 		this.id = id;
 		this.relationType = relationType;
-		this.uri = uri;
+		//this.uri = uri;
 		this.blocks = new ArrayList<Block>();
 		this.blocks.add(block);
+		this.ontologyLink = new RelationOntologyLink(uri, blocks.size());
 		this.cellRelations = new ArrayList<CellTuple>();
 		for (CellSpaceInformation pos : block.getCells()) {
 			List<CellSpaceInformation> tuple = new ArrayList<CellSpaceInformation>();
@@ -59,13 +77,15 @@ public class Relation {
 		}
 		this.cellDependencyDescriptions = new ArrayList<CellDependencyDescription>();
 		this.cellDependencyDescriptions.add(new CellDependencyDescription(0, block.getMaxRow()-block.getMinRow(), 0, block.getMaxColumn() - block.getMinColumn(), "x,y"));
+	
+		this.ontologyLink = new RelationOntologyLink(uri, blocks.size());
 	}
 	
 	public Relation(int id, RelationType relationType, Block block) {
 		this(id, relationType, block, "");
 	}
 	
-	public Relation(sally.RelationMsg msg, Manager manager) {
+	public Relation(sally.RelationMsg msg, ModelManager manager) throws ModelException{
 		super();
 		List<Block> msgBlocks = new ArrayList<Block>();
 		for (Integer id : msg.getBlockIDsList())
@@ -76,8 +96,10 @@ public class Relation {
 		if (isConsistent(msgBlocks, msgCellRelations)) {
 			this.id = msg.getId();
 			this.relationType = RelationType.values()[msg.getRelationType()];
-			this.uri = msg.getUri();
+			//this.uri = msg.getUri();
 			this.blocks = msgBlocks;
+			this.ontologyLink = new RelationOntologyLink(msg.getOntologyLink());
+			
 			this.cellRelations = msgCellRelations;
 			this.cellDependencyDescriptions = new ArrayList<CellDependencyDescription>();
 			for (sally.CellDependencyDescriptionMsg msgCDD: msg.getCellDependencyDescriptionsList())
@@ -87,7 +109,7 @@ public class Relation {
 			for (CellTuple ct : cellRelations) 
 				logger.error(ct.toString());
 			
-			throw new java.lang.IllegalArgumentException("Cell realations is not consistent to blocks.");
+			throw new ModelException("Cell realations is not consistent to blocks.");
 		}
 	}
 	
@@ -104,8 +126,9 @@ public class Relation {
 				+ ((cellRelations == null) ? 0 : cellRelations.hashCode());
 		result = prime * result + id;
 		result = prime * result
+				+ ((ontologyLink == null) ? 0 : ontologyLink.hashCode());
+		result = prime * result
 				+ ((relationType == null) ? 0 : relationType.hashCode());
-		result = prime * result + ((uri == null) ? 0 : uri.hashCode());
 		return result;
 	}
 
@@ -136,15 +159,12 @@ public class Relation {
 			return false;
 		if (id != other.id)
 			return false;
-		if (relationType == null) {
-			if (other.relationType != null)
+		if (ontologyLink == null) {
+			if (other.ontologyLink != null)
 				return false;
-		} else if (!relationType.equals(other.relationType))
+		} else if (!ontologyLink.equals(other.ontologyLink))
 			return false;
-		if (uri == null) {
-			if (other.uri != null)
-				return false;
-		} else if (!uri.equals(other.uri))
+		if (relationType != other.relationType)
 			return false;
 		return true;
 	}
@@ -158,11 +178,19 @@ public class Relation {
 	}
 	
 	public String getUri() {
-		return this.uri;
+		return this.ontologyLink.getUri();
 	}
 	
 	public void setUri(String uri) {
-		this.uri = uri;
+		this.ontologyLink.setUri(uri);;
+	}
+	
+	public RelationOntologyLink getOntologyLink() {
+		return this.ontologyLink;
+	}
+	
+	public void setOntologyLink(RelationOntologyLink link) {
+		this.ontologyLink = link;
 	}
 	
 	public List<Block> getBlocks() {
@@ -203,7 +231,7 @@ public class Relation {
 		sally.RelationMsg.Builder msg = sally.RelationMsg.newBuilder();
 		msg.setId(this.id);
 		msg.setRelationType(this.relationType.ordinal());
-		msg.setUri(this.uri);
+		msg.setOntologyLink(ontologyLink.serialize());
 		for (Block b : blocks)
 			msg.addBlockIDs(b.getId());
 		for (CellTuple cellTuple : cellRelations)

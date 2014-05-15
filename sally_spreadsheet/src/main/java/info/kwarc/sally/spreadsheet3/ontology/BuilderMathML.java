@@ -45,7 +45,7 @@ public class BuilderMathML extends BuilderML {
 	}
 	
 	@Override
-	public AxiomObject parseMLAxiom(String axiom) {
+	public AxiomObject parseMLAxiom(String uri, String axiom) throws OntologyException {
 		// axiom = axiom.replaceAll("\\p{Space}", "");
 
 		AxiomObject partialParsed = extractVariables(axiom, forAllPattern);
@@ -70,10 +70,10 @@ public class BuilderMathML extends BuilderML {
 			
 		String varConditions = allQuantVarConditions + existQuantVarConditions;
 		
-		return new AxiomObject(variables, varConditions, constrain);
+		return new AxiomObject(uri, variables, varConditions, constrain);
 	}
 	
-	private AxiomObject extractVariables(String axiom, Pattern pattern) {
+	private AxiomObject extractVariables(String axiom, Pattern pattern) throws OntologyException {
 		List<AxiomVariableObject> axiomVariables = new ArrayList<AxiomVariableObject>();
 		Map<String, AxiomVariableObject> varMapping = new HashMap<String, AxiomVariableObject>();
 		
@@ -99,10 +99,10 @@ public class BuilderMathML extends BuilderML {
 				if (var != null)
 					var.setType(type);
 				else
-					throw new java.lang.IllegalArgumentException("Domain binding for unquantified variable: " + varName);
+					throw new OntologyException("Domain binding for unquantified variable: " + varName);
 			}
 			conditionStatement = conditionStatement.replaceAll(inPattern.pattern(), "");
-			return new AxiomObject(axiomVariables, conditionStatement, matcher.group(4));
+			return new AxiomObject("", axiomVariables, conditionStatement, matcher.group(4));
 		} else {
 			return null;
 		}

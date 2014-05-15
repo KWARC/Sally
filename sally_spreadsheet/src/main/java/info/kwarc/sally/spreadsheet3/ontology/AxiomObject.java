@@ -2,22 +2,31 @@ package info.kwarc.sally.spreadsheet3.ontology;
 
 import java.util.List;
 
-
+/**
+ * A class to represent the information about an axiom in the ontology (e.g. in MathML) in a more structured way.
+ * @author cliguda
+ *
+ */
 public class AxiomObject {
 	
+	String uri;
 	List<AxiomVariableObject> variables;
 	String varConditions;
-
 	String constrain;
 	
-	public AxiomObject(List<AxiomVariableObject> variables, String varConditions,
+	public AxiomObject(String uri, List<AxiomVariableObject> variables, String varConditions,
 			String mlConstrain) {
 		super();
+		this.uri = uri;
 		this.variables = variables;
 		this.varConditions = varConditions;
 		this.constrain = mlConstrain;
 	}
 
+	public String getUri() {
+		return uri;
+	}
+	
 	public List<AxiomVariableObject> getVariables() {
 		return variables;
 	}

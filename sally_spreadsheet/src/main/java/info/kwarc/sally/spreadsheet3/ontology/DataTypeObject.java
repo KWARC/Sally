@@ -1,5 +1,10 @@
 package info.kwarc.sally.spreadsheet3.ontology;
 
+/**
+ * A class to provide the basic type for an ontology object.
+ * @author cliguda
+ *
+ */
 public class DataTypeObject {
 	
 	public enum BasicType {Int, Real, String, Bool};

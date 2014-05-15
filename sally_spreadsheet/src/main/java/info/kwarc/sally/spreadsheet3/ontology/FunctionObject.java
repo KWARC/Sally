@@ -3,6 +3,11 @@ package info.kwarc.sally.spreadsheet3.ontology;
 //import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class to represent an ontology function.
+ * @author cliguda
+ *
+ */
 public class FunctionObject {
 	
 	String uri;

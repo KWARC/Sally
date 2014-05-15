@@ -31,15 +31,15 @@
 
 		<dependency>
 			<groupId>info.kwarc.sally</groupId>
-			<artifactId>sally_sharejs</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-			<groupId>info.kwarc.sally</groupId>
 			<artifactId>sally_net</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+
+<!--	<dependency>
+			<groupId>info.kwarc.sally</groupId>
+			<artifactId>sally_def_lookup</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency> -->
 
 		<dependency>
 			<groupId>org.apache.jena</groupId>
@@ -50,12 +50,9 @@
 					<groupId>org.slf4j</groupId>
 					<artifactId>slf4j-log4j12</artifactId>
 				</exclusion>
-				<exclusion>
-					<artifactId>log4j</artifactId>
-					<groupId>log4j</groupId>
-				</exclusion>
 			</exclusions>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.jscience</groupId>
 			<artifactId>jscience</artifactId>
@@ -69,12 +66,41 @@
 		</dependency>
 		
 		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.9</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.9</version>
+		</dependency>
+		
+		<dependency>
 			<groupId>psf</groupId>
 			<artifactId>psf</artifactId>
 			<version>1.0</version>
 			<scope>system</scope>
 			<systemPath>${project.basedir}/lib/psf.jar</systemPath>
 		</dependency>
+		
+		<dependency>
+			<groupId>rapidminer</groupId>
+			<artifactId>rapidminer</artifactId>
+			<version>5.2</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/Rapidminer-5.2/rapidminer.jar</systemPath>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.common.lang</groupId>
+			<artifactId>lang</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/commons-lang3-3.1.jar</systemPath>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.common.lang</groupId>
 			<artifactId>lang</artifactId>

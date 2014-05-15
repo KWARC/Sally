@@ -10,12 +10,22 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * A class that provides methods to build relations with non-trival cell relations.
+ * @author cliguda
+ *
+ */
 public class RelationBuilder {
 	
 	static Pattern numberPattern = Pattern.compile("\\d+");
 	static Pattern additionPattern = Pattern.compile("(\\d+)\\+(\\d)");
 	static Pattern subtractPattern = Pattern.compile("(\\d+)\\-(\\d)");
 	
+	/**
+	 * Creates a list of cell relations from blocks together with relation descriptions. 
+	 * @param blocks A list of blocks from which cell relations should be created.
+	 * @param descriptions Describe the relations between cells as patterns.
+	 */
 	public static List<CellTuple> createCellRelation(List<Block> blocks, List<CellDependencyDescription> descriptions) {
 		List<CellTuple> cellDependencies = new ArrayList<CellTuple>();
 		

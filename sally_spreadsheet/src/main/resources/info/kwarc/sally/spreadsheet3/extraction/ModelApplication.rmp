@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<process version="5.2.008">
+  <context>
+    <input/>
+    <output/>
+    <macros/>
+  </context>
+  <operator activated="true" class="process" compatibility="5.2.008" expanded="true" name="Process">
+    <parameter key="logverbosity" value="off"/>
+    <parameter key="random_seed" value="2001"/>
+    <parameter key="send_mail" value="never"/>
+    <parameter key="notification_email" value=""/>
+    <parameter key="process_duration_for_mail" value="30"/>
+    <parameter key="encoding" value="SYSTEM"/>
+    <process expanded="true" height="663" width="1154">
+      <operator activated="true" class="generate_data_user_specification" compatibility="5.2.008" expanded="true" height="60" name="Generate Data by User Specification" width="90" x="45" y="345">
+        <list key="attribute_values">
+          <parameter key="isLeftBorder" value="0.0"/>
+          <parameter key="isUpperBorder" value="0.0"/>
+          <parameter key="hasSurroundingLegends" value="0.0"/>
+          <parameter key="hasConspicuousFont" value="0.0"/>
+          <parameter key="leftType" value="0.0"/>
+          <parameter key="topType" value="0.0"/>
+          <parameter key="contentType" value="0.0"/>
+        </list>
+        <list key="set_additional_roles"/>
+      </operator>
+      <operator activated="true" class="read_model" compatibility="5.2.008" expanded="true" height="60" name="Read Model" width="90" x="246" y="210"/>
+      <operator activated="true" class="numerical_to_binominal" compatibility="5.2.008" expanded="true" height="76" name="Numerical to Binominal" width="90" x="246" y="345">
+        <parameter key="attribute_filter_type" value="subset"/>
+        <parameter key="attribute" value=""/>
+        <parameter key="attributes" value="hasSurroundingLegends|isLeftBorder|isUpperBorder||Type|isUnderlined|hasConspicuousFont"/>
+        <parameter key="use_except_expression" value="false"/>
+        <parameter key="value_type" value="numeric"/>
+        <parameter key="use_value_type_exception" value="false"/>
+        <parameter key="except_value_type" value="real"/>
+        <parameter key="block_type" value="value_series"/>
+        <parameter key="use_block_type_exception" value="false"/>
+        <parameter key="except_block_type" value="value_series_end"/>
+        <parameter key="invert_selection" value="false"/>
+        <parameter key="include_special_attributes" value="false"/>
+        <parameter key="min" value="0.0"/>
+        <parameter key="max" value="0.0"/>
+      </operator>
+      <operator activated="true" class="numerical_to_polynominal" compatibility="5.2.008" expanded="true" height="76" name="Numerical to Polynominal" width="90" x="447" y="345">
+        <parameter key="attribute_filter_type" value="subset"/>
+        <parameter key="attribute" value=""/>
+        <parameter key="attributes" value="contentType|leftType|topType"/>
+        <parameter key="use_except_expression" value="false"/>
+        <parameter key="value_type" value="numeric"/>
+        <parameter key="use_value_type_exception" value="false"/>
+        <parameter key="except_value_type" value="real"/>
+        <parameter key="block_type" value="value_series"/>
+        <parameter key="use_block_type_exception" value="false"/>
+        <parameter key="except_block_type" value="value_series_end"/>
+        <parameter key="invert_selection" value="false"/>
+        <parameter key="include_special_attributes" value="true"/>
+      </operator>
+      <operator activated="true" class="apply_model" compatibility="5.2.008" expanded="true" height="76" name="Apply Model" width="90" x="849" y="300">
+        <list key="application_parameters"/>
+        <parameter key="create_view" value="false"/>
+      </operator>
+      <connect from_op="Generate Data by User Specification" from_port="output" to_op="Numerical to Binominal" to_port="example set input"/>
+      <connect from_op="Read Model" from_port="output" to_op="Apply Model" to_port="model"/>
+      <connect from_op="Numerical to Binominal" from_port="example set output" to_op="Numerical to Polynominal" to_port="example set input"/>
+      <connect from_op="Numerical to Polynominal" from_port="example set output" to_op="Apply Model" to_port="unlabelled data"/>
+      <connect from_op="Apply Model" from_port="labelled data" to_port="result 1"/>
+      <portSpacing port="source_input 1" spacing="0"/>
+      <portSpacing port="sink_result 1" spacing="270"/>
+      <portSpacing port="sink_result 2" spacing="0"/>
+    </process>
+  </operator>
+</process>

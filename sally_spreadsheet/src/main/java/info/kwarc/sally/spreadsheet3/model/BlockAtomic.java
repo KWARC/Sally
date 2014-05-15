@@ -5,6 +5,11 @@ import info.kwarc.sally.spreadsheet3.ontology.ValueInterpretation;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Atomic blocks contain only one cell.
+ * @author cliguda
+ *
+ */
 public class BlockAtomic extends Block {
 	
 	CellSpaceInformation position;
@@ -58,12 +63,18 @@ public class BlockAtomic extends Block {
 	}
 	
 	@Override
+	public void addSubBlock(Block subblock) throws ModelException {
+		throw new ModelException("Can not add a subblock to an atomic block.");
+	}
+	
+	@Override
 	public boolean contains(Block b) {
 		return false;
 	}
 	
 	@Override
-	public void remove(Block b) {
+	public void remove(Block b) throws ModelException {
+		throw new ModelException("Can not remove a block from an atomic block.");
 	}
 	
 	@Override
